@@ -24,12 +24,12 @@ spl_autoload_register('pt_autoload');
 register_shutdown_function('PtLib\shutdown');
 include_once PATH_CONFIG."/define.php";
 $setting = array();
-if(is_file(PATH_CONFIG."/default.ini")){
-    $setting = parse_ini_file(PATH_CONFIG."/default.ini",true);
+if(is_file(PATH_CONFIG."/setting_default.ini")){
+    $setting = parse_ini_file(PATH_CONFIG."/setting_default.ini",true);
 }
 
 $_PT_ENV = PtLib\get_pt_env("PT_ENV");
-if($_PT_ENV && $_PT_ENV != "develop" && is_file(PATH_CONFIG."/$_PT_ENV.ini")){
-    $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/$_PT_ENV.ini",true));
+if($_PT_ENV && $_PT_ENV != "develop" && is_file(PATH_CONFIG."/setting_$_PT_ENV.ini")){
+    $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting_$_PT_ENV.ini",true));
 }
 //print_json($setting);exit;
