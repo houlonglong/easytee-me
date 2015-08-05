@@ -33,9 +33,8 @@ class Activity extends AppModel {
         return empty($result) ? array() : $result;
     }
 
-    public function getSuccessActivity($appId, $uid, $limit, $offset) {
+    public function getSuccessActivity($uid, $limit, $offset) {
         $conditions = array(
-            'app_id' => $appId,
             'uid' => $uid,
             'not' => array(
                 'status' => array('failure', 'ongoing', 'create'),
@@ -53,9 +52,8 @@ class Activity extends AppModel {
         return empty($result) ? array() : $result;
     }
 
-    public function getFailureActivity($appId, $uid, $limit, $offset) {
+    public function getFailureActivity($uid, $limit, $offset) {
         $conditions = array(
-            'app_id' => $appId,
             'uid' => $uid,
             'status' => 'failure',
         );
@@ -74,9 +72,8 @@ class Activity extends AppModel {
         return empty($result) ? array() : $result;
     }
 
-    public function getActivityBystatus($appId, $uid, $limit, $offset, $status) {
+    public function getActivityBystatus($uid, $limit, $offset, $status) {
         $conditions = array(
-            'app_id' => $appId,
             'uid' => $uid,
             'status' => $status,
         );
@@ -97,8 +94,8 @@ class Activity extends AppModel {
         return empty($result) ? array() : $result;
     }
 
-    public function updateActivity($appId, $uid, $id, $info) {
-        $this->updateAll($info, array('id' => $id, 'app_id' => $appId, 'uid' => $uid));
+    public function updateActivity($uid, $id, $info) {
+        $this->updateAll($info, array('id' => $id,  'uid' => $uid));
         $rows = $this->getAffectedRows();
         if ($rows) {
             cache::delete('activities_id_' . $id);

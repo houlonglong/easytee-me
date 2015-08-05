@@ -17,10 +17,9 @@ class ArtCategory extends AppModel {
      * @param type $id
      * @return type
      */
-    public function getArtCategoryByIDOrParentId($appId, $id) {
+    public function getArtCategoryByIDOrParentId($id) {
         $result = $this->find('all', array(
             'conditions' => array(
-                'app_id' => $appId,
                 'or' => array(
                     'parent_id' => $id,
                     'id' => $id,
@@ -29,18 +28,18 @@ class ArtCategory extends AppModel {
         return empty($result) ? array() : $result;
     }
 
-    public function getArtCategoryByIDParentId($appId, $pid) {
-        $result = $this->find('all', array('conditions' => array('app_id' => $appId,'parent_id'=>$pid), 'order' => 'sort_order'));
+    public function getArtCategoryByIDParentId($pid) {
+        $result = $this->find('all', array('conditions' => array('parent_id'=>$pid), 'order' => 'sort_order'));
         return empty($result)?array():$result;
     }
 
-    public function getArtCategoryById($appId, $id) {
+    public function getArtCategoryById($id) {
         $key = 'art_categories_id_'.$id;
         $cacheData = cache::read($key);
         if($cacheData){
             return $cacheData;
         }
-        $data = $this->find('first', array('conditions' => array('app_id' => $appId,'id'=>$id), 'order' => 'sort_order'));
+        $data = $this->find('first', array('conditions' => array('id'=>$id), 'order' => 'sort_order'));
         cache::write($key,$data);
         return $data;
     }

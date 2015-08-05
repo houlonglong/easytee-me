@@ -11,8 +11,8 @@ require_once APP . '/webroot/aliyun2/sdk.class.php';
 //require_once(APP . "/libs/open_easytee/openEdit.php");
 
 class AccountController extends AppController {
+    var $uses = array('User', 'Activity', 'Activities', 'Product', 'ProductStyle', 'ActivityProductStyles', 'AppProduct', 'AppProductStyle', 'ProductStyleSize', 'ActivityComment', 'Order', 'ProductStyleImageRegion');
 
-    var $uses = array('User', 'UserAttribute');
     var $name = "Account";
 
     function beforeFilter() {
@@ -52,8 +52,7 @@ class AccountController extends AppController {
                 'page' => $page,
                 'limit' => 6,
             );
-            $designs = $this->open->getDesignList($param, $this->userToken);
-            $designs = json_decode($designs, true);
+            $designs = $this->getDesignList($param, $this->userToken);
             $this->checkReturnData($designs);
             $this->set(compact('page_name', 'designs', 'type'));
         }
@@ -96,8 +95,7 @@ class AccountController extends AppController {
                     $endTime = $_REQUEST['endDate'];
                 }
 
-                $orderList = $this->open->getOrderList($params, $this->userToken);
-                $orderList = json_decode($orderList, true);
+                $orderList = $this->getOrderList($params, $this->userToken);
                 $this->checkReturnData($orderList);
                 $this->set(compact('page_name', 'orderList', 'id', 'startTime', 'endTime'));
             } else {
@@ -111,7 +109,7 @@ class AccountController extends AppController {
         $params = array(
             'orderId' => $id,
         );
-        $order = $this->getOrderDetail($params, $this->userToken);
+        $order = $this->getOrderDetail($params);
         $order = json_decode($order, true);
         $this->checkReturnData($order);
         switch ($order['Order']['status']) {
@@ -167,8 +165,7 @@ class AccountController extends AppController {
                 $params['type'] = $_GET['type'];
             }
             $params['user_id'] = $this->userId;
-            $moneyFlow = $this->open->moneyFlow($params, $this->userToken);
-            $moneyFlow = json_decode($moneyFlow, TRUE);
+            $moneyFlow = $this->userMoneyFlow($params);
             $this->checkReturnData($moneyFlow);
             $this->set(compact('moneyFlow', 'page_name', 'startTime', 'endTime', 'type'));
         }
@@ -265,8 +262,7 @@ class AccountController extends AppController {
     function address() {
         $this->page_name = "收货地址-个人设置-用户中心";
         $page_name = $this->page_name;
-        $addresses = $this->open->getAddress($this->userToken);
-        $addresses = json_decode($addresses, true);
+        $addresses = $this->getAddressList();
         $this->checkReturnData($addresses);
         $this->set(compact('page_name', 'addresses'));
         $this->viewPath = 'account/setting';
@@ -296,6 +292,7 @@ class AccountController extends AppController {
     }
 
     function pay() {
+        $this->loadModel('UserAttribute');
         //todo 没有输出支付账号
         $this->page_name = "收款账号-个人设置-用户中心";
         $page_name = $this->page_name;
@@ -362,8 +359,7 @@ class AccountController extends AppController {
             'page' => $page,
             'limit' => 12,
         );
-        $designs = $this->open->getArtList($param, $this->userToken);
-        $designs = json_decode($designs, true);
+        $designs = $this->getArtList($param);
         $this->checkReturnData($designs);
         $type = 'art';
         $this->set(compact('page_name', 'designs', 'type'));
@@ -372,8 +368,7 @@ class AccountController extends AppController {
     }
 
     function designEdit($aid) {
-        $activity = $this->open->getActivityById($aid, $this->userToken);
-        $activity = json_decode($activity, TRUE);
+        $activity = $this->getActivityById(array('id'=>$aid));
         $this->checkReturnData($activity);
         $page_name = $activity['name'];
         $this->set(compact('activity', 'page_name'));
@@ -394,7 +389,7 @@ class AccountController extends AppController {
             exit;
         }
         $params['id'] = $aid;
-        $return = $this->open->updateActivityById($params, $this->userToken);
+        $return = $this->updateActivityById($params);
         echo $this->ajaxCheckReturnData($return);
         exit;
     }
@@ -404,7 +399,7 @@ class AccountController extends AppController {
             'status' => $status,
             'id' => $aid,
         );
-        $return = $this->open->closeActivityById($params, $this->userToken);
+        $return = $this->ajaxCloseActivity($params);
         echo $this->ajaxCheckReturnData($return);
         exit;
     }
@@ -460,7 +455,7 @@ class AccountController extends AppController {
     function ajaxSaveAddress() {
         if ($_POST) {
             $params = $_POST;
-            $return = $this->open->saveAddress($params, $this->userToken);
+            $return = $this->saveAddress($params, $this->userToken);
             echo $this->ajaxCheckReturnData($return);
         } else {
             $this->showMessage('参数不能为空', 0);
@@ -473,7 +468,7 @@ class AccountController extends AppController {
             $this->showMessage('参数不能为空', 0);
         }
         $params = array('id' => $id);
-        $return = $this->open->deleteAddress($params, $this->userToken);
+        $return = $this->deleteAddress($params);
         echo $this->ajaxCheckReturnData($return);
         exit;
     }
@@ -509,16 +504,16 @@ class AccountController extends AppController {
         $result = array();
         switch ($status) {
             case 'create':
-                $result = $this->Activity->getActivityBystatus($this->_app->id, $this->_app->user->id, $limit, $offset, 'create');
+                $result = $this->Activity->getActivityBystatus($this->userId, $limit, $offset, 'create');
                 break;
             case 'ongoing':
-                $result = $this->Activity->getActivityBystatus($this->_app->id, $this->_app->user->id, $limit, $offset, 'ongoing');
+                $result = $this->Activity->getActivityBystatus($this->userId, $limit, $offset, 'ongoing');
                 break;
             case 'success':
-                $result = $this->Activity->getSuccessActivity($this->_app->id, $this->_app->user->id, $limit, $offset);
+                $result = $this->Activity->getSuccessActivity($this->userId, $limit, $offset);
                 break;
             case 'failure':
-                $result = $this->Activity->getActivityBystatus($this->_app->id, $this->_app->user->id, $limit, $offset, 'failure');
+                $result = $this->Activity->getActivityBystatus($this->userId, $limit, $offset, 'failure');
                 break;
         }
         $this->loadModel('Canvas');
@@ -533,7 +528,7 @@ class AccountController extends AppController {
             $images = json_decode($style[0]['ActivityProductStyles']['image'], TRUE);
             $image = '';
             if (!$images) {
-                $canvas = $this->Canvas->getCanvasByDesignId($this->_app->id, $value['Activity']['design_id']);
+                $canvas = $this->Canvas->getCanvasByDesignId($value['Activity']['design_id']);
                 if (!$canvas) {
                     $this->common->errorList(50000);
                 }
@@ -736,6 +731,527 @@ class AccountController extends AppController {
         }
         $order['Order']['activity_real_end_time'] = $activity['Activity']['real_end_time'];
         $this->common->response($order);
+    }
+
+    function userMoneyFlow($params) {
+        $this->loadModel('UserMoneyFlow');
+        cache::clear();
+        $uid = $this->userId;
+        // 过滤html标签
+        $this->filterParams();
+        if (isset($params['type']) && $params['type']) {
+            $info['type'] = $params['type'];
+        }
+        if (isset($params['time_from']) && $params['time_from']) {
+            $info['create_time >='] = $params['time_from'];
+        }
+        if (isset($params['time_to']) && $params['time_to']) {
+            $info['create_time <='] = $params['time_to'] . ' 23:59:59';
+        }
+        if (isset($params['content']) && $params['content']) {
+            $info['content'] = $params['content'];
+        }
+        if (isset($params['order_no'])) {
+            $info['order_no'] = $params['order_no'];
+        }
+        $limit = $offset = 0;
+        if (isset($params['page'])) {
+            $limit = $params['limit'];
+            $page = $params['page'];
+            $offset = ($page - 1) * $limit;
+        }
+        $info['uid'] = $uid;
+        $userMoneyFlows = $this->UserMoneyFlow->getMoneyFlowByUid($info, $offset, $limit);
+        return $userMoneyFlows;
+    }
+
+    function getAddressList() {
+        $this->loadModel('UserAddress');
+        $uid = $this->userId;
+        $addresses = $this->UserAddress->getByUserId($uid);
+        foreach($addresses as $key=>$address){
+            if($address['UserAddress']['default'] == 1){
+                unset($addresses[$key]);
+                array_unshift($addresses,$address);
+                $addresses = array_values($addresses);
+                break;
+            }
+        }
+       return $addresses;
+    }
+
+    /**
+     * 获取剪贴画列表
+     * @param type $appKey
+     * @param type $acid Art category 分类ID
+     * @param type $aid Art ID
+     * @param type $userToken User Token
+     */
+    public function getArtList($params) {
+        $userToken = '';
+        $this->loadModel('Art');
+        $this->loadModel('ArtCategoryMap');
+        $this->loadModel('ArtCategory');
+
+        $acid = '';
+        $aid = 0;
+        if (isset($params['ArtCategoryId'])) {
+            $acid = $params['ArtCategoryId'];
+        }
+        if (isset($params['ArtId'])) {
+            $aid = $params['ArtId'];
+        }
+        $artListArr = array(
+            'name' => 'ArtList',
+        );
+        if (isset($this->userId)) {
+            $artListArr = array(
+                'name' => 'UserArtList',
+            );
+        }
+        $offset = 0;
+        $page = 1;
+        $limit = 30;
+        if (isset($params['page']) && $params['page']) {
+            $page = $params['page'];
+        }
+        if (isset($params['limit']) && $params['limit']) {
+            $limit = $params['limit'];
+            $offset = ($page - 1) * $limit;
+        }
+        $artlist = array();
+        $arts = array();
+        $artCategory = array();
+        // 当art id 存在,列出所有art信息
+        if ($aid) {
+            $cidByaid = $this->ArtCategoryMap->getCategoryIdFromArtCategoryMapByAId($aid);
+            $category = $this->ArtCategory->getArtCategoryById($cidByaid);
+            $art = $this->Art->getArtByIds($aid);
+            if (!$art) {
+                $this->common->errorList(40000);
+            }
+            $this->getAttribute($art[0]['Art'], $category['ArtCategory'], $artlist);
+        } else {
+            // 当没有传参数的时候，随机去除30条art信息
+            if (empty($acid) && empty($aid) && empty($this->userId)) {
+                $arts = $this->Art->getArtByAppIDRand($limit);
+            }
+            if (!empty($this->userId) && empty($acid)) {
+                $arts = $this->Art->getArtByUid($this->userId, $offset, $limit);
+            }
+            if ($arts) {
+                if (isset($arts['count'])) {
+                    $artlist[] = array('count' => $arts['count']);
+                    unset($arts['count']);
+                }
+                foreach ($arts as $art) {
+                    $art = $art['Art'];
+                    $cidByaid = $this->ArtCategoryMap->getCategoryIdFromArtCategoryMapByAId($art['id']);
+                    $category = $this->ArtCategory->getArtCategoryById($cidByaid);
+                    $this->getArtAttribute($art, $category['ArtCategory'], $artlist);
+                }
+                $artListArr['item'] = $artlist;
+                return $artListArr;
+            }
+            if ($acid) {
+                $artCategory = $this->ArtCategory->getArtCategoryByIDOrParentId($appid, $acid);
+            }
+
+            foreach ($artCategory as $ac) {
+                $ac = $ac['ArtCategory'];
+                $artids = $this->ArtCategoryMap->getArtIdFromArtCategoryMapByCategoryId($appid, $ac['id']);
+                $arts = $this->Art->getArtByIds($appid, $artids);
+                foreach ($arts as $art) {
+                    $art = $art['Art'];
+                    $artids = array();
+                    if (in_array($art['id'], $artids)) {
+                        continue;
+                    }
+                    $artids[] = $art['id'];
+                    $this->getArtAttribute($art, $ac, $artlist);
+                }
+            }
+        }
+
+        $artListArr['item'] = $artlist;
+        return $artListArr;
+    }
+
+    /**
+     * 获取用户订单列表
+     */
+    function getOrderList($params) {
+
+        $uid = $this->userId;
+        if (!isset($params['status'])) {
+            $this->common->errorList(800000);
+        }
+        switch ($params['status']) {
+            case 'paid':
+                $status = array('待发货', '已发货', '已收货', '已评价');
+                break;
+            case 'close':
+                $status = array('已关闭', '已退款');
+                break;
+            case 'unpaid':
+                $status = array('待付款');
+                break;
+            case 'finish':
+                $status = array('已完成');
+                break;
+        }
+        $page = $offset = $limit = '';
+        // 是否分页
+        if (isset($params['page']) && $params['page']) {
+            $page = $params['page'];
+        }
+        if (isset($params['limit']) && $params['limit']) {
+            $limit = $params['limit'];
+            $offset = ($page - 1) * $limit;
+        }
+        $condition = array(
+            'uid' => $uid,
+            'status' => $status,
+        );
+        if (isset($params['orderId']) && $params['orderId']) {
+            $condition['order_no'] = $params['orderId'];
+        }
+        if (isset($params['activityName']) && $params['activityName']) {
+            $condition['name'] = $_REQUEST['activityName'];
+        }
+        if (isset($params['startTime']) && $params['startTime']) {
+            $condition['create_time >='] = $params['startTime'];
+        }
+        if (isset($params['endTime']) && $params['endTime']) {
+            $condition['create_time <='] = $params['endTime'] . ' 23:59:59';
+        }
+        $orders = $this->Order->getOrderByUid($condition, $offset, $limit);
+        if (!$orders) {
+            $this->common->response(array());
+        }
+        $ordersList = array('count' => $orders['count']);
+        unset($orders['count']);
+        foreach ($orders as $key => $order) {
+            $orderGood = isset($order['OrderGoods'][0]) ? $order['OrderGoods'][0] : 0;
+            $order = $order['Order'];
+            $activity = $this->Activity->getNameRealEndTimeByid($order['activity_id']);
+            $order['order_goods'] = $orderGood;
+            $order['activity_name'] = $activity['Activity']['name'];
+            $order['activity_status'] = $activity['Activity']['status'];
+            $order['real_end_time'] = $activity['Activity']['real_end_time'];
+            $ordersList[] = $order;
+        }
+        return $ordersList;
+    }
+
+    private function getArtAttribute($art, $artCategory, &$artlist) {
+        $colors = json_decode($art["art_colors"], true);
+        $artColor = array();
+        if (is_array($colors) && $colors) {
+            foreach ($colors as $color) {
+                $artColor[] = array(
+                    'name' => 'art_colors',
+                    'attribute' => array(
+                        'color' => $color,
+                    )
+                );
+            }
+        }
+        $artlist[] = array(
+            'name' => 'art',
+            'attribute' => array(
+                'art_id' => $art['id'],
+                //TODO  这里的宽高不应该是写死的
+                'width' => empty($art['width'])?'373':$art['width'],
+                'height' => empty($art['height'])?'253':$art['height'],
+                'art_type' => $art['type'],
+                'can_screen_print' => $art['can_screen_print'],
+                'is_featured' => $art['is_featured'],
+                'colors' => $art['colors'],
+                'art_name' => $art['name'],
+                'is_digitized' => $art['is_digitized'],
+                'date_created' => $art['date_created'],
+                'art_jit' => $art['art_jit'],
+                'art_cached' => $art['art_cached'],
+                'thumb_jit' => $this->cdnReplace($art['thumb_jit']),
+                'thumb_cached' => $art['thumb_cached'],
+                'art_path' => $this->cdnReplace($art['art_path']),
+                'art_category_id' => $artCategory['id'],
+                'category_name' => $artCategory['name_cn'],
+                'category_path' => $artCategory['path'],
+            ),
+            'item' => $artColor,
+        );
+    }
+
+    /**
+     * 获取一个活动基础数据（不含产品）
+     * @param $appKey
+     * @param $userToken
+     * @param $id
+     */
+    public function getActivityById($params) {
+        if (!isset($params['id'])) {
+            $this->common->errorList(700000);
+        }
+        $id = $params['id'];
+        $activity = $this->Activity->getActivityById($id);
+//        if ($activity['Activity']['uid'] != $this->_app->user->id) {
+//            $this->common->errorList(700000);
+//        }
+        $appProductStyle = $this->AppProductStyle->getAppProductStyleById($activity['Activity']['default_product_style_id']);
+        if ($appProductStyle) {
+            $activity['Activity']['app_product_id'] = $appProductStyle['AppProductStyle']['app_product_id'];
+            $activity['Activity']['app_product_style_id'] = $appProductStyle['AppProductStyle']['id'];
+        }
+        return $activity['Activity'];
+    }
+
+    /**
+     * 更新活动
+     * @param $appKey
+     * @param $userToken
+     * @param $id
+     */
+    public function updateActivityById($params) {
+        $this->filterParams(array(), array('description'));
+        if (!isset($params['id'])) {
+            $this->common->errorList(700000);
+        }
+        $id = $params['id'];
+        $info = array();
+        if (isset($params['name']) && $params['name']) {
+            $info['name'] = "'" . $this->filterBlockList($_REQUEST['name']) . "'";
+        }
+        if (isset($params['description']) && $params['description']) {
+            $info['description'] = "'" . $params['description'] . "'";
+        }
+        if (empty($info)) {
+            $this->common->errorList(10010);
+        }
+        $result = $this->Activity->updateActivity($this->userId, $id, $info);
+        return array('status' => $result, 'msg' => '保存成功');
+
+    }
+
+    /** 关闭活动
+     * @param $appKey
+     * @param $userToken
+     * @param $id
+     * @param $status
+     */
+    public function ajaxCloseActivity($params) {
+        if (!isset($params['id'])) {
+            $this->common->errorList(700000);
+        }
+        $id = $params['id'];
+        if (!isset($params['status'])) {
+            $this->common->errorList(1);
+        }
+        $status = $params['status'];
+        $this->loadModel('Activity');
+        $activity = $this->Activity->getActivityById($id);
+        if (!$activity) {
+            $this->common->errorList(700000);
+        }
+        $response = $this->closeActivity($activity, $status);
+        return $response;
+    }
+
+    /**
+     * 复制一个活动
+     * @param type $appKey
+     * @param type $userToken
+     * @param type $id
+     * @throws Exception
+     */
+    function copy($params) {
+        if (!$this->userId) {
+            $this->common->errorList(10007);
+        }
+        if (!isset($params['id'])) {
+            $this->common->errorList(700000);
+        }
+        $id = $params['id'];
+
+        $activity = $this->Activity->getActivityById($id);
+        $activityProductStyle = $this->ActivityProductStyles->getActivitysActivityIdAndProductStyleId($activity['Activity']['id'], $activity['Activity']['default_product_style_id']);
+        if (!$activityProductStyle) {
+            $this->common->response(array('status' => 0, 'msg' => '产品没有样式，复制活动失败'));
+        }
+        $this->loadModel('Design');
+        $this->loadModel('DesignSvg');
+        $this->loadModel('Canvas');
+        $this->loadModel('CanvasObject');
+        $ainfo = $activity['Activity'];
+        $design = $this->Design->get($ainfo['design_id']);
+        $canvases = $this->Canvas->getCanvasByDesignId($this->_app->id, $ainfo['design_id']);
+        if (!$canvases) {
+            $this->common->errorList(700011);
+        }
+        $designSvg = $this->DesignSvg->get($ainfo['design_id']);
+        try {
+            $this->Activity->query('START TRANSACTION');
+            unset($ainfo['id']);
+            $ainfo['sales_count'] = 0;
+            $ainfo['total'] = 0;
+            $ainfo['status'] = 'create';
+            $ainfo['start_time'] = date('Y-m-d H:i:s');
+            $ainfo['end_time'] = '0000-00-00 00:00:00';
+            $ainfo['start_time'] = '0000-00-00 00:00:00';
+            //保存设计
+            $designData = $design['Design'];
+            unset($designData['id']);
+            $conf = $this->Design->saveData($designData);
+            if (!$conf) {
+                throw new Exception("复制活动设计失败");
+            }
+            $copyDesignId = $conf['id'];
+            // 保存canvas 需要用到新的design id
+            foreach ($canvases as $canvas) {
+                $canvas = $canvas['Canvas'];
+                $canvasObject = $this->CanvasObject->getCanvasObjectByCanvasIds($this->_app->id, $canvas['id']);
+                unset($canvas['id']);
+                $canvas['design_id'] = $copyDesignId;
+                $copyCanvasId = $this->Canvas->saveData($canvas);
+                // 保存canvas object 需要用到canvas id
+                foreach ($canvasObject as $object) {
+                    $object = $object['CanvasObject'];
+                    unset($object['id']);
+                    $object['canvas_id'] = $copyCanvasId;
+                    $this->CanvasObject->saveData($object);
+                }
+            }
+            // 保存design svg
+            $designSvg = $designSvg['DesignSvg'];
+            unset($designSvg['id']);
+            $designSvg['design_id'] = $copyDesignId;
+            $svg = $this->DesignSvg->saveData($designSvg);
+            if (!$svg) {
+                throw new Exception("复制活动保存svg是失败");
+            }
+            // 保存活动
+            $ainfo['design_id'] = $copyDesignId;
+            $aid = $this->Activity->saveData($ainfo);
+            if (!$aid) {
+                throw new Exception("Copy Activity failed");
+            }
+            $aid = $aid['id'];
+            // 保存活动样式
+            $apsinfo = array();
+            foreach ($activityProductStyle as $style) {
+                $style = $style['ActivityProductStyles'];
+                $style['activity_id'] = $aid;
+                unset($style['id']);
+                $apsinfo[] = $style;
+                $apsid = $this->ActivityProductStyles->saveData($style);
+                if (!$apsid) {
+                    throw new Exception("Coyp ActivityProductStyles failed", 3);
+                }
+            }
+            $this->Activity->query('COMMIT');
+            return array('status' => 1, 'msg' => '成功复制一个活动,马上为您跳转到活动编辑页面', 'activityId' => $aid, 'designId' => $copyDesignId);
+        } catch (Exception $e) {
+            $this->Order->query('ROLLBACK');
+            $this->Order->query('COMMIT');
+            return array('status' => 0, 'msg' => $e->getMessage());
+        }
+    }
+
+    /** 删除地址
+     * @param $appKey
+     * @param $userToken
+     */
+    function deleteAddress($params) {
+        $this->loadModel('UserAddress');
+        $uid = $this->userId;
+        if (!isset($params['id'])) {
+            $this->common->errorList(600008);
+        }
+        $id = $params['id'];
+        $affectRow = $this->UserAddress->deleteAddress($id);
+        if ($affectRow) {
+            $arr = array(
+                'status' => 1,
+                'msg' => '成功删除地址'
+            );
+        } else {
+            $arr = array(
+                'status' => 0,
+                'msg' => '删除地址失败'
+            );
+        }
+        return $arr;
+    }
+
+    /** 保存用户地址
+     * @param $appKey
+     * @param $userToken
+     * @param string $source
+     * @return string
+     */
+    function saveAddress($params,$source='') {
+      $this->loadModel('UserAddress');
+        $uid = $this->userId;
+        if (!empty($params)) {
+            if (!isset($params['name']) || !$params['name']) {
+                $this->common->errorList(600000);
+            }
+            if (!isset($params['tel']) || !$params['tel']) {
+                $this->common->errorList(600001);
+            }
+            if (!isset($params['province']) || !$params['province']) {
+                $this->common->errorList(600002);
+            }
+            if (!isset($params['city']) || !$params['city']) {
+                $this->common->errorList(600004);
+            }
+            if (!isset($params['area']) || !$params['area']) {
+                $this->common->errorList(600005);
+            }
+            // 过滤所有的html标签
+            $this->filterParams();
+            $info['name'] = $params['name'];
+            $info['mobile'] = $params['tel'];
+            $info['province'] = $params['province'];
+            $info['city'] = $params['city'];
+            $info['county'] = $params['area'];
+            $info['address'] = $params['addr'];
+            $string = md5(str_replace(' ', '', $uid . $params['name'] . $params['tel'] . $params['province'] . $params['city'] . $params['area'] . $params['addr']));
+            $info['hash'] = $string;
+            $info['uid'] = $uid;
+            $arr = array(
+                'status' => 1,
+                'msg' => '地址添加成功',
+            );
+            if (isset($params['id']) && $params['id']) {
+                $id = $params['id'];
+                $address = $this->UserAddress->get($id);
+                if ($address && $address['UserAddress']['uid'] == $uid) {
+                    $addressinfo = $this->UserAddress->updateAddress($info, $id);
+                    $arr['id'] = $id;
+                    if ($source == 'order') {
+                        return $addressinfo;
+                    }
+                    $arr['msg'] = '地址修改成功';
+                    return ($arr);
+                }
+            }
+            $address = $this->UserAddress->addressExists($string);
+            $addressinfo = '';
+            if (!$address) {
+                $info['create_time'] = date('Y-m-d H:i:s');
+                $addressinfo = $this->UserAddress->saveAddress($info);
+                $addressinfo = $addressinfo['UserAddress'];
+            } else {
+                $addressinfo = $address['UserAddress'];
+            }
+            $arr['id'] = $addressinfo['id'];
+            if ($source == 'order') {
+                return $addressinfo;
+            }
+            return $arr;
+        }
     }
 
 

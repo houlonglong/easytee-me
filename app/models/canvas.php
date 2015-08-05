@@ -34,8 +34,8 @@ class Canvas extends AppModel {
         return $this->getLastInsertId();
     }
 
-    public function getCanvasByDesignId($appId, $id) {
-        $result = $this->find('all', array('conditions' => array('app_id' => $appId, 'design_id' => $id), 'order' => 'id'));
+    public function getCanvasByDesignId($id) {
+        $result = $this->find('all', array('conditions' => array('design_id' => $id), 'order' => 'id'));
         return empty($result) ? array() : $result;
     }
     

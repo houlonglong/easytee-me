@@ -22,8 +22,8 @@ class ArtCategoryMap extends AppModel {
         return $ids;
     }
 
-    public function getCategoryIdFromArtCategoryMapByAId($appId, $aid) {
-        $result = $this->find('first', array('fields' => array('art_category_id'), 'conditions' => array('app_id' => $appId, 'art_id' => $aid)));
+    public function getCategoryIdFromArtCategoryMapByAId($aid) {
+        $result = $this->find('first', array('fields' => array('art_category_id'), 'conditions' => array('art_id' => $aid)));
         return isset($result['ArtCategoryMap']['art_category_id'])?$result['ArtCategoryMap']['art_category_id']:FALSE;
     }
 

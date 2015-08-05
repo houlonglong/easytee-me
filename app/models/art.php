@@ -11,9 +11,9 @@ class Art extends AppModel {
     public $name = 'Art';
     public $useDbConfig = 'default';
 
-    public function getArtByIds($appId, $ids) {
+    public function getArtByIds($ids) {
 
-        $result = $this->find('all', array('conditions' => array('id' => $ids, 'app_id' => $appId)));
+        $result = $this->find('all', array('conditions' => array('id' => $ids)));
 
         return empty($result) ? array() : $result;
     }
@@ -23,8 +23,8 @@ class Art extends AppModel {
      * @param type $appID
      * @return array
      */
-    public function getArtByAppIDRand($appId, $limit = 30) {
-        $result = $this->find('all', array('conditions' => array('app_id' => $appId, 'isdown' => 1), 'order' => 'rand()', 'limit' => $limit));
+    public function getArtByAppIDRand($limit = 30) {
+        $result = $this->find('all', array('conditions' => array('isdown' => 1), 'order' => 'rand()', 'limit' => $limit));
         return empty($result) ? array() : $result;
     }
 
@@ -40,10 +40,10 @@ class Art extends AppModel {
         return $this->getLastInsertId();
     }
 
-    public function getArtByUid($appId, $uid, $offset, $number) {
+    public function getArtByUid($uid, $offset, $number) {
         if (!empty($number)) {
-            $data = $this->find('all', array('conditions' => array('app_id ' => $appId, 'uid' => $uid), 'limit' => $offset . ',' . $number,'order'=>'id desc'));
-            $count = $this->find('count', array('conditions' => array('app_id ' => $appId, 'uid' => $uid)));
+            $data = $this->find('all', array('conditions' => array( 'uid' => $uid), 'limit' => $offset . ',' . $number,'order'=>'id desc'));
+            $count = $this->find('count', array('conditions' => array( 'uid' => $uid)));
             $data['count'] = $count;
             return $data;
         }

@@ -248,4 +248,45 @@ class ArtController extends AppController {
         );
     }
 
+    private function getArtAttribute($art, $artCategory, &$artlist) {
+        $colors = json_decode($art["art_colors"], true);
+        $artColor = array();
+        if (is_array($colors) && $colors) {
+            foreach ($colors as $color) {
+                $artColor[] = array(
+                    'name' => 'art_colors',
+                    'attribute' => array(
+                        'color' => $color,
+                    )
+                );
+            }
+        }
+        $artlist[] = array(
+            'name' => 'art',
+            'attribute' => array(
+                'art_id' => $art['id'],
+                //TODO  这里的宽高不应该是写死的
+                'width' => empty($art['width'])?'373':$art['width'],
+                'height' => empty($art['height'])?'253':$art['height'],
+                'art_type' => $art['type'],
+                'can_screen_print' => $art['can_screen_print'],
+                'is_featured' => $art['is_featured'],
+                'colors' => $art['colors'],
+                'art_name' => $art['name'],
+                'is_digitized' => $art['is_digitized'],
+                'date_created' => $art['date_created'],
+                'art_jit' => $art['art_jit'],
+                'art_cached' => $art['art_cached'],
+                'thumb_jit' => $this->cdnReplace($art['thumb_jit']),
+                'thumb_cached' => $art['thumb_cached'],
+                'art_path' => $this->cdnReplace($art['art_path']),
+                'art_category_id' => $artCategory['id'],
+                'category_name' => $artCategory['name_cn'],
+                'category_path' => $artCategory['path'],
+            ),
+            'item' => $artColor,
+        );
+    }
+
+
 }
