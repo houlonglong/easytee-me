@@ -12,10 +12,6 @@ class Model_Admin_Auth{
         PtLib\remove_cookie(self::get_cookie_auth_key());
         PtLib\location("/admin/index");
     }
-    static function view_test(){
-        $time = time();
-        return array("time"=>$time);
-    }
 
     /**
      * 登陆

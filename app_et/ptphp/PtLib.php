@@ -543,7 +543,7 @@ function gen_model($model,$title){
 }
 function get_control_content($title,$tpl = ''){
     if(empty($tpl)){
-        $tpl = "admin_default";
+        $tpl = "default";
     }
     $path = PATH_APP."/_templates/views/".$tpl.".php";
     if(!is_file($path)){
@@ -559,7 +559,7 @@ function gen_control($model,$title,$tpl = ''){
     if(!defined("PATH_WEBROOT")) throw new ErrorException("PATH_WEBROOT 没有定义");
     $control_path = PATH_WEBROOT.$model;
     if(is_file($control_path)){
-        log("%s: 已生成!%s",$title,$control_path);
+        //log("%s: 已生成!%s",$title,$control_path);
     }else{
         //echo $model_content;
         if(!is_dir(dirname($control_path))){
@@ -569,9 +569,9 @@ function gen_control($model,$title,$tpl = ''){
 
         $res = @file_put_contents($control_path,$content);
         if($res){
-            log("%s: 生成成功!%s",$title,$control_path);
+            log("%s: Control 生成成功!%s",$title,$control_path);
         }else{
-            log("%s: 生成失败!%s",$title,$control_path);
+            log("%s: Control 生成失败!%s",$title,$control_path);
         }
 
     }

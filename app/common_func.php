@@ -1,5 +1,8 @@
 <?php
-
+include_once __DIR__."/../app_et/ptphp/PtPHP.php";
+include_once PATH_PTPHP."/PtApp.php";
+spl_autoload_register('pt_autoload');
+define("PATH_MODEL",realpath(__DIR__."/../model"));
 define("MONGO_LOG_URL_API","dev.ptphp.com/tools/mongolog?action=push&collection=new_easytee");
 define("PRODUCT_MODE",false);
 function m_log(){

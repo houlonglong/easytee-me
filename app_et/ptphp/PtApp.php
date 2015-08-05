@@ -43,7 +43,6 @@ function pt_autoload($classname)
     if(substr($classname,0,8) == "Service\\") {
         if(defined("PATH_SERVICE") || defined("PATH_SERVICE1")){
             $path_name = str_replace("\\", "/", strtolower(substr($classname,8))) . ".php";
-            //pt_log($path);exit;
             if (is_file($path = PATH_SERVICE . "/" . $path_name)) {
                 require_once($path);
             }elseif(is_file($path = PATH_SERVICE1 . "/" . $path_name)){
@@ -51,11 +50,9 @@ function pt_autoload($classname)
             }
         }
     }
-    //pt_log($classname);
     if(substr($classname,0,6) == "Model_") {
         if(defined("PATH_MODEL")){
             $path = PATH_MODEL . "/" . str_replace("_", "/", strtolower(substr($classname,6))) . ".php";
-            //pt_log($path);
             if (is_file($path)) {
                 require_once($path);
             } else {
@@ -64,7 +61,6 @@ function pt_autoload($classname)
         }
     }elseif(substr(strtolower($classname),0,6) == "ptlib\\" && defined("PATH_PTPHP_LIBS")){
         $path = str_replace("ptlib",PATH_PTPHP_LIBS,str_replace("\\","/",strtolower($classname))).".php";
-        //pt_log("require_once: %s",$path);
         if (is_file($path)) {
             require_once($path);
         } else {
