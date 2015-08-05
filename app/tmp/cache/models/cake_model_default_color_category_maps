@@ -1,0 +1,2 @@
+1432030471
+a:4:{s:2:"id";a:5:{s:4:"type";s:7:"integer";s:4:"null";b:0;s:7:"default";N;s:6:"length";i:11;s:3:"key";s:7:"primary";}s:9:"colors_id";a:5:{s:4:"type";s:7:"integer";s:4:"null";b:0;s:7:"default";N;s:6:"length";i:11;s:7:"comment";s:8:"颜色ID";}s:18:"colors_category_id";a:5:{s:4:"type";s:7:"integer";s:4:"null";b:0;s:7:"default";N;s:6:"length";i:11;s:7:"comment";s:14:"颜色分组ID";}s:6:"app_id";a:6:{s:4:"type";s:7:"integer";s:4:"null";b:0;s:7:"default";N;s:6:"length";i:11;s:3:"key";s:5:"index";s:7:"comment";s:11:"第三方ID";}}

@@ -1,0 +1,222 @@
+@import url("//at.alicdn.com/t/font_1437630252_7634401.css");
+
+body {
+    background-color: #edeef0;
+    font:12px/1.5 tahoma, "microsoft yahei", "\5FAE\8F6F\96C5\9ED1"
+}
+*:hover {
+    transition: color .4s,border-color .4s,box-shadow .4s,background-color .4s;
+}
+.navbar-default .navbar-brand.site-logo {
+    padding: 20px 90px;
+    background-color: #ff4400;
+    color: #fff;
+    background-image: url(../image/site-logo.png);
+    text-indent: -99999px;
+}
+
+.navbar-default .navbar-brand.site-logo:focus,
+.navbar-default .navbar-brand.site-logo:hover {
+    background-color: #ff4400;
+}
+#navbar a{
+    font-size: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+    color:#C1C1C1;
+    text-shadow: none;
+}
+#navbar li.active a{
+    color:#fff;
+    background-image: none;
+    background-color: transparent;
+}
+.page-wrapper {
+    padding-top: 60px;
+}
+
+/*start login*/
+.login {
+    padding: 60px 0;
+    min-height: 650px;
+    background-color: #fff;
+}
+
+.login hr {
+    border-top: 1px solid #CFCFCF;
+    margin: 20px 0
+}
+
+.login-main label {
+    color: #666;
+
+}
+
+.login-main a {
+    margin-right: 10px;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+}
+
+.login-main a.forget-pass {
+    color: #666;
+    font-size: 12px;
+    display: inline;
+    margin-left: 20px;
+}
+
+.login-main a:hover {
+    text-decoration: none;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.login-main a em {
+    font-size: 28px;
+}
+
+.login-main h6 {
+    margin-bottom: 5px;
+}
+
+.login-main .btn-login {
+
+}
+
+.login-main .btn-login-weibo em {
+    color: #E82929;
+}
+
+.login-main .btn-login-qq em {
+    color: #0A5FFC;
+}
+
+.login-main .btn-login-taobao em {
+    color: #DB8806;
+}
+
+.login-main .btn-login-zhifubao em {
+    color: #FF5700;
+}
+
+.login-main .btn-login-renren em {
+    color: #005580;
+}
+
+.login-main .btn-login-douban em {
+    color: #024F03;
+}
+
+.login-main .btn-login-kaixin em {
+    color: #E4404A;
+}
+
+.login-main .btn-login-weixin em {
+    color: #00AE09;
+}
+
+/*End login*/
+
+/**/
+#page-footer {
+    padding: 4em 0 3em;
+    background-color: #293033;
+    color: #6c7478;
+}
+@media (max-width: 767px){
+    #page-footer{
+        padding: 20px 0 20px;
+    }
+}
+#page-footer #site-footer-weixin {
+    display: none;
+    position: absolute;
+    width: 200px;
+    border: 10px solid #293033;
+    top: -210px;
+    left: -40px;
+}
+
+
+#page-footer ul {
+    padding-left: 0
+}
+
+#page-footer ul li {
+    list-style-type: none;
+}
+
+#page-footer ul li:first-child {
+    padding-bottom: 10px;
+    font-weight: bold
+}
+
+#page-footer ul li a {
+    color: rgba(194, 201, 204, 0.8);
+}
+
+#page-footer ul li a:hover {
+    color: #39ace6;
+}
+
+#page-footer .copyright {
+    background: url("../image/site-logo.png") no-repeat 0px 0;
+    font-size: 9px;
+    padding-top: 85px;
+    width: 215px;
+}
+
+.error-404{
+    font-size: 14px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+.error-404 h1{
+    font-size: 22px;
+}
+.error-404 p{
+    background-color: #000;
+    color: #eb9316;
+    padding: 3px 5px ;
+    font-size: 14px;
+}
+.error-404 p a{color: #fff;margin: 0 10px}
+.error-404 ul{
+    margin-top: 10px;
+    padding-top: 0px;
+    padding-left: 20PX;
+    position: relative;
+}
+.error-404 li{
+    color: #b00;
+    font-size: 14px;
+    padding: 5px 0;
+}
+.error-404 li.error-404-mask{
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    bottom:0;
+    left:0
+}
+.error-nopass .ontouch{
+    margin: 50px 0 200px 400px;
+    padding: 20px 0 20px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px #ccc;
+    width: 430px;
+    position: relative;
+}
+.error-nopass .ontouch img{
+    position: absolute;
+    left: -230px;
+    bottom: -150px;
+}
+.ajax-loading{
+    min-height: 100px;
+    background: url('../image/loading.gif') no-repeat center center ;
+}

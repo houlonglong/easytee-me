@@ -1,0 +1,4 @@
+
+RewriteEngine On
+RewriteRule ^webroot/(.*)$ /$1 [R=302,NC,L]
+RewriteRule ^([_a-z/0-9]+?)$ /.route.php [L]

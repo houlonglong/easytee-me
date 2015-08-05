@@ -1,0 +1,60 @@
+/*轮播横幅*/
+.carousel-inner>.item{
+    background-color: #fff;
+}
+.carousel-control.left,.carousel-control.right{
+    background-image: none;
+    color:#333;
+}
+.carousel-caption {
+    padding-bottom: 63px;
+}
+.btn-started{
+    padding: 15px 38px;
+    border: 0;
+    font-size: 28px;
+    background: #00B9B7;
+    box-shadow: 1px 1px 2px #000;
+    font-family: '微软雅黑';
+    color: #fff;
+}
+.btn-started:hover, .btn-started:active{
+    color: #fff;
+    background: rgb(2, 195, 192);
+}
+/*首页视频*/
+.video-block .row{background-color: #fff;margin: 20px auto;}
+.video-block .row .col-xs-6{
+    padding: 20px;
+}
+/*热门活动*/
+.top-activities{
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+.top-activities .mod-item{
+    border:1px solid #d3d3d3;border-radius: 5px;background-color:#edeef0;position: relative;  margin-bottom: 30px;
+}
+.top-activities .mod-head{height: 333px;z-index: 1;position: relative;overflow: hidden;background-color: #fff}
+.top-activities .mod-head img{width: 100%;border-top-left-radius: 5px;border-top-right-radius: 5px;display: block;margin: 0 auto}
+.top-activities .mod-body{position: absolute;width:100%;z-index: 2;bottom:104px;background-color:rgba(255,255,255,0.5);padding-top:10px;border-bottom:none;}
+.top-activities .mod-body h3{overflow: hidden;margin: 0;padding: 0 10px}
+.top-activities .mod-body h3 a{color: #333;font-size:18px;line-height: 25px;display: block}
+.top-activities .mod-body h3 a:hover{color: #99CC00;}
+.top-activities .mod-body .progress{margin:10px 0 0 0;height:11px;border-radius: 0;}
+
+.top-activities .mod-footer {overflow:hidden;margin-top: 0;height:auto;position: relative;}
+.top-activities .mod-footer .status {padding: 18px 18px 15px;}
+.top-activities .mod-footer .status span{display: block;float: left;margin-right:30px;line-height: 18px; color: #999;font-size: 12px;}
+.top-activities .mod-footer .status span b{display: block;color: #333;font-weight: bold;font-size: 16px;}
+.top-activities .mod-footer .status span.pull-right{margin:0;text-align: right;}
+
+.top-activities .mod-footer .desc{margin:0;color: #999;background: #f5f5f5;border-bottom-left-radius: 5px;border-bottom-right-radius: 5px;}
+.top-activities .mod-footer .desc a{line-height: 35px;margin-right:5px;margin-top: 1px;color: #999;font-weight: normal;font-size:14px;border-radius: 0;border-bottom-left-radius: 5px;}
+.top-activities .mod-footer .desc a:last-child{margin-right: 20px}
+.top-activities .mod-footer .desc a:hover{color: #666;}
+.top-activities .mod-footer .desc .label{padding:10px;background: #cccccc;color: #fff !important;margin-right: 10px}
+.top-activities .mod-footer .desc .label-blue {background: #01b050/*#499ef3*/;}
+.top-activities .mod-footer .desc .label-oragin {background: #FF9500;}
+.top-activities .mod-footer .desc .label-gray {background: #999!important;}
+

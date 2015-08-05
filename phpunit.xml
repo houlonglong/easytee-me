@@ -1,0 +1,26 @@
+<phpunit bootstrap="tests/boot.php">
+    <testsuites>
+        <testsuite name="My Test Suite">
+           <!-- <file>tests/test/Model_Test_TestTest.php</file>
+            <file>tests/tools/Model_Tools_QrcodeTest.php</file>-->
+            <directory suffix="Test.php">tests/</directory>
+            <exclude>tests/boot.php</exclude>
+        </testsuite>
+    </testsuites>
+    <php>
+        <const name="PHPUNIT" value="1"/>
+        <const name="TEST_URL" value="http://dev.ptphp.net"/>
+        <!--
+        <includePath>.</includePath>
+        <ini name="foo" value="bar"/>
+        <const name="foo" value="bar"/>
+        <var name="foo" value="bar"/>
+        <env name="foo" value="bar"/>
+        <post name="foo" value="bar"/>
+        <get name="foo" value="bar"/>
+        <cookie name="foo" value="bar"/>
+        <server name="foo" value="bar"/>
+        <files name="foo" value="bar"/>
+        <request name="foo" value="bar"/>-->
+    </php>
+</phpunit>
