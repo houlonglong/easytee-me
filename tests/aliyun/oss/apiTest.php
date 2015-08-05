@@ -1,7 +1,7 @@
 <?php
 namespace Service\Aliyun\Oss;
-use BaseTestCase;
-class ApiTest extends BaseTestCase {
+use PtLib\UnitTest as UnitTest;
+class ApiTest extends UnitTest {
     function test_upload_file(){
         $org_path = __FILE__;
         $remote_path = "test/test.php";

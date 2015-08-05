@@ -4,7 +4,7 @@ use BaseTestCase;
  * 管理员管理
  *
  */
-class UserTest extends BaseTestCase{
+class UserTest extends PtLib\UnitTest {
     /**
      *
      *

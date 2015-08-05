@@ -1,6 +1,6 @@
 <?php
 namespace Service\Wechat\Pay;
-use BaseTestCase;
+use PtLib\UnitTest as UnitTest;
 /**
  * Created by PhpStorm.
  * User: joseph
@@ -8,6 +8,6 @@ use BaseTestCase;
  * Time: 8:32 PM
  */
 
-class JsapiTest extends BaseTestCase{
+class JsapiTest extends UnitTest{
 
 }

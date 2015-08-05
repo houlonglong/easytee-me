@@ -1,10 +1,9 @@
 <?php
-use BaseTestCase;
 /**
  * 图片上传
  *
  */
-class PicTest extends BaseTestCase{
+class PicTest extends PtLib\UnitTest {
     /**
      *
      *

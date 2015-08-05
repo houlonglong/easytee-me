@@ -1,7 +1,7 @@
 <?php
 namespace Service\Alipay;
-use BaseTestCase;
-class ApiTest extends BaseTestCase{
+use PtLib\UnitTest as UnitTest;
+class ApiTest extends UnitTest {
 
     /**
      * 构造支付宝请求支付url

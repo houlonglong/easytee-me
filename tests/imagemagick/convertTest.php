@@ -1,7 +1,7 @@
 <?php
 namespace Service\Imagemagick;
-use BaseTestCase;
-class ConvertTest extends BaseTestCase{
+use PtLib\UnitTest as UnitTest;
+class ConvertTest extends UnitTest {
     function test_svg2png(){
         $org_name = __DIR__."/res/test.svg";
         $dst_name = __DIR__."/res/test.png";

@@ -1,9 +1,10 @@
 <?php
+use PtLib\UnitTest as UnitTest;
 /**
  *
  *
  */
-class AuthTest extends BaseTestCase{
+class AuthTest extends UnitTest{
     /**
      *
      */

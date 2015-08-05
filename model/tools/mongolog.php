@@ -10,7 +10,7 @@ class Model_Tools_Mongolog{
         if (ob_get_level() == 0) ob_start();
         echo PHP_EOL;
         ob_flush();
-        Pt\App::$ob_flushed = true;
+        PtApp::$ob_flushed = true;
         flush();
         ob_end_flush();
         $data = Pt\http_request_body();

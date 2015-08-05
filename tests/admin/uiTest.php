@@ -1,10 +1,9 @@
 <?php
-use BaseTestCase;
 /**
  * 管理界面UI
  *
  */
-class UiTest extends BaseTestCase{
+class UiTest extends PtLib\UnitTest {
     /**
      *
      *

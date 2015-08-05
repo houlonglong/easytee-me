@@ -9,14 +9,19 @@ class Model_Admin_Auth{
      * @url /admin/auth?action=logout
      */
     function action_logout(){
-        Pt\remove_cookie(self::get_cookie_auth_key());
-        Pt\location("/admin/index");
+        PtLib\remove_cookie(self::get_cookie_auth_key());
+        PtLib\location("/admin/index");
     }
+    static function view_test(){
+        $time = time();
+        return array("time"=>$time);
+    }
+
     /**
      * 登陆
      */
     function action_login(){
-        $request = Pt\http_request("username","password","captcha","redirect");
+        $request = PtLib\http_request("username","password","captcha","redirect");
         Model_Tools_Captcha::check_captcha_code($request['captcha'],'admin_auth_login');
         if(self::login($request['username'],$request['password'])){
             if(empty($request['redirect'])){
@@ -25,12 +30,13 @@ class Model_Admin_Auth{
                 $url = $request['redirect'];
             }
             Model_Tools_Captcha::delete_session_code("admin_auth_login");
-            Pt\json_response("登陆成功",0,"",$url);
+            PtLib\json_response("登陆成功",0,"",$url);
         }
     }
+
     static function set_login($user_info){
         $cookie_auth_key = self::get_cookie_auth_key();
-        $value = Pt\secure_cookie_encode($cookie_auth_key,json_encode($user_info));
+        $value = PtLib\secure_cookie_encode($cookie_auth_key,json_encode($user_info));
         $expire = 24*7; //时
         setcookie($cookie_auth_key,$value,time()+60*60*$expire,"/");
     }
@@ -43,7 +49,7 @@ class Model_Admin_Auth{
             self::set_login($user_info);
             return true;
         }else{
-            throw new Pt\ErrorException("用户名和密码不正确");
+            throw new PtLib\ErrorException("用户名和密码不正确");
         }
     }
     static function get_cookie_auth_key(){
@@ -58,11 +64,11 @@ class Model_Admin_Auth{
 
     static function redirect_login_page($redirect = ''){
         $url = '/admin/auth/login';
-        if(Pt\is_xhr()){
-            json_response('',1,"请先登陆",$url);
+        if(PtLib\is_xhr()){
+            PtLib\json_response('',1,"请先登陆",$url);
         }else{
-            $redirect = empty($redirect)?Pt\App::current_url():$redirect;
-            Pt\location("/admin/auth/login?redirect=".urldecode($redirect));
+            $redirect = empty($redirect)?PtApp::current_url():$redirect;
+            PtLib\location("/admin/auth/login?redirect=".urldecode($redirect));
         }
     }
     static function check_logined(){
@@ -71,7 +77,7 @@ class Model_Admin_Auth{
         }
     }
     static function is_logined(){
-        if(Pt\is_cli()){
+        if(PtLib\is_cli()){
             return true;
         }
         $cookie_auth_key = self::get_cookie_auth_key();
@@ -79,9 +85,9 @@ class Model_Admin_Auth{
         if(!isset($_COOKIE[$cookie_auth_key])){
             return $logined;
         }
-        $auth_info = Pt\secure_cookie_decode($cookie_auth_key,$_COOKIE[$cookie_auth_key]);
+        $auth_info = PtLib\secure_cookie_decode($cookie_auth_key,$_COOKIE[$cookie_auth_key]);
         if($auth_info){
-            Pt\App::$auth = json_decode($auth_info,1);
+            PtApp::$auth = json_decode($auth_info,1);
             $logined = True;
         }else{
             $logined = false;

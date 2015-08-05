@@ -7,7 +7,6 @@ use \PDO as PDO;
 function is_array_sin($array){
     return count($array)== count($array, 1);
 }
-class ErrorException extends \Exception{}
 /**
  * Pdo 类
  * @author Joseph

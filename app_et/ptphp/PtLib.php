@@ -1,5 +1,5 @@
 <?php
-namespace Pt;
+namespace PtLib;
 use PtLib;
 use Exception;
 use Memcache;
@@ -7,44 +7,6 @@ use Redis;
 use stdClass;
 
 class ErrorException extends Exception{}
-class App{
-    static $auth;
-    static $action;
-    static $model;
-    static $control;
-    static $control_path;
-    static $model_path;
-    static $model_class_name;
-    static $model_action_name;
-    static $model_view_name;
-    static $breadcrumb = array();
-    static $session_started = false;
-    static $ob_flushed = false;
-    static function session_start(){
-        if(!self::$session_started){
-            session_start();
-            self::$session_started = true;
-        }
-    }
-    static function current_url(){
-        if(isset($_SERVER['HTTP_HOST']) && isset($_SERVER['SERVER_PORT']) && isset($_SERVER['REQUEST_URI'])){
-            $host = "http://".$_SERVER['HTTP_HOST'];
-            if($_SERVER['SERVER_PORT'] != 80){
-                $host .= ":".$_SERVER['SERVER_PORT'];
-            }
-            return $host.$_SERVER['REQUEST_URI'];
-        }else{
-            return "/";
-        }
-    }
-    static function get_model($model){
-        if(substr($model,-4) == ".php")
-            $model = substr($model,0,-4);
-        if(substr($model,0,1) != "/")
-            $model = "/".$model;
-        return $model;
-    }
-}
 
 function db_select_row($sql){
     $args = func_get_args();
@@ -107,7 +69,7 @@ function table_edit($table){
 
 function get_table_list($table,$table_alias,$join = ''){
     if(empty($table_alias)) throw new ErrorException("table is not defined");
-    $request = Pt\http_request("rows","page","sidx","sord");
+    $request = http_request("rows","page","sidx","sord");
     $limit = $request['rows'];
     $page = $request['page'];
     $sort = $request['sidx'];
@@ -130,7 +92,7 @@ function get_table_list($table,$table_alias,$join = ''){
     if($sort)
         $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
     $sql = "select count($table_alias.id) as total from $table $join $where ";
-    $count_res = Pt\db()->select_row($sql,$args);
+    $count_res = db()->select_row($sql,$args);
     $records = $count_res['total'];
     $response = new stdClass();
     $response->page    = $page;  //cur page
@@ -149,7 +111,7 @@ function get_table_list($table,$table_alias,$join = ''){
     $skip = ($page - 1) * $limit;
 
     $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
-    $rows = Pt\db()->select_rows($sql,$args);
+    $rows = db()->select_rows($sql,$args);
     foreach($rows as $row){
         $response->rows[] = array(
             'id'=>$row['id'],
@@ -318,7 +280,7 @@ function json_success($return){
 function json_response($return,$status = 0,$message = '',$redirect = '',$exception = array()){
     if(is_cli()) return;
     $run_print = ob_get_clean();
-    if(!App::$ob_flushed) header('Content-Type: application/json');
+    if(!\PtApp::$ob_flushed) header('Content-Type: application/json');
     $debug = array(
         "run_print"=>$run_print,
         "debug"=>get_run_debug()
@@ -547,7 +509,7 @@ function gen_model($model,$title){
     $info = pathinfo($model_test_file_path);
     $model_test_file_path = $info['dirname']."/".$filename."Test.php";
     if(is_file($model_test_file_path)){
-        log("%s 测试用例: 已存在!%s",$title,$model_test_file_path);
+        //log("%s 测试用例: 已存在!%s",$title,$model_test_file_path);
     }else{
         $model_test_content = get_model_test_content($model_test_class_name,$title," 测试");
         //echo $model_content;
@@ -556,15 +518,15 @@ function gen_model($model,$title){
         }
         $res = @file_put_contents($model_test_file_path,$model_test_content);
         if($res){
-            log("%s 测试: 已生成!%s",$title,$model_test_file_path);
+            log("%s : 测试用例 生成成功!%s",$title,$model_test_file_path);
         }else{
-            log("%s 测试: 生成失败!%s",$title,$model_test_file_path);
+            log("%s 测试用例: 生成失败!%s",$title,$model_test_file_path);
         }
 
     }
 
     if(is_file($model_file_path)){
-        log("%s: 已存在!%s",$title,$model_file_path);
+        //log("%s: 已存在!%s",$title,$model_file_path);
     }else{
         $model_content = get_model_content($model_class_name,$title);
         //echo $model_content;
@@ -573,9 +535,9 @@ function gen_model($model,$title){
         }
         $res = @file_put_contents($model_file_path,$model_content);
         if($res){
-            log("%s: 已生成!%s",$title,$model_file_path);
+            log("%s: Model 生成成功!%s",$title,$model_file_path);
         }else{
-            log("%s: 生成失败!%s",$title,$model_file_path);
+            log("%s: Model 生成失败!%s",$title,$model_file_path);
         }
     }
 }

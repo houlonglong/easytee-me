@@ -1,6 +1,5 @@
 <?php
 namespace PtLib;
-use Pt;
 use PHPUnit_Framework_TestCase;
 
 class UnitTest extends PHPUnit_Framework_TestCase{
@@ -17,9 +16,9 @@ class UnitTest extends PHPUnit_Framework_TestCase{
     function cli($model,$method){
         //echo PATH_CLI;
         $cmd = "php ".PATH_CLI." $model $method";
-        Pt\log($cmd);
+        log($cmd);
         $res = shell_exec($cmd);
-        Pt\log($res);
+        log($res);
     }
 
     function set_http_opt($http_opt){
@@ -43,7 +42,7 @@ class UnitTest extends PHPUnit_Framework_TestCase{
             }
 
         }
-        Pt\log($action);
+        log($action);
         return $action;
     }
     function get_action($action){
@@ -61,15 +60,15 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         //pt_log($res);
         $this->curl_response = $res;
         if($res['error']){
-            Pt\log("error",$res['error']);
+            log("error",$res['error']);
             exit;
         }
         if(!empty($this->http_opt['header']) && $res['header']){
-            Pt\log("response header: \n\n%s\n",$res['header']);
+            log("response header: \n\n%s\n",$res['header']);
         }
 
         if(!empty($this->http_opt['cookie']) && $res['cookie']){
-            Pt\log("response cookie: %s",$res['cookie']);
+            log("response cookie: %s",$res['cookie']);
             //$cookie = file_get_contents($res['cookie_file']);
             //pt_log($cookie);
         }
@@ -77,9 +76,9 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         $body = $res['body'];
         if(substr($body,0,1) == "{"){
             $body = json_decode($body,1);
-            Pt\log(Pt\unicodeString(json_encode($body,JSON_PRETTY_PRINT)));
+            log(unicodeString(json_encode($body,JSON_PRETTY_PRINT)));
         }else{
-            Pt\log("return:",$body);
+            log("return:",$body);
         }
         return $body;
     }

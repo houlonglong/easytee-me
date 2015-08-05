@@ -1,11 +1,12 @@
 <?php
+use PtLib\UnitTest as UnitTest;
 /**
  * 二维码生成
  * User: joseph
  * Date: 7/10/15
  * Time: 5:52 PM
  */
-class QrcodeTest extends BaseTestCase {
+class QrcodeTest extends UnitTest {
     function test_http_action_get(){
         $this->set_http_opt(array(
             "debug"=>1,

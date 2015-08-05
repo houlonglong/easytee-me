@@ -1,10 +1,9 @@
 <?php
-use BaseTestCase;
 /**
  * 管理认证
  *
  */
-class AuthTest extends BaseTestCase{
+class AuthTest extends PtLib\UnitTest {
     /**
      *
      *
@@ -15,17 +14,17 @@ class AuthTest extends BaseTestCase{
 
     /**
      *
-     *
-    function test_action_test(){
+     */
+    function test_action_login(){
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
             "cookie"=>0,
         ));
-        $res = $this->post_action("/auth/login?action=do_login",array(
+        $res = $this->post_action("/admin/auth?action=login",array(
             "username"=>"test",
             "password"=>md5("test"),
         ));
     }
-     */
+
 }

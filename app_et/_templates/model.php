@@ -12,7 +12,7 @@ class Model_Class_Name{
      * @return array
      *
     function action_detail(){
-        $request = pt_http_request("id");
+        $request = PtLib\http_request("id");
         return self::detail($request['id']);
     }
      */
@@ -24,7 +24,7 @@ class Model_Class_Name{
      *
     static function detail($id){
         $table = self::$table;
-        $row = db_select_row("select * from $table where id = ?",$id);
+        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
         return $row;
     }
      */
@@ -50,7 +50,7 @@ class Model_Class_Name{
     *
     static function table_edit(){
         $table = self::$table;
-        return pt_table_edit($table);
+        return PtLib\table_edit($table);
     }
     */
 
@@ -60,7 +60,7 @@ class Model_Class_Name{
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $response = pt_get_table_list($table,$table_alias);
+        $response = PtLib\get_table_list($table,$table_alias);
         return $response;
     }
     */
@@ -69,7 +69,7 @@ class Model_Class_Name{
      * @return
      *
     function action_test(){
-        $request = pt_http_request("id");
+        $request = PtLib\http_request("id");
         $data = array();
         $data['id'] = $request;
         return $data;

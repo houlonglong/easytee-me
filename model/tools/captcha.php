@@ -6,9 +6,8 @@ use PtLib\Captcha as PtCaptcha;
 class Model_Tools_Captcha{
     static $session_code_prefix = "session_code";
     function action_img(){
-
-        $request = Pt\http_request("type");
-        Pt\App::session_start();
+        $request = PtLib\http_request("type");
+        PtApp::session_start();
         $captcha = new PtCaptcha();
         $captcha->gen($request['type']);
         self::set_session_code($captcha->get_code(),$request['type']);
@@ -26,9 +25,9 @@ class Model_Tools_Captcha{
         if(empty($code)){
             throw new Exception("验证码不能为空");
         }
-        Pt\App::session_start();
+        PtApp::session_start();
         $_code = self::get_session_code($type);
-        Pt\log("code:%s,_code:%s,type:%s",$code,$_code,$type);
+        //Pt\log("code:%s,_code:%s,type:%s",$code,$_code,$type);
         if($_code != $code){
             throw new Exception("验证码不正确");
         }

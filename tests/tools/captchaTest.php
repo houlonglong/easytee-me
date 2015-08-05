@@ -1,6 +1,7 @@
 <?php
+use PtLib\UnitTest as UnitTest;
 
-class CaptchaTest extends BaseTestCase{
+class CaptchaTest extends UnitTest{
     function test_action_test(){
         $this->set_http_opt(array(
             "debug"=>0,

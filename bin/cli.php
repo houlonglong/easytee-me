@@ -1,2 +1,2 @@
 <?php
-include_once __DIR__ . '/../app/init.php';
+include_once __DIR__ . '/../app_et/init.php';
