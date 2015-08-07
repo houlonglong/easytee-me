@@ -249,7 +249,6 @@ class Database {
         $this->conn->exec($sql);
     }
     private function get_real_sql($sql,$args){
-        pt_log("sql:%s,args:%s",$sql,$args);
         //todo
         return $sql;
         //stop($args);
@@ -276,11 +275,12 @@ class Database {
 
             $this->stm = $this->conn->prepare($sql);
             if($args){
-                if(function_exists("pt_local_dev")){
-                    if(pt_local_dev()){
+                //if(function_exists("pt_local_dev")){
+                    //if(pt_local_dev()){
                         $stack['real_sql'] = $this->get_real_sql($sql,$args);
-                    }
-                }
+                $stack['args'] = $args;
+                    //}
+                //}
                 $this->stm->execute($args);
             }else{
                 $this->stm->execute();
@@ -433,11 +433,11 @@ class Database {
         }
     }
     private function add_run_stack($stack){
-        if(function_exists("pt_local_dev")){
-            if(pt_local_dev()){
+        //if(function_exists("pt_local_dev")){
+        //    if(pt_local_dev()){
                 array_unshift(self::$run_stack,$stack);
-            }
-        }
+        //    }
+        //}
     }
     private function _insert($table,$rows,$type = "INSERT"){
         if(empty($rows)){

@@ -1,9 +1,9 @@
 <?php
 /**
- * 众筹管理
+ * 订单管理
  */
-class Model_Admin_Activity{
-    static $table = "activities";
+class Model_Admin_Order{
+    static $table = "orders";
     function __construct(){
         //parent::__construct();
     }
@@ -31,7 +31,7 @@ class Model_Admin_Activity{
 
     /**
      * 列表
-     */
+     **/
     function action_list(){
         return self::table_list();
     }
@@ -39,7 +39,7 @@ class Model_Admin_Activity{
 
     /**
      * 修改
-     */
+     **/
     function action_edit(){
         return self::table_edit();
     }
@@ -47,7 +47,7 @@ class Model_Admin_Activity{
 
     /*
     * 修改
-    */
+    **/
     static function table_edit(){
         $table = self::$table;
         if(empty($table)) throw new ErrorException("table is not defined");
@@ -55,8 +55,7 @@ class Model_Admin_Activity{
         $oper = $request['oper'];
         $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
         $condition = array("id"=>$id);
-        $data = PtLib\http_request("name",'status','real_end_time');
-//        return $data;
+        $data = PtLib\http_request("status");
         if($oper == 'edit' && $id && $data){
             //pt_log($data);
             //pt_log($condition);
@@ -74,35 +73,58 @@ class Model_Admin_Activity{
 
     /*
     * 列表
-    */
+    **/
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = '';
+        $join = ' left join users as u on u.id = '.$table_alias.'.uid';
+        //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
-        //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord");
+//        $request = http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("rows","page","sidx","sord",'order_no','activity_name','username','status');
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
         $sort_type = $request['sord'];
+        $activity_name = $request['activity_name'];
+        $order_no = $request['order_no'];
+        $username = $request['username'];
+        $status = $request['status'];
 
         //fields
-        $select_fields = " $table_alias.* ";
+        $select_fields = " $table_alias.*,u.nick_name AS username ";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
         if(empty($sort)) $sort = "id";
         if(empty($sort_type)) $sort_type = "desc";
+
         //where
         $args = array();
-        $where  = " where status <>'create' ";
+        $where  = " where 1=1 ";
+        if($activity_name){
+            $where .= 'and orders.name = ? ';
+            $args[] = $activity_name;
+        }
+        if($order_no){
+            $where .= 'and orders.order_no = ? ';
+            $args[] = $order_no;
+        }
+        if($username){
+            $where .= 'and u.nick_name = ? ';
+            $args[] = $username;
+        }
+        if($status){
+            $where .= 'and orders.status = ? ';
+            $args[] = $status;
+        }
         //order
         $order = "";
         if($sort)
             $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
         $sql = "select count($table_alias.id) as total from $table $join $where ";
-        //$count_res = db()->select_row($sql,$args);
+//        $count_res = db()->select_row($sql,$args);
+//        return $sql;
         $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
         $response = new stdClass();
@@ -120,9 +142,8 @@ class Model_Admin_Activity{
         $response->records = $records; //count
 
         $skip = ($page - 1) * $limit;
-
         $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
-        //$rows = db()->select_rows($sql,$args);
+//        $rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
             $response->rows[] = array(

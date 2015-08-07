@@ -61,8 +61,8 @@
 
     jQuery(function($) {
         var grid_setting = {
-            url:"/admin/user?action=list",
-            url_save:"/admin/user?action=edit",
+            url:"/admin/activity?action=list",
+            url_save:"/admin/activity?action=edit",
             method:"POST",
             height:390,
             rowNum:15,
@@ -70,17 +70,13 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"姓名",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:'/admin/user/modify',
-                        addParam: '',//&t=1
-                        idName:'id'
-                    }
+                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
                 },
-                {title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
-
+                {title:"销售目标",name:'sales_target',index:'sales_target',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"实际销售",name:'sales_count',index:'sales_count',width:50,sortable:false,editable: false},
+                {title:"结束时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: true},
+                {title:"活动状态",name:'status',index:'status',width:100,sortable:false,editable: true,edittype:"select",
+                    editoptions:{value:"failure:failure;ongoing:ongoing;fabrication:fabrication;success:success"}},
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{

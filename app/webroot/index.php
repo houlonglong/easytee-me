@@ -1,5 +1,4 @@
 <?php
-
 $r_url = $_SERVER['REQUEST_URI'];
 if(substr($r_url,0,11) == "/item/show/"){
 	header("Location: http://old.easytee.me".$r_url);exit;

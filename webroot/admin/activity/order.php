@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <?php include(block("admin/block/html_head"))?>
+    <?php
+    /**
+     * 订单管理
+     *
+     */
+    include(block("admin/block/html_head"))?>
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
@@ -24,6 +29,36 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="col-xs-2">
+                                    <label>
+                                        订单号
+                                    </label>
+                                    <input type="text" id="order-no">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        活动名称
+                                    </label>
+                                    <input type="text" id="activity-name">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        订单状态
+                                    </label>
+                                    <input type="text" id="order-status">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        用户名
+                                    </label>
+                                    <input type="text" id="username">
+                                </div>
+
+                                <button class="btn-primary" onclick="search()">search</button>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-xs-12">
 
@@ -54,10 +89,26 @@
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
 
+    var grid_selector = "#grid-table";
+    var pager_selector = "#grid-pager";
+    function search(){
+        var $query = {
+            order_no:$('#order-no').val(),
+            activity_name:$('#activity-name').val(),
+            status:$('#order-status').val(),
+            username:$('#username').val(),
+
+        };
+        $(grid_selector).jqGrid('setGridParam',{
+            datatype:'json',
+            postData:$query, //发送数据
+            page:1
+        }).trigger("reloadGrid"); //重新载入
+    }
     jQuery(function($) {
         var grid_setting = {
-            url:"/admin/user?action=list",
-            url_save:"/admin/user?action=edit",
+            url:"/admin/order?action=list",
+            url_save:"/admin/order?action=edit",
             method:"POST",
             height:390,
             rowNum:15,
@@ -65,17 +116,14 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:'/admin/user/modify',
-                        addParam: '',//&t=1
-                        idName:'id'
-                    }
-                },
-                {title:"活动名称",name:'activity_name',index:'mobile',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"token",name:'token',index:'token',width:190,sortable:false,editable: false},
-                {title:"create_time",name:'create_time',index:'create_time',width:150,editable: true,edittype:"select",editoptions:{value:"1:启用;0:禁用"}},
+                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"用户名",name:'username',index:'username',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"数量",name:'quantity',index:'quantity',width:90,sortable:false,editable: false},
+                {title:"订单金额",name:'total_price',index:'total_price',width:90,sortable:false,editable: false},
+                {title:"运费",name:'express_price',index:'express_price',width:90,sortable:false,editable: false},
+                {title:"状态",name:'status',index:'status',width:90,sortable:false,editable: true,edittype:"select",
+                    editoptions:{value:"待付款:待付款;已发货:已发货;已收货:已收货;已完成:已完成;已关闭:已关闭"}},
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -123,8 +171,6 @@
                 'model':cols
             };
         }
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
@@ -208,25 +254,25 @@
             colModel:get_col(grid_setting.cols)['model'],
             //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
             /*
-            colModel:[
-                {name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
+             colModel:[
+             {name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
+             formatter:'actions',
+             formatoptions:{
+             keys:true,
+             //delbutton: false,//disable delete button
 
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback},
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
-                },
-                {name:'id',index:'id', width:60, sorttype:"int", editable: true},
-                {name:'sdate',index:'sdate',width:90, editable:true, sorttype:"date",unformat: pickDate},
-                {name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"},unformat: aceSwitch},
-                {name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
-                {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
-            ],
-            */
+             delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback},
+             //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+             }
+             },
+             {name:'id',index:'id', width:60, sorttype:"int", editable: true},
+             {name:'sdate',index:'sdate',width:90, editable:true, sorttype:"date",unformat: pickDate},
+             {name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
+             {name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"},unformat: aceSwitch},
+             {name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
+             {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
+             ],
+             */
             viewrecords : true,
             rowNum:grid_setting.rowNum,
             rowList:grid_setting.rowList,

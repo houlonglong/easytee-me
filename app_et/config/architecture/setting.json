@@ -68,6 +68,18 @@
             {
                 "title":"众筹管理",
                 "url":"/admin/activity/index"
+            },
+            {
+                "title":"订单管理",
+                "url":"/admin/activity/order"
+            },
+            {
+                "title":"成功的众筹",
+                "url":"/admin/activity/success"
+            },
+            {
+                "title":"失败的众筹",
+                "url":"/admin/activity/failture"
             }
         ]
     },

@@ -1,9 +1,10 @@
 <?php
+use PtLib\UnitTest as UnitTest;
 /**
- * 管理认证
+ * 订单管理
  *
  */
-class AuthTest extends PtLib\UnitTest {
+class OrderTest extends UnitTest{
     /**
      *
      *
@@ -14,19 +15,17 @@ class AuthTest extends PtLib\UnitTest {
 
     /**
      *
-     */
-    function test_action_login(){
+     *
+    function test_action_test(){
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
             "cookie"=>0,
         ));
-        $res = $this->post_action("/admin/auth?action=login",array(
+        $res = $this->post_action("/auth/login?action=do_login",array(
             "username"=>"test",
             "password"=>md5("test"),
         ));
     }
-
-
-
+     */
 }

@@ -61,7 +61,7 @@ class Model_Admin_System_Log{
         $table_alias = $table = self::$table;
         //$table_alias = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
-        $request = Pt\http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("rows","page","sidx","sord");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -85,7 +85,7 @@ class Model_Admin_System_Log{
             $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
         $join = "";
         $sql = "select count($table_alias.id) as total from $table $join $where ";
-        $count_res = Pt\db()->select_row($sql,$args);
+        $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
         $response = new stdClass();
         $response->page    = $page;  //cur page
@@ -104,7 +104,7 @@ class Model_Admin_System_Log{
         $skip = ($page - 1) * $limit;
 
         $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
-        $rows = Pt\db()->select_rows($sql,$args);
+        $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
             $response->rows[] = array(
                 'id'=>$row['id'],
