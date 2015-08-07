@@ -29,6 +29,15 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <div class="row" style="padding:20px 0">
+                            <div class="col-xs-12">
+                                    <label>
+                                        Ttile
+                                    </label>
+                                    <input type="text" id="title">
+                                <button class="btn-primary" onclick="search()">search</button>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-xs-12">
 
@@ -59,10 +68,27 @@
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
 
+    var grid_selector = "#grid-table";
+    var pager_selector = "#grid-pager";
+    function search(){
+        var $query = {
+            title:$('#title').val()
+        };
+        $(grid_selector).jqGrid('setGridParam',{
+            datatype:'json',
+            postData:$query, //发送数据
+            page:1
+        }).trigger("reloadGrid"); //重新载入
+    }
     jQuery(function($) {
+        var usl_api_base   = "/admin/user";
+        var url_api_list   = usl_api_base + "?action=list";
+        var url_api_edit   = usl_api_base + "?action=edit";
+        var url_api_detail = usl_api_base + "/detail";
+
         var grid_setting = {
-            url:"/admin/user?action=list",
-            url_save:"/admin/user?action=edit",
+            url:url_api_list,
+            url_save:url_api_edit,
             method:"POST",
             height:390,
             rowNum:15,
@@ -70,16 +96,16 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"姓名",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
-                        baseLinkUrl:'/admin/user/modify',
+                        baseLinkUrl:url_api_detail,
                         addParam: '',//&t=1
                         idName:'id'
                     }
                 },
-                {title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
+                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
 
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
@@ -128,8 +154,6 @@
                 'model':cols
             };
         }
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {

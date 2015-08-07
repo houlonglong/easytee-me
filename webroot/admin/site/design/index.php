@@ -3,7 +3,7 @@
 <head>
     <?php
     /**
-     * 售后管理
+     * 设计管理
      *
      */
     include(block("admin/block/html_head"))?>
@@ -81,7 +81,7 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var usl_api_base   = "/admin/user";
+        var usl_api_base   = "/admin/site/design";
         var url_api_list   = usl_api_base + "?action=list";
         var url_api_edit   = usl_api_base + "?action=edit";
         var url_api_detail = usl_api_base + "/detail";

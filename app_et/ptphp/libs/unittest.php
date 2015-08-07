@@ -92,4 +92,8 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         $res = $curl->post($action,$data,$opt);
         return $this->__handle_action_result($res);
     }
+    function curl_get($url){
+        $curl = new Curl();
+        $res  = $curl->get($url);
+    }
 }

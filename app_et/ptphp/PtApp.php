@@ -130,15 +130,17 @@ function route_control($path){
     PtApp::$model = PtApp::get_model($model_file);
     $model_file_path = PtLib\get_model_file_path($model_file);
     PtApp::$model_path = $model_file_path;
+
     if(is_dir(PATH_MODEL) &&
         is_file($model_file_path)){
         $model_class_name = PtLib\get_model_class_name(PtApp::$model);
-        $model_action_name = "view_test";
+        $model_action_name = "view_".strtolower($info['filename']);
+
         PtApp::$model_view_name = $model_action_name;
         if(class_exists($model_class_name) && method_exists($model_class_name,$model_action_name)){
             $model_obj = new $model_class_name();
             $model_return = $model_obj->$model_action_name();
-            extract($model_return);
+            if($model_return) extract($model_return);
         }
     }
     PtApp::$control_path = $path;

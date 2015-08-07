@@ -29,6 +29,15 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <div class="row" style="padding:20px 0">
+                            <div class="col-xs-12">
+                                <label>
+                                    活动ID
+                                </label>
+                                <input type="text" id="activity-id">
+                                <button class="btn-primary" onclick="search()">search</button>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-xs-12">
 
@@ -58,7 +67,18 @@
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
-
+    var grid_selector = "#grid-table";
+    var pager_selector = "#grid-pager";
+    function search(){
+        var $query = {
+            activity_id:$('#activity-id').val()
+        };
+        $(grid_selector).jqGrid('setGridParam',{
+            datatype:'json',
+            postData:$query, //发送数据
+            page:1
+        }).trigger("reloadGrid"); //重新载入
+    }
     jQuery(function($) {
         var grid_setting = {
             url:"/admin/activity?action=list",
@@ -70,7 +90,14 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
+
                 {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:'showlink',
+                    formatoptions:{
+                        baseLinkUrl:'/admin/activity/detail',
+                        addParam: '',//&t=1
+                        idName:'id'
+                    }
                 },
                 {title:"销售目标",name:'sales_target',index:'sales_target',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"实际销售",name:'sales_count',index:'sales_count',width:50,sortable:false,editable: false},
@@ -124,9 +151,6 @@
                 'model':cols
             };
         }
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
-
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
             $(grid_selector).jqGrid( 'setGridWidth', $(".page-content").width() );

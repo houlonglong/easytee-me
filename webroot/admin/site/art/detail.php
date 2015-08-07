@@ -3,7 +3,7 @@
 <head>
     <?php
     /**
-     * 众筹detail
+     * 素材详情
      *
      */
     $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
@@ -33,7 +33,7 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="page-header">
                     <h1>
-                        众筹详情
+                        修改用户
                     </h1>
                 </div><!-- /.page-header -->
                 <div class="row">

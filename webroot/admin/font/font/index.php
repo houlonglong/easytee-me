@@ -3,7 +3,7 @@
 <head>
     <?php
     /**
-     * 售后管理
+     * 字体管理
      *
      */
     include(block("admin/block/html_head"))?>

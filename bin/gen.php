@@ -42,12 +42,20 @@ PtLib\gen_model("admin/activity","众筹管理");
 PtLib\gen_model("admin/production","生产管理");
 PtLib\gen_model("admin/aftersale","售后管理");
 PtLib\gen_model("admin/order","订单管理");
-PtLib\gen_model("activity","活动");
+
 PtLib\gen_model("init","初始化");
+PtLib\gen_model("activity","活动");
 PtLib\gen_model("product","产品");
+
 PtLib\gen_model("design","设计");
-PtLib\gen_model("font","字体");
 PtLib\gen_model("art","素材");
+PtLib\gen_model("font","字体");
+
+
+PtLib\gen_model("admin/site/design","设计");
+PtLib\gen_model("admin/site/art","素材");
+PtLib\gen_model("admin/font/font","字体");
+PtLib\gen_model("admin/font/category","字体分类");
 
 
 PtLib\gen_control("admin/activity/detail","众筹detail","admin_form");
@@ -55,8 +63,15 @@ PtLib\gen_control("admin/activity/order","订单管理","admin_list");
 PtLib\gen_control("admin/activity/index","众筹管理","admin_list");
 PtLib\gen_control("admin/production/index","生产管理","admin_list");
 PtLib\gen_control("admin/aftersale/index","售后管理","admin_list");
+
 PtLib\gen_control("admin/product/product/index","产品管理","admin_list");
 PtLib\gen_control("admin/product/category/index","产品分类","admin_list");
+
 PtLib\gen_control("admin/font/font/index","字体管理","admin_list");
 PtLib\gen_control("admin/font/category/index","字体分类","admin_list");
 
+PtLib\gen_control("admin/site/art/index","素材管理","admin_list");
+PtLib\gen_control("admin/site/art/detail","素材详情","admin_form");
+
+PtLib\gen_control("admin/site/design/index","设计管理","admin_list");
+PtLib\gen_control("admin/site/design/detail","设计详情","admin_form");

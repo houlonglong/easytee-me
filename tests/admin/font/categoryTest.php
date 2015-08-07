@@ -1,10 +1,10 @@
 <?php
 use PtLib\UnitTest as UnitTest;
 /**
- * 设计
+ * 字体分类
  *
  */
-class DesignTest extends UnitTest{
+class CategoryTest extends UnitTest{
     /**
      *
      *
@@ -15,15 +15,17 @@ class DesignTest extends UnitTest{
 
     /**
      *
-     */
+     *
     function test_action_test(){
         $this->set_http_opt(array(
-            "debug"=>1,
-            "header"=>1,
+            "debug"=>0,
+            "header"=>0,
             "cookie"=>0,
         ));
-        $this->set_test_host("http://www.easytee.com");
-        $res = $this->get_action("/");
+        $res = $this->post_action("/auth/login?action=do_login",array(
+            "username"=>"test",
+            "password"=>md5("test"),
+        ));
     }
-
+     */
 }

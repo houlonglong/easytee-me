@@ -85,8 +85,12 @@ function get_table_list($table,$table_alias,$join = ''){
 
     if(empty($limit)) $limit = 20;
     if(empty($page)) $page = 1;
-    if(empty($sort)) $sort = "id";
-    if(empty($sort_type)) $sort_type = "desc";
+    if(empty($sort)){
+        $sort = "id";
+        $sort_type = "desc";
+    }else{
+        if(empty($sort_type)) $sort_type = "desc";
+    }
 
     //where
     $args = array();

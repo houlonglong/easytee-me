@@ -1,10 +1,9 @@
 <?php
-use PtLib as PtLib;
 /**
- * 众筹管理
+ * 设计
  */
-class Model_Admin_Activity{
-    static $table = "activities";
+class Model_Admin_Site_Design{
+    static $table = "designs";
     function __construct(){
         //parent::__construct();
     }
@@ -22,13 +21,13 @@ class Model_Admin_Activity{
      * 详情
      * @param $id
      * @return array
-     */
+     *
     static function detail($id){
         $table = self::$table;
         $row = PtLib\db_select_row("select * from $table where id = ?",$id);
         return $row;
     }
-
+     */
 
     /**
      * 列表
@@ -37,49 +36,23 @@ class Model_Admin_Activity{
         return self::table_list();
     }
 
-    function view_detail(){
-        $table = self::$table;
-        $request = PtLib\http_request("id");
-        $act_id = $request['id'];
-        $act = self::detail($act_id);
-        PtLib\print_json($act);
-    }
-
 
     /**
      * 修改
-     */
+     *
     function action_edit(){
         return self::table_edit();
     }
-
+     */
 
     /*
     * 修改
-    */
+    *
     static function table_edit(){
         $table = self::$table;
-        if(empty($table)) throw new ErrorException("table is not defined");
-        $request = PtLib\http_request("oper");
-        $oper = $request['oper'];
-        $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
-        $condition = array("id"=>$id);
-        $data = PtLib\http_request("name",'status','real_end_time');
-//        return $data;
-        if($oper == 'edit' && $id && $data){
-            //pt_log($data);
-            //pt_log($condition);
-            PtLib\db()->update($table,$data,$condition);
-        }
-        if($oper == 'add'){
-            PtLib\db()->insert($table,$data);
-        }
-        if($oper == 'del'&& $id && $data){
-            PtLib\db()->delete($table,$condition);
-        }
-        return array();
+        return PtLib\table_edit($table);
     }
-
+    */
 
     /*
     * 列表
@@ -90,7 +63,7 @@ class Model_Admin_Activity{
         $join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord","activity_id");
+        $request = PtLib\http_request("rows","page","sidx","sord");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -110,13 +83,7 @@ class Model_Admin_Activity{
 
         //where
         $args = array();
-        $where  = " where status <>'create' ";
-
-        if($request['activity_id']){
-            $where .= " and id = ? ";
-            $args[] = $request['activity_id'];
-        }
-
+        $where  = " where 1=1 ";
         //order
         $order = "";
         if($sort)

@@ -29,8 +29,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <div class="col-xs-12">
+                        <div class="row" style="margin-bottom:20px">
                                 <div class="col-xs-2">
                                     <label>
                                         订单号
@@ -55,9 +54,10 @@
                                     </label>
                                     <input type="text" id="username">
                                 </div>
+                                <div class="col-xs-2">
+                                    <button class="btn-primary" onclick="search()">search</button>
+                                </div>
 
-                                <button class="btn-primary" onclick="search()">search</button>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">

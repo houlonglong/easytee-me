@@ -65,7 +65,7 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"nick_name",name:'nick_name',index:'nick_name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:'/admin/user/modify',
@@ -73,9 +73,8 @@
                         idName:'id'
                     }
                 },
-                {title:"活动名称",name:'activity_name',index:'mobile',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"mobile",name:'mobile',index:'mobile',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"token",name:'token',index:'token',width:190,sortable:false,editable: false},
-                {title:"create_time",name:'create_time',index:'create_time',width:150,editable: true,edittype:"select",editoptions:{value:"1:启用;0:禁用"}},
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
