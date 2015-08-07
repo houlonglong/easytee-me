@@ -18,6 +18,7 @@ class AppController extends Controller {
             "api" => EASYTEE_API,
             "dataType" => 'json',
         ));
+        
         $this->userToken = '';
         if ($this->userId > 0) {
             $this->loadModel('User');

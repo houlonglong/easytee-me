@@ -58,9 +58,50 @@
         ]
     },
     {
+        "title":"众筹管理",
+        "hide_menu":0,
+        "model": {
+            "path": "/admin/activity",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"众筹管理",
+                "url":"/admin/activity/index"
+            }
+        ]
+    },
+    {
+        "title":"生产管理",
+        "hide_menu":0,
+        "model": {
+            "path": "/admin/production",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"生产管理",
+                "url":"/admin/production/index"
+            }
+        ]
+    },
+    {
+        "title":"售后管理",
+        "hide_menu":0,
+        "model": {
+            "path": "/admin/aftersale",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"售后管理",
+                "url":"/admin/aftersale/index"
+            }
+        ]
+    },
+    {
         "title":"系统管理",
         "hide_menu":0,
-        "icon":"fa-user",
         "model": {
             "path": "/admin/system/log",
             "action": {}

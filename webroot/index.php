@@ -1,2 +1,2 @@
 <?php
-echo "index";
+PtLib\location("/admin/user/index");

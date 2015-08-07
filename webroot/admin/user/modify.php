@@ -44,58 +44,6 @@
                                     <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="name" placeholder="姓名"/>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="email">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="email" placeholder="Email"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="mobile">Mobile</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="mobile" placeholder="Mobile"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="qq">QQ</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="qq" placeholder="QQ"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="create_time">注册时间</label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled class="col-xs-12 col-sm-6 auto_change" id="create_time" placeholder="注册时间"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="create_time">最后登陆</label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled class="col-xs-12 col-sm-6 auto_change" id="create_time" placeholder="最后登陆"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="last_login_ip">最后登陆IP</label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled class="col-xs-12 col-sm-6 auto_change" id="last_login_ip" placeholder="最后登陆IP"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="avatar">头像</label>
-                                <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <img src="http://www.easytee.me/assets/images/header1.png" alt=""/>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin-top:10px">
-                                        <div class="col-sm-6">
-                                            <input multiple="" type="file" id="pic_upload" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
 
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">

@@ -1,12 +1,14 @@
 
 <?php
+    $site_name = "易衫网";
+$site_domain = "easytee.me";
 $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title>Login</title>
+    <title><?=$site_name?>Login</title>
 
     <meta name="description" content="User login page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -53,10 +55,10 @@ $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
                     <div class="center">
                         <h1>
                             <i class="ace-icon fa fa-leaf green"></i>
-                            <span class="red">PtPHP</span>
-                            <span class="white" id="id-text2">Application</span>
+                            <span class="red"><?=$site_name?></span>
+                            <span class="white" id="id-text2">管理平台</span>
                         </h1>
-                        <h4 class="blue" id="id-company-text">&copy; PtPHP</h4>
+                        <h4 class="blue" id="id-company-text">&copy; <?=$site_domain?></h4>
                     </div>
 
                     <div class="space-6"></div>

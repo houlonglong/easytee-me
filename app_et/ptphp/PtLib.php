@@ -497,14 +497,22 @@ function get_model_content($model_name,$title){
     $content = str_replace("Model Title Name",$title,$content);
     return $content;
 }
-function gen_model($model,$title){
+
+function gen_test($model,$title){
     if(substr($model,-4) != ".php") $model = $model.".php";
     if(substr($model,0,1) != "/")   $model = "/".$model;
-    $model_class_name = get_model_class_name($model);
     $info1 = pathinfo($model);
     $filename = $info1['filename'];
+
+    $path_doc = PATH_DOC."".$info1['dirname']."/".$info1['filename'].".md";
+
+    if(!is_file($path_doc)){
+        $content = file_get_contents(PATH_APP."/_templates/doc.md");
+        $content = str_replace("MODEL_NAME",$title,$content);
+        if(!is_dir(dirname($path_doc))) mkdir(dirname($path_doc));
+        file_put_contents($path_doc,$content);
+    }
     $model_test_class_name = ucfirst($filename)."Test";
-    $model_file_path = get_model_file_path($model);
     $model_test_file_path = PATH_TESTS.$model;
     $info = pathinfo($model_test_file_path);
     $model_test_file_path = $info['dirname']."/".$filename."Test.php";
@@ -522,8 +530,20 @@ function gen_model($model,$title){
         }else{
             log("%s 测试用例: 生成失败!%s",$title,$model_test_file_path);
         }
-
     }
+}
+
+function gen_model($model,$title){
+    if(substr($model,-4) != ".php") $model = $model.".php";
+    if(substr($model,0,1) != "/")   $model = "/".$model;
+
+    gen_test($model,$title);
+
+    $model_class_name = get_model_class_name($model);
+    $info1 = pathinfo($model);
+
+    $filename = $info1['filename'];
+    $model_file_path = get_model_file_path($model);
 
     if(is_file($model_file_path)){
         //log("%s: 已存在!%s",$title,$model_file_path);

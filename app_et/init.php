@@ -5,6 +5,7 @@ define("SESSION_HANDLER","redis");
 define("PATH_APP",__DIR__);
 define("PATH_PRO",realpath(__DIR__."/../"));
 define("PATH_MODEL",PATH_PRO."/model");
+define("PATH_DOC",PATH_PRO."/docs");
 define("PATH_LOG",PATH_PRO."/log");
 define("PATH_WEBROOT",PATH_PRO."/webroot");
 
