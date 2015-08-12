@@ -1,8 +1,8 @@
 <?php
 /**
- * 生产管理
+ * 待生产
  */
-class Model_Admin_Production{
+class Model_Admin_Production_Index{
     static $table = "activities";
     function __construct(){
         //parent::__construct();
@@ -20,6 +20,7 @@ class Model_Admin_Production{
      * 列表
      **/
     function action_list(){
+        var_dump(11);exit;
         return self::table_list();
     }
 
@@ -40,7 +41,7 @@ class Model_Admin_Production{
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' inner join users as u on u.id = activities.uid';
+        //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows","page","sidx","sord");
@@ -50,7 +51,7 @@ class Model_Admin_Production{
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name ";
+        $select_fields = " $table_alias.* ";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
@@ -60,20 +61,10 @@ class Model_Admin_Production{
         }else{
             if(empty($sort_type)) $sort_type = "desc";
         }
+
         //where
         $args = array();
         $where  = " where 1=1 ";
-        $status = $_GET['status'];
-        if($status == 'index'){
-            $where .='and activities.sales_count>=10 and activities.real_end_time >? ';
-            $args[] = date('Y-m-d H:i:s');
-        }
-        if($status == 'ongoing'){
-            $where .='and activities.status= "fabrication" ';
-        }
-        if($status == 'shipped'){
-            $where .='and activities.status= "shipped" ';
-        }
         //order
         $order = "";
         if($sort)
@@ -89,7 +80,7 @@ class Model_Admin_Production{
             $total_pages = ceil($records/$limit);
         }
         else {
-            $total_pages = 1;
+            $total_pages = 0;
         }
         if ($page > $total_pages) $page=$total_pages;
 
@@ -102,13 +93,6 @@ class Model_Admin_Production{
 //        $rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
-            $profie = Model_Cost::calculate_profie($row['id']);
-            if($status == 'ongoing'){
-                if($profie<=0){
-                    continue;
-                }
-            }
-            $row['profie'] = $profie;
             $response->rows[] = array(
                 'id'=>$row['id'],
                 "cell"=>$row

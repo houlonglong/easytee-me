@@ -31,10 +31,10 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row" style="padding:20px 0">
                             <div class="col-xs-12">
-                                    <label>
-                                        Ttile
-                                    </label>
-                                    <input type="text" id="title">
+                                <label>
+                                    Ttile
+                                </label>
+                                <input type="text" id="title">
                                 <button class="btn-primary" onclick="search()">search</button>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
     }
     jQuery(function($) {
         var usl_api_base   = "/admin/production";
-        var url_api_list   = usl_api_base + "?action=list&status=index";
+        var url_api_list   = usl_api_base + "?action=list&status=ongoing";
         var url_api_edit   = usl_api_base + "?action=edit";
         var url_api_detail = usl_api_base + "/detail";
 
@@ -106,7 +106,7 @@
                 },
                 {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false},
+
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
