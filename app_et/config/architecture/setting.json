@@ -99,9 +99,18 @@
         },
         "control":[
             {
-                "title":"生产管理",
+                "title":"待生产",
                 "url":"/admin/production/index"
+            },
+            {
+                "title":"生产中",
+                "url":"/admin/production/ongoing"
+            },
+            {
+                "title":"已发货",
+                "url":"/admin/production/shipped"
             }
+
         ]
     },
     {
