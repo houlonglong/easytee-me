@@ -41,8 +41,37 @@ class Model_Admin_Activity{
         $table = self::$table;
         $request = PtLib\http_request("id");
         $act_id = $request['id'];
+
+        $act_product_styles = PtLib\db_select_rows("select
+              aps.*,p.name as p_name,psi.imgurl,psi.side,ps.color_name,ps.colors,psir.region
+                      from activity_product_styles as aps
+                      left join products as p on p.id = aps.product_id
+                      left join product_style_images as psi on psi.product_style_id = aps.product_style_id and psi.product_id = aps.product_id
+                      left join product_styles as ps on ps.id = aps.product_style_id
+                      left join product_style_image_regions as psir on psi.id = psir.product_style_image_id
+                      where aps.activity_id = ?",$act_id);
+
+        //PtLib\print_json($act_product_styles);
         $act = self::detail($act_id);
-        PtLib\print_json($act);
+        $design_id = $act['design_id'];
+
+        $design_svgs = PtLib\db()->select_row("select * from design_svgs where design_id = ?",$design_id);
+        $design_product = PtLib\db()->select_rows("select * from design_product_maps where design_id = ?",$design_id);
+        $canvas = PtLib\db()->select_rows("select * from canvas where design_id = ?",$design_id);
+
+        $canvas_objects = PtLib\db()->select_rows("select co.*,a.url from canvas_objects as co
+              left join canvas as c on c.id = co.canvas_id
+              left join arts as a on a.id = co.art_id
+              where c.design_id = ?",$design_id);
+
+        $res = array(
+            "design_product"=>$design_product,
+            "canvas"=>$canvas,
+            "canvas_objects"=>$canvas_objects,
+            "design_svgs"=>$design_svgs,
+            "act_product_styles"=>$act_product_styles,
+        );
+        return $res;
     }
 
 

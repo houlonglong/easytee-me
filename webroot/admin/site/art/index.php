@@ -32,9 +32,9 @@
                         <div class="row" style="padding:20px 0">
                             <div class="col-xs-12">
                                     <label>
-                                        Ttile
+                                        art_id
                                     </label>
-                                    <input type="text" id="title">
+                                    <input type="text" id="art_id">
                                 <button class="btn-primary" onclick="search()">search</button>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
     var pager_selector = "#grid-pager";
     function search(){
         var $query = {
-            title:$('#title').val()
+            art_id:$('#art_id').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -96,7 +96,7 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"name",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:url_api_detail,
@@ -104,7 +104,17 @@
                         idName:'id'
                     }
                 },
-                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"url",name:'url',index:'url',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        //console.log(cellvalue);
+                        var img = "";
+                        if(cellvalue){
+                            img = '<a href="'+cellvalue+'" target="_blank"><img style="width:130px;" src="'+cellvalue+'"></a>';
+                        }
+                        return img;
+                    }
+                },
+                {title:"生成状态",name:'convert_status',index:'convert_status',width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
 
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,

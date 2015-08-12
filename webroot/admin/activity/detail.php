@@ -39,75 +39,54 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <form class="form-horizontal" style="display: none" id="form" role="form">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="name">姓名</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="name" placeholder="姓名"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="email">Email</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="email" placeholder="Email"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="mobile">Mobile</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="mobile" placeholder="Mobile"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="qq">QQ</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="qq" placeholder="QQ"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="create_time">注册时间</label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled class="col-xs-12 col-sm-6 auto_change" id="create_time" placeholder="注册时间"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="create_time">最后登陆</label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled class="col-xs-12 col-sm-6 auto_change" id="create_time" placeholder="最后登陆"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="last_login_ip">最后登陆IP</label>
-                                <div class="col-sm-9">
-                                    <input type="text" disabled class="col-xs-12 col-sm-6 auto_change" id="last_login_ip" placeholder="最后登陆IP"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="avatar">头像</label>
-                                <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-3">
-                                            <img src="http://www.easytee.me/assets/images/header1.png" alt=""/>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="margin-top:10px">
-                                        <div class="col-sm-6">
-                                            <input multiple="" type="file" id="pic_upload" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            <?php
+                            $str = "";
+                            foreach($act_product_styles as $act_product_style){
+                                $colors = json_decode($act_product_style['colors'], TRUE);
+                                $colorName = '';
+                                if ($colors) {
+                                    $max = $colors[0]['accounting'];
+                                    $colorName = $colors[0]['name'];
+                                    foreach ($colors as $color) {
+                                        if ($color['accounting'] > $max) {
+                                            $max = $color['accounting'];
+                                            $colorName = $color['name'];
+                                        }
+                                    }
+                                }
+
+                                $side = $act_product_style['side'];
+                                $design = Model_Design::reset_svg($design_svgs['svg_'.$side]);
 
 
-                            <div class="clearfix form-actions">
-                                <div class="col-md-offset-3 col-md-9">
-                                    <button class="btn btn-info" type="button">
-                                        <i class="ace-icon fa fa-check bigger-110"></i>
-                                        提交
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                                $img_url = str_replace("REPLACE_DOMAIN_WITH","http://cdn.open.easytee.me/",$act_product_style['imgurl']);
+
+                                if($colorName) $colorName = 'background-color:#'.$colorName;
+
+                                $str .= '<div style="height: 500px;width:500px;">'.
+                                        '<svg height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;'. $colorName .'"'.
+                                        ' viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">' .
+                                        '<image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_url . '" transform="matrix(1,0,0,1,0,0)"></image>';
+                                if($design){
+                                    $r = $act_product_style["region"];
+                                    $t = explode(",",$r);
+                                    //pt_log($t);
+                                    $x = $t['0']/2;
+                                    $y = $t['1']/2;
+                                    $w = $t['2']/2;
+                                    $h = $t['3']/2;
+
+                                    $str .= "<svg x='$x' y='$y'".substr($design,4);
+                                }
+                                $str .= '</svg></div><hr>';
+
+
+
+                            }
+                            echo $str;
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div><!-- /.page-content -->
