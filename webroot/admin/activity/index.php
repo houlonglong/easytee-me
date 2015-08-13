@@ -102,8 +102,40 @@
                 {title:"销售目标",name:'sales_target',index:'sales_target',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"实际销售",name:'sales_count',index:'sales_count',width:50,sortable:false,editable: false},
                 {title:"结束时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: true},
-                {title:"活动状态",name:'status',index:'status',width:100,sortable:false,editable: true,edittype:"select",
-                    editoptions:{value:"failure:failure;ongoing:ongoing;fabrication:fabrication;success:success"}},
+                {title:"活动状态",name:'status',index:'status',width:100,sortable:false,editable: true,edittype:"custom",
+                    editoptions:{custom_element: mystatuselem, custom_value:myvalue},
+                    formatter:function(cellvalue, options, rowObject){
+                        var img = "";
+                        if(cellvalue == 'fabrication'){
+                            img = '<span  data-status="fabrication" class="label label-sm label-success arrowed-in">生产中</span>';
+                        }
+                        if(cellvalue == 'ongoing'){
+                            img = '<span data-status="ongoing" class="label label-sm label-warning">进行中</span>';
+                        }
+                        if(cellvalue == 'success'){
+                            img = '<span data-status="success" class="label label-sm label-info arrowed arrowed-righ">成功</span>';
+                        }
+                        if(cellvalue == 'failure'){
+                            img = '<span data-status="failure" class="label label-sm label-inverse arrowed-in">失败</span>';
+                        }
+                        return img;
+                    }
+                },
+                {title:"审核",name:'pass',index:'pass',width:100,sortable:false,editable: true,edittype:"custom",
+                    editoptions:{custom_element: myelem, custom_value:myvalue},
+                    formatter:function(cellvalue, options, rowObject){
+                        var img = "";
+                        if(cellvalue == 0){
+                            img = '<span data-status="0" class="label label-sm label-success arrowed-in">未审核</span>';
+                        }
+                        if(cellvalue == 1){
+                            img = '<span data-status="1" class="label label-sm label-warning">审核</span>';
+                        }
+                        return img;
+                    }
+                },
+
+
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -117,6 +149,26 @@
             ]
 
         };
+
+        function myelem (value, options) {
+            value = $(value).data("status");
+            console.log(value,options);
+            var el = document.createElement("select");
+            $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
+            return el;
+        }
+        function mystatuselem (value, options) {
+            value = $(value).data("status");
+            console.log(value,options);
+            var el = document.createElement("select");
+            $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
+            return el;
+        }
+
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
