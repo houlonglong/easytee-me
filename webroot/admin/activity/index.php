@@ -30,11 +30,32 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12">
+                            <div class="col-xs-2">
                                 <label>
                                     活动ID
                                 </label>
                                 <input type="text" id="activity-id">
+                            </div>
+                            <div class="col-xs-2">
+                                <label>
+                                    活动名称
+                                </label>
+                                <input type="text" id="activity-name">
+                            </div>
+                            <div class="col-xs-2">
+                                <label>
+                                    发起人
+                                </label>
+                                <input type="text" id="username">
+                            </div>
+                            <div class="col-xs-2">
+                                <label>
+                                    活动状态
+                                </label>
+                                <input type="text" id="activity-status">
+
+                            </div>
+                            <div class="col-xs-2">
                                 <button class="btn-primary" onclick="search()">search</button>
                             </div>
                         </div>
@@ -71,7 +92,10 @@
     var pager_selector = "#grid-pager";
     function search(){
         var $query = {
-            activity_id:$('#activity-id').val()
+            activity_id:$('#activity-id').val(),
+            activity_name:$('#activity-name').val(),
+            username:$('#username').val(),
+            status:$('#activity-status').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',

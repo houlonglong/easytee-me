@@ -10,24 +10,24 @@ class Model_Admin_Order{
     /**
      * 详情
      * @return array
-     *
-    function action_detail(){
+     */
+    function action_order_detail(){
         $request = PtLib\http_request("id");
         return self::detail($request['id']);
     }
-     */
 
     /**
      * 详情
      * @param $id
      * @return array
-     *
+     */
     static function detail($id){
         $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
+        $row = PtLib\db_select_row("select o.*,oa.pay_time,oa.pay_type,oa.pay_no,oa.pay_price from $table as o inner join order_attributes as oa on oa.order_id = o.id  where o.id = ?",$id);
+        $goods = PtLib\db_select_rows("select * from order_goods  where order_id = ?",$id);
+        $row['orderGoods'] = $goods;
         return $row;
     }
-     */
 
     /**
      * 列表
