@@ -108,7 +108,7 @@
                     formatter:function(cellvalue, options, rowObject){
                         //console.log(cellvalue);
                         var img = "";
-                        if(cellvalue){
+                        if(cellvalue){:wq:Wq
                             img = '<a href="'+cellvalue+'" target="_blank"><img style="width:130px;" src="'+cellvalue+'"></a>';
                         }
                         return img;
