@@ -18,6 +18,9 @@ PtLib\gen_model("user","用户管理");
 PtLib\gen_model("user/auth","用户认证");
 PtLib\gen_model("admin/user","管理员管理");
 PtLib\gen_model("admin/auth","管理认证");
+PtLib\gen_model("service/pic","图片服务");
+
+
 PtLib\gen_model("admin/tools/pic","图片上传");
 PtLib\gen_model("tools/captcha","验证码");
 
@@ -35,9 +38,9 @@ PtLib\gen_control("admin/index","管理首页");
 PtLib\gen_control("admin/auth/login","管理登陆");
 PtLib\gen_control("admin/auth/logout","管理退出");
 PtLib\gen_control("admin/deamon/task/monitor","任务监控");
-PtLib\gen_control("admin/deamon/task/manage","任务管理");
+PtLib\gen_control("admin/deamon/task/index","任务管理","admin_list");
 
-
+PtLib\gen_model("admin/deamon/task","后台任务");
 PtLib\gen_model("admin/activity","众筹管理");
 PtLib\gen_model("admin/production","生产管理");
 PtLib\gen_model("admin/aftersale","售后管理");
