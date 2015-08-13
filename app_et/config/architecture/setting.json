@@ -13,17 +13,7 @@
             },
             {
                 "title":"任务管理",
-                "url":"/admin/deamon/task/manage"
-            },
-            {
-                "title":"任务添加",
-                "url":"/admin/deamon/task/add",
-                "hide_menu":1
-            },
-            {
-                "title":"任务修改",
-                "url":"/admin/deamon/task/modify",
-                "hide_menu":1
+                "url":"/admin/deamon/task/index"
             }
         ]
     },

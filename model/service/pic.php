@@ -1,11 +1,23 @@
 <?php
 /**
- * 后台任务
+ * 图片服务
  */
-class Model_Admin_Deamon_Task{
-    static $table = "task_img_service";
+class Model_Service_Pic{
+    static $table = "";
     function __construct(){
         //parent::__construct();
+    }
+    function cli_run(){
+        $rows = PtLib\db_select_rows("select * from task_img_service where status = 0");
+        foreach($rows as $row){
+            $row = json_decode($row['info'],true);
+            print_r($row);
+            $act_id = $row['activityId'];
+            $design = $row['design'];
+            $productStyle = $row['productStyle'];
+            exit;
+        }
+
     }
     /**
      * 详情视图
@@ -18,11 +30,11 @@ class Model_Admin_Deamon_Task{
 
     /**
      * 列表
-     **/
+     *
     function action_list(){
-        return self::table_list();
+    return self::table_list();
     }
-
+     */
 
     /**
      * 详情
@@ -36,14 +48,14 @@ class Model_Admin_Deamon_Task{
 
     /*
     * 列表
-    */
+    *
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
         $response = PtLib\get_table_list($table,$table_alias);
         return $response;
     }
-
+    */
     /**
      * 详情
      * @param $id

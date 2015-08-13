@@ -147,7 +147,6 @@ function route_control($path){
     include_once $path;exit;
 }
 function web_route(){
-
     define("DOCUMENT_ROOT",$_SERVER['DOCUMENT_ROOT']);
     define("SCRIPT_FILENAME",$_SERVER['SCRIPT_FILENAME']);
     define("SCRIPT_NAME",$_SERVER['SCRIPT_NAME']);

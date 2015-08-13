@@ -12,7 +12,6 @@ class DesignTest extends UnitTest{
         $this->cli("deamon/task","run");
     }
      */
-
     /**
      * 设计工具页面
      */
