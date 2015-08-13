@@ -7,7 +7,31 @@ class Model_Design{
     function __construct(){
         //parent::__construct();
     }
-    /**
+    static function reset_svg($svg){
+        if (!preg_match('/<image(.*?)xlink:href="([0-9]+)"(.*?)\/>/i', $svg)) {
+            return $svg;
+        }
+        preg_match_all('/<image(.*?)xlink:href="([0-9]+)"(.*?)\/>/i', $svg, $res);
+        if (empty($res[2])) {
+            return $svg;
+        }
+        $art_ids = $res[2];
+        $arts = PtLib\db_select_rows("select id,thumb_jit,url,art_extension from arts where id in (".implode(",",$art_ids).")");
+        foreach ($arts as $art) {
+            //$image = $art['thumb_jit'];
+            $image = $art['url'];
+            if($image){
+                $extension = $art['art_extension'];
+                $file = file_get_contents($image);
+                $file = base64_encode($file);
+                $svg = preg_replace('/<image(.*?)xlink:href=\"' . $art['id'] . '\"(.*?)\/>/s', '<image$1xlink:href="data:image/'.$extension.';base64,' . $file . '"$2/>', $svg);
+
+            }
+        }
+        return $svg;
+
+    }
+    /*
      * 详情
      * @return array
      *

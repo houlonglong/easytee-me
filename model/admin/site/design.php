@@ -16,18 +16,39 @@ class Model_Admin_Site_Design{
         return self::detail($request['id']);
     }
      */
+    function view_detail(){
+        $request = PtLib\http_request("id");
+        $row = self::detail($request['id']);
+        $design_svgs = PtLib\db()->select_row("select * from design_svgs where design_id = ?",$request['id']);
+        $design_product = PtLib\db()->select_rows("select * from design_product_maps where design_id = ?",$request['id']);
+        $canvas = PtLib\db()->select_rows("select * from canvas where design_id = ?",$request['id']);
 
+        $canvas_objects = PtLib\db()->select_rows("select co.*,a.url from canvas_objects as co
+              left join canvas as c on c.id = co.canvas_id
+              left join arts as a on a.id = co.art_id
+              where c.design_id = ?",$request['id']);
+
+        $res = array(
+            "design"=>$row,
+            "design_product"=>$design_product,
+            "canvas"=>$canvas,
+            "canvas_objects"=>$canvas_objects,
+            "design_svgs"=>$design_svgs,
+        );
+        //\PtLib\print_json($res);
+        return $res;
+    }
     /**
      * 详情
      * @param $id
      * @return array
-     *
+     */
     static function detail($id){
         $table = self::$table;
         $row = PtLib\db_select_row("select * from $table where id = ?",$id);
         return $row;
     }
-     */
+
 
     /**
      * 列表
@@ -59,18 +80,18 @@ class Model_Admin_Site_Design{
     */
     static function table_list(){
         $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $join = '';
+        $table_alias = 'd';
+        $join = ' left join activities as a on a.design_id = d.id';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("rows","page","sidx","sord","design_id");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " $table_alias.* ";
+        $select_fields = " d.* ,a.name as act_name";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
@@ -84,11 +105,16 @@ class Model_Admin_Site_Design{
         //where
         $args = array();
         $where  = " where 1=1 ";
+
+        if($request['design_id']){
+            $where .= " and d.id = ? ";
+            $args[] = $request['design_id'];
+        }
         //order
         $order = "";
         if($sort)
             $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
-        $sql = "select count($table_alias.id) as total from $table $join $where ";
+        $sql = "select count(d.id) as total from $table as d $join $where ";
         //$count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
@@ -108,7 +134,7 @@ class Model_Admin_Site_Design{
 
         $skip = ($page - 1) * $limit;
 
-        $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
+        $sql = "select $select_fields from $table as d $join $where $order limit $skip,$limit ";
         //$rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){

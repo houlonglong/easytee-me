@@ -19,6 +19,22 @@ define("PATH_CONFIG",PATH_APP."/config");
 include_once __DIR__."/ptphp/PtPHP.php";
 include_once __DIR__."/ptphp/PtApp.php";
 
+function pt_debug($msg){
+    if(!defined("PT_DEBUG") && PT_DEBUG) return;
+    if(strtolower(PHP_SAPI) == "cli") return;
+    $uri = $_SERVER['REQUEST_URI'];
+    if(!is_dir("/tmp")) return;
+    $date = "h:i:s";
+    if(is_array($msg) ||  is_object($msg)){
+        $msg = json_encode($msg,JSON_UNESCAPED_UNICODE);
+    }
+    if(is_bool($msg)){
+        $msg = $msg? "true":"false";
+    }
+    $data = "[$date] $uri: $msg";
+    file_put_contents("/tmp/pt_debug.log",$data.PHP_EOL,FILE_APPEND);
+}
+
 set_exception_handler('PtLib\exception_handler');
 set_error_handler('PtLib\error_handler');
 spl_autoload_register('pt_autoload');

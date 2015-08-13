@@ -32,24 +32,19 @@
                         <div class="row" style="padding:20px 0">
                             <div class="col-xs-12">
                                     <label>
-                                        Ttile
+                                        design_id
                                     </label>
-                                    <input type="text" id="title">
+                                    <input type="text" id="design_id">
                                 <button class="btn-primary" onclick="search()">search</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-
                                 <table id="grid-table"></table>
-
                                 <div id="grid-pager"></div>
-
                                 <script type="text/javascript">
                                     var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                 </script>
-
-
                             </div>
                             <!-- /.span -->
                         </div>
@@ -72,7 +67,7 @@
     var pager_selector = "#grid-pager";
     function search(){
         var $query = {
-            title:$('#title').val()
+            design_id:$('#design_id').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -91,12 +86,12 @@
             url_save:url_api_edit,
             method:"POST",
             height:390,
-            rowNum:15,
+            rowNum:5,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"designer_version",name:'designer_version',index:'designer_version',width:90,editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:url_api_detail,

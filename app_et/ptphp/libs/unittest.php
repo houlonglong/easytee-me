@@ -45,16 +45,6 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         log($action);
         return $action;
     }
-    function get_action($action){
-        $action = $this->__parse_url_action($action);
-        $curl = new Curl();
-        $opt = array();
-        if(!empty($this->http_opt['debug'])){
-            $opt = array(CURLOPT_VERBOSE=>1);
-        }
-        $res = $curl->get($action,$opt);
-        return $this->__handle_action_result($res);
-    }
     function __handle_action_result($res){
         $this->set_test_host();
         //pt_log($res);
@@ -68,27 +58,58 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         }
 
         if(!empty($this->http_opt['cookie']) && $res['cookie']){
+            log("response cookie file: %s",$res['cookie_file']);
             log("response cookie: %s",$res['cookie']);
             //$cookie = file_get_contents($res['cookie_file']);
             //pt_log($cookie);
         }
-
+        $this->local_proxy = array();
         $body = $res['body'];
+        $this->response_info = $res['info'];
         if(substr($body,0,1) == "{"){
             $body = json_decode($body,1);
             log(unicodeString(json_encode($body,JSON_PRETTY_PRINT)));
         }else{
-            log("return:",$body);
+            $body = trim(substr($body,strpos($body,"\r\n\r\n")));
+            //log("return:",$body);
         }
         return $body;
     }
-    function post_action($action,$data = array()){
-        $action = $this->__parse_url_action($action);
-        $curl = new Curl();
+    var $response_info = array();
+    var $local_proxy = array();
+
+    function set_local_test_proxy(){
+        $this->local_proxy = array(
+            CURLOPT_HTTPPROXYTUNNEL=>1,
+            CURLOPT_PROXY=>"127.0.0.1:80",
+        );
+    }
+    function set_curl_opt(){
+
         $opt = array();
         if(!empty($this->http_opt['debug'])){
             $opt = array(CURLOPT_VERBOSE=>1);
         }
+
+        if($this->local_proxy){
+            foreach($this->local_proxy as $key=>$value){
+                $opt[$key]=$value;
+            }
+        }
+        return $opt;
+    }
+    function get_action($action){
+        $action = $this->__parse_url_action($action);
+        $curl = new Curl();
+        $opt = $this->set_curl_opt();
+        //print_r($opt);exit;
+        $res = $curl->get($action,$opt);
+        return $this->__handle_action_result($res);
+    }
+    function post_action($action,$data = array()){
+        $action = $this->__parse_url_action($action);
+        $curl = new Curl();
+        $opt = $this->set_curl_opt();
         $res = $curl->post($action,$data,$opt);
         return $this->__handle_action_result($res);
     }

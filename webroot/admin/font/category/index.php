@@ -81,7 +81,7 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var usl_api_base   = "/admin/user";
+        var usl_api_base   = "/admin/font/category";
         var url_api_list   = usl_api_base + "?action=list";
         var url_api_edit   = usl_api_base + "?action=edit";
         var url_api_detail = usl_api_base + "/detail";
@@ -96,13 +96,15 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
+                {title:"name",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    /**
+                     formatter:'showlink',
+                     formatoptions:{
                         baseLinkUrl:url_api_detail,
                         addParam: '',//&t=1
                         idName:'id'
                     }
+                     */
                 },
                 //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},

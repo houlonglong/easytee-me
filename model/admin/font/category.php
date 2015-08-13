@@ -3,7 +3,7 @@
  * 字体分类
  */
 class Model_Admin_Font_Category{
-    static $table = "";
+    static $table = "font_categories";
     function __construct(){
         //parent::__construct();
     }
@@ -31,11 +31,11 @@ class Model_Admin_Font_Category{
 
     /**
      * 列表
-     *
+     */
     function action_list(){
         return self::table_list();
     }
-     */
+
 
     /**
      * 修改
@@ -56,14 +56,14 @@ class Model_Admin_Font_Category{
 
     /*
     * 列表
-    *
+    */
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
         $response = PtLib\get_table_list($table,$table_alias);
         return $response;
     }
-    */
+
     /**
      * @param
      * @return
