@@ -66,6 +66,8 @@
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
+
+
 <script type="text/javascript">
 
     var grid_selector = "#grid-table";
@@ -527,6 +529,9 @@
             $('.ui-jqdialog').remove();
         });
     });
+
+
+
 </script>
 </body>
 </html>

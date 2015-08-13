@@ -103,7 +103,7 @@ class Model_Admin_Production{
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
             $profie = Model_Cost::calculate_profie($row['id']);
-            if($status == 'ongoing'){
+            if($status == 'index'){
                 if($profie<=0){
                     continue;
                 }

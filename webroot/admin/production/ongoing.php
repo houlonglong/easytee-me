@@ -66,6 +66,16 @@
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
+<!-- page specific plugin scripts -->
+<script src="/ace/assets/js/jquery.dataTables.min.js"></script>
+<script src="/ace/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+<script src="/ace/assets/js/dataTables.tableTools.min.js"></script>
+<script src="/ace/assets/js/dataTables.colVis.min.js"></script>
+
+<!-- ace scripts -->
+<script src="/ace/assets/js/ace-elements.min.js"></script>
+<script src="/ace/assets/js/ace.min.js"></script>
+
 <script type="text/javascript">
 
     var grid_selector = "#grid-table";
@@ -106,7 +116,10 @@
                 },
                 {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-
+                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false,
+                    formatter:function(cellvalue, options, rowObject){
+                        return cellvalue+'￥';
+                    }},
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -115,7 +128,7 @@
                         baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
                         delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
+                    },
                 },
             ]
 

@@ -105,6 +105,12 @@
             page:1
         }).trigger("reloadGrid"); //重新载入
     }
+    var status = {
+        "待发货":"label label-sm label-success arrowed-in",
+        "已关闭":"label label-sm label-warning",
+        '已发货':"label label-sm label-info arrowed arrowed-righ",
+        '已完成':"label label-sm label-inverse arrowed-in",
+    };
     jQuery(function($) {
         var grid_setting = {
             url:"/admin/order?action=list",
@@ -122,8 +128,26 @@
                 {title:"数量",name:'quantity',index:'quantity',width:90,sortable:false,editable: false},
                 {title:"订单金额",name:'total_price',index:'total_price',width:90,sortable:false,editable: false},
                 {title:"运费",name:'express_price',index:'express_price',width:90,sortable:false,editable: false},
-                {title:"状态",name:'status',index:'status',width:90,sortable:false,editable: true,edittype:"select",
-                    editoptions:{value:"待付款:待付款;已发货:已发货;已收货:已收货;已完成:已完成;已关闭:已关闭"}},
+                {title:"状态",name:'status',index:'status',width:90,sortable:false,editable: true,edittype:"custom",
+//                    editoptions:{value:"待付款:待付款;已发货:已发货;已收货:已收货;已完成:已完成;已关闭:已关闭"},
+                    editoptions:{custom_element: mystatuselem, custom_value:myvalue},
+                    formatter:function(cellvalue, options, rowObject){
+                        var img = "";
+                        if(cellvalue == '待发货'){
+                            img = '<span class="label label-sm label-success arrowed-in">'+cellvalue+'</span>';
+                        }
+                        if(cellvalue == '已关闭'){
+                            img = '<span class="label label-sm label-warning">'+cellvalue+'</span>';
+                        }
+                        if(cellvalue == '已发货'){
+                            img = '<span class="label label-sm label-info arrowed arrowed-righ">'+cellvalue+'</span>';
+                        }
+                        if(cellvalue == '已完成'){
+                            img = '<span class="label label-sm label-danger arrowed-in">'+cellvalue+'</span>';
+                        }
+                        return img;
+                    }
+                },
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -159,7 +183,18 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
+        function mystatuselem (value, options) {
+            value = $(value).data("status");
+            console.log(value,options);
+            var el = document.createElement("select");
+            $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
+            return el;
+        }
 
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
         function get_col(cols){
             var col_name = [];
             for(i in cols){

@@ -93,7 +93,7 @@ class Model_Admin_Activity{
         $oper = $request['oper'];
         $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
         $condition = array("id"=>$id);
-        $data = PtLib\http_request("name",'status','real_end_time');
+        $data = PtLib\http_request("name",'status','real_end_time','pass');
 //        return $data;
         if($oper == 'edit' && $id && $data){
             //pt_log($data);
