@@ -124,7 +124,11 @@
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
                 {title:"订单号",name:'order_no',index:'order_no',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
                 {title:"用户名",name:'username',index:'username',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">'+cellvalue+'</a>';
+                    }
+                },
                 {title:"数量",name:'quantity',index:'quantity',width:90,sortable:false,editable: false},
                 {title:"订单金额",name:'total_price',index:'total_price',width:90,sortable:false,editable: false},
                 {title:"运费",name:'express_price',index:'express_price',width:90,sortable:false,editable: false},

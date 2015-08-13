@@ -77,7 +77,7 @@ class Model_Admin_Order{
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' left join users as u on u.id = '.$table_alias.'.uid';
+        $join = ' left join users as u on u.id = '.$table_alias.'.uid inner join activities as a on a.id = '.$table_alias.'.activity_id ';
         //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
@@ -92,7 +92,7 @@ class Model_Admin_Order{
         $status = $request['status'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name AS username ";
+        $select_fields = " $table_alias.*,u.nick_name AS username,a.id AS activity_id";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
