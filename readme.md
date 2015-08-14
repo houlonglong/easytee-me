@@ -21,13 +21,8 @@
     PHP >> PHPUnit >> local >> PHPUnit library >> User custom autoloader >> path to script >> phpunit/verder/autoload.php
     PHP >> PHPUnit >> local >> Test Runner >> Default configuration file >> phpunit.xml
 
-
-
-
-
     ssh e_dev "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude='www/app/tmp' --exclude='.git' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /data/projects/easytee"
     ssh e_www "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude='www/app/tmp' --exclude='.git' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /opt/projects/easytee"
-
 
     ssh e_dev "cd /data/projects/easytee/easytee_v2 && git pull origin master"
     ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"

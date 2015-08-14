@@ -1,6 +1,6 @@
 <?php
 namespace Service\Aliyun\Oss;
-include_once APP."/libs/aliyun/oss/sdk.class.php";
+include_once PATH_APP."/libs/aliyun/oss/sdk.class.php";
 
 use ALIOSS;
 use Exception;
