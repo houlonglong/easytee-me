@@ -18,8 +18,9 @@ class Model_Service_Pic{
             "front"=>"前胸","back"=>"后背","third"=>"左袖","fourth"=>"右袖"
         );
         foreach($rows as $row){
+            $task_id= $row['id'];
             $row = json_decode($row['info'],true);
-            print_r($row);
+            //print_r($row);
             $act_id = $row['activityId'];
             $design = $row['design'];
             $design_id = $design['id'];
@@ -87,6 +88,12 @@ class Model_Service_Pic{
                     }
                 }
             }
+
+            PtLib\db()->update("task_img_service",array(
+                "status"=>1
+            ),array(
+                "id"=>$task_id
+            ));
         }
     }
 
