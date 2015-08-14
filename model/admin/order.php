@@ -10,24 +10,24 @@ class Model_Admin_Order{
     /**
      * 详情
      * @return array
-     *
-    function action_detail(){
+     */
+    function action_order_detail(){
         $request = PtLib\http_request("id");
         return self::detail($request['id']);
     }
-     */
 
     /**
      * 详情
      * @param $id
      * @return array
-     *
+     */
     static function detail($id){
         $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
+        $row = PtLib\db_select_row("select o.*,oa.pay_time,oa.pay_type,oa.pay_no,oa.pay_price from $table as o inner join order_attributes as oa on oa.order_id = o.id  where o.id = ?",$id);
+        $goods = PtLib\db_select_rows("select * from order_goods  where order_id = ?",$id);
+        $row['orderGoods'] = $goods;
         return $row;
     }
-     */
 
     /**
      * 列表
@@ -77,7 +77,7 @@ class Model_Admin_Order{
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' left join users as u on u.id = '.$table_alias.'.uid';
+        $join = ' left join users as u on u.id = '.$table_alias.'.uid inner join activities as a on a.id = '.$table_alias.'.activity_id ';
         //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
@@ -92,7 +92,7 @@ class Model_Admin_Order{
         $status = $request['status'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name AS username ";
+        $select_fields = " $table_alias.*,u.nick_name AS username,a.id AS activity_id";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;

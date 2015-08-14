@@ -122,9 +122,20 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: false,editoptions:{size:"20",maxlength:"30"},
+                    formatter:'showlink',
+                    formatoptions:{
+                        baseLinkUrl:'/admin/activity/order_detail',
+                        addParam: '',//&t=1
+                        idName:'id'
+                    }
+                },
                 {title:"用户名",name:'username',index:'username',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">'+cellvalue+'</a>';
+                    }
+                },
                 {title:"数量",name:'quantity',index:'quantity',width:90,sortable:false,editable: false},
                 {title:"订单金额",name:'total_price',index:'total_price',width:90,sortable:false,editable: false},
                 {title:"运费",name:'express_price',index:'express_price',width:90,sortable:false,editable: false},
@@ -143,6 +154,9 @@
                             img = '<span class="label label-sm label-info arrowed arrowed-righ">'+cellvalue+'</span>';
                         }
                         if(cellvalue == '已完成'){
+                            img = '<span class="label label-sm label-danger arrowed-in">'+cellvalue+'</span>';
+                        }
+                        if(cellvalue == '已收货'){
                             img = '<span class="label label-sm label-danger arrowed-in">'+cellvalue+'</span>';
                         }
                         return img;
@@ -187,7 +201,9 @@
             value = $(value).data("status");
             console.log(value,options);
             var el = document.createElement("select");
-            $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
+            $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="待发货">待发货' +
+                '</option><option role="option" value="已发货">已发货</option><option role="option" value="已收货">已收货</option><option role="option" value="已发货">已发货</option>' +
+                '<option role="option" value="已收货">已完成</option>').val(value);
             return el;
         }
 
