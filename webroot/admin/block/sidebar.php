@@ -14,21 +14,7 @@
                 <?= empty($menu['control']) ? "" : '<b class="arrow fa fa-angle-down"></b>'?>
             </a>
             <b class="arrow"></b>
-            <?if(!empty($menu['control'])){?>
-            <ul class="submenu">
-                <?php foreach($menu['control'] as $sub_menu){
-                    if(!empty($sub_menu['hide_menu'])){
-                        continue;
-                    }
-                    ?>
-                <li class="<?=Model_Admin_Ui::siderbar_active_sub_menu($sub_menu)?>">
-                    <a href="<?=Model_Admin_Ui::get_menu_url($sub_menu);?>">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        <?=$sub_menu['title']?>
-                    </a>
-                    <b class="arrow"></b>
-                </li><?php } ?>
-            </ul><?php } ?>
+
         </li>
         <?php endforeach;?>
     </ul><!-- /.nav-list -->
