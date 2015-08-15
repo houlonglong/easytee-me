@@ -13,6 +13,12 @@ class Model_Service_Activity{
         }
         while(1){
             $sleep = "10";
+            if(PtApp::$ENV == "test"){
+                sleep($sleep);
+                echo date('h:i:s')." : test continue".PHP_EOL;
+                continue;
+            }
+
             $res = @file_get_contents($url);
             if($res !== false){
                 $msg = "suc!";
