@@ -7,12 +7,37 @@ class Model_Service_Pic{
     function __construct(){
         //parent::__construct();
     }
+    static function test(){
+        $rows = PtLib\db_select_rows("select id from activities");
+        foreach($rows as $row){
+            PtLib\db()->insert("task_act_pic_merge",
+                array(
+                    "act_id"=>$row['id']
+                )
+            );
+        }
+
+
+
+    }
     function cli_run(){
         while(1){
-            $rows = PtLib\db_select_rows("select id from activities where created = 0 limit 10");
+            $rows = PtLib\db_select_rows("select id,try_time,act_id from task_act_pic_merge where created = 0 and try_time < 4 limit 10");
             foreach($rows as $row){
-                echo $row['id'].PHP_EOL;
-                self::merge_activity_pics($row['id']);
+                try{
+                    self::merge_activity_pics($row['act_id']);
+                    echo $row['act_id']." ok!".PHP_EOL;
+                    PtLib\db()->update("task_act_pic_merge",array(
+                        "created"=>1,
+                        "create_time"=>date("Y-m-i H:i:s"),
+                    ),array(
+                        "id"=>$row['id']
+                    ));
+
+                }catch (Exception $e){
+                    PtLib\db()->update("task_act_pic_merge",array("try_time"=>$row['try_time']+1,"error_msg"=>$e->getMessage()),array("id"=>$row['id']));
+                    echo $row['act_id']." error: ".$e->getMessage().PHP_EOL;
+                }
             }
             sleep(1);
         }
@@ -187,12 +212,6 @@ class Model_Service_Pic{
 
             }
         }
-
-        PtLib\db()->update("activities",array(
-            "created"=>1
-        ),array(
-           "id"=>$act_id
-        ));
     }
 
     static function upload_to_aliyun_oss($path,$remote_path){

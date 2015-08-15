@@ -21,6 +21,11 @@ class PicTest extends UnitTest{
         Model_Service_Pic::merge_activity_pics(813);
     }
 
+    function test_test(){
+        Model_Service_Pic::test();
+    }
+
+
     /**
      *
      *
