@@ -153,55 +153,65 @@ function web_route(){
     define("REQUEST_URI",$_SERVER['REQUEST_URI']);
     ob_start();
 
-    if(!empty($_SERVER['REDIRECT_URL']) || $_SERVER['SCRIPT_NAME'] == "/index.php"){
-        if($_SERVER['SCRIPT_NAME'] == "/index.php")
-            $REDIRECT_URL = "/index";
-        else
-            $REDIRECT_URL = $_SERVER['REDIRECT_URL'];
+    if(isset($_REQUEST['model']) && isset($_REQUEST['action'])){
+        $model_file = $_REQUEST['model'];
+        PtApp::$action = $_REQUEST['action'];
+        route_model($model_file,PtApp::$action,"action");
 
-        if(substr($REDIRECT_URL,-4) == '.php') $REDIRECT_URL = substr($REDIRECT_URL,0,-4);
-        $path =  PATH_WEBROOT.$REDIRECT_URL.".php";
-        PtApp::$control = $REDIRECT_URL;
-        if(is_file($path)){
-            route_control($path);
-        }else{//action
-            //pt_log(PtApp::$model);
-            $model_file = $REDIRECT_URL;
-            if(!empty($_REQUEST['action'])){
-                PtApp::$action = $_REQUEST['action'];
-                route_model($model_file,PtApp::$action,"action");
-            }else{
-                throw new ErrorException("not found url",100404);
-            }
-        }
     }else{
-        $info = parse_url(REQUEST_URI);
-        $REDIRECT_URL = $info['path'];
 
-        if(substr($REDIRECT_URL,-4) == ".php"){
+        if(!empty($_SERVER['REDIRECT_URL']) || $_SERVER['SCRIPT_NAME'] == "/index.php"){
+            if($_SERVER['SCRIPT_NAME'] == "/index.php")
+                $REDIRECT_URL = "/index";
+            else
+                $REDIRECT_URL = $_SERVER['REDIRECT_URL'];
+
+            if(substr($REDIRECT_URL,-4) == '.php') $REDIRECT_URL = substr($REDIRECT_URL,0,-4);
+            $path =  PATH_WEBROOT.$REDIRECT_URL.".php";
             PtApp::$control = $REDIRECT_URL;
-            $path =  PATH_WEBROOT.$REDIRECT_URL;
-        }else{
-            if(substr($REDIRECT_URL,-1) == "/"){
-                $REDIRECT_URL = $REDIRECT_URL."index";
+            if(is_file($path)){
+                route_control($path);
+            }else{//action
+                //pt_log(PtApp::$model);
+                $model_file = $REDIRECT_URL;
+                if(!empty($_REQUEST['action'])){
+                    PtApp::$action = $_REQUEST['action'];
+                    route_model($model_file,PtApp::$action,"action");
+                }else{
+                    throw new ErrorException("not found url",100404);
+                }
             }
-            $REDIRECT_URL = $REDIRECT_URL.".php";
-            PtApp::$control = $REDIRECT_URL;
-            $path =  PATH_WEBROOT.$REDIRECT_URL;
+        }else{
+            $info = parse_url(REQUEST_URI);
+            $REDIRECT_URL = $info['path'];
 
-        }
-        if(is_file($path)) {
-            route_control($path);
-        }else{//action
-            $model_file = $REDIRECT_URL;
-            if(!empty($_REQUEST['action'])){
-                PtApp::$action = $_REQUEST['action'];
-                route_model($model_file,PtApp::$action,"action");
+            if(substr($REDIRECT_URL,-4) == ".php"){
+                PtApp::$control = $REDIRECT_URL;
+                $path =  PATH_WEBROOT.$REDIRECT_URL;
             }else{
-                throw new ErrorException("not found url",100404);
+                if(substr($REDIRECT_URL,-1) == "/"){
+                    $REDIRECT_URL = $REDIRECT_URL."index";
+                }
+                $REDIRECT_URL = $REDIRECT_URL.".php";
+                PtApp::$control = $REDIRECT_URL;
+                $path =  PATH_WEBROOT.$REDIRECT_URL;
+
+            }
+            if(is_file($path)) {
+                route_control($path);
+            }else{//action
+                $model_file = $REDIRECT_URL;
+                if(!empty($_REQUEST['action'])){
+                    PtApp::$action = $_REQUEST['action'];
+                    route_model($model_file,PtApp::$action,"action");
+                }else{
+                    throw new ErrorException("not found url",100404);
+                }
             }
         }
     }
+
+
 }
 function cli_route(){
     global $argv;

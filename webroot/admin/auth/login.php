@@ -89,7 +89,7 @@ $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
                                                 <span class="block input-icon input-icon-right">
                                                     <input type="password" id="captcha" class="form-control span" placeholder="验证码" />
                                                     <i class="ace-icon">
-                                                        <img id="captcha_img" style="cursor:pointer;margin-top:-1px;margin-right:-4px;" src="/tools/captcha?action=img&type=admin_auth_login" alt=""/>
+                                                        <img id="captcha_img" style="cursor:pointer;margin-top:-1px;margin-right:-4px;" src="/api?model=tools/captcha&action=img&type=admin_auth_login" alt=""/>
                                                     </i>
                                                 </span>
                                             </label>
@@ -329,7 +329,9 @@ $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
         var password = $("#password").val();
         var redirect = $("#redirect").val();
         var captcha = $("#captcha").val();
-        $.post('/admin/auth?action=login',{
+        $.post('/api',{
+            model:"admin/auth",
+            action:"login",
             username:username,
             password:password,
             redirect:redirect,
