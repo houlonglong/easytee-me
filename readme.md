@@ -32,5 +32,4 @@
 #2.0 后台
 
     /opt/projects/easytee/easytee_v2
-
-    ssh e_www "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude='www/app/tmp' --exclude='.git' -a -r -t -v --progress /data/git/easytee/easytee_v2 /opt/projects/easytee"
+    ssh e_www "/opt/projects/easytee/easytee_v2 && git pull origin master"
