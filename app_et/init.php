@@ -51,4 +51,4 @@ if($_PT_ENV && $_PT_ENV != "develop" && is_file(PATH_CONFIG."/setting_$_PT_ENV.i
     $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting_$_PT_ENV.ini",true));
 }
 
-pt_debug($setting);
+//pt_debug($setting);
