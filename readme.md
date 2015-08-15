@@ -26,3 +26,11 @@
 
     ssh e_dev "cd /data/projects/easytee/easytee_v2 && git pull origin master"
     ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
+
+
+
+#2.0 后台
+
+    /opt/projects/easytee/easytee_v2
+
+    ssh e_www "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude='www/app/tmp' --exclude='.git' -a -r -t -v --progress /data/git/easytee/easytee_v2 /opt/projects/easytee"

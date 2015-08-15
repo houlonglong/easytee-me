@@ -152,14 +152,16 @@ function web_route(){
     define("SCRIPT_NAME",$_SERVER['SCRIPT_NAME']);
     define("REQUEST_URI",$_SERVER['REQUEST_URI']);
     ob_start();
+
     if(!empty($_SERVER['REDIRECT_URL']) || $_SERVER['SCRIPT_NAME'] == "/index.php"){
         if($_SERVER['SCRIPT_NAME'] == "/index.php")
             $REDIRECT_URL = "/index";
         else
             $REDIRECT_URL = $_SERVER['REDIRECT_URL'];
+
+        if(substr($REDIRECT_URL,-4) == '.php') $REDIRECT_URL = substr($REDIRECT_URL,0,-4);
         $path =  PATH_WEBROOT.$REDIRECT_URL.".php";
         PtApp::$control = $REDIRECT_URL;
-
         if(is_file($path)){
             route_control($path);
         }else{//action
@@ -173,16 +175,31 @@ function web_route(){
             }
         }
     }else{
-        $SCRIPT_NAME = $_SERVER['SCRIPT_NAME'];
-        if(substr($SCRIPT_NAME,-4) == ".php"){
-            PtApp::$control = $SCRIPT_NAME;
-            $path =  PATH_WEBROOT.$SCRIPT_NAME;
-            if(is_file($path)) {
-                route_control($path);
-            }
-            //throw new PtException("not found url",100404);
+        $info = parse_url(REQUEST_URI);
+        $REDIRECT_URL = $info['path'];
+
+        if(substr($REDIRECT_URL,-4) == ".php"){
+            PtApp::$control = $REDIRECT_URL;
+            $path =  PATH_WEBROOT.$REDIRECT_URL;
         }else{
-            throw new ErrorException("REDIRECT_URL no define , Maybe not apache ");
+            if(substr($REDIRECT_URL,-1) == "/"){
+                $REDIRECT_URL = $REDIRECT_URL."index";
+            }
+            $REDIRECT_URL = $REDIRECT_URL.".php";
+            PtApp::$control = $REDIRECT_URL;
+            $path =  PATH_WEBROOT.$REDIRECT_URL;
+
+        }
+        if(is_file($path)) {
+            route_control($path);
+        }else{//action
+            $model_file = $REDIRECT_URL;
+            if(!empty($_REQUEST['action'])){
+                PtApp::$action = $_REQUEST['action'];
+                route_model($model_file,PtApp::$action,"action");
+            }else{
+                throw new ErrorException("not found url",100404);
+            }
         }
     }
 }
