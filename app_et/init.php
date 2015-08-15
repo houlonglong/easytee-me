@@ -21,7 +21,7 @@ include_once __DIR__."/ptphp/PtPHP.php";
 include_once __DIR__."/ptphp/PtApp.php";
 
 function pt_debug($msg){
-    if(!defined("PT_DEBUG") && PT_DEBUG) return;
+    if(defined("PT_DEBUG") && !PT_DEBUG) return;
     if(strtolower(PHP_SAPI) == "cli") return;
     $uri = $_SERVER['REQUEST_URI'];
     if(!is_dir("/tmp")) return;
@@ -50,4 +50,5 @@ $_PT_ENV = PtLib\get_pt_env("PT_ENV");
 if($_PT_ENV && $_PT_ENV != "develop" && is_file(PATH_CONFIG."/setting_$_PT_ENV.ini")){
     $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting_$_PT_ENV.ini",true));
 }
+define("PT_DEBUG",true);
 pt_debug($setting);
