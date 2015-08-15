@@ -8,7 +8,6 @@
         </testsuite>
     </testsuites>
     <php>
-        <const name="PHPUNIT" value="1"/>
         <const name="TEST_URL" value="http://dev.ptphp.net"/>
         <server name="PT_ENV" value="test"/>
         <!--

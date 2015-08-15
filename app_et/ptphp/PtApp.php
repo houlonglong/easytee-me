@@ -74,6 +74,43 @@ function pt_autoload($classname)
     }
 }
 
+
+
+function set_setting(){
+    $GLOBALS['setting'] = parse_ini_file(PATH_CONFIG."/setting.ini",true);
+    $_PT_ENV = PtLib\get_pt_env("PT_ENV");
+    PtApp::$ENV = $_PT_ENV;
+    if(is_file(PATH_CONFIG."/setting/$_PT_ENV.ini")){
+        $GLOBALS['setting'] = array_merge($GLOBALS['setting'],parse_ini_file(PATH_CONFIG."/setting/$_PT_ENV.ini",true));
+    }
+    require PATH_CONFIG."/base.php";
+    if(is_file(PATH_CONFIG."/base/$_PT_ENV.php")){
+        require PATH_CONFIG."/base/$_PT_ENV.php";
+    }
+    if(!PtLib\is_cli()){
+        require PATH_CONFIG."/web.php";
+        if(is_file(PATH_CONFIG."/web/$_PT_ENV.php")){
+            require PATH_CONFIG."/web/$_PT_ENV.php";
+        }
+    }
+    PtApp::$setting = $GLOBALS['setting'];
+    //return $setting;
+}
+function pt_debug($msg){
+    if(defined("PT_DEBUG") && !PT_DEBUG) return;
+    if(strtolower(PHP_SAPI) == "cli") return;
+    $uri = $_SERVER['REQUEST_URI'];
+    if(!is_dir("/tmp")) return;
+    $date = "h:i:s";
+    if(is_array($msg) ||  is_object($msg)){
+        $msg = json_encode($msg,JSON_UNESCAPED_UNICODE);
+    }
+    if(is_bool($msg)){
+        $msg = $msg? "true":"false";
+    }
+    $data = "[$date] $uri: $msg";
+    file_put_contents("/tmp/pt_debug.log",$data.PHP_EOL,FILE_APPEND);
+}
 function set_session_handler(){
     if(defined("SESSION_HANDLER")){
         if(SESSION_HANDLER == 'redis' && class_exists("Redis")){
