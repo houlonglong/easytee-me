@@ -31,5 +31,4 @@
 
 #2.0 后台
 
-    /opt/projects/easytee/easytee_v2
-    ssh e_www "/opt/projects/easytee/easytee_v2 && git pull origin master"
+    ssh e_www "cd /opt/projects/easytee/easytee_v2 && git pull origin master"

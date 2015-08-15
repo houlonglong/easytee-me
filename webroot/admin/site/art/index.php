@@ -81,10 +81,10 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var usl_api_base   = "/admin/site/art";
-        var url_api_list   = usl_api_base + "?action=list";
-        var url_api_edit   = usl_api_base + "?action=edit";
-        var url_api_detail = usl_api_base + "/detail";
+        var usl_api_base   = "admin/site/art";
+        var url_api_list   = "/api?model="+usl_api_base + "&action=list";
+        var url_api_edit   = "/api?model="+usl_api_base + "&action=edit";
+        var url_api_detail = "/"+usl_api_base + "/detail";
 
         var grid_setting = {
             url:url_api_list,
@@ -108,7 +108,7 @@
                     formatter:function(cellvalue, options, rowObject){
                         //console.log(cellvalue);
                         var img = "";
-                        if(cellvalue){:wq:Wq
+                        if(cellvalue){
                             img = '<a href="'+cellvalue+'" target="_blank"><img style="width:130px;" src="'+cellvalue+'"></a>';
                         }
                         return img;

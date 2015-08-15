@@ -127,7 +127,7 @@
     $(function(){
 
         var id = '<?=$id?>';
-        $.get("/admin/user?action=detail",{id:id},function(data){
+        $.get("/api?model=admin/user&action=detail",{id:id},function(data){
             var row = data['return'];
             $(".auto_change").each(function(){
                 var key = this.id;
@@ -179,7 +179,7 @@
                 if (evt.target.readyState == FileReader.DONE) { // DONE == 2
                     var content = evt.target.result;
                     //console.log(content.length);
-                    $.post("/admin/tools/pic?action=upload",{content:content},function(data){
+                    $.post("/api?model=admin/tools/pic&action=upload",{content:content},function(data){
                         console.log(data)
                     },"json");
                 }

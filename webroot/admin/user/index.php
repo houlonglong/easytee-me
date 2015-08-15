@@ -56,8 +56,8 @@
 
     jQuery(function($) {
         var grid_setting = {
-            url:"/admin/user?action=list",
-            url_save:"/admin/user?action=edit",
+            url:"/api?model=admin/user&action=list",
+            url_save:"/api?model=admin/user&action=edit",
             method:"POST",
             height:390,
             rowNum:15,
