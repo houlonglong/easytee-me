@@ -85,3 +85,7 @@ PtLib\gen_control("admin/site/art/detail","素材详情","admin_form");
 
 PtLib\gen_control("admin/site/design/index","设计管理","admin_list");
 PtLib\gen_control("admin/site/design/detail","设计详情","admin_form");
+
+
+
+PtLib\gen_test("tools/deploy","部署工具");
