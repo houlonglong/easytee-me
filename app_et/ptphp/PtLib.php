@@ -150,6 +150,7 @@ function get_pt_env($key){
         else
             return null;
     }else{
+        pt_debug($_SERVER);
         if(isset($_SERVER[$key]))
             return $_SERVER[$key];
         else
