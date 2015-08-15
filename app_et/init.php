@@ -43,13 +43,11 @@ register_shutdown_function('PtLib\shutdown');
 $setting = array();
 
 function set_setting(){
-    global $setting;
-    if(is_file(PATH_CONFIG."/setting_default.ini")){
-        $setting = parse_ini_file(PATH_CONFIG."/setting_default.ini",true);
-    }
+    $GLOBALS['setting'] = array();
     $_PT_ENV = PtLib\get_pt_env("PT_ENV");
+    PtApp::$ENV = $_PT_ENV;
     if(is_file(PATH_CONFIG."/setting/$_PT_ENV.ini")){
-        $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting/$_PT_ENV.ini",true));
+        $GLOBALS['setting'] = array_merge($GLOBALS['setting'],parse_ini_file(PATH_CONFIG."/setting/$_PT_ENV.ini",true));
     }
 
     if(is_file(PATH_CONFIG."/base/$_PT_ENV.php")){
@@ -60,6 +58,8 @@ function set_setting(){
             require PATH_CONFIG."/web/$_PT_ENV.php";
         }
     }
-    //var_dump($setting);exit;
+    PtApp::$setting = $GLOBALS['setting'];
+    //return $setting;
 }
+
 

@@ -20,7 +20,7 @@ class Api{
         }
         $oss_sdk_service = new ALIOSS();
         $oss_sdk_service->set_debug_mode(self::$debug);
-        \PtLib\log("bucket:$bucket,uploading:$remote_path");
+        //\PtLib\log("bucket:$bucket,uploading:$remote_path");
         $rest = $oss_sdk_service->upload_file_by_file($bucket,$remote_path,$org_path);
         return self::handle_result($rest);
     }
@@ -49,7 +49,7 @@ class Api{
             throw new Exception($body->Message);
         }
         $url = empty($rest->header['x-oss-request-url'])?"":$rest->header['x-oss-request-url'];
-        \PtLib\log("上传成功:$url");
+        //\PtLib\log("上传成功:$url");
         return $url;
     }
 }

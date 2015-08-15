@@ -54,9 +54,13 @@ class Database {
 
     public static function init($key = 'default')
     {
-        global $setting;
         if(empty(self::$config)){
-            self::$config = $setting['db'];
+
+            if(empty($setting['db'])){
+                self::$config = \PtApp::$setting['db'];
+            }else{
+                self::$config = $setting['db'];
+            }
         }
         if(empty(self::$_obj[$key]))
         {

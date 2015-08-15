@@ -1,5 +1,7 @@
 <?php
 class PtApp{
+    static $setting = array();
+    static $ENV = "delelop";
     static $auth;
     static $action;
     static $model;

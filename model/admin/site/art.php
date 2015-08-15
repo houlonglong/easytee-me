@@ -3,7 +3,7 @@
  * 素材
  */
 class Model_Admin_Site_Art{
-    static $table = "arts";
+    static $table = "product_style_images_color";
     function __construct(){
         //parent::__construct();
     }
