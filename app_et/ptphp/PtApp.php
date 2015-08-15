@@ -147,6 +147,7 @@ function route_control($path){
     include_once $path;exit;
 }
 function web_route(){
+    set_setting();
     define("DOCUMENT_ROOT",$_SERVER['DOCUMENT_ROOT']);
     define("SCRIPT_FILENAME",$_SERVER['SCRIPT_FILENAME']);
     define("SCRIPT_NAME",$_SERVER['SCRIPT_NAME']);
@@ -215,10 +216,45 @@ function web_route(){
 }
 function cli_route(){
     global $argv;
-    if(count($argv) < 3){
-        throw new ErrorException("\nusage : \n\t php bin/cli.php model cli_method \n");
+    $usage = "\nusage : \n\t php bin/cli.php --model=index --action=index --env=develop \n";
+    if(count($argv) < 2){
+        throw new ErrorException($usage);
     }
-    $model_file = "/".$argv[1].".php";
-    $action = $argv[2];
+    $shortopts  = "";
+    $longopts  = array(
+        "model:",
+        "action:",
+        "env:",
+    );
+    $options = getopt($shortopts, $longopts);
+
+    if(empty($options['env'])){
+        $_SERVER['PT_ENV'] = "develop";
+    }else{
+        $_SERVER['PT_ENV'] = $options['env'];
+    }
+    set_setting();
+    if(empty($options['model'])){
+        throw new ErrorException($usage);
+    }
+    if(empty($options['action'])){
+        throw new ErrorException($usage);
+    }
+    if(substr($options['model'],0,1) == '/') $options['model'] = substr($options['model'],1);
+    if(substr($options['model'],-4) == '.php') $options['model'] = substr($options['model'],0,-4);
+
+    foreach($_SERVER['argv'] as $value){
+        if(substr($value,0,2) == "--"){
+            $t = explode("=",substr($value,2));
+            if(!in_array($t[0],array("model","action","env"))) $_REQUEST[$t[0]] = $t[1];
+        }
+    }
+
+    //var_dump($options);
+    //print_r($_SERVER['argv']);
+    //print_r($_SERVER['PT_ENV']);
+    //exit;
+    $model_file = "/".$options['model'].".php";
+    $action = $options['action'];
     route_model($model_file,$action,"cli");
 }

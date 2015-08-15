@@ -40,15 +40,26 @@ set_exception_handler('PtLib\exception_handler');
 set_error_handler('PtLib\error_handler');
 spl_autoload_register('pt_autoload');
 register_shutdown_function('PtLib\shutdown');
-include_once PATH_CONFIG."/define.php";
 $setting = array();
-if(is_file(PATH_CONFIG."/setting_default.ini")){
-    $setting = parse_ini_file(PATH_CONFIG."/setting_default.ini",true);
+
+function set_setting(){
+    global $setting;
+    if(is_file(PATH_CONFIG."/setting_default.ini")){
+        $setting = parse_ini_file(PATH_CONFIG."/setting_default.ini",true);
+    }
+    $_PT_ENV = PtLib\get_pt_env("PT_ENV");
+    if(is_file(PATH_CONFIG."/setting/$_PT_ENV.ini")){
+        $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting/$_PT_ENV.ini",true));
+    }
+
+    if(is_file(PATH_CONFIG."/base/$_PT_ENV.php")){
+        require PATH_CONFIG."/base/$_PT_ENV.php";
+    }
+    if(!PtLib\is_cli()){
+        if(is_file(PATH_CONFIG."/web/$_PT_ENV.php")){
+            require PATH_CONFIG."/web/$_PT_ENV.php";
+        }
+    }
+    //var_dump($setting);exit;
 }
 
-$_PT_ENV = PtLib\get_pt_env("PT_ENV");
-if($_PT_ENV && $_PT_ENV != "develop" && is_file(PATH_CONFIG."/setting_$_PT_ENV.ini")){
-    $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting_$_PT_ENV.ini",true));
-}
-
-//pt_debug($setting);

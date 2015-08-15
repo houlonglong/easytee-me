@@ -82,7 +82,19 @@ class Model_Service_Pic{
             "id"=>$task_id
         ));
     }
+    /*
+     * php bin/cli.php --model=service/pic --action=run --env=develop --act_id=1
+     */
     function cli_run(){
+        global $setting;
+        print_r($_REQUEST);
+    }
+
+    function action_run(){
+
+    }
+
+    function cli_run1(){
         global $setting;
         $path_root = "/tmp";
         $env_root = $setting['aliyun_oss']['bucket_root'];
