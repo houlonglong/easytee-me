@@ -8,8 +8,14 @@ class Model_Service_Pic{
         //parent::__construct();
     }
     function cli_run(){
-        global $setting;
-        print_r($setting);
+        while(1){
+            $rows = PtLib\db_select_rows("select id from activities where created = 0 limit 10");
+            foreach($rows as $row){
+                echo $row['id'].PHP_EOL;
+                self::merge_activity_pics($row['id']);
+            }
+            sleep(1);
+        }
     }
 
     function action_run(){
@@ -99,7 +105,7 @@ class Model_Service_Pic{
             $design_svg_local_pngs[$side] = $location_png_path;
         }
 
-        PtLib\log($design_svg_local_pngs);
+        //PtLib\log($design_svg_local_pngs);
 
         $_rows =PtLib\db_select_rows("select psi.id,psi.product_style_id,psi.product_id,ps.colors,ps.color_name,psi.side,psi.imgurl,psir.name as region_name,psir.region,psir.is_default
                                 from product_style_images as psi
@@ -117,12 +123,15 @@ class Model_Service_Pic{
             unset($row['colors']);
             $rows[] =$row;
         }
-        $product_style_image_rows = PtLib\db_select_rows("select product_style_image_id,color,url from product_style_images_color where product_style_image_id in (".implode(",",$product_style_image_ids).")");
         $product_style_image = array();
-        foreach($product_style_image_rows as $product_style_image_row){
-            $product_style_image[$product_style_image_row['product_style_image_id']][$product_style_image_row['color']] = $product_style_image_row['url'];
+        if($product_style_image_ids){
+            $product_style_image_rows = PtLib\db_select_rows("select product_style_image_id,color,url from product_style_images_color where product_style_image_id in (".implode(",",$product_style_image_ids).")");
+            foreach($product_style_image_rows as $product_style_image_row){
+                $product_style_image[$product_style_image_row['product_style_image_id']][$product_style_image_row['color']] = $product_style_image_row['url'];
+            }
         }
-        PtLib\log($product_style_image);
+
+        //PtLib\log($product_style_image);
         foreach($rows as $row){
             //PtLib\log($row);
             $img = "";
