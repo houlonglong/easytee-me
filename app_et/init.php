@@ -50,4 +50,4 @@ $_PT_ENV = PtLib\get_pt_env("PT_ENV");
 if($_PT_ENV && $_PT_ENV != "develop" && is_file(PATH_CONFIG."/setting_$_PT_ENV.ini")){
     $setting = array_merge($setting,parse_ini_file(PATH_CONFIG."/setting_$_PT_ENV.ini",true));
 }
-//PtLib\print_json($setting);exit;
+pt_debug($setting);
