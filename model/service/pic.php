@@ -17,8 +17,6 @@ class Model_Service_Pic{
             );
         }
 
-
-
     }
     function cli_run(){
         $t = 1;
