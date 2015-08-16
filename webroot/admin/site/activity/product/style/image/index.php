@@ -3,7 +3,7 @@
 <head>
     <?php
     /**
-     * Controller Name Replace
+     * 活动设计图片
      *
      */
     include(block("admin/block/html_head"))?>
@@ -82,7 +82,7 @@
     }
     jQuery(function($) {
 
-        var usl_api_base   = "admin/test";
+        var usl_api_base   = "admin/site/activity/product/style/image";
         var url_api_list   = "/api?model="+usl_api_base + "&action=list";
         var url_api_edit   = "/api?model="+usl_api_base + "&action=edit";
         var url_api_detail = "/"+usl_api_base + "/detail";
@@ -98,15 +98,28 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:url_api_detail,
-                        addParam: '',//&t=1
-                        idName:'id'
+                {title:"remote_url",name:'remote_url',index:'remote_url',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        //console.log(cellvalue);
+                        var img = "";
+                        if(cellvalue){
+                            img = '<a href="'+cellvalue+'" target="_blank"><img style="width:130px;" src="'+cellvalue+'"></a>';
+                        }
+                        return img;
                     }
                 },
-                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"side",name:'side',index:'side',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"color",name:'color',index:'color',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        //console.log(cellvalue);
+                        var img = "";
+                        if(cellvalue){
+                            img = '<div style="width:30px;height:30px;background: #'+cellvalue+';"></div>';
+                        }
+                        return img;
+                    }
+                },
+                {title:"design_id",name:'design_id',index:'design_id',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
 
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,

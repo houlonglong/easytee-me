@@ -146,6 +146,14 @@
                 "hide_menu":1
             },
             {
+                "title":"产品款式颜色图片",
+                "url":"/admin/site/product/style/image/color/index"
+            },
+            {
+                "title":"活动设计图片",
+                "url":"/admin/site/activity/product/style/image/index"
+            },
+            {
                 "title":"字体管理",
                 "url":"/admin/font/font/index"
             },

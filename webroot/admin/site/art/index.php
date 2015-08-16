@@ -96,8 +96,8 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"product_style_image_id",name:'product_style_image_id',index:'product_style_image_id', width:40, sorttype:"int", editable: false},
-
+                {title:"name",name:'name',index:'name', width:40, sorttype:"int", editable: false},
+                {title:"uid",name:'uid',index:'uid', width:40, sorttype:"int", editable: false},
                 {title:"url",name:'url',index:'url',editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         //console.log(cellvalue);
