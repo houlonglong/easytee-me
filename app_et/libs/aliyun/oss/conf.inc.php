@@ -14,7 +14,7 @@ define('OSS_ACCESS_KEY', 'l0Jk8roBKmZDGolkOCFdUPjCvsHJyN');
 define('ALI_LOG', FALSE);
 
 //自定义日志路径，如果没有设置，则使用系统默认路径，在./logs/
-//define('ALI_LOG_PATH','');
+define('ALI_LOG_PATH','/tmp/');
 
 //是否显示LOG输出
 define('ALI_DISPLAY_LOG', FALSE);
