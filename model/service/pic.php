@@ -21,6 +21,7 @@ class Model_Service_Pic{
 
     }
     function cli_run(){
+        $t = 1;
         while(1){
             $rows = PtLib\db_select_rows("select id,try_time,act_id from task_act_pic_merge where created = 0 and try_time < 4 limit 10");
             foreach($rows as $row){
@@ -29,7 +30,7 @@ class Model_Service_Pic{
                     echo $row['act_id']." ok!".PHP_EOL;
                     PtLib\db()->update("task_act_pic_merge",array(
                         "created"=>1,
-                        "create_time"=>date("Y-m-i H:i:s"),
+                        "create_time"=>date("Y-m-d H:i:s"),
                     ),array(
                         "id"=>$row['id']
                     ));
@@ -39,7 +40,8 @@ class Model_Service_Pic{
                     echo $row['act_id']." error: ".$e->getMessage().PHP_EOL;
                 }
             }
-            sleep(1);
+            echo "sleep $t".PHP_EOL;
+            sleep($t);
         }
     }
 
@@ -58,6 +60,16 @@ class Model_Service_Pic{
     }
     static function file_get_content($url){
         return file_get_contents($url);
+    }
+    static function dowload_design_svg_img($img_url,$base_path){
+        $convert_root = "/tmp";
+        $content = self::file_get_content($img_url);
+        $file_name = $convert_root."/".$base_path.".png";
+        if(!is_dir(dirname($file_name))){
+            @mkdir(dirname($file_name),0755,true);
+        }
+        file_put_contents($file_name,$content);
+        return $file_name;
     }
     static function convert_design_svg_to_png($design_svg_url,$base_path){
         $convert_root = "/tmp";
@@ -112,26 +124,25 @@ class Model_Service_Pic{
         $act = PtLib\db_select_row("select design_id from activities where id = ?",$act_id);
         $design_id = $act['design_id'];
         //self::merge_design_pics($act_id,$design_id);
-        $_design_svgs = PtLib\db_select_row("select svg_front_image,svg_back_image,svg_third_image,svg_fourth_image from design_svgs where design_id = ?",$design_id);
+        $_design_svgs = PtLib\db_select_rows("select id,side,status,img_url,svg_url from design_svg_side where design_id = ?",$design_id);
 
-        $sides = array(
-            "front"=>"前胸","back"=>"后背","third"=>"左袖","fourth"=>"右袖"
-        );
-
-        $design_svgs = array();
-        foreach($sides as $side=>$name){
-            if($_design_svgs["svg_{$side}_image"]) $design_svgs[$side] = $_design_svgs["svg_{$side}_image"];
-        }
-        $design_svg_local_pngs = array();
-        foreach($design_svgs as $side => $design_svg_url){
+        foreach($_design_svgs as $_design_svg){
+            $side = $_design_svg['side'];
             $base_path = self::formate_design_upload_path($design_id,$side);
-            $location_png_path = self::convert_design_svg_to_png($design_svg_url,$base_path);
-            $remote_png_path = self::upload_to_aliyun_oss($location_png_path,$base_path.".png");
+            if(!$_design_svg['status']){
+                $location_png_path = self::convert_design_svg_to_png($_design_svg['svg_url'],$base_path);
+                $remote_png_path = self::upload_to_aliyun_oss($location_png_path,$base_path.".png");
+                PtLib\db()->update("design_svg_side",array(
+                    "img_url"=>$remote_png_path,
+                    "up_time"=>date("Y-m-d H:i:s"),
+                    "status"=>1,
+                ),array("id"=>$_design_svg['id']));
+            }else{
+                $location_png_path = self::dowload_design_svg_img($_design_svg['img_url'],$base_path);
+            }
             $design_svg_local_pngs[$side] = $location_png_path;
         }
-
         //PtLib\log($design_svg_local_pngs);
-
         $_rows =PtLib\db_select_rows("select psi.id,psi.product_style_id,psi.product_id,ps.colors,ps.color_name,psi.side,psi.imgurl,psir.name as region_name,psir.region,psir.is_default
                                 from product_style_images as psi
                                 left join product_styles as ps on ps.id = psi.product_style_id
@@ -177,7 +188,7 @@ class Model_Service_Pic{
                 $base_path = self::formate_product_style_pic_upload_path($design_id, $row['id'], $row['color'], $row['side']);
                 if($img){//款式颜色图片存在
                     $location_png_path = self::dowload_product_style_img($img,$base_path);
-                    PtLib\log($location_png_path);
+                    //PtLib\log($location_png_path);
                 }else {
                     $res = self::handle_product_style_image_color_png($row['id'],$row['imgurl'],$row['color'],$base_path);
                     $location_png_path = $res['location_png_path'];
@@ -191,7 +202,7 @@ class Model_Service_Pic{
                 $act_product_style_local_path = Model_Design::merge_design_png($design_svg_local_pngs[$row['side']],$location_png_path,$x,$y,$base_path."_merge.png");
                 //PtLib\log($base_path."_merge.png");
                 $act_product_style_remote_path = self::upload_to_aliyun_oss($act_product_style_local_path,$base_path."_merge.png");
-                //PtLib\log($act_product_style_remote_path);
+                PtLib\log($act_product_style_local_path);
                 $merge_design = 1;
             }
 

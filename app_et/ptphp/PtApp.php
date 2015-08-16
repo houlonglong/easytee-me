@@ -93,6 +93,7 @@ function set_setting(){
             require PATH_CONFIG."/web/$_PT_ENV.php";
         }
     }
+    //print_josn($GLOBALS['setting']);
     PtApp::$setting = $GLOBALS['setting'];
     //return $setting;
 }
