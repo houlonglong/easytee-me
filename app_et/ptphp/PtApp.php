@@ -127,6 +127,11 @@ function set_session_handler(){
 
 function route_model($model_file,$action,$method_prefix = "action",$return = false)
 {
+    $domain_route_file = PATH_APP."/include/domain_route.php";
+    if(is_file($domain_route_file)){
+        include_once $domain_route_file;
+        domain_route($model_file);
+    }
     PtApp::$model = PtApp::get_model($model_file);
     $model_file_path = PtLib\get_model_file_path($model_file);
     PtApp::$model_path = $model_file_path;
@@ -164,6 +169,11 @@ function route_model($model_file,$action,$method_prefix = "action",$return = fal
     }
 }
 function route_control($path){
+    $domain_route_file = PATH_APP."/include/domain_route.php";
+    if(is_file($domain_route_file)){
+        include_once $domain_route_file;
+        domain_route($path);
+    }
     include_once PATH_PTPHP."/libs/ui.php";
     $info = pathinfo($path);
     $model_file = str_replace(PATH_WEBROOT,"",$info['dirname']);
