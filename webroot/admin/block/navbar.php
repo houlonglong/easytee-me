@@ -44,7 +44,7 @@ $model_admin_user = $model_admin_user_obj->get_auth_user_info();
                         </li>
                         <li class="divider"></li>-->
                         <li>
-                            <a href="/admin/auth?action=logout">
+                            <a href="/api?model=/admin/auth&action=logout">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 退出
                             </a>

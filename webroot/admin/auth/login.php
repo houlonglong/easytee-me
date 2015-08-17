@@ -1,6 +1,6 @@
 
 <?php
-    $site_name = "易衫网";
+$site_name = "易衫网";
 $site_domain = "easytee.me";
 $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
 ?><!DOCTYPE html>

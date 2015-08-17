@@ -124,7 +124,7 @@
                     }
                 },
                 {title:"销售目标",name:'sales_target',index:'sales_target',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"实际销售",name:'sales_count',index:'sales_count',width:50,sortable:false,editable: false},
+                {title:"实际销售",name:'sales_count',index:'sales_count',width:50,sortable:true,editable: false},
                 {title:"结束时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: true},
                 {title:"活动状态",name:'status',index:'status',width:100,sortable:false,editable: true,edittype:"custom",
                     editoptions:{custom_element: mystatuselem, custom_value:myvalue},

@@ -30,12 +30,8 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12">
-                                    <label>
-                                        Ttile
-                                    </label>
-                                    <input type="text" id="title">
-                                <button class="btn-primary" onclick="search()">search</button>
+                            <div class="col-xs-12" id="query_area">
+
                             </div>
                         </div>
                         <div class="row">
@@ -81,10 +77,11 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var usl_api_base   = "admin/user";
-        var url_api_list   = "/api?model="+usl_api_base + "&action=list";
-        var url_api_edit   = "/api?model="+usl_api_base + "&action=edit";
-        var url_api_detail = "/"+usl_api_base + "/detail";
+        $("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        var url_api_base   = "admin/test";
+        var url_api_list   = "/api?model="+url_api_base + "&action=list";
+        var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
+        var url_api_detail = "/"+url_api_base + "/detail";
 
         var grid_setting = {
             url:url_api_list,
@@ -95,18 +92,20 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"Id",name:'id',index:'id', width:10, sorttype:"int", editable: false},
+                {title:"Title",name:'title',index:'title',editable: false,sortable:false},
+                /**
+                {title:"Title",name:'title',index:'title',editable: false,
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:url_api_detail,
                         addParam: '',//&t=1
                         idName:'id'
                     }
-                },
+                },*/
                 //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
-
+                /**
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -117,6 +116,7 @@
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     }
                 },
+                 */
             ]
 
         };
