@@ -308,7 +308,7 @@ function json_response($return,$status = 0,$message = '',$redirect = '',$excepti
         "redirect"=>$redirect,
         "status"=>$status,
     );
-    if(!local_dev()){
+    if(local_dev()){
         $data['debig'] = $debug;
         $data['exception'] = $exception;
     }
