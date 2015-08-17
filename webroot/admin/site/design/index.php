@@ -76,10 +76,10 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var usl_api_base   = "/admin/site/design";
-        var url_api_list   = usl_api_base + "?action=list";
-        var url_api_edit   = usl_api_base + "?action=edit";
-        var url_api_detail = usl_api_base + "/detail";
+        var usl_api_base   = "admin/site/design";
+        var url_api_list   = "/api?model="+usl_api_base + "&action=list";
+        var url_api_edit   = "/api?model="+usl_api_base + "&action=edit";
+        var url_api_detail = "/"+usl_api_base + "/detail";
 
         var grid_setting = {
             url:url_api_list,
@@ -91,16 +91,30 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"designer_version",name:'designer_version',index:'designer_version',width:90,editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:url_api_detail,
-                        addParam: '',//&t=1
-                        idName:'id'
+                {title:"design_id",name:'design_id',index:'design_id',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"side",name:'side',index:'side',editable: true,editoptions:{size:"20",maxlength:"30"}},
+
+                {title:"img_url",name:'img_url',index:'img_url',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        //console.log(cellvalue);
+                        var img = "没有生成";
+                        if(cellvalue){
+                            img = '<a href="'+cellvalue+'" target="_blank"><img style="border:1px solid green;width:80px;" src="'+cellvalue+'"></a>';
+                        }
+                        return img;
                     }
                 },
-                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
+                {title:"svg_url",name:'svg_url',index:'svg_url',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        //console.log(cellvalue);
+                        var img = "";
+                        if(cellvalue){
+                            img = '<a href="'+cellvalue+'" target="_blank"><img style="border:1px solid grey;width:80px;" src="'+cellvalue+'"></a>';
+                        }
+                        return img;
+                    }
+                },
+                {title:"status",name:'status',index:'status',editable: true,editoptions:{size:"20",maxlength:"30"}},
 
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',

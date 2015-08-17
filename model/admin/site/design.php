@@ -79,9 +79,9 @@ class Model_Admin_Site_Design{
     * 列表
     */
     static function table_list(){
-        $table_alias = $table = self::$table;
+        $table_alias = $table = "design_svg_side";
         $table_alias = 'd';
-        $join = ' left join activities as a on a.design_id = d.id';
+        $join = ' left join activities as a on a.design_id = d.design_id';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows","page","sidx","sord","design_id");
@@ -107,7 +107,7 @@ class Model_Admin_Site_Design{
         $where  = " where 1=1 ";
 
         if($request['design_id']){
-            $where .= " and d.id = ? ";
+            $where .= " and d.design_id = ? ";
             $args[] = $request['design_id'];
         }
         //order

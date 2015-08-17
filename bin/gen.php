@@ -65,6 +65,11 @@ PtLib\gen_model("admin/production/ongoing","生产中");
 PtLib\gen_model("admin/production/shipped","已发货");
 
 
+PtLib\gen_model("admin/site/product/style/image/color","产品款式颜色图片");
+PtLib\gen_model("admin/site/activity/product/style/image","活动设计图片");
+
+
+
 PtLib\gen_control("admin/activity/detail","众筹detail","admin_form");
 PtLib\gen_control("admin/activity/order_detail","订单详情","admin_form");
 PtLib\gen_control("admin/activity/address","地址列表","admin_list");
@@ -84,5 +89,14 @@ PtLib\gen_control("admin/font/category/index","字体分类","admin_list");
 PtLib\gen_control("admin/site/art/index","素材管理","admin_list");
 PtLib\gen_control("admin/site/art/detail","素材详情","admin_form");
 
+
+PtLib\gen_control("admin/site/product/style/image/color/index","产品款式颜色图片","admin_list");
+PtLib\gen_control("admin/site/activity/product/style/image/index","活动设计图片","admin_list");
+
+
 PtLib\gen_control("admin/site/design/index","设计管理","admin_list");
 PtLib\gen_control("admin/site/design/detail","设计详情","admin_form");
+
+
+
+PtLib\gen_test("tools/deploy","部署工具");

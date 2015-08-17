@@ -7,22 +7,9 @@
  */
 
 include_once __DIR__.'/../app_et/init.php';
-$_SERVER['REMOTE_ADDR'] = "127.0.0.1";
-$_SERVER['HTTP_HOST'] = "open.easytee.me";
-function pt_autoload_service($classname)
+function pt_autoload_test($classname)
 {
-    //pt_log($classname);
-    if(substr($classname,0,8) == "Service\\") {
-        if(defined("PATH_SERVICE") || defined("PATH_SERVICE1")){
-            $path_name = str_replace("\\", "/", strtolower(substr($classname,8))) . ".php";
 
-            //pt_log($path);exit;
-            if (is_file($path = PATH_SERVICE . "/" . $path_name)) {
-                require_once($path);
-            }elseif(is_file($path = PATH_SERVICE1 . "/" . $path_name)){
-                require_once($path);
-            }
-        }
-    }
 }
-spl_autoload_register('pt_autoload_service');
+spl_autoload_register('pt_autoload_test');
+set_setting();

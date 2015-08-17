@@ -14,9 +14,9 @@
                 <?= empty($menu['control']) ? "" : '<b class="arrow fa fa-angle-down"></b>'?>
             </a>
             <b class="arrow"></b>
-            <?if(!empty($menu['control'])):?>
+            <?php if(!empty($menu['control'])){ ?>
             <ul class="submenu">
-                <?php foreach($menu['control'] as $sub_menu):
+                <?php foreach($menu['control'] as $sub_menu){
                     if(!empty($sub_menu['hide_menu'])){
                         continue;
                     }
@@ -27,8 +27,8 @@
                         <?=$sub_menu['title']?>
                     </a>
                     <b class="arrow"></b>
-                </li><?php endforeach;?>
-            </ul><?php endif;?>
+                </li><?php } ?>
+            </ul><?php } ?>
         </li>
         <?php endforeach;?>
     </ul><!-- /.nav-list -->

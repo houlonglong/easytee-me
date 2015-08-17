@@ -118,8 +118,8 @@
     }
     jQuery(function($) {
         var grid_setting = {
-            url:"/admin/activity?action=list",
-            url_save:"/admin/activity?action=edit",
+            url:"/api?model=admin/activity&action=list",
+            url_save:"/api?model=admin/activity&action=edit",
             method:"POST",
             height:390,
             rowNum:15,

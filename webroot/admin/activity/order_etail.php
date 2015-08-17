@@ -81,7 +81,7 @@
 <script>
     $(function(){
         var id = '<?=$id?>';
-        var url = "/admin/user?action=detail";
+        var url = "/api?model=admin/user&action=detail";
         $.get(url,{id:id},function(data){
             var row = data['return'];
             $(".auto_change").each(function(){
@@ -134,7 +134,7 @@
                 if (evt.target.readyState == FileReader.DONE) { // DONE == 2
                     var content = evt.target.result;
                     //console.log(content.length);
-                    $.post("/admin/tools/pic?action=upload",{content:content},function(data){
+                    $.post("/api?model=admin/tools/pic&action=upload",{content:content},function(data){
                         console.log(data)
                     },"json");
                 }

@@ -1,4 +1,8 @@
-
-RewriteEngine On
-RewriteRule ^webroot/(.*)$ /$1 [R=302,NC,L]
-RewriteRule ^([_a-z/0-9]+?)$ /.route.php [L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} .php$
+    RewriteRule (.*).php$ .route.php [L]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ .route.php [L]
+</IfModule>

@@ -10,8 +10,21 @@ class PicTest extends UnitTest{
      *
      */
     function test_cli_test(){
-        $this->cli("service/pic","run");
+        $this->cli("service/pic","run","--act_id=1","develop");
     }
+    function test_upload_to_aliyun_oss(){
+        $path = "tpl_26_2_front_merge.png";
+        $remote_path = "test/test/test.png";
+        echo Model_Service_Pic::upload_to_aliyun_oss($path,$remote_path);
+    }
+    function test_merge_design_pics(){
+        Model_Service_Pic::merge_activity_pics(37);
+    }
+
+    function test_test(){
+        Model_Service_Pic::test();
+    }
+
 
     /**
      *

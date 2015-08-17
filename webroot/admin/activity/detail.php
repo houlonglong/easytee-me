@@ -19,7 +19,9 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
-
+    <script type="text/javascript" src="http://gabelerner.github.io/canvg/rgbcolor.js"></script>
+    <script type="text/javascript" src="http://gabelerner.github.io/canvg/StackBlur.js"></script>
+    <script type="text/javascript" src="http://gabelerner.github.io/canvg/canvg.js"></script>
 </head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar"))?>
@@ -43,6 +45,19 @@
                             <?php
                             $str = "";
                             foreach($act_product_styles as $act_product_style){
+                                $side = $act_product_style['side'];
+                                if($design_svgs['svg_'.$side]){
+                                    $content = $design_svgs['svg_'.$side];
+                                    $content = Model_Design::replace_svg($content);
+                                    echo "<hr>";
+                                    echo $act_product_style['region'];
+                                    echo "<br><div style='border:1px solid red;display: inline-block'>";
+                                    echo $design_svgs['svg_'.$side];
+                                    echo "</div>";
+                                    echo "<div style='border:1px solid gray;display: inline-block'><img src='/svg/{$side}.png' alt=''></div><hr>";
+                                }
+                            }
+                            foreach($act_product_styles as $act_product_style){
                                 $colors = json_decode($act_product_style['colors'], TRUE);
                                 $colorName = '';
                                 if ($colors) {
@@ -59,32 +74,30 @@
                                 $side = $act_product_style['side'];
                                 $design = Model_Design::reset_svg($design_svgs['svg_'.$side]);
 
-
                                 $img_url = str_replace("REPLACE_DOMAIN_WITH","http://cdn.open.easytee.me/",$act_product_style['imgurl']);
-
                                 if($colorName) $colorName = 'background-color:#'.$colorName;
-
-                                $str .= '<div style="height: 500px;width:500px;">'.
+                                echo "<hr>";
+                                if($design){
+                                    $str = '<div style=" border:1px solid grey;margin-right:10px;display:inline-block;height: 500px;width:500px;">'.
                                         '<svg height="100%" width="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;'. $colorName .'"'.
                                         ' viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet">' .
                                         '<image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_url . '" transform="matrix(1,0,0,1,0,0)"></image>';
-                                if($design){
+
                                     $r = $act_product_style["region"];
+
+
                                     $t = explode(",",$r);
                                     //pt_log($t);
                                     $x = $t['0']/2;
                                     $y = $t['1']/2;
                                     $w = $t['2']/2;
                                     $h = $t['3']/2;
-
                                     $str .= "<svg x='$x' y='$y'".substr($design,4);
+                                    $str .= '</svg></div>';
+
+                                    echo $str;
                                 }
-                                $str .= '</svg></div><hr>';
-
-
-
                             }
-                            echo $str;
                             ?>
                         </div>
                     </div>
@@ -114,7 +127,7 @@
     $(function(){
 
         var id = '<?=$id?>';
-        $.get("/admin/user?action=detail",{id:id},function(data){
+        $.get("/api?model=admin/user&action=detail",{id:id},function(data){
             var row = data['return'];
             $(".auto_change").each(function(){
                 var key = this.id;
@@ -166,7 +179,7 @@
                 if (evt.target.readyState == FileReader.DONE) { // DONE == 2
                     var content = evt.target.result;
                     //console.log(content.length);
-                    $.post("/admin/tools/pic?action=upload",{content:content},function(data){
+                    $.post("/api?model=admin/tools/pic&action=upload",{content:content},function(data){
                         console.log(data)
                     },"json");
                 }
@@ -179,6 +192,8 @@
 
 
     });
+
+
 </script>
 </body>
 </html>

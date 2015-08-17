@@ -1,5 +1,7 @@
 <?php
 class PtApp{
+    static $setting = array();
+    static $ENV = "delelop";
     static $auth;
     static $action;
     static $model;
@@ -72,6 +74,44 @@ function pt_autoload($classname)
     }
 }
 
+
+
+function set_setting(){
+    $GLOBALS['setting'] = parse_ini_file(PATH_CONFIG."/setting.ini",true);
+    $_PT_ENV = PtLib\get_pt_env("PT_ENV");
+    PtApp::$ENV = $_PT_ENV;
+    if(is_file(PATH_CONFIG."/setting/$_PT_ENV.ini")){
+        $GLOBALS['setting'] = array_merge($GLOBALS['setting'],parse_ini_file(PATH_CONFIG."/setting/$_PT_ENV.ini",true));
+    }
+    require PATH_CONFIG."/base.php";
+    if(is_file(PATH_CONFIG."/base/$_PT_ENV.php")){
+        require PATH_CONFIG."/base/$_PT_ENV.php";
+    }
+    if(!PtLib\is_cli()){
+        require PATH_CONFIG."/web.php";
+        if(is_file(PATH_CONFIG."/web/$_PT_ENV.php")){
+            require PATH_CONFIG."/web/$_PT_ENV.php";
+        }
+    }
+    //print_josn($GLOBALS['setting']);
+    PtApp::$setting = $GLOBALS['setting'];
+    //return $setting;
+}
+function pt_debug($msg){
+    if(defined("PT_DEBUG") && !PT_DEBUG) return;
+    if(strtolower(PHP_SAPI) == "cli") return;
+    $uri = $_SERVER['REQUEST_URI'];
+    if(!is_dir("/tmp")) return;
+    $date = "h:i:s";
+    if(is_array($msg) ||  is_object($msg)){
+        $msg = json_encode($msg,JSON_UNESCAPED_UNICODE);
+    }
+    if(is_bool($msg)){
+        $msg = $msg? "true":"false";
+    }
+    $data = "[$date] $uri: $msg";
+    file_put_contents("/tmp/pt_debug.log",$data.PHP_EOL,FILE_APPEND);
+}
 function set_session_handler(){
     if(defined("SESSION_HANDLER")){
         if(SESSION_HANDLER == 'redis' && class_exists("Redis")){
@@ -147,51 +187,114 @@ function route_control($path){
     include_once $path;exit;
 }
 function web_route(){
+    set_setting();
     define("DOCUMENT_ROOT",$_SERVER['DOCUMENT_ROOT']);
     define("SCRIPT_FILENAME",$_SERVER['SCRIPT_FILENAME']);
     define("SCRIPT_NAME",$_SERVER['SCRIPT_NAME']);
     define("REQUEST_URI",$_SERVER['REQUEST_URI']);
     ob_start();
-    if(!empty($_SERVER['REDIRECT_URL']) || $_SERVER['SCRIPT_NAME'] == "/index.php"){
-        if($_SERVER['SCRIPT_NAME'] == "/index.php")
-            $REDIRECT_URL = "/index";
-        else
-            $REDIRECT_URL = $_SERVER['REDIRECT_URL'];
-        $path =  PATH_WEBROOT.$REDIRECT_URL.".php";
-        PtApp::$control = $REDIRECT_URL;
 
-        if(is_file($path)){
-            route_control($path);
-        }else{//action
-            //pt_log(PtApp::$model);
-            $model_file = $REDIRECT_URL;
-            if(!empty($_REQUEST['action'])){
-                PtApp::$action = $_REQUEST['action'];
-                route_model($model_file,PtApp::$action,"action");
-            }else{
-                throw new ErrorException("not found url",100404);
-            }
-        }
+    if(isset($_REQUEST['model']) && isset($_REQUEST['action'])){
+        $model_file = $_REQUEST['model'];
+        PtApp::$action = $_REQUEST['action'];
+        route_model($model_file,PtApp::$action,"action");
+
     }else{
-        $SCRIPT_NAME = $_SERVER['SCRIPT_NAME'];
-        if(substr($SCRIPT_NAME,-4) == ".php"){
-            PtApp::$control = $SCRIPT_NAME;
-            $path =  PATH_WEBROOT.$SCRIPT_NAME;
+
+        if(!empty($_SERVER['REDIRECT_URL']) || $_SERVER['SCRIPT_NAME'] == "/index.php"){
+            if($_SERVER['SCRIPT_NAME'] == "/index.php")
+                $REDIRECT_URL = "/index";
+            else
+                $REDIRECT_URL = $_SERVER['REDIRECT_URL'];
+
+            if(substr($REDIRECT_URL,-4) == '.php') $REDIRECT_URL = substr($REDIRECT_URL,0,-4);
+            $path =  PATH_WEBROOT.$REDIRECT_URL.".php";
+            PtApp::$control = $REDIRECT_URL;
+            if(is_file($path)){
+                route_control($path);
+            }else{//action
+                //pt_log(PtApp::$model);
+                $model_file = $REDIRECT_URL;
+                if(!empty($_REQUEST['action'])){
+                    PtApp::$action = $_REQUEST['action'];
+                    route_model($model_file,PtApp::$action,"action");
+                }else{
+                    throw new ErrorException("not found url",100404);
+                }
+            }
+        }else{
+            $info = parse_url(REQUEST_URI);
+            $REDIRECT_URL = $info['path'];
+
+            if(substr($REDIRECT_URL,-4) == ".php"){
+                PtApp::$control = substr($REDIRECT_URL,0,-4);
+                $path =  PATH_WEBROOT.$REDIRECT_URL;
+            }else{
+                if(substr($REDIRECT_URL,-1) == "/"){
+                    $REDIRECT_URL = $REDIRECT_URL."index";
+                }
+                PtApp::$control = $REDIRECT_URL;
+                $REDIRECT_URL = $REDIRECT_URL.".php";
+                $path =  PATH_WEBROOT.$REDIRECT_URL;
+
+            }
             if(is_file($path)) {
                 route_control($path);
+            }else{//action
+                $model_file = $REDIRECT_URL;
+                if(!empty($_REQUEST['action'])){
+                    PtApp::$action = $_REQUEST['action'];
+                    route_model($model_file,PtApp::$action,"action");
+                }else{
+                    throw new ErrorException("not found url",100404);
+                }
             }
-            //throw new PtException("not found url",100404);
-        }else{
-            throw new ErrorException("REDIRECT_URL no define , Maybe not apache ");
         }
     }
+
+
 }
 function cli_route(){
     global $argv;
-    if(count($argv) < 3){
-        throw new ErrorException("\nusage : \n\t php bin/cli.php model cli_method \n");
+    $usage = "\nusage : \n\t php bin/cli.php --model=index --action=index --env=develop \n";
+    if(count($argv) < 2){
+        throw new ErrorException($usage);
     }
-    $model_file = "/".$argv[1].".php";
-    $action = $argv[2];
+    $shortopts  = "";
+    $longopts  = array(
+        "model:",
+        "action:",
+        "env:",
+    );
+    $options = getopt($shortopts, $longopts);
+
+    if(empty($options['env'])){
+        $_SERVER['PT_ENV'] = "develop";
+    }else{
+        $_SERVER['PT_ENV'] = $options['env'];
+    }
+    set_setting();
+    if(empty($options['model'])){
+        throw new ErrorException($usage);
+    }
+    if(empty($options['action'])){
+        throw new ErrorException($usage);
+    }
+    if(substr($options['model'],0,1) == '/') $options['model'] = substr($options['model'],1);
+    if(substr($options['model'],-4) == '.php') $options['model'] = substr($options['model'],0,-4);
+
+    foreach($_SERVER['argv'] as $value){
+        if(substr($value,0,2) == "--"){
+            $t = explode("=",substr($value,2));
+            if(!in_array($t[0],array("model","action","env"))) $_REQUEST[$t[0]] = $t[1];
+        }
+    }
+
+    //var_dump($options);
+    //print_r($_SERVER['argv']);
+    //print_r($_SERVER['PT_ENV']);
+    //exit;
+    $model_file = "/".$options['model'].".php";
+    $action = $options['action'];
     route_model($model_file,$action,"cli");
 }

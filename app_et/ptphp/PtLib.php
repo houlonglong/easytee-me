@@ -144,10 +144,17 @@ function unicodeString($str, $encoding=null) {
 
 
 function get_pt_env($key){
-    if(isset($_SERVER[$key]))
-        return $_SERVER[$key];
-    else
-        return null;
+    if(is_cli()){
+        if(isset($_SERVER[$key]))
+            return $_SERVER[$key];
+        else
+            return null;
+    }else{
+        if(isset($_SERVER[$key]))
+            return $_SERVER[$key];
+        else
+            return null;
+    }
 }
 function json_redirect($msg,$url,$status = 0){
     json_response("",$status,$msg,$url);
