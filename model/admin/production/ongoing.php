@@ -2,10 +2,10 @@
 /**
  * 生产中
  */
-class Model_Admin_Production_Ongoing{
+class Model_Admin_Production_Ongoing extends Model_Admin_Abstract{
     static $table = "activities";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图

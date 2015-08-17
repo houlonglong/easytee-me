@@ -180,6 +180,14 @@
                 "title":"日志详情",
                 "url":"/admin/system/log/detail",
                 "hide_menu":1
+            },
+            {
+                "title":"系统信息",
+                "url":"/admin/system/site/info"
+            },
+            {
+                "title":"部署管理",
+                "url":"/admin/system/deploy"
             }
         ]
     }

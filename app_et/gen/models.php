@@ -2,6 +2,7 @@
 $rows = <<<EOT
 ec/bargain|砍价
 admin/system/log|系统日志
+admin/system/deploy|系统部署
 tools/mongolog|Mongo日志
 tshirt/cost|订制成功
 admin/ui|管理界面UI
@@ -41,5 +42,5 @@ admin/site/product/style/image/color|产品款式颜色图片
 admin/site/activity/product/style/image|活动设计图片
 EOT;
 
-include_once(__DIR__."/../../init.php");
+include_once(__DIR__."/../init.php");
 get_models($rows);

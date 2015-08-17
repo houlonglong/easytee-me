@@ -2,10 +2,10 @@
 /**
  * 设计
  */
-class Model_Admin_Site_Design{
+class Model_Admin_Site_Design extends Model_Admin_Abstract{
     static $table = "designs";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

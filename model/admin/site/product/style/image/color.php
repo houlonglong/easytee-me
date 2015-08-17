@@ -2,10 +2,10 @@
 /**
  * 产品款式颜色图片
  */
-class Model_Admin_Site_Product_Style_Image_Color{
+class Model_Admin_Site_Product_Style_Image_Color extends Model_Admin_Abstract{
     static $table = "product_style_images_color";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图

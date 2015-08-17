@@ -18,7 +18,7 @@ class PicTest extends UnitTest{
         echo Model_Service_Pic::upload_to_aliyun_oss($path,$remote_path);
     }
     function test_merge_design_pics(){
-        Model_Service_Pic::merge_activity_pics(37);
+        Model_Service_Pic::merge_activity_pics(815);
     }
 
     function test_test(){

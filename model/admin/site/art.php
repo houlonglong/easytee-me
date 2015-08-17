@@ -2,10 +2,10 @@
 /**
  * 素材
  */
-class Model_Admin_Site_Art{
+class Model_Admin_Site_Art extends Model_Admin_Abstract{
     static $table = "arts";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

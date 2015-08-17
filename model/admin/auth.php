@@ -37,7 +37,8 @@ class Model_Admin_Auth{
         setcookie($cookie_auth_key,$value,time()+60*60*$expire,"/");
     }
     static function login($username,$password){
-        if($username == "admin" && $password == "admin8888"){
+
+        if($username == PtApp::$setting['admin']['username'] && $password == PtApp::$setting['admin']['password']){
 
             $user_info = array(
                 "username"=>$username,

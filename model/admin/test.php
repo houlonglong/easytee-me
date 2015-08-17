@@ -1,7 +1,7 @@
 <?php
 
-class Model_Admin_User extends Model_Admin_Abstract{
-    static $table = "users";
+class Model_Admin_Test extends Model_Admin_Abstract{
+    static $table = "test";
     function __construct(){
         parent::__construct();
     }

@@ -110,7 +110,7 @@ function get_table_list($table,$table_alias,$join = ''){
         $total_pages = ceil($records/$limit);
     }
     else {
-        $total_pages = 0;
+        $total_pages = 1;
     }
     if ($page > $total_pages) $page=$total_pages;
 
@@ -526,7 +526,7 @@ function gen_test($model,$title){
     if(!is_file($path_doc)){
         $content = file_get_contents(PATH_APP."/_templates/doc.md");
         $content = str_replace("MODEL_NAME",$title,$content);
-        if(!is_dir(dirname($path_doc))) mkdir(dirname($path_doc));
+        if(!is_dir(dirname($path_doc))) mkdir(dirname($path_doc),0755,true);
         file_put_contents($path_doc,$content);
     }
     $model_test_class_name = ucfirst($filename)."Test";
@@ -590,7 +590,7 @@ function get_control_content($title,$tpl = ''){
     $content = str_replace("Controller Name Replace",$title,$content);
     return $content;
 }
-function gen_control($model,$title,$tpl = ''){
+function gen_control($model,$title,$tpl = '',$model_path = "admin/test"){
     if(substr($model,-4) != ".php") $model = $model.".php";
     if(substr($model,0,1) != "/")   $model = "/".$model;
     if(!defined("PATH_WEBROOT")) throw new ErrorException("PATH_WEBROOT 没有定义");
@@ -598,11 +598,15 @@ function gen_control($model,$title,$tpl = ''){
     if(is_file($control_path)){
         //log("%s: 已生成!%s",$title,$control_path);
     }else{
-        //echo $model_content;
         if(!is_dir(dirname($control_path))){
             @mkdir(dirname($control_path),0755,1);
         }
         $content = get_control_content($title,$tpl);
+        if($tpl == "admin_list"){
+            gen_model($model_path,$model_path);
+            $content = str_replace("\$__model_path = \"\";","\$__model_path = \"{$model_path}\";",$content);
+            //echo $content;exit;
+        }
 
         $res = @file_put_contents($control_path,$content);
         if($res){

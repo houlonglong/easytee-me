@@ -1,12 +1,29 @@
 <?php
 /**
- * 售后管理
+ * 部署工具
  */
-class Model_Admin_Aftersale extends Model_Admin_Abstract{
+class Model_Tools_Deploy{
     static $table = "";
     function __construct(){
-        parent::__construct();
+        //parent::__construct();
     }
+    /**
+     * 详情视图
+     *
+    function view_detail(){
+        $request = PtLib\http_request("id");
+        return self::detail($request['id']);
+    }
+     */
+
+    /**
+     * 列表
+     *
+    function action_list(){
+    return self::table_list();
+    }
+     */
+
     /**
      * 详情
      * @return array
@@ -17,6 +34,16 @@ class Model_Admin_Aftersale extends Model_Admin_Abstract{
     }
      */
 
+    /*
+    * 列表
+    *
+    static function table_list(){
+        $table_alias = $table = self::$table;
+        //$table_alias = '';
+        $response = PtLib\get_table_list($table,$table_alias);
+        return $response;
+    }
+    */
     /**
      * 详情
      * @param $id
@@ -26,14 +53,6 @@ class Model_Admin_Aftersale extends Model_Admin_Abstract{
         $table = self::$table;
         $row = PtLib\db_select_row("select * from $table where id = ?",$id);
         return $row;
-    }
-     */
-
-    /**
-     * 列表
-     *
-    function action_list(){
-        return self::table_list();
     }
      */
 
@@ -54,16 +73,6 @@ class Model_Admin_Aftersale extends Model_Admin_Abstract{
     }
     */
 
-    /*
-    * 列表
-    *
-    static function table_list(){
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $response = PtLib\get_table_list($table,$table_alias);
-        return $response;
-    }
-    */
     /**
      * @param
      * @return

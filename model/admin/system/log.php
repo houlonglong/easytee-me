@@ -2,10 +2,10 @@
 /**
  * 系统日志
  */
-class Model_Admin_System_Log{
+class Model_Admin_System_Log extends Model_Admin_Abstract{
     static $table = "sys_user";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

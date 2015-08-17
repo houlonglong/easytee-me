@@ -2,12 +2,13 @@
 $rows = <<<EOT
 admin/system/log/index|系统日志|admin_list
 admin/system/log/detail|系统日志|admin_form
+admin/system/site/info|系统信息|admin_default
+admin/system/deploy|部署管理|admin_default
 user/reg|用户注册
 user/forgetpass|忘记密码
 user/auth/login|用户登陆
 admin/index|管理首页
 admin/auth/login|管理登陆
-admin/auth/logout|管理退出
 admin/deamon/task/monitor|任务监控
 admin/deamon/task/index|任务管理|admin_list
 admin/activity/detail|众筹detail|admin_form
@@ -26,9 +27,10 @@ admin/site/art/index|素材管理|admin_list
 admin/site/art/detail|素材详情|admin_form
 admin/site/product/style/image/color/index|产品款式颜色图片|admin_list
 admin/site/activity/product/style/image/index|活动设计图片|admin_list
-admin/site/design/index|设计管理|admin_list|admin/list
+admin/site/design/index|设计管理|admin_list
 admin/site/design/detail|设计详情|admin_form
+
 EOT;
 
-include_once(__DIR__."/../../init.php");
+include_once(__DIR__."/../init.php");
 get_controls($rows);

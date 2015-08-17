@@ -2,10 +2,10 @@
 /**
  * 字体分类
  */
-class Model_Admin_Font_Category{
+class Model_Admin_Font_Category extends Model_Admin_Abstract{
     static $table = "font_categories";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

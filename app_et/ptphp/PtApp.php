@@ -298,3 +298,82 @@ function cli_route(){
     $action = $options['action'];
     route_model($model_file,$action,"cli");
 }
+
+function get_models($models){
+    //$models = include PATH_APP."/gen/models/setting.php";
+    $models = trim($models);
+    foreach (explode("\n",$models) as $model) {
+        $model = explode("|",$model);
+        if(count($model)==2){
+            $model_path = trim($model[0]);
+            $model_name = trim($model[1]);
+            PtLib\gen_model($model_path,$model_name);
+        }
+    }
+}
+
+function get_controls($controls){
+    //$controls = include PATH_APP."/gen/controls/setting.php";
+    $controls = trim($controls);
+    foreach (explode("\n",$controls) as $line) {
+        $line = explode("|",$line);
+        if(count($line)==2){
+            $control_path = trim($line[0]);
+            $control_name = trim($line[1]);
+            PtLib\gen_control($control_path,$control_name);
+        }
+        if(count($line)==3){
+            $control_path = trim($line[0]);
+            $control_name = trim($line[1]);
+            $control_tpl = trim($line[2]);
+            PtLib\gen_control($control_path,$control_name,$control_tpl);
+        }
+        if(count($line)==4){
+            $control_path = trim($line[0]);
+            $control_name = trim($line[1]);
+            $control_tpl = trim($line[2]);
+            $model_path = trim($line[3]);
+            PtLib\gen_control($control_path,$control_name,$control_tpl,$model_path);
+        }
+    }
+}
+
+function get_tests($tests){
+    $tests = trim($tests);
+    foreach (explode("\n",$tests) as $line) {
+        $line = explode("|",$line);
+        if(count($line)==2){
+            $test_path = trim($line[0]);
+            $test_name = trim($line[1]);
+            PtLib\gen_test($test_path,$test_name);
+        }
+    }
+}
+
+function gen_menus(){
+    $ar = file_get_contents(PATH_CONFIG."/architecture/setting.json");
+    $ar = json_decode($ar,1);
+    foreach($ar as $node){
+        if(isset($node['model']['path'])){
+            PtLib\gen_model($node['model']['path'],$node['title']);
+        }
+        if(isset($node['url'])){
+            PtLib\gen_control($node['url'],$node['title']);
+        }
+        if(isset($node['control'])){
+            foreach($node['control'] as $control){
+                PtLib\gen_control($control['url'],$control['title']);
+            }
+        }
+    }
+}
+
+class BaseModel{
+    function _request($key){
+        if(!$key) return null;
+        if(isset($_REQUEST[$key]))
+            return $_REQUEST[$key];
+        else
+            return null;
+    }
+}
