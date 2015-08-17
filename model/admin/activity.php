@@ -94,10 +94,8 @@ class Model_Admin_Activity{
         $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
         $condition = array("id"=>$id);
         $data = PtLib\http_request("name",'status','real_end_time','pass');
-//        return $data;
+        $data['real_end_time'] = date('Y-m-d H:i:s',strtotime($data['real_end_time']));
         if($oper == 'edit' && $id && $data){
-            //pt_log($data);
-            //pt_log($condition);
             PtLib\db()->update($table,$data,$condition);
         }
         if($oper == 'add'){
@@ -119,7 +117,7 @@ class Model_Admin_Activity{
         $join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord","activity_id");
+        $request = PtLib\http_request("rows","page","sidx","sord","activity_id","activity_name","username","status");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -139,11 +137,20 @@ class Model_Admin_Activity{
 
         //where
         $args = array();
-        $where  = " where status <>'create' ";
+        if($request['status']){
+            $where = " where status = ? ";
+            $args[] = $request['status'];
+        }else{
+            $where  = " where status <>'create' ";
+        }
 
         if($request['activity_id']){
             $where .= " and id = ? ";
             $args[] = $request['activity_id'];
+        }
+        if($request['activity_name']){
+            $where .= " and name = ? ";
+            $args[] = $request['activity_name'];
         }
 
         //order
@@ -161,7 +168,7 @@ class Model_Admin_Activity{
             $total_pages = ceil($records/$limit);
         }
         else {
-            $total_pages = 0;
+            $total_pages = 1;
         }
         if ($page > $total_pages) $page=$total_pages;
 
@@ -174,6 +181,7 @@ class Model_Admin_Activity{
         //$rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
+            $row['real_end_time'] = date('d/m/Y h:s A',strtotime($row['real_end_time']));
             $response->rows[] = array(
                 'id'=>$row['id'],
                 "cell"=>$row

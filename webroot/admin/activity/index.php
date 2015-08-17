@@ -10,8 +10,9 @@
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
+    <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css" />
+
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
@@ -44,20 +45,22 @@
                             </div>
                             <div class="col-xs-2">
                                 <label>
-                                    发起人
-                                </label>
-                                <input type="text" id="username">
-                            </div>
-                            <div class="col-xs-2">
-                                <label>
                                     活动状态
                                 </label>
-                                <input type="text" id="activity-status">
+                                <select class="customelement"  id="activity-status">
+                                    <option role="option" value="0"></option>
+                                    <option role="option" value="ongoing">进行中</option>
+                                    <option role="option" value="fabrication">生产中</option>
+                                    <option role="option" value="success">成功</option>
+                                    <option role="option" value="failure">失败</option>
+                                </select>
 
                             </div>
                             <div class="col-xs-2">
                                 <button class="btn-primary" onclick="search()">search</button>
+                                <button class="btn-danger label-success" onclick="reset()">reset</button>
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
@@ -84,9 +87,13 @@
 </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
-<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="/ace/assets/js/moment.min.js"></script>
+<script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
+<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
+
+
 <script type="text/javascript">
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
@@ -94,7 +101,6 @@
         var $query = {
             activity_id:$('#activity-id').val(),
             activity_name:$('#activity-name').val(),
-            username:$('#username').val(),
             status:$('#activity-status').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
@@ -102,6 +108,13 @@
             postData:$query, //发送数据
             page:1
         }).trigger("reloadGrid"); //重新载入
+    }
+
+    function reset(){
+        $('#activity-id').val('');
+        $('#activity-name').val('');
+        $('#username').val();
+        $('#activity-status').val('');
     }
     jQuery(function($) {
         var grid_setting = {
@@ -125,7 +138,9 @@
                 },
                 {title:"销售目标",name:'sales_target',index:'sales_target',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"实际销售",name:'sales_count',index:'sales_count',width:50,sortable:false,editable: false},
-                {title:"结束时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: true},
+                {title:"结束时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: true,
+                    unformat: pickTimeDate
+                },
                 {title:"活动状态",name:'status',index:'status',width:100,sortable:false,editable: true,edittype:"custom",
                     editoptions:{custom_element: mystatuselem, custom_value:myvalue},
                     formatter:function(cellvalue, options, rowObject){
@@ -159,7 +174,6 @@
                     }
                 },
 
-
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -173,6 +187,22 @@
             ]
 
         };
+        //enable datepicker
+        function pickTimeDate( cellvalue, options, cell ) {
+            setTimeout(function(){
+                $(cell) .find('input[type=text]')
+                    .datetimepicker({ dateFormat: 'dd-mm-yy' });
+            }, 0);
+        }
+
+        function showudate(tmpob) {
+            $(function() { tmpob.datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+        }
+
+        jQuery("#list2").jqGrid('navGrid','#pager2',
+            {edit:true,add:true,del:true},
+            {width:400,height:400,afterShowForm:function(){showudate($(".editable"));}},
+            {width:400,height:400},{},{multipleSearch:true},{});
 
         function myelem (value, options) {
             value = $(value).data("status");
