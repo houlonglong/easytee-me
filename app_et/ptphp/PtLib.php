@@ -307,9 +307,11 @@ function json_response($return,$status = 0,$message = '',$redirect = '',$excepti
         "message"=>$message,
         "redirect"=>$redirect,
         "status"=>$status,
-        "exception"=>$exception,
-        "debug"=>$debug,
     );
+    if(!local_dev()){
+        $data['debig'] = $debug;
+        $data['exception'] = $exception;
+    }
     echo json_encode($data);exit;
 }
 
