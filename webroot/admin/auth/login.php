@@ -87,9 +87,9 @@ $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
                                             </label>
                                             <label class="block clearfix">
                                                 <span class="block input-icon input-icon-right">
-                                                    <input type="password" id="captcha" class="form-control span" placeholder="验证码" />
+                                                    <input type="text" id="captcha" class="form-control span" placeholder="验证码" />
                                                     <i class="ace-icon">
-                                                        <img id="captcha_img" style="cursor:pointer;margin-top:-1px;margin-right:-4px;" src="/api?model=tools/captcha&action=img&type=admin_auth_login" alt=""/>
+                                                        <img id="captcha_img" style="cursor:pointer;margin-top:-1px;margin-right:-4px;" src="/api?model=admin/tools/captcha&action=img&type=admin_auth_login" alt=""/>
                                                     </i>
                                                 </span>
                                             </label>
