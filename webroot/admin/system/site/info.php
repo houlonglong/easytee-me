@@ -34,9 +34,58 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <pre /><?php
-                            print_r($GLOBALS);
-                        ?>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <tbody>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            开发环境
+                                        </td>
+                                        <td>
+                                            <?php echo PtApp::$ENV;?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            服务器
+                                        </td>
+                                        <td>
+                                            <?php echo $_SERVER['SERVER_SOFTWARE'];?> -
+                                            <?php echo PHP_OS;?> -
+                                            PHP <?php echo PHP_VERSION;?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            PHP.ini
+                                        </td>
+                                        <td>
+                                            <?php
+                                            $t = array(
+                                                "session.save_handler",
+                                                "session.gc_divisor",
+                                                "session.gc_probability",
+                                                "session.gc_maxlifetime",
+                                                "upload_max_filesize",
+                                                "post_max_size",
+                                                "max_execution_time",
+                                                "memory_limit",
+                                                "date.timezone",
+                                                "display_errors",
+                                                "error_log",
+                                                "error_reporting",
+                                            );
+                                            foreach($t as $v){
+                                                echo "<b>".$v."</b> => ".ini_get($v)."<br>";
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div><!-- /.span -->
+                        </div>
                     </div>
                 </div>
             </div><!-- /.page-content -->
