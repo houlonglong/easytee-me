@@ -1,7 +1,6 @@
 
 # 李晓梅 2015-08-18
 
-    DROP TABLE IF EXISTS `audit_reasons`;
     CREATE TABLE `audit_reasons` (
      `activity_id` int(11) DEFAULT NULL,
      `create_time` datetime DEFAULT NULL,
