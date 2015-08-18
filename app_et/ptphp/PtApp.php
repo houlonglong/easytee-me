@@ -298,3 +298,7 @@ function cli_route(){
     $action = $options['action'];
     route_model($model_file,$action,"cli");
 }
+
+function mysql_escape($str){
+    return $str;
+}

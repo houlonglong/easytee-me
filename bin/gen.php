@@ -74,6 +74,7 @@ PtLib\gen_control("admin/activity/detail","众筹detail","admin_form");
 PtLib\gen_control("admin/activity/order_detail","订单详情","admin_form");
 PtLib\gen_control("admin/activity/address","地址列表","admin_list");
 PtLib\gen_control("admin/activity/order","订单管理","admin_list");
+PtLib\gen_control("admin/activity/pending_audit","待审核","admin_list");
 PtLib\gen_control("admin/activity/index","众筹管理","admin_list");
 PtLib\gen_control("admin/production/index","待生产","admin_list");
 PtLib\gen_control("admin/production/ongoing","生产中","admin_list");
