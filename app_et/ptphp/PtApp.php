@@ -387,7 +387,7 @@ function gen_menus(){
 
 class BaseModel
 {
-    function _request($key)
+    static function _request($key)
     {
         if (!$key) return null;
         if (isset($_REQUEST[$key]))
@@ -395,5 +395,7 @@ class BaseModel
         else
             return null;
     }
-
+    static function _db($key = "default"){
+        return PtLib\db();
+    }
 }

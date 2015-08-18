@@ -3,10 +3,10 @@
 <head>
     <?php
     /**
-     * Controller Name Replace
+     * 产品管理
      *
      */
-    $__model_path = "";
+    $__model_path = "admin/product";
     include(block("admin/block/html_head"))?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
@@ -66,7 +66,7 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        $("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base   = "<?php echo $__model_path;?>";
         var url_api_list   = "/api?model="+url_api_base + "&action=list";
         var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
@@ -82,7 +82,7 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
+                {title:"Id",name:'id',index:'id', width:10, sorttype:"int", editable: false},
                 {title:"Title",name:'title',index:'title',editable: false,sortable:false},
                 /*
                 {title:"Title",name:'title',index:'title',editable: false,

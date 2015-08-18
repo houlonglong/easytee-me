@@ -1,4 +1,4 @@
 # 周树先 2015-08-18
 
-	#sql
+	#select * from table
  
