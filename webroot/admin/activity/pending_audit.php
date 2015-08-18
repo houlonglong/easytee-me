@@ -112,24 +112,25 @@
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
 
-<div class="modal fade" id="modal_test" aria-hidden="true" style="display: none;">
+<div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
+            <div class="modal-header">
+                <h4 >活动名称：<span id="modal_active"></span></h4>
+            </div>
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">×</button>
-                <form class="no-margin"><label>Change event name &nbsp;</label> <input class="middle" autocomplete="off"
-                                                                                       type="text"
-                                                                                       value="All Day Event">
-                    <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Save
-                    </button>
-                </form>
+                <div>发起人：<span id="modal_username"></span></div>
+                <div>开始时间：<span id="modal_start_time"></span></div>
+                <div>结束时间：<span id="modal_end_time"></span></div>
+                <div>销售目标：<span id="modal_sales_target"></span></div>
+               <div>是否涉及敏感字眼？是否辱骂国家领导人？是否传播邪教文化？</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i
-                        class="ace-icon fa fa-trash-o"></i> Delete Event
+                <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal" data-action="批准"><i
+                        class="ace-icon fa fa-trash-o"></i> 批准
                 </button>
-                <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>
-                    Cancel
+                <button type="button" class="btn btn-sm apply-back" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>
+                    驳回
                 </button>
             </div>
         </div>
@@ -142,13 +143,24 @@
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
+    function audit(obj){
+        var id = $(obj).data('id');
+        $('.apply').data('id',id);
+        $('.apply-back').data('id',id);
+        $('#modal_active').text($(obj).parents('tr').find('td').eq(0).text());
+        $('#modal_username').text($(obj).parents('tr').find('td').eq(1).text());
+        $('#modal_end_time').text($(obj).parents('tr').find('td').eq(4).text());
+        $('#modal_start_time').text($(obj).parents('tr').find('td').eq(3).text());
+        $('#modal_sales_target').text($(obj).parents('tr').find('td').eq(2).text());
+    }
     function search(){
         var $query = {
             activity_id:$('#activity-id').val(),
             activity_name:$('#activity-name').val(),
             username:$('#username').val(),
             startDate:$('#start-date').val(),
-            endDate:$('#end-date').val()
+            endDate:$('#end-date').val(),
+            pass:0
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -158,7 +170,7 @@
     }
     $('#end-date,#start-date').datepicker({ dateFormat: 'yy-mm-dd' });
     jQuery(function($) {
-        $("#modal_test").modal("show");
+
 
         var usl_api_base   = "admin/activity";
         var url_api_list   = "/api?model="+usl_api_base + "&action=list&pass=0";
@@ -198,6 +210,11 @@
                         baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
                         delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                    },
+                    formatter:function(cellvalue, options, rowObject){
+                        var html;
+                            html= '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
+                        return html;
                     }
                 },
             ]
@@ -225,6 +242,26 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
+//        function pending_audit(){
+//            $("#modal_test").modal("show");
+//        }
+        $('.apply').click(function(){
+            var $this = $(this);
+           var $id = $this.data('id');
+            $.ajax({
+                url:"/api?model="+usl_api_base + "&action=audit",
+                data:{
+                    id:$id,
+                },
+                type:"POST",
+                success: function () {
+                    console.log($('#'+$id).parents('tr'));
+                    $('#'+$id).remove();
+                }
+
+            });
+
+        })
 
         function get_col(cols){
             var col_name = [];

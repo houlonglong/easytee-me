@@ -198,7 +198,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract{
         }else{
             if(empty($sort_type)) $sort_type = "desc";
         }
-        $where = 'where 1=1';
+        $where = 'where '.$table_alias.'.status !="create" ';
         //where
         $args = array();
         if($request['mobile']){
@@ -224,7 +224,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract{
             $where .= ' and '.$table_alias.'.real_end_time <="'.date('Y-m-d 23:59:59',strtotime($request['endDate'])).'"';
         }
 
-        if($request['pass']){
+        if($request['pass'] !== null){
             $where .= ' and '.$table_alias.'.pass =?';
             $args[] = $_REQUEST['pass'];
         }
@@ -340,5 +340,12 @@ class Model_Admin_Activity extends Model_Admin_Abstract{
             exit;
         }
 
+    }
+
+    function action_audit(){
+        $id = $this->_request('id');
+        if($id){
+            var_dump(PtLib\db()->update('activities',array('pass'=>1),array('id'=>$id)));
+        }
     }
 }

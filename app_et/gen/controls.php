@@ -30,6 +30,7 @@ admin/site/activity/product/style/image/index|活动设计图片|admin_list
 admin/site/design/index|设计管理|admin_list
 admin/site/design/detail|设计详情|admin_form
 admin/activity/pending_audit|待审核|admin_list
+admin/activity/audit|已审核|admin_list
 
 
 EOT;

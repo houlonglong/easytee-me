@@ -396,4 +396,8 @@ class BaseModel
             return null;
     }
 
+    function db_update(){
+       return call_user_func_array(array("PtLib\db",'update'),func_get_args());
+    }
+
 }

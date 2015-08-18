@@ -325,7 +325,8 @@ function get_run_debug(){
         log(PtLib\Database::$run_stack);
         return array(
             "sql"=>PtLib\Database::$run_stack,
-            "app"=>get_class_vars("PtApp")
+            "app"=>get_class_vars("PtApp"),
+            "include_file"=>get_included_files()
         );
     }
 
