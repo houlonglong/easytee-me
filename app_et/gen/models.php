@@ -41,6 +41,9 @@ admin/production/ongoing|生产中
 admin/production/shipped|已发货
 admin/site/product/style/image/color|产品款式颜色图片
 admin/site/activity/product/style/image|活动设计图片
+admin/product/style|产品款式
+admin/product/image|产品图片
+
 EOT;
 
 include_once(__DIR__."/../init.php");

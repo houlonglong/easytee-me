@@ -1,8 +1,8 @@
 <?php
 /**
- * Model Title Name
+ * 产品管理
  */
-class Model_Class_Name{
+class Model_Admin_Product{
     static $table = "";
     function __construct(){
         //parent::__construct();
@@ -20,7 +20,7 @@ class Model_Class_Name{
      * 列表
      *
     function action_list(){
-        return self::table_list();
+    return self::table_list();
     }
      */
 

@@ -77,7 +77,7 @@ class Model_Admin_System_Deploy extends Model_Admin_Abstract{
         );
     }
     function action_git_commit(){
-        $msg = $this->_request("msg");
+        $msg = slef::_request("msg");
         $root = PATH_PRO;
         $cmd = "cd $root && git add . && git commit -m '{$msg}' && git pull origin master && git push origin master";
         PtLib\log($cmd);
