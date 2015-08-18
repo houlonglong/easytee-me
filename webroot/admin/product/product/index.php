@@ -6,8 +6,8 @@
      * 产品管理
      *
      */
+    $__model_path = "admin/product/product";
     include(block("admin/block/html_head"))?>
-
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
@@ -28,46 +28,31 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
                         <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12">
-                                    <label>
-                                        Ttile
-                                    </label>
-                                    <input type="text" id="title">
-                                <button class="btn-primary" onclick="search()">search</button>
-                            </div>
+                            <div class="col-xs-12" id="query_area"></div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-
                                 <table id="grid-table"></table>
-
                                 <div id="grid-pager"></div>
-
                                 <script type="text/javascript">
-                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                    var $path_base = ".";/
                                 </script>
-
-
                             </div>
-                            <!-- /.span -->
                         </div>
-                        <!-- PAGE CONTENT ENDS -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.page-content -->
+                    </div>
+                </div>
+            </div>
         </div>
-    </div><!-- /.main-content -->
+    </div>
     <?php include(block("admin/block/footer"))?>
-</div><!-- /.main-container -->
+</div>
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
-
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search(){
@@ -81,22 +66,24 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var url_api_base   = "admin/product/product";
+        //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        var url_api_base   = "<?php echo $__model_path;?>";
         var url_api_list   = "/api?model="+url_api_base + "&action=list";
         var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
         var url_api_detail = "/"+url_api_base + "/detail";
+
 
         var grid_setting = {
             url:url_api_list,
             url_save:url_api_edit,
             method:"POST",
-            height:500,
+            height:550,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"产品名",name:'name',index:'name',editable: false,sortable:false,
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:url_api_detail,
@@ -104,9 +91,23 @@
                         idName:'id'
                     }
                 },
+                {title:"生产厂商",name:'m_name',index:'m_name',width:250, editable: false,sortable:false},
+                {title:"厂商类型",name:'m_type',index:'m_type',editable: false,sortable:false},
+                {title:"厂商库存单位",name:'manufacturer_sku',index:'manufacturer_sku',editable: false,sortable:false},
+                {title:"品牌",name:'mb_name',index:'mb_name',editable: false,sortable:false},
+                {title:"库存单位",name:'sku',index:'sku',editable: false,sortable:false},
+                /*
+                {title:"Title",name:'title',index:'title',editable: false,
+                    formatter:'showlink',
+                    formatoptions:{
+                        baseLinkUrl:url_api_detail,
+                        addParam: '',//&t=1
+                        idName:'id'
+                    }
+                },*/
                 //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
-
+                /*
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -116,7 +117,7 @@
                         delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     }
-                },
+                },*/
             ]
 
         };
@@ -321,17 +322,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {

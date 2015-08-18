@@ -19,8 +19,6 @@ admin/production/index|待生产|admin_list
 admin/production/ongoing|生产中|admin_list
 admin/production/shipped|已发货|admin_list
 admin/aftersale/index|售后管理|admin_list
-admin/product/product/index|产品管理|admin_list
-admin/product/category/index|产品分类|admin_list
 admin/font/font/index|字体管理|admin_list
 admin/font/category/index|字体分类|admin_list
 admin/site/art/index|素材管理|admin_list
@@ -30,7 +28,13 @@ admin/site/activity/product/style/image/index|活动设计图片|admin_list
 admin/site/design/index|设计管理|admin_list
 admin/site/design/detail|设计详情|admin_form
 admin/activity/pending_audit|待审核|admin_list
+
 admin/activity/audit|已审核|admin_list
+
+
+admin/product/product/index|产品管理|admin_list|admin/product/product
+admin/product/category/index|产品分类管理|admin_list|admin/product/category
+admin/product/product/detail|产品详情|admin_default
 
 
 EOT;

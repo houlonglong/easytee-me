@@ -21,6 +21,7 @@ font|字体
 art|素材
 admin/deamon/task|后台任务
 admin/activity|众筹管理
+admin/product|产品管理
 admin/production|生产管理
 admin/aftersale|售后管理
 admin/order|订单管理

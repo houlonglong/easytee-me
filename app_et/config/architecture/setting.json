@@ -119,6 +119,25 @@
         ]
     },
     {
+        "title":"产品管理",
+        "hide_menu":0,
+        "icon":"fa-coffee",
+        "model": {
+            "path": "/admin/product",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"产品管理",
+                "url":"/admin/product/product/index"
+            },
+            {
+                "title":"产品分类",
+                "url":"/admin/product/category/index"
+            }
+        ]
+    },
+    {
         "title":"网站管理",
         "hide_menu":0,
         "icon":"fa-calendar",
