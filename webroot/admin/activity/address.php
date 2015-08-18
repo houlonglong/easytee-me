@@ -3,7 +3,7 @@
 <head>
     <?php
     /**
-     * 生产管理
+     * 地址列表
      *
      */
     include(block("admin/block/html_head"))?>
@@ -29,16 +29,10 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12">
-                                <label>
-                                    Ttile
-                                </label>
-                                <input type="text" id="title">
-                                <button class="btn-primary" onclick="search()">search</button>
-                            </div>
-                        </div>
                         <div class="row">
+                            <div class="col-xs-12">
+                                 <input type="button" class="btn-warning" value="下载地址">
+                            </div>
                             <div class="col-xs-12">
 
                                 <table id="grid-table"></table>
@@ -48,8 +42,6 @@
                                 <script type="text/javascript">
                                     var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                 </script>
-
-
                             </div>
                             <!-- /.span -->
                         </div>
@@ -66,16 +58,6 @@
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
-<!-- page specific plugin scripts -->
-<script src="/ace/assets/js/jquery.dataTables.min.js"></script>
-<script src="/ace/assets/js/jquery.dataTables.bootstrap.min.js"></script>
-<script src="/ace/assets/js/dataTables.tableTools.min.js"></script>
-<script src="/ace/assets/js/dataTables.colVis.min.js"></script>
-
-<!-- ace scripts -->
-<script src="/ace/assets/js/ace-elements.min.js"></script>
-<script src="/ace/assets/js/ace.min.js"></script>
-
 <script type="text/javascript">
 
     var grid_selector = "#grid-table";
@@ -91,50 +73,38 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var url_api_base   = "admin/production";
-        var url_api_list   = "/api?model="+url_api_base + "&action=list&status=ongoing";
-        var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
-        var url_api_detail = "/"+url_api_base + "/detail";
+        var usl_api_base   = "/admin/production";
+        var url_api_list   = usl_api_base + "?action=address_list&id="+<?php echo $_GET['id'];?>;
+        var url_api_edit   = usl_api_base + "?action=edit";
+        var url_api_detail = usl_api_base + "/detail";
 
         var grid_setting = {
             url:url_api_list,
             url_save:url_api_edit,
             method:"POST",
-            height:500,
+            height:390,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:'/admin/production?action=address_list',
-                        addParam: '',
-                        idName:'id'
-                    }
-                },
-                {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false,
-                    formatter:function(cellvalue, options, rowObject){
-                        return cellvalue+'￥';
-                    }},
-                {title:"收货地址列表",name:'id',index:'id',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:function(cellvalue, options, rowObject){
-                        return '<a href="/admin/activity/address?id='+cellvalue+'">地址</a>';
-                    },
-                },
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    },
-                },
+                {title:"地址编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
+                {title:"收货人",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"手机号码",name:'mobile',index:'mobile',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"收货地址",name:'provice',index:'provice',width:190,sortable:false,editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                    return rowObject.name+' ' + rowObject.mobile+' </br>' + rowObject.province + ' '+rowObject.city +' '+ rowObject.county+' '+rowObject.address+'';
+                }},
+
+//                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
+//                    formatter:'actions',
+//                    formatoptions:{
+//                        keys:true,
+//                        //delbutton: false,//disable delete button
+//                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
+//                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
+//                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+//                    }
+//                },
             ]
 
         };

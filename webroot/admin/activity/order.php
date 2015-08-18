@@ -131,7 +131,7 @@
                     }
                 },
                 {title:"用户名",name:'username',index:'username',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动名称",name:'name',index:'name',editable: false,editoptions:{size:"20",maxlength:"30"},
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">'+cellvalue+'</a>';
                     }
@@ -144,6 +144,9 @@
                     editoptions:{custom_element: mystatuselem, custom_value:myvalue},
                     formatter:function(cellvalue, options, rowObject){
                         var img = "";
+                        if(cellvalue == '待付款'){
+                            img = '<span class="label label-sm label-default arrowed-in">'+cellvalue+'</span>';
+                        }
                         if(cellvalue == '待发货'){
                             img = '<span class="label label-sm label-success arrowed-in">'+cellvalue+'</span>';
                         }
@@ -157,7 +160,7 @@
                             img = '<span class="label label-sm label-danger arrowed-in">'+cellvalue+'</span>';
                         }
                         if(cellvalue == '已收货'){
-                            img = '<span class="label label-sm label-danger arrowed-in">'+cellvalue+'</span>';
+                            img = '<span class="label label-sm label-primary arrowed-in">'+cellvalue+'</span>';
                         }
                         return img;
                     }
@@ -197,11 +200,11 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
+
         function mystatuselem (value, options) {
             value = $(value).data("status");
-            console.log(value,options);
             var el = document.createElement("select");
-            $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="待发货">待发货' +
+            $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="待付款">待付款</option><option role="option" value="待发货">待发货' +
                 '</option><option role="option" value="已发货">已发货</option><option role="option" value="已收货">已收货</option><option role="option" value="已发货">已发货</option>' +
                 '<option role="option" value="已收货">已完成</option>').val(value);
             return el;

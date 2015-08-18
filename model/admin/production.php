@@ -117,6 +117,69 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         return $response;
     }
 
+    function action_address_list(){
+        $id  = $_REQUEST['id'];
+        $rows = PtLib\db()->select_rows('SELECT addr.* FROM user_addresses AS addr
+            INNER JOIN orders AS o ON o.uid = addr.uid
+            INNER JOIN activities AS a ON a.id = o.activity_id
+            WHERE a.id = ?',$id);
+
+
+        $request = PtLib\http_request("rows","page","sidx","sord");
+        $limit = $request['rows'];
+        $page = $request['page'];
+        $sort = $request['sidx'];
+        $sort_type = $request['sord'];
+
+
+        if(empty($limit)) $limit = 20;
+        if(empty($page)) $page = 1;
+        if(empty($sort)){
+            $sort = "addr.id";
+            $sort_type = "desc";
+        }else{
+            if(empty($sort_type)) $sort_type = "desc";
+        }
+
+
+        if($sort)
+        $order = "order by " .addslashes($sort) ." ".$sort_type;
+        $sql = "SELECT count(addr.id) AS total FROM user_addresses AS addr
+            INNER JOIN orders AS o ON o.uid = addr.uid
+            INNER JOIN activities AS a ON a.id = o.activity_id
+            WHERE a.id = ? ".$order;
+        $count_res = PtLib\db()->select_row($sql,$id);
+        $records = $count_res['total'];
+        $response = new stdClass();
+        $response->page    = $page;  //cur page
+
+        if( $records > 0 ) {
+            $total_pages = ceil($records/$limit);
+        }
+        else {
+            $total_pages = 1;
+        }
+        if ($page > $total_pages) $page=$total_pages;
+
+        $response->total   = $total_pages;      //total pages
+        $response->records = $records; //count
+
+        $skip = ($page - 1) * $limit;
+
+        $sql = "SELECT addr.* FROM user_addresses AS addr
+            INNER JOIN orders AS o ON o.uid = addr.uid
+            INNER JOIN activities AS a ON a.id = o.activity_id
+            WHERE a.id = ? limit $skip,$limit ";
+        $rows = PtLib\db()->select_rows($sql,$id);
+        foreach($rows as $row){
+            $response->rows[] = array(
+                'id'=>$row['id'],
+                "cell"=>$row
+            );
+        }
+        return $response;
+    }
+
     /**
      * 详情
      * @param $id

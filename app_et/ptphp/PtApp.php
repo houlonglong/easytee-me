@@ -309,6 +309,13 @@ function cli_route(){
     route_model($model_file,$action,"cli");
 }
 
+
+function mysql_escape($str){
+    return $str;
+
+}
+
+
 function get_models($models){
     //$models = include PATH_APP."/gen/models/setting.php";
     $models = trim($models);
@@ -378,12 +385,15 @@ function gen_menus(){
     }
 }
 
-class BaseModel{
-    function _request($key){
-        if(!$key) return null;
-        if(isset($_REQUEST[$key]))
+class BaseModel
+{
+    function _request($key)
+    {
+        if (!$key) return null;
+        if (isset($_REQUEST[$key]))
             return $_REQUEST[$key];
         else
             return null;
     }
+
 }

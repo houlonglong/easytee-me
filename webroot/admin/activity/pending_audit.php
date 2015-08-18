@@ -3,7 +3,7 @@
 <head>
     <?php
     /**
-     * 生产管理
+     * 待审核
      *
      */
     include(block("admin/block/html_head"))?>
@@ -27,15 +27,63 @@
             <div class="page-content">
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
+
+                    <div class="col-xs-12">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                <li >
+                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">Home</a>
+                                </li>
+
+                                <li class="active">
+                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/pending_audit'">待审核</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/audit'">已审核</a>
+                                </li>
+                            </ul>
+                <div class="row">
+
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12">
-                                <label>
-                                    Ttile
-                                </label>
-                                <input type="text" id="title">
-                                <button class="btn-primary" onclick="search()">search</button>
+                            <div class="row" style="padding:20px 0">
+                                <div class="col-xs-2">
+                                    <label>
+                                        活动名称
+                                    </label>
+                                    <input type="text" id="activity-name">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        用户名
+                                    </label>
+                                    <input type="text" id="username">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        手机号码
+                                    </label>
+                                    <input type="text" id="mobile">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        开始时间
+                                    </label>
+                                    <input type="text" id="start-date">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>
+                                        结束时间
+                                    </label>
+                                    <input type="text" id="end-date">
+                                </div>
+                                <div class="col-xs-2">
+                                    <button class="btn-primary" onclick="search()">search</button>
+                                    <button class="btn-danger label-success" onclick="reset()">reset</button>
+                                </div>
+
                             </div>
                         </div>
                         <div class="row">
@@ -49,7 +97,7 @@
                                     var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                 </script>
 
-
+</div></div></div>
                             </div>
                             <!-- /.span -->
                         </div>
@@ -63,26 +111,44 @@
 </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
+
+<div class="modal fade" id="modal_test" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" style="margin-top:-10px;">×</button>
+                <form class="no-margin"><label>Change event name &nbsp;</label> <input class="middle" autocomplete="off"
+                                                                                       type="text"
+                                                                                       value="All Day Event">
+                    <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Save
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-danger" data-action="delete"><i
+                        class="ace-icon fa fa-trash-o"></i> Delete Event
+                </button>
+                <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
-<!-- page specific plugin scripts -->
-<script src="/ace/assets/js/jquery.dataTables.min.js"></script>
-<script src="/ace/assets/js/jquery.dataTables.bootstrap.min.js"></script>
-<script src="/ace/assets/js/dataTables.tableTools.min.js"></script>
-<script src="/ace/assets/js/dataTables.colVis.min.js"></script>
-
-<!-- ace scripts -->
-<script src="/ace/assets/js/ace-elements.min.js"></script>
-<script src="/ace/assets/js/ace.min.js"></script>
-
 <script type="text/javascript">
-
+    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search(){
         var $query = {
-            title:$('#title').val()
+            activity_id:$('#activity-id').val(),
+            activity_name:$('#activity-name').val(),
+            username:$('#username').val(),
+            startDate:$('#start-date').val(),
+            endDate:$('#end-date').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -90,41 +156,40 @@
             page:1
         }).trigger("reloadGrid"); //重新载入
     }
+    $('#end-date,#start-date').datepicker({ dateFormat: 'yy-mm-dd' });
     jQuery(function($) {
-        var url_api_base   = "admin/production";
-        var url_api_list   = "/api?model="+url_api_base + "&action=list&status=ongoing";
-        var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
-        var url_api_detail = "/"+url_api_base + "/detail";
+        $("#modal_test").modal("show");
+
+        var usl_api_base   = "admin/activity";
+        var url_api_list   = "/api?model="+usl_api_base + "&action=list&pass=0";
+        var url_api_edit   = "/api?model="+usl_api_base + "&action=edit";
+        var url_api_detail = "/"+usl_api_base + "/detail";
+
 
         var grid_setting = {
             url:url_api_list,
             url_save:url_api_edit,
             method:"POST",
-            height:500,
+            height:390,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动名称",name:'name',index:'name', width:40, sorttype:"int", editable: false, formatter:function(cellvalue, options, rowObject){
+                    return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
+                }},
+                {title:"发起人",name:'nick_name',index:'nick_name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
-                        baseLinkUrl:'/admin/production?action=address_list',
-                        addParam: '',
+                        baseLinkUrl:url_api_detail,
+                        addParam: '',//&t=1
                         idName:'id'
                     }
                 },
-                {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false,
-                    formatter:function(cellvalue, options, rowObject){
-                        return cellvalue+'￥';
-                    }},
-                {title:"收货地址列表",name:'id',index:'id',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:function(cellvalue, options, rowObject){
-                        return '<a href="/admin/activity/address?id='+cellvalue+'">地址</a>';
-                    },
-                },
+                {title:"销售目标件数",name:'sales_target',index:'sales_target', width:40, sorttype:"int", editable: false},
+                {title:"开始时间",name:'start_time',index:'start_time',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"预计结束时间",name:'real_end_time',index:'real_end_time',width:190,sortable:false,editable: false},
+
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -133,7 +198,7 @@
                         baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
                         delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    },
+                    }
                 },
             ]
 
