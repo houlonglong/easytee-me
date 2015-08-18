@@ -32,7 +32,7 @@
                         <div class="row" style="padding:20px 0">
                             <div class="col-xs-12">
                                     <label>
-                                        design_id
+                                        设计ID
                                     </label>
                                     <input type="text" id="design_id">
                                 <button class="btn-primary" onclick="search()">search</button>
@@ -86,25 +86,14 @@
             url_save:url_api_edit,
             method:"POST",
             height:500,
-            rowNum:5,
+            rowNum:4,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"design_id",name:'design_id',index:'design_id',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"side",name:'side',index:'side',editable: true,editoptions:{size:"20",maxlength:"30"}},
-
-                {title:"img_url",name:'img_url',index:'img_url',editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:function(cellvalue, options, rowObject){
-                        //console.log(cellvalue);
-                        var img = "没有生成";
-                        if(cellvalue){
-                            img = '<a href="'+cellvalue+'" target="_blank"><img style="border:1px solid green;width:80px;" src="'+cellvalue+'"></a>';
-                        }
-                        return img;
-                    }
-                },
-                {title:"svg_url",name:'svg_url',index:'svg_url',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"设计ID",name:'design_id',index:'design_id', width:80,editable: false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"方位",name:'side',index:'side',editable: false,sortable:false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"SVG图片",name:'svg_url',index:'svg_url',sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         //console.log(cellvalue);
                         var img = "";
@@ -114,18 +103,19 @@
                         return img;
                     }
                 },
-                {title:"status",name:'status',index:'status',editable: true,editoptions:{size:"20",maxlength:"30"}},
-
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                {title:"生成图片",name:'img_url',index:'img_url',sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        //console.log(cellvalue);
+                        var img = "没有生成";
+                        if(cellvalue){
+                            img = '<a href="'+cellvalue+'" target="_blank"><img style="border:1px solid green;width:80px;" src="'+cellvalue+'"></a>';
+                        }
+                        return img;
                     }
                 },
+                {title:"status",name:'status',index:'status',sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"}},
+
+
             ]
 
         };
@@ -330,17 +320,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {

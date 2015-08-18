@@ -98,7 +98,7 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"remote_url",name:'remote_url',index:'remote_url',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"remote_url",name:'remote_url',index:'remote_url',editable: false,sortable:false,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         //console.log(cellvalue);
                         var img = "";
@@ -108,8 +108,8 @@
                         return img;
                     }
                 },
-                {title:"side",name:'side',index:'side',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"color",name:'color',index:'color',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"side",name:'side',index:'side',editable: false,sortable:false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"color",name:'color',index:'color',editable: false,sortable:false,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         //console.log(cellvalue);
                         var img = "";
@@ -119,19 +119,10 @@
                         return img;
                     }
                 },
-                {title:"design_id",name:'design_id',index:'design_id',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"design_id",name:'design_id',index:'design_id',editable: false,sortable:false,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
 
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
-                },
+
             ]
 
         };
@@ -336,17 +327,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: trufalsee,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {
