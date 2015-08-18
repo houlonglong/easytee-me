@@ -85,7 +85,7 @@
             url:url_api_list,
             url_save:url_api_edit,
             method:"POST",
-            height:390,
+            height:500,
             rowNum:5,
             rowList:[15,30,50,100],
             caption:"",

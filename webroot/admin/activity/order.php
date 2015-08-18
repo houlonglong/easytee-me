@@ -116,7 +116,7 @@
             url:"/api?model=admin/order&action=list",
             url_save:"/api?model=admin/order&action=edit",
             method:"POST",
-            height:390,
+            height:500,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",

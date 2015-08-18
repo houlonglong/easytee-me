@@ -87,7 +87,10 @@
             url:url_api_list,
             url_save:url_api_edit,
             method:"POST",
-            height:390,
+            height:550,
+            //width:window.screen.availWidth-100,
+            //autowidth: false,
+            shrinkToFit: true,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
@@ -120,6 +123,7 @@
             ]
 
         };
+
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -158,6 +162,7 @@
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
             $(grid_selector).jqGrid( 'setGridWidth', $(".page-content").width() );
+            //$(grid_selector).jqGrid( 'setGridHeight', );
         });
         //resize on sidebar collapse/expand
         var parent_column = $(grid_selector).closest('[class*="col-"]');
@@ -321,17 +326,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {

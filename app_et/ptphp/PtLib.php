@@ -72,6 +72,8 @@ function table_edit($table){
 
 function get_table_list($table,$table_alias,$join = ''){
     //$join = '';
+    //fields
+    $select_fields = " $table_alias.* ";
     if(empty($table_alias)) throw new ErrorException("table is not defined");
     $request = http_request("rows","page","sidx","sord");
     //$request = PtLib\http_request("rows","page","sidx","sord");
@@ -79,9 +81,6 @@ function get_table_list($table,$table_alias,$join = ''){
     $page = $request['page'];
     $sort = $request['sidx'];
     $sort_type = $request['sord'];
-
-    //fields
-    $select_fields = " $table_alias.* ";
 
     if(empty($limit)) $limit = 20;
     if(empty($page)) $page = 1;
@@ -99,7 +98,7 @@ function get_table_list($table,$table_alias,$join = ''){
     $order = "";
     if($sort)
         $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
-    $sql = "select count($table_alias.id) as total from $table $join $where ";
+    $sql = "select count($table_alias.id) as total from $table as $table_alias $join $where ";
     $count_res = db()->select_row($sql,$args);
     //$count_res = PtLib\db()->select_row($sql,$args);
     $records = $count_res['total'];
@@ -119,7 +118,7 @@ function get_table_list($table,$table_alias,$join = ''){
 
     $skip = ($page - 1) * $limit;
 
-    $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
+    $sql = "select $select_fields from $table as $table_alias $join $where $order limit $skip,$limit ";
     $rows = db()->select_rows($sql,$args);
     //$rows = PtLib\db()->select_rows($sql,$args);
     foreach($rows as $row){

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<div style="position:relative; border:1px solid red;width: 500px;height:500px;">
+    <div style="position: absolute;top:0;left:0;right:0;bottom:0;background-image: url(http://cdn.open.easytee.me/products/3/front.png)">
+
+    </div>
+    <canvas id="canvas" width="500" height="500"></canvas>
+</div>
+<input type="text" id="text1">
+
+<script src="/js/libs/fabric/fabric.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+<script>
+    var canvas = new fabric.Canvas('canvas');
+    var texts = {};
+    var rect = new fabric.Rect({
+        top : 100,
+        left : 100,
+        width : 60,
+        height : 70,
+        fill : 'red'
+    });
+    texts['text1'] = new fabric.Text('hello world', { left: 160, top: 150 });
+    canvas.add(texts['text1']);
+    fabric.Image.fromURL('http://www.easytee.me/resources/public/image/site-logo.png', function(oImg) {
+        console.log(oImg);
+        canvas.add(oImg);
+    },{
+        left: 160,
+        top: 100,
+    });
+    //canvas.add(rect);
+    $(function(){
+        $("#text1").keydown(function(){
+            if(this.value){
+                console.log(this.value,texts['text1'])
+                texts['text1'].setText(this.value);
+                canvas.renderAll();
+            }
+        });
+    });
+</script>
+</body>
+</html>
