@@ -96,7 +96,7 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"name",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"name",name:'name',index:'name',sortable:false,editable: true,editoptions:{size:"20",maxlength:"30"},
                     /**
                      formatter:'showlink',
                      formatoptions:{
@@ -108,17 +108,6 @@
                 },
                 //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
-
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
-                },
             ]
 
         };

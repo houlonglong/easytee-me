@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 李晓梅 2015-08-18
 
     DROP TABLE IF EXISTS `audit_reasons`;
@@ -8,3 +9,9 @@
      `notes` varchar(255) DEFAULT NULL,
      `username` varchar(255) DEFAULT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+=======
+# 周树先 2015-08-18
+
+	#sql
+ 
+>>>>>>> 23557e0a232f6938be170dbc6ba53b735000b56d
