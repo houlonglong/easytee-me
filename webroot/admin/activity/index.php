@@ -125,6 +125,31 @@
         </div>
     </div><!-- /.main-content -->
     <?php include(block("admin/block/footer"))?>
+
+    <div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 >活动名称：<span id="modal_active"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div>发起人：<span id="modal_username"></span></div>
+                    <div>开始时间：<span id="modal_start_time"></span></div>
+                    <div>结束时间：<span id="modal_end_time"></span></div>
+                    <div>销售目标：<span id="modal_sales_target"></span></div>
+                    <div>是否涉及敏感字眼？是否辱骂国家领导人？是否传播邪教文化？</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal" data-action="批准"><i
+                            class="ace-icon fa fa-trash-o"></i> 批准
+                    </button>
+                    <button type="button" class="btn btn-sm apply-back" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>
+                        驳回
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
@@ -139,6 +164,16 @@
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
+    function audit(obj){
+        var id = $(obj).data('id');
+        $('.apply').data('id',id);
+        $('.apply-back').data('id',id);
+        $('#modal_active').text($(obj).parents('tr').find('td').eq(0).text());
+        $('#modal_username').text($(obj).parents('tr').find('td').eq(1).text());
+        $('#modal_end_time').text($(obj).parents('tr').find('td').eq(4).text());
+        $('#modal_start_time').text($(obj).parents('tr').find('td').eq(3).text());
+        $('#modal_sales_target').text($(obj).parents('tr').find('td').eq(2).text());
+    }
     function search(){
         var $query = {
             activity_id:$('#activity-id').val(),
@@ -153,6 +188,23 @@
             page:1
         }).trigger("reloadGrid"); //重新载入
     }
+    $('.apply').click(function(){
+        var $this = $(this);
+        var $id = $this.data('id');
+        $.ajax({
+            url:"/api?model=admin/activity&action=audit",
+            data:{
+                id:$id,
+            },
+            type:"POST",
+            success: function () {
+                console.log($('#'+$id).parents('tr'));
+                $('#'+$id).remove();
+            }
+
+        });
+
+    })
     $('#end-date,#start-date').datepicker({ dateFormat: 'yy-mm-dd' });
 
     function reset(){
@@ -224,9 +276,9 @@
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     },
                     formatter:function(cellvalue, options, rowObject){
-                        var html;
+                        var html='';
                         if(rowObject['pass'] == 0 ){
-                            html= '<a href="#" >审核</a>&nbsp';
+                            html= '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
                         }
                          html += '<a href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>';
                         return html;
@@ -254,14 +306,12 @@
 
         function myelem (value, options) {
             value = $(value).data("status");
-            console.log(value,options);
             var el = document.createElement("select");
             $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
             return el;
         }
         function mystatuselem (value, options) {
             value = $(value).data("status");
-            console.log(value,options);
             var el = document.createElement("select");
             $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
             return el;

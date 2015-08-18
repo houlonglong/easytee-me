@@ -395,6 +395,8 @@ class BaseModel
         else
             return null;
     }
+
+
     static function _db($key = "default"){
         return PtLib\db();
     }
