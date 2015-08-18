@@ -2,10 +2,10 @@
 /**
  * 已发货
  */
-class Model_Admin_Production_Shipped{
+class Model_Admin_Production_Shipped extends Model_Admin_Abstract{
     static $table = "";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图

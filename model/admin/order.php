@@ -2,10 +2,10 @@
 /**
  * 订单管理
  */
-class Model_Admin_Order{
+class Model_Admin_Order extends Model_Admin_Abstract{
     static $table = "orders";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

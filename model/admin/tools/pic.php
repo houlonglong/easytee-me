@@ -2,7 +2,7 @@
 /**
  *
  */
-class Model_Admin_Tools_Pic{
+class Model_Admin_Tools_Pic extends Model_Admin_Abstract{
     /**
      * @param
      * @return

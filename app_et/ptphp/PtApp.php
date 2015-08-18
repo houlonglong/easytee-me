@@ -127,6 +127,11 @@ function set_session_handler(){
 
 function route_model($model_file,$action,$method_prefix = "action",$return = false)
 {
+    $domain_route_file = PATH_APP."/include/domain_route.php";
+    if(is_file($domain_route_file)){
+        include_once $domain_route_file;
+        domain_route($model_file);
+    }
     PtApp::$model = PtApp::get_model($model_file);
     $model_file_path = PtLib\get_model_file_path($model_file);
     PtApp::$model_path = $model_file_path;
@@ -164,6 +169,11 @@ function route_model($model_file,$action,$method_prefix = "action",$return = fal
     }
 }
 function route_control($path){
+    $domain_route_file = PATH_APP."/include/domain_route.php";
+    if(is_file($domain_route_file)){
+        include_once $domain_route_file;
+        domain_route($path);
+    }
     include_once PATH_PTPHP."/libs/ui.php";
     $info = pathinfo($path);
     $model_file = str_replace(PATH_WEBROOT,"",$info['dirname']);
@@ -299,6 +309,91 @@ function cli_route(){
     route_model($model_file,$action,"cli");
 }
 
+
 function mysql_escape($str){
     return $str;
+
+}
+
+
+function get_models($models){
+    //$models = include PATH_APP."/gen/models/setting.php";
+    $models = trim($models);
+    foreach (explode("\n",$models) as $model) {
+        $model = explode("|",$model);
+        if(count($model)==2){
+            $model_path = trim($model[0]);
+            $model_name = trim($model[1]);
+            PtLib\gen_model($model_path,$model_name);
+        }
+    }
+}
+
+function get_controls($controls){
+    //$controls = include PATH_APP."/gen/controls/setting.php";
+    $controls = trim($controls);
+    foreach (explode("\n",$controls) as $line) {
+        $line = explode("|",$line);
+        if(count($line)==2){
+            $control_path = trim($line[0]);
+            $control_name = trim($line[1]);
+            PtLib\gen_control($control_path,$control_name);
+        }
+        if(count($line)==3){
+            $control_path = trim($line[0]);
+            $control_name = trim($line[1]);
+            $control_tpl = trim($line[2]);
+            PtLib\gen_control($control_path,$control_name,$control_tpl);
+        }
+        if(count($line)==4){
+            $control_path = trim($line[0]);
+            $control_name = trim($line[1]);
+            $control_tpl = trim($line[2]);
+            $model_path = trim($line[3]);
+            PtLib\gen_control($control_path,$control_name,$control_tpl,$model_path);
+        }
+    }
+}
+
+function get_tests($tests){
+    $tests = trim($tests);
+    foreach (explode("\n",$tests) as $line) {
+        $line = explode("|",$line);
+        if(count($line)==2){
+            $test_path = trim($line[0]);
+            $test_name = trim($line[1]);
+            PtLib\gen_test($test_path,$test_name);
+        }
+    }
+}
+
+function gen_menus(){
+    $ar = file_get_contents(PATH_CONFIG."/architecture/setting.json");
+    $ar = json_decode($ar,1);
+    foreach($ar as $node){
+        if(isset($node['model']['path'])){
+            PtLib\gen_model($node['model']['path'],$node['title']);
+        }
+        if(isset($node['url'])){
+            PtLib\gen_control($node['url'],$node['title']);
+        }
+        if(isset($node['control'])){
+            foreach($node['control'] as $control){
+                PtLib\gen_control($control['url'],$control['title']);
+            }
+        }
+    }
+}
+
+class BaseModel
+{
+    function _request($key)
+    {
+        if (!$key) return null;
+        if (isset($_REQUEST[$key]))
+            return $_REQUEST[$key];
+        else
+            return null;
+    }
+
 }

@@ -17,6 +17,7 @@ define("PATH_CONFIG",PATH_APP."/config");
 
 include_once __DIR__."/ptphp/PtPHP.php";
 include_once __DIR__."/ptphp/PtApp.php";
+include_once __DIR__."/include/common.php";
 
 set_exception_handler('PtLib\exception_handler');
 set_error_handler('PtLib\error_handler');

@@ -83,16 +83,16 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var usl_api_base   = "admin/production";
-        var url_api_list   = "/api?model="+usl_api_base + "&action=list";
-        var url_api_edit   = "/api?model="+usl_api_base + "&action=edit";
-        var url_api_detail = "/"+usl_api_base + "/detail";
+        var url_api_base   = "admin/production";
+        var url_api_list   = "/api?model="+url_api_base + "&action=list";
+        var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
+        var url_api_detail = "/"+url_api_base + "/detail";
 
         var grid_setting = {
             url:url_api_list,
             url_save:url_api_edit,
             method:"POST",
-            height:390,
+            height:500,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",

@@ -72,6 +72,8 @@ function table_edit($table){
 
 function get_table_list($table,$table_alias,$join = ''){
     //$join = '';
+    //fields
+    $select_fields = " $table_alias.* ";
     if(empty($table_alias)) throw new ErrorException("table is not defined");
     $request = http_request("rows","page","sidx","sord");
     //$request = PtLib\http_request("rows","page","sidx","sord");
@@ -79,9 +81,6 @@ function get_table_list($table,$table_alias,$join = ''){
     $page = $request['page'];
     $sort = $request['sidx'];
     $sort_type = $request['sord'];
-
-    //fields
-    $select_fields = " $table_alias.* ";
 
     if(empty($limit)) $limit = 20;
     if(empty($page)) $page = 1;
@@ -99,7 +98,7 @@ function get_table_list($table,$table_alias,$join = ''){
     $order = "";
     if($sort)
         $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
-    $sql = "select count($table_alias.id) as total from $table $join $where ";
+    $sql = "select count($table_alias.id) as total from $table as $table_alias $join $where ";
     $count_res = db()->select_row($sql,$args);
     //$count_res = PtLib\db()->select_row($sql,$args);
     $records = $count_res['total'];
@@ -110,7 +109,7 @@ function get_table_list($table,$table_alias,$join = ''){
         $total_pages = ceil($records/$limit);
     }
     else {
-        $total_pages = 0;
+        $total_pages = 1;
     }
     if ($page > $total_pages) $page=$total_pages;
 
@@ -119,7 +118,7 @@ function get_table_list($table,$table_alias,$join = ''){
 
     $skip = ($page - 1) * $limit;
 
-    $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
+    $sql = "select $select_fields from $table as $table_alias $join $where $order limit $skip,$limit ";
     $rows = db()->select_rows($sql,$args);
     //$rows = PtLib\db()->select_rows($sql,$args);
     foreach($rows as $row){
@@ -307,9 +306,11 @@ function json_response($return,$status = 0,$message = '',$redirect = '',$excepti
         "message"=>$message,
         "redirect"=>$redirect,
         "status"=>$status,
-        "exception"=>$exception,
-        "debug"=>$debug,
     );
+    if(local_dev()){
+        $data['debig'] = $debug;
+        $data['exception'] = $exception;
+    }
     echo json_encode($data);exit;
 }
 
@@ -526,7 +527,7 @@ function gen_test($model,$title){
     if(!is_file($path_doc)){
         $content = file_get_contents(PATH_APP."/_templates/doc.md");
         $content = str_replace("MODEL_NAME",$title,$content);
-        if(!is_dir(dirname($path_doc))) mkdir(dirname($path_doc));
+        if(!is_dir(dirname($path_doc))) mkdir(dirname($path_doc),0755,true);
         file_put_contents($path_doc,$content);
     }
     $model_test_class_name = ucfirst($filename)."Test";
@@ -590,7 +591,7 @@ function get_control_content($title,$tpl = ''){
     $content = str_replace("Controller Name Replace",$title,$content);
     return $content;
 }
-function gen_control($model,$title,$tpl = ''){
+function gen_control($model,$title,$tpl = '',$model_path = "admin/test"){
     if(substr($model,-4) != ".php") $model = $model.".php";
     if(substr($model,0,1) != "/")   $model = "/".$model;
     if(!defined("PATH_WEBROOT")) throw new ErrorException("PATH_WEBROOT 没有定义");
@@ -598,11 +599,15 @@ function gen_control($model,$title,$tpl = ''){
     if(is_file($control_path)){
         //log("%s: 已生成!%s",$title,$control_path);
     }else{
-        //echo $model_content;
         if(!is_dir(dirname($control_path))){
             @mkdir(dirname($control_path),0755,1);
         }
         $content = get_control_content($title,$tpl);
+        if($tpl == "admin_list"){
+            gen_model($model_path,$model_path);
+            $content = str_replace("\$__model_path = \"\";","\$__model_path = \"{$model_path}\";",$content);
+            //echo $content;exit;
+        }
 
         $res = @file_put_contents($control_path,$content);
         if($res){

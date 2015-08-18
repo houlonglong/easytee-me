@@ -2,10 +2,10 @@
 /**
  * 字体
  */
-class Model_Admin_Font_Font{
+class Model_Admin_Font_Font extends Model_Admin_Abstract{
     static $table = "fonts";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

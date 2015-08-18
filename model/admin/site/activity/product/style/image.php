@@ -2,10 +2,10 @@
 /**
  * 活动设计图片
  */
-class Model_Admin_Site_Activity_Product_Style_Image{
+class Model_Admin_Site_Activity_Product_Style_Image extends Model_Admin_Abstract{
     static $table = "activity_product_styles_image";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图

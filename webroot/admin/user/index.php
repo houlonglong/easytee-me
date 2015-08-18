@@ -59,13 +59,13 @@
             url:"/api?model=admin/user&action=list",
             url_save:"/api?model=admin/user&action=edit",
             method:"POST",
-            height:390,
+            height:600,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"nick_name",name:'nick_name',index:'nick_name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false,sortable:false},
+                {title:"nick_name",name:'nick_name',index:'nick_name',width:90,sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:'/admin/user/modify',
@@ -73,8 +73,10 @@
                         idName:'id'
                     }
                 },
-                {title:"mobile",name:'mobile',index:'mobile',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"token",name:'token',index:'token',width:190,sortable:false,editable: false},
+                {title:"mobile",name:'mobile',index:'mobile',editable: false,sortable:false},
+                {title:"create_time",name:'create_time',index:'create_time',sortable:false,editable: false},
+                {title:"token",name:'token',index:'token',width:220,sortable:false,editable: false},
+                /**
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
@@ -84,7 +86,7 @@
                         delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     }
-                },
+                },*/
             ]
 
         };
@@ -291,17 +293,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {

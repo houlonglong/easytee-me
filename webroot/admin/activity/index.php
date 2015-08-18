@@ -166,7 +166,7 @@
             url:"/api?model=admin/activity&action=list",
             url_save:"/api?model=admin/activity&action=edit",
             method:"POST",
-            height:390,
+            height:500,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
@@ -183,7 +183,7 @@
                     formatter:function(cellvalue, options, rowObject){
                          return cellvalue+'/'+rowObject['sales_count'];
                     }
-        },
+                },
                 {title:"开始时间",name:'start_time',index:'start_time',width:100,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },

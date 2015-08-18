@@ -2,10 +2,10 @@
 /**
  * 后台任务
  */
-class Model_Admin_Deamon_Task{
+class Model_Admin_Deamon_Task extends Model_Admin_Abstract{
     static $table = "task_img_service";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图

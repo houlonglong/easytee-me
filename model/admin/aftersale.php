@@ -2,10 +2,10 @@
 /**
  * 售后管理
  */
-class Model_Admin_Aftersale{
+class Model_Admin_Aftersale extends Model_Admin_Abstract{
     static $table = "";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情

@@ -124,6 +124,11 @@ class Model_Service_Pic{
         //self::merge_design_pics($act_id,$design_id);
         $_design_svgs = PtLib\db_select_rows("select id,side,status,img_url,svg_url from design_svg_side where design_id = ?",$design_id);
 
+        if(empty($_design_svgs)){
+            $_design_svgs = PtLib\db_select_rows("select * from design_svgs where design_id = ?",$design_id);
+            print_r($_design_svgs);exit;
+        }
+
         foreach($_design_svgs as $_design_svg){
             $side = $_design_svg['side'];
             $base_path = self::formate_design_upload_path($design_id,$side);

@@ -3,10 +3,10 @@ use PtLib as PtLib;
 /**
  * 众筹管理
  */
-class Model_Admin_Activity{
+class Model_Admin_Activity extends Model_Admin_Abstract{
     static $table = "activities";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情
