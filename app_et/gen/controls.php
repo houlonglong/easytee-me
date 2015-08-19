@@ -10,7 +10,9 @@ user/auth/login|用户登陆
 admin/index|管理首页
 admin/auth/login|管理登陆
 admin/deamon/task/monitor|任务监控
-admin/deamon/task/index|任务管理|admin_list
+admin/deamon/task/sms/index|短信任务|admin_list|admin/deamon/task/sms
+admin/deamon/task/pic/index|图片合成|admin_list|admin/deamon/task/pic
+
 admin/activity/detail|众筹detail|admin_form
 admin/activity/order_detail|订单详情|admin_form
 admin/activity/order|订单管理|admin_list
@@ -34,7 +36,6 @@ admin/activity/audit_unpass|审核未通过|admin_list
 admin/activity/audit_ongoing|审核通过进行中|admin_list
 admin/activity/success|成功的众筹|admin_list
 admin/activity/fail|失败的众筹|admin_list
-
 
 admin/product/product/index|产品管理|admin_list|admin/product/product
 admin/product/category/index|产品分类管理|admin_list|admin/product/category

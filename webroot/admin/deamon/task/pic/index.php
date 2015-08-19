@@ -3,10 +3,10 @@
 <head>
     <?php
     /**
-     * Controller Name Replace
+     * 图片合成
      *
      */
-    $__model_path = "";
+    $__model_path = "admin/deamon/task/pic";
     include(block("admin/block/html_head"))?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
@@ -53,6 +53,7 @@
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
+    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search(){
@@ -83,7 +84,15 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',editable: false,sortable:false},
+                {title:"act_id",name:'act_id',index:'act_id',editable: false,sortable:false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="http://'+frontend_domain+'/activity/'+cellvalue+'" target = "_black">'+cellvalue+'</a';
+                    }
+                },
+                {title:"try_time",name:'try_time',index:'try_time',editable: false,sortable:false},
+                {title:"error_msg",name:'error_msg',index:'error_msg',editable: false,sortable:false},
+                {title:"created",name:'created',index:'created',editable: false,sortable:false},
+                {title:"create_time",name:'create_time',index:'create_time',editable: false,sortable:false},
                 /*
                 {title:"Title",name:'title',index:'title',editable: false,
                     formatter:'showlink',

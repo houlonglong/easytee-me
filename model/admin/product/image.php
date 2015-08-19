@@ -1,11 +1,11 @@
 <?php
 /**
- * Model Title Name
+ * 产品图片
  */
-class Model_Class_Name{
-    static $table = "";
+class Model_Admin_Product_Image extends Model_Admin_Abstract{
+    static $table = "product_style_image_regions";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图
@@ -18,11 +18,11 @@ class Model_Class_Name{
 
     /**
      * 列表
-     *
+     */
     function action_list(){
         return self::table_list();
     }
-     */
+
 
     /**
      * 详情
@@ -36,14 +36,14 @@ class Model_Class_Name{
 
     /*
     * 列表
-    *
+    */
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
         $response = PtLib\get_table_list($table,$table_alias);
         return $response;
     }
-    */
+
     /**
      * 详情
      * @param $id

@@ -31,18 +31,22 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="page-header">
                     <h1>
-                        修改用户
+                        用户信息
                     </h1>
                 </div><!-- /.page-header -->
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <pre><?php print_r($user);?></pre>
                         <form class="form-horizontal" style="display: none" id="form" role="form">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label no-padding-right" for="name">姓名</label>
                                 <div class="col-sm-9">
                                     <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="name" placeholder="姓名"/>
                                 </div>
+                            </div>
+                            <div>
+
                             </div>
 
                             <div class="clearfix form-actions">

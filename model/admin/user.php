@@ -5,7 +5,17 @@ class Model_Admin_User extends Model_Admin_Abstract{
     function __construct(){
         parent::__construct();
     }
+    function view_modify(){
+        $request = PtLib\http_request("id");
+        $id = $request['id'];
+        $user = self::_db()->select_row("select n.*,a.*,u.*
+        from users as u left join new_users as n on n.id = u.app_uid
+        left join user_attributes as a on a.uid = n.id where u.id = ?
 
+        ",$id);
+        //var_dump($user);exit;
+        return array("user"=>$user);
+    }
     /**
      * @return array
      */

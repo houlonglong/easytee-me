@@ -1,60 +1,20 @@
 <?php
 /**
- * admin/product/product
+ * 产品款式
  */
-class Model_Admin_Product_Product extends Model_Admin_Abstract{
-    static $table = "products";
+class Model_Admin_Product_Style extends Model_Admin_Abstract{
+    static $table = "product_style_sizes";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
     /**
      * 详情视图
-     */
+     *
     function view_detail(){
-        $id = self::_request("id");
-        $product = self::detail($id);
-
-        $_styles = self::_db()->select_rows("select id,purchase_price,selling_price,enable,sequence,colors,color,color_name from product_styles where product_id = ? order by sequence desc",$product['id']);
-        $styles = array();
-        foreach($_styles as $style){
-            if(!$style['color']){
-                $colors = json_decode($style['colors'],1);
-                $colors = $colors['0']['name'];
-                self::_db()->update("product_styles",array("color"=>$colors),array("id"=>$style['id']));
-            }
-            $styles[] = $style;
-        }
-        //$product_styles = self::_db()->select_rows("select pss.*,ps.colors,ps.is_default,ps.color_name from product_style_sizes as pss left join product_styles as ps on ps.id = pss.product_style_id where pss.product_id = ?",$product['id']);
-        //$product_sizes = self::_db()->select_rows("select * from product_sizes where product_id = ?",$product['id']);
-        //var_dump($product_sizes);exit;
-        return array("product"=>$product,"styles"=>$styles);
+        $request = PtLib\http_request("id");
+        return self::detail($request['id']);
     }
-    function action_style_detail(){
-        $style_id = self::_request("style_id");
-        $sizes = self::_db()->select_rows("select id,size,inventory,increase,enable from product_style_sizes where product_style_id = ?",$style_id);
-        $_images = self::_db()->select_rows("select
-                    psi.id,psir.x,psir.y,psir.w,psir.h,psi.side,psi.imgurl,psi.sequence,psir.region,psir.is_default
-                    from product_style_images as psi
-                    left join product_style_image_regions as psir on psir.product_style_image_id = psi.id
-                    where psi.product_style_id = ?",$style_id);
-        $images = array();
-        foreach ($_images as $image) {
-            if(!$image["x"]){
-                $region = explode(",",$image['region']);
-                self::_db()->update("product_style_image_regions",array(
-                    "x"=>$region[0],
-                    "y"=>$region[1],
-                    "w"=>$region[2],
-                    "h"=>$region[3],
-                ),array(
-                    "product_style_image_id"=>$image['id']
-                ));
-            }
-            $image['imgurl'] = replace_cdn($image['imgurl']);
-            $images[] = $image;
-        }
-        return array("sizes"=>$sizes,"images"=>$images);
-    }
+     */
 
     /**
      * 列表
@@ -79,14 +39,13 @@ class Model_Admin_Product_Product extends Model_Admin_Abstract{
     */
     static function table_list(){
         $table_alias = $table = self::$table;
-        $table_alias = 'p';
-        $join = ' left join manufacturer_brands as mb on mb.id = p.manufacturer_brand_id
-        left join manufacturers as  m on m.id = mb.manufacturer_id ';
+        //$table_alias = '';
+        $join = " left join product_styles as ps on ps.id = $table_alias.product_style_id";
         //fields
-        $select_fields = " p.*,m.name as m_name,mb.name as mb_name ,m.type as m_type ";
+        $select_fields = " $table_alias.*,ps.colors,ps.color_name,ps.purchase_price,ps.selling_price,ps.is_default ";
         if(empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("rows","page","sidx","sord","product_id");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -102,8 +61,8 @@ class Model_Admin_Product_Product extends Model_Admin_Abstract{
         }
 
         //where
-        $args = array();
-        $where  = " where 1=1 ";
+        $args = array($request['product_id']);
+        $where  = " where ps.product_id = ? ";
         //order
         $order = "";
         if($sort)
@@ -132,6 +91,9 @@ class Model_Admin_Product_Product extends Model_Admin_Abstract{
         //$rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
+            $colors = json_decode($row['colors'],true);
+            $colors = $colors[0]['name'];
+            $row['colors'] = $colors;
             $response->rows[] = array(
                 'id'=>$row['id'],
                 "cell"=>$row
@@ -144,13 +106,13 @@ class Model_Admin_Product_Product extends Model_Admin_Abstract{
      * 详情
      * @param $id
      * @return array
-     */
+     *
     static function detail($id){
         $table = self::$table;
         $row = PtLib\db_select_row("select * from $table where id = ?",$id);
         return $row;
     }
-
+     */
 
     /**
      * 修改
