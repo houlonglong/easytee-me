@@ -31,6 +31,9 @@ admin/activity/pending_audit|待审核|admin_list
 
 admin/activity/audit|已审核|admin_list
 admin/activity/audit_unpass|审核未通过|admin_list
+admin/activity/audit_ongoing|审核通过进行中|admin_list
+admin/activity/success|成功的众筹|admin_list
+admin/activity/fail|失败的众筹|admin_list
 
 
 admin/product/product/index|产品管理|admin_list|admin/product/product

@@ -225,14 +225,8 @@ class Model_Admin_Activity extends Model_Admin_Abstract{
         }
 
         if($request['pass'] !== null){
-            if($request['pass'] == 2){
-                $join .=' inner join audit_reason as ar on ar.activity_id = '.$table_alias.'.id';
-                $select_fields = " DISTINCT $table_alias.*,u.nick_name ";
-            }else{
                 $where .= ' and '.$table_alias.'.pass =?';
                 $args[] = $_REQUEST['pass'];
-            }
-
         }
 
         //order
@@ -351,7 +345,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract{
     function action_audit(){
         $id = $this->_request('id');
         if($id){
-            var_dump(PtLib\db()->update('activities',array('pass'=>1),array('id'=>$id)));
+           PtLib\db()->update('activities',array('pass'=>1),array('id'=>$id));
         }
     }
 
@@ -371,6 +365,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract{
             $fields['username'] = 1;
             $fields['create_time'] = date('Y-m-d H:i:s');
             self::_db()->insert('audit_reasons',$fields);
+            PtLib\db()->update('activities',array('pass'=>2),array('id'=>$id));
         }
 
     }

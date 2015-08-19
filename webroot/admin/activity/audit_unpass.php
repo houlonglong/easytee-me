@@ -39,7 +39,7 @@
                                        onclick="location.href='/admin/activity/index'">Home</a>
                                 </li>
 
-                                <li class="active">
+                                <li>
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/pending_audit'">待审核</a>
                                 </li>
@@ -48,13 +48,29 @@
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/audit'">已审核</a>
                                 </li>
+                                <li class="active">
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/success'">成功的众筹</a>
+                                </li>
+                                <li >
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/fail'">失败的众筹</a>
+                                </li>
                             </ul>
+                            <div class="tab-content">
                             <div class="row">
 
                                 <div class="col-xs-12">
                                     <!-- PAGE CONTENT BEGINS -->
                                     <div class="row" style="padding:20px 0">
-                                        <div class="row" style="padding:20px 0">
                                             <div class="col-xs-2">
                                                 <label>
                                                     活动名称
@@ -91,7 +107,6 @@
                                                 </button>
                                             </div>
 
-                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
@@ -108,6 +123,7 @@
                                     </div>
                                 </div>
                             </div>
+                                </div>
                             <!-- /.span -->
                         </div>
                         <!-- PAGE CONTENT ENDS -->
@@ -250,7 +266,7 @@
 
 
         var usl_api_base = "admin/activity";
-        var url_api_list = "/api?model=" + usl_api_base + "&action=list&pass=0";
+        var url_api_list = "/api?model=" + usl_api_base + "&action=list&pass=2";
         var url_api_edit = "/api?model=" + usl_api_base + "&action=edit";
         var url_api_detail = "/" + usl_api_base + "/detail";
 
@@ -282,12 +298,7 @@
                     width: 90,
                     editable: true,
                     editoptions: {size: "20", maxlength: "30"},
-                    formatter: 'showlink',
-                    formatoptions: {
-                        baseLinkUrl: url_api_detail,
-                        addParam: '',//&t=1
-                        idName: 'id'
-                    }
+
                 },
                 {
                     title: "销售目标件数",
@@ -302,19 +313,20 @@
                     name: 'start_time',
                     index: 'start_time',
                     editable: true,
+                    width: 80,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
                     title: "预计结束时间",
                     name: 'real_end_time',
                     index: 'real_end_time',
-                    width: 190,
+                    width: 80,
                     sortable: false,
                     editable: false
                 },
 
                 {
-                    title: "操作", name: 'options', index: '', width: 80, fixed: true, sortable: false, resize: false,
+                    title: "操作", name: 'options', index: '', width: 120, fixed: true, sortable: false, resize: false,
                     formatter: 'actions',
                     formatoptions: {
                         keys: true,
@@ -325,7 +337,11 @@
                     },
                     formatter: function (cellvalue, options, rowObject) {
                         var html;
-                        html = '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">审核</a>&nbsp';
+                        var text = "审核";
+                        if(rowObject['update_data'] == 1){
+                             text = '资料更新待审核';
+                        }
+                        html = '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">'+text+'</a>&nbsp';
                         return html;
                     }
                 },

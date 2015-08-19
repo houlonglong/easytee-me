@@ -48,7 +48,24 @@
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/audit'">已审核</a>
                                 </li>
+                                <li>
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/audit_ongoing'">审核未通过</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/success'">审核未通过</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#"
+                                       onclick="location.href='/admin/activity/fail'">审核未通过</a>
+                                </li>
                             </ul>
+                            <div class="tab-content">
                             <div class="row">
 
                                 <div class="col-xs-12">
@@ -108,6 +125,7 @@
                                     </div>
                                 </div>
                             </div>
+                                </div>
                             <!-- /.span -->
                         </div>
                         <!-- PAGE CONTENT ENDS -->
@@ -196,7 +214,7 @@
 
 
                             <div class="form-actions center">
-                                <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back">
+                                <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back" data-dismiss="modal">
                                     驳回
                                     <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                                 </button>

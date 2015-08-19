@@ -47,6 +47,22 @@
                                         <li>
                                             <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/audit'">已审核</a>
                                         </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/success'">成功的众筹</a>
+                                        </li>
+                                        <li >
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/fail'">失败的众筹</a>
+                                        </li>
                                     </ul>
 
                                     <div class="tab-content">
