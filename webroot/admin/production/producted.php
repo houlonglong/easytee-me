@@ -48,10 +48,10 @@
                                         <li>
                                             <a data-toggle="tab" href="#" onclick="return do_product('producting');">生产中</a>
                                         </li>
-                                        <li>
+                                        <li class="active">
                                             <a data-toggle="tab" href="#" onclick="return do_product('producted');">已完成侍发货</a>
                                         </li>
-                                        <li class="active">
+                                        <li>
                                             <a data-toggle="tab" href="#" onclick="return do_product('shipped');">已发货</a>
                                         </li>
                                     </ul>

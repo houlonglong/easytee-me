@@ -41,8 +41,11 @@ $model_admin_user = $model_admin_user_obj->get_auth_user_info();
                                 <i class="ace-icon fa fa-user"></i>
                                 个人设置
                             </a>
+                        </li>-->
+                        <li>
+                            <a href="/ace/index.html" target="_blank">Template</a>
                         </li>
-                        <li class="divider"></li>-->
+                        <li class="divider"></li>
                         <li>
                             <a href="/api?model=/admin/auth&action=logout">
                                 <i class="ace-icon fa fa-power-off"></i>

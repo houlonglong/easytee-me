@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row" style="padding:20px 0">
+                        <div class="row" style="padding:20px 0;display:none">
                             <div class="col-xs-12">
                                     <label>
                                         Ttile
@@ -40,16 +40,32 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#" onclick="return do_product('index');">待生产</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#" onclick="return do_product('producting');">生产中</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#" onclick="return do_product('producted');">已完成侍发货</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#" onclick="return do_product('shipped');">已发货</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane in active">
+                                            <table id="grid-table"></table>
+                                            <div id="grid-pager"></div>
+                                            <script type="text/javascript">
+                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                            </script>
+                                        </div>
 
-                                <table id="grid-table"></table>
-
-                                <div id="grid-pager"></div>
-
-                                <script type="text/javascript">
-                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                </script>
-
-
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.span -->
                         </div>
@@ -70,6 +86,14 @@
 
 <script type="text/javascript">
 
+    var url_api_base   = "admin/production";
+    var url_api_list   = "/api?model="+url_api_base + "&action=list";
+    var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
+    var url_api_detail = "/"+url_api_base + "/detail";
+    function do_product($action){
+        location.href = "/"+url_api_base+"/"+$action;
+        return false;
+    }
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search(){
@@ -83,10 +107,6 @@
         }).trigger("reloadGrid"); //重新载入
     }
     jQuery(function($) {
-        var url_api_base   = "admin/production";
-        var url_api_list   = "/api?model="+url_api_base + "&action=list";
-        var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
-        var url_api_detail = "/"+url_api_base + "/detail";
 
         var grid_setting = {
             url:url_api_list,
@@ -97,27 +117,16 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:url_api_detail,
-                        addParam: '',//&t=1
-                        idName:'id'
-                    }
-                },
-                {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
+
+                {title:"活动名称",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false},
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
+                {title:"订单成交数",name:'profie',index:'profie',width:100,sortable:false,editable: false},
+                {title:"预计交货时间",name:'profie',index:'profie',width:100,sortable:false,editable: false},
+                {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
+                    formatter:function(cellvalue, options, rowObject){
+                        return '<a class="btn btn-primary" href="/admin/production/step_1?id='+cellvalue+'">安排生产</a>';
+                    },
                 },
             ]
 

@@ -43,7 +43,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $join = ' inner join users as u on u.id = activities.uid';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("rows","page","sidx","sord","shipped");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -63,7 +63,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         //where
         $args = array();
         $where  = " where 1=1 ";
-        $status = $_GET['status'];
+        $status = $request['status'];
         if($status == 'index'){
             $where .='and activities.sales_count>=10 and activities.real_end_time >? ';
             $args[] = date('Y-m-d H:i:s');

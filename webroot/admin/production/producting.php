@@ -44,14 +44,14 @@
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li>
                                             <a data-toggle="tab" href="#" onclick="return do_product('index');">待生产</a>
-                                        </li>
-                                        <li>
+                                        </li class="active">
+                                        <li class="active">
                                             <a data-toggle="tab" href="#" onclick="return do_product('producting');">生产中</a>
                                         </li>
                                         <li>
                                             <a data-toggle="tab" href="#" onclick="return do_product('producted');">已完成侍发货</a>
                                         </li>
-                                        <li class="active">
+                                        <li>
                                             <a data-toggle="tab" href="#" onclick="return do_product('shipped');">已发货</a>
                                         </li>
                                     </ul>

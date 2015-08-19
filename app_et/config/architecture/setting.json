@@ -23,11 +23,13 @@
             },
             {
                 "title":"成功的众筹",
-                "url":"/admin/activity/success"
+                "url":"/admin/activity/success",
+                "hide_menu":1
             },
             {
                 "title":"失败的众筹",
-                "url":"/admin/activity/failture"
+                "url":"/admin/activity/failture",
+                "hide_menu":1
             }
         ]
     },
@@ -41,16 +43,18 @@
         },
         "control":[
             {
-                "title":"待生产",
+                "title":"生产管理",
                 "url":"/admin/production/index"
             },
             {
                 "title":"生产中",
-                "url":"/admin/production/ongoing"
+                "url":"/admin/production/ongoing",
+                "hide_menu":1
             },
             {
                 "title":"已发货",
-                "url":"/admin/production/shipped"
+                "url":"/admin/production/shipped",
+                "hide_menu":1
             }
 
         ]

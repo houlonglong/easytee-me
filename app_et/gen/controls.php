@@ -18,8 +18,10 @@ admin/activity/order_detail|订单详情|admin_form
 admin/activity/order|订单管理|admin_list
 admin/activity/index|众筹管理|admin_list
 admin/production/index|待生产|admin_list
-admin/production/ongoing|生产中|admin_list
-admin/production/shipped|已发货|admin_list
+admin/production/producting|生产中|admin_list|admin/production
+admin/production/producted|生产完成侍发货|admin_list|admin/production
+admin/production/shipped|已发货|admin_list|admin/production
+
 admin/aftersale/index|售后管理|admin_list
 admin/font/font/index|字体管理|admin_list
 admin/font/category/index|字体分类|admin_list
