@@ -23,11 +23,13 @@
             },
             {
                 "title":"成功的众筹",
-                "url":"/admin/activity/success"
+                "url":"/admin/activity/success",
+                "hide_menu":1
             },
             {
                 "title":"失败的众筹",
-                "url":"/admin/activity/failture"
+                "url":"/admin/activity/failture",
+                "hide_menu":1
             }
         ]
     },
