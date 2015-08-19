@@ -17,7 +17,7 @@
 
 
 
-# 周树先  2015-08-18
+# 周树先 2015-08-18
 
 	ALTER TABLE `product_styles` ADD `color` CHAR(6)  NULL  DEFAULT NULL  AFTER `colors`;
 	ALTER TABLE `product_style_image_regions` ADD `h` INT  NULL  DEFAULT NULL  AFTER `region`;

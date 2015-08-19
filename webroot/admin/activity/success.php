@@ -56,11 +56,11 @@
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
                                 </li>
-                                <li>
+                                <li class="active">
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/success'">成功的众筹</a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/fail'">失败的众筹</a>
                                 </li>
@@ -266,9 +266,8 @@
 
 
         var usl_api_base = "admin/activity";
-        var url_api_list = "/api?model=" + usl_api_base + "&action=list&pass=2";
+        var url_api_list = "/api?model=" + usl_api_base + "&action=list&success=1";
         var url_api_edit = "/api?model=" + usl_api_base + "&action=edit";
-        var url_api_detail = "/" + usl_api_base + "/detail";
 
 
         var grid_setting = {
@@ -336,12 +335,8 @@
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     },
                     formatter: function (cellvalue, options, rowObject) {
-                        var html;
-                        var text = "审核";
-                        if(rowObject['update_data'] == 1){
-                            text = '资料更新待审核';
-                        }
-                        html = '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">'+text+'</a>&nbsp';
+                        var html='';
+                        html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
                         return html;
                     }
                 },

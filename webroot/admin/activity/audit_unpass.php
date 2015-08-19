@@ -36,7 +36,7 @@
                             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                 <li>
                                     <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/index'">Home</a>
+                                       onclick="location.href='/admin/activity/index'">全部</a>
                                 </li>
 
                                 <li>
@@ -285,7 +285,6 @@
                     name: 'name',
                     index: 'name',
                     width: 40,
-                    sorttype: "int",
                     editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a href="http://' + frontend_domain + '/activity/' + rowObject['id'] + '" target = "_black">' + cellvalue + '</a';
@@ -321,7 +320,7 @@
                     name: 'real_end_time',
                     index: 'real_end_time',
                     width: 80,
-                    sortable: false,
+                    sorttype: "date",
                     editable: false
                 },
 
@@ -341,7 +340,7 @@
                         if(rowObject['update_data'] == 1){
                              text = '资料更新待审核';
                         }
-                        html = '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">'+text+'</a>&nbsp';
+                        html = '<a href="#"  class="btn btn-xs btn-success audit"  onclick="audit(this)"  data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">'+text+'</a>&nbsp';
                         return html;
                     }
                 },

@@ -36,7 +36,7 @@
                             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                 <li>
                                     <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/index'">Home</a>
+                                       onclick="location.href='/admin/activity/index'">全部</a>
                                 </li>
 
                                 <li class="active">
@@ -287,7 +287,6 @@
                     name: 'name',
                     index: 'name',
                     width: 40,
-                    sorttype: "int",
                     editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a href="http://' + frontend_domain + '/activity/' + rowObject['id'] + '" target = "_black">' + cellvalue + '</a';
@@ -316,6 +315,14 @@
                     editable: false
                 },
                 {
+                    title: "实际件数",
+                    name: 'sales_count',
+                    index: 'sales_count',
+                    width: 40,
+                    sorttype: "int",
+                    editable: false
+                },
+                {
                     title: "开始时间",
                     name: 'start_time',
                     index: 'start_time',
@@ -327,7 +334,7 @@
                     name: 'real_end_time',
                     index: 'real_end_time',
                     width: 190,
-                    sortable: false,
+                    sorttype: "date",
                     editable: false
                 },
 
@@ -343,7 +350,7 @@
                     },
                     formatter: function (cellvalue, options, rowObject) {
                         var html;
-                        html = '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">审核</a>&nbsp';
+                        html = '<a href="#" class="btn btn-xs btn-success audit"  onclick="audit(this)"  data-toggle="modal" data-target=".bs-example-modal-sm" data-id="' + rowObject['id'] + '">审核</a>&nbsp';
                         return html;
                     }
                 },

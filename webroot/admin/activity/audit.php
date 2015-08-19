@@ -33,7 +33,7 @@
                         <div class="tabbable">
                             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                 <li >
-                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">Home</a>
+                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">全部</a>
                                 </li>
 
                                 <li >
@@ -215,8 +215,8 @@
                     }
                 },
                 {title:"销售目标件数",name:'sales_target',index:'sales_target', width:40, sorttype:"int", editable: false},
-                {title:"开始时间",name:'start_time',index:'start_time',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"预计结束时间",name:'real_end_time',index:'real_end_time',width:190,sortable:false,editable: false},
+                {title:"开始时间",name:'start_time',index:'start_time',sorttype: "date",editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"预计结束时间",name:'real_end_time',index:'real_end_time',width:190,sorttype: "date",editable: false},
 
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
@@ -228,7 +228,8 @@
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     },
                     formatter:function(cellvalue, options, rowObject){
-                        var html = '<a href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>';
+                        var html='';
+                        html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
                         return html;
                     }
                 },

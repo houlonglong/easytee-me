@@ -37,7 +37,7 @@
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">Home</a>
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">全部</a>
                                         </li>
 
                                         <li>
@@ -231,7 +231,7 @@
     }
     jQuery(function($) {
         var grid_setting = {
-            url:"/api?model=admin/activity&action=list",
+            url:"/api?model=admin/activity&action=list&success=index",
             url_save:"/api?model=admin/activity&action=edit",
             method:"POST",
             height:500,
@@ -252,16 +252,17 @@
                          return cellvalue+'/'+rowObject['sales_count'];
                     }
                 },
-                {title:"开始时间",name:'start_time',index:'start_time',width:100,sortable:false,editable: true,
+                {title:"开始时间",name:'start_time',index:'start_time',width:80,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
-                {title:"预计结束时间",name:'end_time',index:'end_time',width:100,sortable:false,editable: true,
+                {title:"预计结束时间",name:'end_time',index:'end_time',width:80,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
-                {title:"实际结束时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: true,
+                {title:"实际结束时间",name:'real_end_time',index:'real_end_time',width:80,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
-                {title:"众筹状态",name:'activity_status',index:'activity_status',width:100,sortable:false,editable: true,edittype:"custom",
+
+                {title:"众筹状态",name:'activity_status',index:'activity_status',width:50,sortable:false,editable: true,edittype:"custom",
                     editoptions:{custom_element: mystatuselem, custom_value:myvalue},
 //                    formatter:function(cellvalue, options, rowObject){
 //                        var img = "";
@@ -281,7 +282,7 @@
 //                    }
                 },
 
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
+                {title:"操作",name:'options',index:'', width:150, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
                         keys:true,
@@ -293,10 +294,10 @@
                     },
                     formatter:function(cellvalue, options, rowObject){
                         var html='';
+                        html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
                         if(rowObject['pass'] == 0 ){
-                            html= '<a href="#"  onclick="audit(this)"  class= "audit" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
+                            html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
                         }
-                         html += '<a href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>';
                         return html;
                     }
                 },
