@@ -81,7 +81,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord",'order_no','activity_name','username','status');
+        $request = PtLib\http_request("rows","page","sidx","sord",'order_no','activity_name','username','status','mobile');
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -103,8 +103,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         $args = array();
         $where  = " where 1=1 ";
         if($activity_name){
-            $where .= 'and orders.name = ? ';
-            $args[] = $activity_name;
+            $where .= 'and orders.name like "%'.$activity_name.'%" ';
         }
         if($order_no){
             $where .= 'and orders.order_no = ? ';
@@ -117,6 +116,10 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         if($status){
             $where .= 'and orders.status = ? ';
             $args[] = $status;
+        }
+        if($request['mobile']){
+            $where .= 'and u.mobile = ? ';
+            $args[] = $request['mobile'];
         }
         //order
         $order = "";

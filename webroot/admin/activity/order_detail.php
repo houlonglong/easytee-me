@@ -153,7 +153,7 @@
                                                                         <td>
                                                                             <div class="media">
                                                                                 <a class="media-left" href="#">
-                                                                                    <img src="<?php echo $good['img_path']; ?>" alt="...">
+                                                                                    <img src="<?php echo $good['img_path']; ?>" alt="..." width="60px">
                                                                                 </a>
 
                                                                                 <div class="media-body">

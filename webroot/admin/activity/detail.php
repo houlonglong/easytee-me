@@ -295,19 +295,6 @@
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-//                $("#" + subgridTableId).jqGrid({
-//                    datatype: 'local',
-//                    data: subgrid_data,
-//                    colNames: ['No','Item Name','Qty'],
-//                    colModel: [
-//                        { name: 'id', width: 50 },
-//                        { name: 'name', width: 150 },
-//                        { name: 'qty', width: 50 }
-//                    ]
-//                });
-                console.log(rowId);
-
-
                 $.ajax({
                     url:'/api?model=admin/activity&action=ordergoods_detail',
                     data:{

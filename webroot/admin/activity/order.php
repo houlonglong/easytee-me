@@ -15,6 +15,11 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
+    <style>
+        .jqgfirstrow{
+            background-color:#C7D3A9;
+        }
+    </style>
 </head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar"))?>
@@ -54,6 +59,12 @@
                                     </label>
                                     <input type="text" id="username">
                                 </div>
+                            <div class="col-xs-2">
+                                <label>
+                                    手机号码
+                                </label>
+                                <input type="text" id="mobile">
+                            </div>
                                 <div class="col-xs-2">
                                     <button class="btn-primary" onclick="search()">search</button>
                                 </div>
@@ -97,6 +108,7 @@
             activity_name:$('#activity-name').val(),
             status:$('#order-status').val(),
             username:$('#username').val(),
+            mobile:$('#mobile').val()
 
         };
         $(grid_selector).jqGrid('setGridParam',{
@@ -151,7 +163,7 @@
                             img = '<span class="label label-sm label-success arrowed-in">'+cellvalue+'</span>';
                         }
                         if(cellvalue == '已关闭'){
-                            img = '<span class="label label-sm label-warning">'+cellvalue+'</span>';
+                            img = '<span class="label label-sm label-warning">订单已取消</span>';
                         }
                         if(cellvalue == '已发货'){
                             img = '<span class="label label-sm label-info arrowed arrowed-righ">'+cellvalue+'</span>';
@@ -263,7 +275,7 @@
             //direction: "rtl",
 
             //subgrid options
-            subGrid : false,
+            subGrid : true,
             //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
             //datatype: "xml",
             subGridOptions : {
@@ -274,17 +286,35 @@
             //for this example we are using local data
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
-                $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-                $("#" + subgridTableId).jqGrid({
-                    datatype: 'local',
-                    data: subgrid_data,
-                    colNames: ['No','Item Name','Qty'],
-                    colModel: [
-                        { name: 'id', width: 50 },
-                        { name: 'name', width: 150 },
-                        { name: 'qty', width: 50 }
-                    ]
-                });
+                $("#" + subgridDivId).html("<table  style='background-color:#C7D3A9;' id='" + subgridTableId + "'></table>");
+                $.ajax({
+                    url:'/api?model=admin/activity&action=ordergoods_detail',
+                    data:{
+                        id:rowId,
+                    },
+                    type:'POST',
+                    dataType:'json',
+                    success:function(obj){
+                        $("#" + subgridTableId).jqGrid({
+                            datatype: 'local',
+                            data: obj,
+                            colNames: ['订购服装品类','订购服装款式','订购服装性别','订购服装颜色','订购服装尺码','订购服装数量','采购单价','采购总价','预计交期'],
+                            colModel: [
+                                { name: 'manufacturer_name', width: 150,color: "#3c763d" },
+                                { name: 'product_style_name', width: 150 },
+                                { name: 'product_name', width: 150 },
+
+                                { name: 'product_style_name', width: 150 },
+                                { name: 'size', width: 150 },
+                                { name: 'quantity', width: 150 },
+
+                                { name: 'unit_price', width: 150 },
+                                { name: 'total', width: 150 },
+                                { name: 'real_end_time', width: 180 }
+                            ]
+                        });
+                    }
+                })
             },
             jsonReader: {
                 root:  function (obj) {
