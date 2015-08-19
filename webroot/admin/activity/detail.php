@@ -136,7 +136,11 @@
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
+
+
+
             cols:[
+
                 {title:"活动ID",name:'activity_id',index:'activity_id', width:40, sorttype:"int", editable: false},
 
                 {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
@@ -151,24 +155,24 @@
                         return rowObject['ship_province']+rowObject['ship_city']+rowObject['ship_area']+cellvalue;
                     }
                 },
-                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
-                    unformat: pickTimeDate
-                },
-                {title:"订购服装款式",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-                    unformat: pickTimeDate
-                },
-                {title:"订购服装性别",name:'product_name',index:'product_name',width:100,sortable:false,editable: true,
-                    unformat: pickTimeDate
-                },
-                {title:"订购服装颜色",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-                    unformat: pickTimeDate
-                },
-                {title:"订购服装尺码",name:'size',index:'size',width:50,sortable:false,editable: true,
-                    unformat: pickTimeDate
-                },
-                {title:"订购服装数量",name:'quantity',index:'quantity',width:100,sortable:false,editable: true,
-                    unformat: pickTimeDate
-                },
+//                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装款式",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装性别",name:'product_name',index:'product_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装颜色",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装尺码",name:'size',index:'size',width:50,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装数量",name:'quantity',index:'quantity',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
             ]
 
         };
@@ -279,7 +283,7 @@
             //direction: "rtl",
 
             //subgrid options
-            subGrid : false,
+            subGrid : true,
             //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
             //datatype: "xml",
             subGridOptions : {
@@ -291,16 +295,48 @@
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-                $("#" + subgridTableId).jqGrid({
-                    datatype: 'local',
-                    data: subgrid_data,
-                    colNames: ['No','Item Name','Qty'],
-                    colModel: [
-                        { name: 'id', width: 50 },
-                        { name: 'name', width: 150 },
-                        { name: 'qty', width: 50 }
-                    ]
-                });
+//                $("#" + subgridTableId).jqGrid({
+//                    datatype: 'local',
+//                    data: subgrid_data,
+//                    colNames: ['No','Item Name','Qty'],
+//                    colModel: [
+//                        { name: 'id', width: 50 },
+//                        { name: 'name', width: 150 },
+//                        { name: 'qty', width: 50 }
+//                    ]
+//                });
+                console.log(rowId);
+
+
+                $.ajax({
+                    url:'/api?model=admin/activity&action=ordergoods_detail',
+                    data:{
+                        id:rowId,
+                    },
+                    type:'POST',
+                    dataType:'json',
+                    success:function(obj){
+                        console.log(obj);
+                    $("#" + subgridTableId).jqGrid({
+                        datatype: 'local',
+                        data: obj,
+                        colNames: ['订购服装品类','订购服装款式','订购服装性别','订购服装颜色','订购服装尺码','订购服装数量','采购单价','采购总价','预计交期'],
+                        colModel: [
+                            { name: 'manufacturer_name', width: 150 },
+                            { name: 'product_style_name', width: 150 },
+                            { name: 'product_name', width: 150 },
+
+                            { name: 'product_style_name', width: 150 },
+                            { name: 'size', width: 150 },
+                            { name: 'quantity', width: 150 },
+
+                            { name: 'unit_price', width: 150 },
+                            { name: 'total', width: 150 },
+                            { name: 'real_end_time', width: 180 }
+                        ]
+                    });
+                  }
+                })
             },
             jsonReader: {
                 root:  function (obj) {

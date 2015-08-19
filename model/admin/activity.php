@@ -40,10 +40,10 @@ class Model_Admin_Activity extends Model_Admin_Abstract
     {
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' .
-            ' inner join order_goods as og on og.order_id = o.id inner join product_styles as ps on ps.id = og.product_style_id ' .
-            ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ';
+        $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' ;
+//            ' inner join order_goods as og on og.order_id = o.id inner join product_styles as ps on ps.id = og.product_style_id ' .
+//            ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
+//                   ';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows", "page", "sidx", "sord");
@@ -53,7 +53,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " o.*,og.*,m.name as manufacturer_name ";
+        $select_fields = " o.* ";
 
         if (empty($limit)) $limit = 20;
         if (empty($page)) $page = 1;
@@ -388,7 +388,6 @@ class Model_Admin_Activity extends Model_Admin_Abstract
 
     function action_audit_back()
     {
-        $request = $this->_request('id', 'reason', 'notes');
         $id = $this->_request('id');
         if ($id) {
             $fields['activity_id'] = $id;
@@ -406,5 +405,18 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             PtLib\db()->update('activities', array('pass' => 2), array('id' => $id));
         }
 
+    }
+
+    function action_ordergoods_detail(){
+        $id = $this->_request('id');
+        if($id){
+           $rows = PtLib\db()->select_rows('select a.real_end_time,og.* from order_goods as og inner join orders as o on o.id = og.order_id
+                              inner join activities as a on a.id = o.activity_id where og.order_id = ?',$id);
+            foreach($rows as $key=>$row){
+                $rows[$key]['total'] = $row['quantity']*$row['unit_price'];
+                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s',strtotime($row['real_end_time'].'+7 day'));
+            }
+            echo json_encode($rows);
+        }
     }
 }
