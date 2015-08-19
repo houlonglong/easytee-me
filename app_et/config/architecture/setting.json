@@ -86,6 +86,11 @@
             {
                 "title":"产品分类",
                 "url":"/admin/product/category/index"
+            },
+            {
+                "title":"产品详情",
+                "url":"/admin/product/product/detail",
+                "hide_menu":1
             }
         ]
     },
@@ -146,8 +151,12 @@
             "url":"/admin/deamon/task/monitor"
         },
         {
-            "title":"任务管理",
-            "url":"/admin/deamon/task/index"
+            "title":"短信任务",
+            "url":"/admin/deamon/task/sms/index"
+        },
+        {
+            "title":"图片合成",
+            "url":"/admin/deamon/task/pic/index"
         }
     ]
 },
