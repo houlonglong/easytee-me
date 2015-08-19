@@ -36,7 +36,7 @@
                                 <table id="grid-table"></table>
                                 <div id="grid-pager"></div>
                                 <script type="text/javascript">
-                                    var $path_base = ".";/
+                                    var $path_base = ".";
                                 </script>
                             </div>
                         </div>
@@ -85,7 +85,15 @@
                 {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
                 {title:"type",name:'type',index:'type',editable: false,sortable:false},
                 {title:"bind_id",name:'bind_id',index:'bind_id',editable: false,sortable:false},
-                {title:"option",name:'option',index:'option',editable: false,sortable:false},
+                {title:"option",name:'option',index:'option',editable: false,sortable:false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        cellvalue = JSON.parse(cellvalue)
+                        var html = "username:"+cellvalue.username;
+                        html += "<br>mobile:"+cellvalue.mobile;
+                        html += "<br>activity:"+cellvalue.activity;
+                        return html;
+                    }
+                },
                 {title:"status",name:'status',index:'status',editable: false,sortable:false},
                 {title:"error_time",name:'error_time',index:'error_time',editable: false,sortable:false},
                 /*

@@ -36,7 +36,7 @@
                                 <table id="grid-table"></table>
                                 <div id="grid-pager"></div>
                                 <script type="text/javascript">
-                                    var $path_base = ".";/
+                                    var $path_base = ".";
                                 </script>
                             </div>
                         </div>
@@ -53,6 +53,7 @@
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
+    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search(){
@@ -83,7 +84,11 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
-                {title:"act_id",name:'act_id',index:'act_id',editable: false,sortable:false},
+                {title:"act_id",name:'act_id',index:'act_id',editable: false,sortable:false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="http://'+frontend_domain+'/activity/'+cellvalue+'" target = "_black">'+cellvalue+'</a';
+                    }
+                },
                 {title:"try_time",name:'try_time',index:'try_time',editable: false,sortable:false},
                 {title:"error_msg",name:'error_msg',index:'error_msg',editable: false,sortable:false},
                 {title:"created",name:'created',index:'created',editable: false,sortable:false},
