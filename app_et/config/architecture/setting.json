@@ -41,16 +41,18 @@
         },
         "control":[
             {
-                "title":"待生产",
+                "title":"生产管理",
                 "url":"/admin/production/index"
             },
             {
                 "title":"生产中",
-                "url":"/admin/production/ongoing"
+                "url":"/admin/production/ongoing",
+                "hide_menu":1
             },
             {
                 "title":"已发货",
-                "url":"/admin/production/shipped"
+                "url":"/admin/production/shipped",
+                "hide_menu":1
             }
 
         ]
