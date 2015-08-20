@@ -390,7 +390,6 @@
 //        function pending_audit(){
 //            $("#modal_test").modal("show");
 //        }
-<<<<<<< HEAD
         $('.apply').click(function () {
             if(!confirm("确认要执行此操作么?")) return ;
             var $this = $(this);
@@ -403,28 +402,30 @@
                 type: "POST",
                 success: function () {
                     $('#' + $id).remove();
+                }
 
                 });
 
-        })
+            })
 
-        $('.apply-back').click(function () {
-            if(!confirm("确认要执行此操作么?")) return;
-            var reason = $('#reason').val();
-            var notes = $('#notes').val();
-            var $this = $(this);
-            var $id = $this.data('id');
-            $.ajax({
-                url: "/api?model=" + usl_api_base + "&action=audit_back",
-                data: {
-                    id: $id,
-                    reason:reason,
-                    notes:notes
-                },
-                type: "POST",
-                success: function () {
-                    $('#' + $id).remove();
-                }
+            $('.apply-back').click(function () {
+                var reason = $('#reason').val();
+                var notes = $('#notes').val();
+                var $this = $(this);
+                var $id = $this.data('id');
+                $.ajax({
+                    url: "/api?model=" + usl_api_base + "&action=audit_back",
+                    data: {
+                        id: $id,
+                        reason: reason,
+                        notes: notes
+                    },
+                    type: "POST",
+                    success: function () {
+                        $('#' + $id).remove();
+                    }
+
+                });
 
             })
 
