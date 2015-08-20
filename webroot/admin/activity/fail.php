@@ -30,7 +30,6 @@
             <div class="page-content">
                 <?php include(block("admin/block/ace-settings-container")) ?>
                 <div class="row">
-
                     <div class="col-xs-12">
                         <div class="tabbable">
                             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
@@ -38,12 +37,10 @@
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/index'">全部</a>
                                 </li>
-
                                 <li>
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/pending_audit'">待审核</a>
                                 </li>
-
                                 <li>
                                     <a data-toggle="tab" href="#"
                                        onclick="location.href='/admin/activity/audit'">已审核</a>
@@ -114,10 +111,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
-
-
                                     </div>
                                     <div class="row">
                                         <div class="col-xs-12">
@@ -132,11 +126,7 @@
                                         </div>
                                         <!-- /.span -->
                                     </div>
-
-
                                 </div>
-
-
                             </div>
                             <!-- /.span -->
                         </div>
@@ -162,14 +152,9 @@
             <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"
                     style="margin-top: 5px;margin-right: 10px;">×
             </button>
-
             <div class="modal-header">
                 <h4>活动名称：<span id="modal_active"></span></h4>
-
             </div>
-
-
-
             <div class="tabbable">
                 <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                     <li class="active">
@@ -178,9 +163,7 @@
                     <li>
                         <a data-toggle="tab" href="#apply_back">驳回</a>
                     </li>
-
                 </ul>
-
                 <div class="tab-content">
                     <div id="apply" class="tab-pane in active">
                         <div class="modal-body">
@@ -196,7 +179,6 @@
                             </button>
                         </div>
                     </div>
-
                     <div id="apply_back" class="tab-pane">
                         <form class="form-horizontal">
                             <div class="form-group" style="margin-left: -120px;">
@@ -223,8 +205,6 @@
                                     <textarea name="" id="notes" cols="30" rows="10" class="form-control" style="width: 307px;height: 96px;"></textarea>
                                 </div>
                             </div>
-
-
                             <div class="form-actions center">
                                 <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back">
                                     驳回
@@ -232,14 +212,9 @@
                                 </button>
                             </div>
                         </form>
-
-
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </div>
 </div>
