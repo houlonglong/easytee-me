@@ -87,7 +87,7 @@
 <script type="text/javascript">
 
     var url_api_base   = "admin/production";
-    var url_api_list   = "/api?model="+url_api_base + "&action=list";
+    var url_api_list   = "/api?model="+url_api_base + "&action=list&status=producting";
     var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
     var url_api_detail = "/"+url_api_base + "/detail";
     function do_product($action){

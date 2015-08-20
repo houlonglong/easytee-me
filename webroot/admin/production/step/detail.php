@@ -35,10 +35,20 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-xs-12">
-                                <div>
-                                    <button class="btn btn-primary" onclick="">下单生产</button>
-                                </div>
                                 <h2>活动ID:<?=$activity['id']?></h2>
+                                <?php if($produce){ ?>
+                                    <div>
+                                        <?=$produce['status']?> -
+                                        <?=$produce['m_name']?> -
+                                        <?=$produce['operator_id']?> -
+                                        <?=$produce['create_time']?>
+                                    </div>
+                                <?php }else{?>
+                                    <div>
+                                        <button onclick="$('#comfirm_model').modal('show')" class="btn btn-primary" onclick="">下单生产</button>
+                                    </div>
+                                <?php } ?>
+
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
@@ -132,30 +142,77 @@
     <?php include(block("admin/block/footer"))?>
 </div><!-- /.main-container -->
 
-<div class="bootbox modal fade bootbox-prompt in" tabindex="-1" role="dialog" aria-hidden="false"
-     style="display: block; padding-right: 15px;">
+<div id="comfirm_model" class="bootbox modal fade bootbox-prompt in" tabindex="-1" role="dialog" aria-hidden="false"
+     style="padding-right: 15px;">
     <div class="modal-backdrop fade in" style="height: 697px;"></div>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×
                 </button>
-                <h4 class="modal-title">What is your name?</h4></div>
+                <h4 class="modal-title">印花下单</h4></div>
             <div class="modal-body">
                 <div class="bootbox-body">
-                    <form class="bootbox-form"><input class="bootbox-input bootbox-input-text form-control"
-                                                      autocomplete="off" type="text"></form>
+                    <form class="form-horizontal">
+                        <div class="form-group" style="margin-left: 0px;">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">请选择印花工艺</label>
+                            <div class="col-sm-9">
+                                <select id="craft" class="col-xs-10 col-sm-5">
+                                    <option value="丝网">丝网</option>
+                                    <option value="刺绣">刺绣</option>
+                                    <option value="热转印">热转印</option>
+                                    <option value="数码">数码</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 0px;">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">请选择印花供应商</label>
+                            <div class="col-sm-9">
+                                <select id="manufacturer_id" class="col-xs-10 col-sm-5">
+                                    <?php foreach($manufacturers as $manufacturer){?>
+                                    <option value="<?=$manufacturer['id']?>"><?=$manufacturer['name']?></option><?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-left: 0px;">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-1">订单处理人员</label>
+                            <div class="col-sm-9">
+                                <select id="operator_id" class="col-xs-10 col-sm-5">
+                                        <option value="1">洪波</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="modal-footer">
-                <button data-bb-handler="cancel" type="button" class="btn btn-default">Cancel</button>
-                <button data-bb-handler="confirm" type="button" class="btn btn-primary">OK</button>
+                <button data-bb-handler="cancel" onclick="$('.bootbox-close-button').click();" type="button" class="btn btn-default">取消</button>
+                <button type="button" class="btn btn-primary" onclick="do_confirm();">下单</button>
             </div>
         </div>
     </div>
 </div>
 
-
 <?php include(block("admin/block/scripts"))?>
+<script>
+    var $activity_id = "<?php echo $activity['id']?>";
+    function do_confirm(){
+        var $craft = $("#craft").val();
+        var $manufacturer_id = $("#manufacturer_id").val();
+        var $operator_id = $("#operator_id").val();
+
+        $.post("/api",{
+            model:"/admin/production/step",
+            action:"do_confirm",
+            craft:$craft,
+            manufacturer_id:$manufacturer_id,
+            operator_id:$operator_id,
+            activity_id:$activity_id,
+        },function(data){
+            console.log(data);
+        });
+
+    }
+</script>
 </body>
 </html>

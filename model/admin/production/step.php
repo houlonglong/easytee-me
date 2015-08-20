@@ -45,9 +45,37 @@ class Model_Admin_Production_Step extends Model_Admin_Abstract{
             }
             //print_r($svg);exit;
         }
-        $res = array("activity"=>$activity,"styles"=>$styles,"designs"=>$designs);
+        $manufacturers = self::_db()->select_rows("select * from manufacturers");
+        $produce = self::_db()->select_row("select ap.*,m.name as m_name from activity_produces as ap left join manufacturers as m on m.id = ap.manufacturer_id where ap.activity_id = ?",$activity['id']);
+        $res = array(
+            "produce"=>$produce,
+            "activity"=>$activity,
+            "styles"=>$styles,
+            "manufacturers"=>$manufacturers,
+            "designs"=>$designs
+        );
         //print_r($res);exit;
         return $res;
+    }
+    function action_do_confirm(){
+        $activity_id = $this->_request("activity_id");
+        $craft = $this->_request("craft");
+        $manufacturer_id = $this->_request("manufacturer_id");
+        $operator_id = $this->_request("operator_id");
+        try{
+            self::_db()->insert("activity_produces",array(
+                "activity_id"=>$activity_id,
+                "craft"=>$craft,
+                "manufacturer_id"=>$manufacturer_id,
+                "operator_id"=>$operator_id,
+                "status"=>'生产中',
+                "create_time"=>date('Y-m-d H:i:s'),
+            ));
+        }catch (Exception $e){
+
+        }
+        return array("ok");
+
     }
     function view_confirm(){
         $request = PtLib\http_request("id");
