@@ -191,6 +191,11 @@
                 "title":"用户详情",
                 "url":"/admin/user/detail",
                 "hide_menu":1
+            },
+            {
+                "title":"申请提现",
+                "url":"/admin/user/withdraw_apply",
+                "hide_menu":0
             }
         ]
     },

@@ -66,63 +66,77 @@
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div class="row">
+                                <div id="home4" class="tab-pane in active">
 
-                                    <div class="col-xs-12">
-                                        <!-- PAGE CONTENT BEGINS -->
-                                        <div class="row" style="padding:20px 0">
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    活动名称
-                                                </label>
-                                                <input type="text" id="activity-name">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    用户名
-                                                </label>
-                                                <input type="text" id="username">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    手机号码
-                                                </label>
-                                                <input type="text" id="mobile">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    开始时间
-                                                </label>
-                                                <input type="text" id="start-date">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    结束时间
-                                                </label>
-                                                <input type="text" id="end-date">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <button class="btn-primary" onclick="search()">搜索</button>
-                                                <button class="btn-danger label-success" onclick="reset()">重置
-                                                </button>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="widget-box">
+
+
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <div class="row">
+                                                            <div class="col-xs-2">
+                                                                <label style="font-weight: 700;">
+                                                                    活动名称
+                                                                </label>
+                                                                <input type="text" id="activity-name">
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <label style="font-weight: 700;">
+                                                                    用户名
+                                                                </label>
+                                                                <input type="text" id="username">
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <label style="font-weight: 700;">
+                                                                    手机号码
+                                                                </label>
+                                                                <input type="text" id="mobile">
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <label style="font-weight: 700;">
+                                                                    开始时间
+                                                                </label>
+                                                                <input type="text" id="start-date">
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <label style="font-weight: 700;">
+                                                                    结束时间
+                                                                </label>
+                                                                <input type="text" id="end-date">
+                                                            </div>
+                                                            <div class="col-xs-2">
+                                                                <button class="btn-primary" onclick="search()">搜索</button>
+                                                                <button class="btn-danger label-success" onclick="reset()">重置</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>
-                                        <div class="row">
-                                            <div class="col-xs-12">
 
-                                                <table id="grid-table"></table>
 
-                                                <div id="grid-pager"></div>
-
-                                                <script type="text/javascript">
-                                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                                </script>
-
-                                            </div>
-                                        </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+
+                                            <table id="grid-table"></table>
+
+                                            <div id="grid-pager"></div>
+
+                                            <script type="text/javascript">
+                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                            </script>
+                                        </div>
+                                        <!-- /.span -->
+                                    </div>
+
+
                                 </div>
+
+
                             </div>
                             <!-- /.span -->
                         </div>
