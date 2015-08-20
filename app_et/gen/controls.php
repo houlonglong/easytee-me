@@ -48,6 +48,12 @@ admin/product/product/index|产品管理|admin_list|admin/product/product
 admin/product/category/index|产品分类管理|admin_list|admin/product/category
 admin/product/product/detail|产品详情|admin_default
 
+admin/aftersale/pass|通过|admin_list
+admin/aftersale/refused|拒绝|admin_list
+admin/aftersale/waitting|等待处理|admin_list
+
+
+
 
 EOT;
 

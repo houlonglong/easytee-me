@@ -3,15 +3,16 @@
 <head>
     <?php
     /**
-     * 待审核
+     * 众筹管理
      *
      */
     include(block("admin/block/html_head"))?>
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
+    <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css" />
+
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
@@ -27,104 +28,120 @@
             <div class="page-content">
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
-
                     <div class="col-xs-12">
-                        <div class="tab-content">
-                        <div class="tabbable">
-                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                <li >
-                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">全部</a>
-                                </li>
 
-                                <li >
-                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/pending_audit'">待审核</a>
-                                </li>
 
-                                <li class="active">
-                                    <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/audit'">已审核</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/success'">成功的众筹</a>
-                                </li>
-                                <li >
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/fail'">失败的众筹</a>
-                                </li>
-                            </ul>
-                            <div class="row">
+                        <div class="row">
 
-                                <div class="col-xs-12">
-                                    <!-- PAGE CONTENT BEGINS -->
-                                    <div class="row" style="padding:20px 0">
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    活动名称
-                                                </label>
-                                                <input type="text" id="activity-name">
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                        <li >
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">全部</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/pending_audit'">待审核</a>
+                                        </li>
+
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/audit'">已审核</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
+                                        </li>
+                                        <li>
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/success'">成功的众筹</a>
+                                        </li>
+                                        <li >
+                                            <a data-toggle="tab" href="#"
+                                               onclick="location.href='/admin/activity/fail'">失败的众筹</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="home4" class="tab-pane in active">
+
+                                            <div class="row" style="padding:20px 0">
+                                                <div class="col-xs-2">
+                                                    <label>
+                                                        活动名称
+                                                    </label>
+                                                    <input type="text" id="activity-name">
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <label>
+                                                        用户名
+                                                    </label>
+                                                    <input type="text" id="username">
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <label>
+                                                        手机号码
+                                                    </label>
+                                                    <input type="text" id="mobile">
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <label>
+                                                        开始时间
+                                                    </label>
+                                                    <input type="text" id="start-date">
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <label>
+                                                        结束时间
+                                                    </label>
+                                                    <input type="text" id="end-date">
+                                                </div>
+                                                <div class="col-xs-2">
+                                                    <button class="btn-primary" onclick="search()">搜索</button>
+                                                    <button class="btn-danger label-success" onclick="reset()">重置</button>
+                                                </div>
+
                                             </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    用户名
-                                                </label>
-                                                <input type="text" id="username">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+
+                                                    <table id="grid-table"></table>
+
+                                                    <div id="grid-pager"></div>
+
+                                                    <script type="text/javascript">
+                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                                    </script>
+
+
+                                                </div>
+                                                <!-- /.span -->
                                             </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    手机号码
-                                                </label>
-                                                <input type="text" id="mobile">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    开始时间
-                                                </label>
-                                                <input type="text" id="start-date">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <label>
-                                                    结束时间
-                                                </label>
-                                                <input type="text" id="end-date">
-                                            </div>
-                                            <div class="col-xs-2">
-                                                <button class="btn-primary" onclick="search()">search</button>
-                                                <button class="btn-danger label-success" onclick="reset()">reset</button>
-                                            </div>
+
+
+                                        </div>
+
 
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xs-12">
+                                </div>
 
-                                            <table id="grid-table"></table>
 
-                                            <div id="grid-pager"></div>
-
-                                            <script type="text/javascript">
-                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                            </script>
-
-                                        </div></div></div>
                             </div>
-                            <!-- /.span -->
                         </div>
+
+                        <!-- PAGE CONTENT BEGINS -->
+
                         <!-- PAGE CONTENT ENDS -->
-                        </div>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.page-content -->
         </div>
     </div><!-- /.main-content -->
-    <?php include(block("admin/block/footer"))?>
-</div><!-- /.main-container -->
+    <?php include(block("admin/block/footer")) ?>
+</div>
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
 

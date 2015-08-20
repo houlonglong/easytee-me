@@ -100,8 +100,8 @@
                                                     <input type="text" id="end-date">
                                                 </div>
                                                 <div class="col-xs-2">
-                                                    <button class="btn-primary" onclick="search()">search</button>
-                                                    <button class="btn-danger label-success" onclick="reset()">reset</button>
+                                                    <button class="btn-primary" onclick="search()">搜索</button>
+                                                    <button class="btn-danger label-success" onclick="reset()">重置</button>
                                                 </div>
 
                                             </div>

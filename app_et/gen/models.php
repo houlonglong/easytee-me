@@ -44,6 +44,10 @@ admin/site/product/style/image/color|产品款式颜色图片
 admin/site/activity/product/style/image|活动设计图片
 admin/product/style|产品款式
 admin/product/image|产品图片
+admin/sales/after_sales|等待处理
+
+
+
 
 EOT;
 
