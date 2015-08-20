@@ -403,25 +403,9 @@
                 type: "POST",
                 success: function () {
                     $('#' + $id).remove();
-                }
-=======
-            $('.apply').click(function () {
-                var $this = $(this);
-                var $id = $this.data('id');
-                $.ajax({
-                    url: "/api?model=" + usl_api_base + "&action=audit",
-                    data: {
-                        id: $id,
-                    },
-                    type: "POST",
-                    success: function () {
-                        $('#' + $id).remove();
-                    }
->>>>>>> 0d715e31e172c108b96f11f710fbe4599d9000f9
 
                 });
 
-<<<<<<< HEAD
         })
 
         $('.apply-back').click(function () {
@@ -441,28 +425,6 @@
                 success: function () {
                     $('#' + $id).remove();
                 }
-=======
-            })
->>>>>>> 0d715e31e172c108b96f11f710fbe4599d9000f9
-
-            $('.apply-back').click(function () {
-                var reason = $('#reason').val();
-                var notes = $('#notes').val();
-                var $this = $(this);
-                var $id = $this.data('id');
-                $.ajax({
-                    url: "/api?model=" + usl_api_base + "&action=audit_back",
-                    data: {
-                        id: $id,
-                        reason: reason,
-                        notes: notes
-                    },
-                    type: "POST",
-                    success: function () {
-                        $('#' + $id).remove();
-                    }
-
-                });
 
             })
 
