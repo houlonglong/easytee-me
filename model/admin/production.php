@@ -7,6 +7,27 @@ class Model_Admin_Production extends Model_Admin_Abstract{
     function __construct(){
         parent::__construct();
     }
+    function action_change_man(){
+        $id = $this->_request("id");
+        $manufacturer_id = $this->_request("manufacturer_id");
+        self::_db()->update("activity_produces",array(
+            "manufacturer_id"=>$manufacturer_id,
+        ),array(
+            "activity_id"=>$id
+        ));
+    }
+    function action_finish_product(){
+        $id = $this->_request("id");
+        $zj_status  = $this->_request("zj_status");
+        $zj_opinion = $this->_request("zj_opinion");
+        self::_db()->update("activity_produces",array(
+            "status"=>"待发货",
+            "zj_status"=>$zj_status,
+            "zj_opinion"=>$zj_opinion,
+        ),array(
+            "activity_id"=>$id
+        ));
+    }
     /**
      * 详情视图
      *
@@ -22,11 +43,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
     function action_list(){
 
         $status = $this->_request("status");
-        if($status){
-            return self::table_list_product();
-        }else{
-            return self::table_list();
-        }
+        return self::table_list_product();
 
     }
 
@@ -125,9 +142,9 @@ class Model_Admin_Production extends Model_Admin_Abstract{
     }
 
     static function table_list_product(){
-        $table_alias = $table = "activity_produces";
+        $table_alias = $table = "activities";
         //$table_alias = '';
-        $join = ' inner join users as u on u.id = activities.uid';
+        $join = ' inner join users as u on u.id = activities.uid left join activity_produces as ap on ap.activity_id = activities.id';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows","page","sidx","sord","status");
@@ -137,7 +154,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name ";
+        $select_fields = " $table_alias.*,u.nick_name ,ap.status as product_status";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
@@ -151,15 +168,18 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $args = array();
         $where  = " where 1=1 ";
         $status = $request['status'];
-        if($status == 'index'){
-            $where .='and activities.sales_count>=10 and activities.real_end_time >? ';
+        if($status == 'index'){//侍生产
+            $where .='and activities.sales_count >= 10 and activities.real_end_time > ? and ap.status is null';
             $args[] = date('Y-m-d H:i:s');
         }
-        if($status == 'ongoing'){
-            $where .='and activities.status= "fabrication" ';
+        if($status == 'producting'){
+            $where .='and ap.status = "生产中" ';
+        }
+        if($status == 'producted'){
+            $where .='and ap.status= "待发货" ';
         }
         if($status == 'shipped'){
-            $where .='and activities.status= "shipped" ';
+            $where .='and ap.status= "已发货" ';
         }
         //order
         $order = "";
@@ -259,6 +279,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
             WHERE a.id = ? limit $skip,$limit ";
         $rows = PtLib\db()->select_rows($sql,$id);
         foreach($rows as $row){
+            $row['real_end_time'] = date('Y-m-d H:i:s',strtotime($row['real_end_time'].'+7 day'));
             $response->rows[] = array(
                 'id'=>$row['id'],
                 "cell"=>$row

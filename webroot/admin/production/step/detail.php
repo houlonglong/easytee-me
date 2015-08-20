@@ -169,7 +169,8 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-1">请选择印花供应商</label>
                             <div class="col-sm-9">
                                 <select id="manufacturer_id" class="col-xs-10 col-sm-5">
-                                    <?php foreach($manufacturers as $manufacturer){?>
+                                    <?php
+                                    foreach($manufacturers as $manufacturer){?>
                                     <option value="<?=$manufacturer['id']?>"><?=$manufacturer['name']?></option><?php } ?>
                                 </select>
                             </div>

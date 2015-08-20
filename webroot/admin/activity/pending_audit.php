@@ -382,6 +382,7 @@
 //            $("#modal_test").modal("show");
 //        }
         $('.apply').click(function () {
+            if(!confirm("确认要执行此操作么?")) return ;
             var $this = $(this);
             var $id = $this.data('id');
             $.ajax({
@@ -399,6 +400,7 @@
         })
 
         $('.apply-back').click(function () {
+            if(!confirm("确认要执行此操作么?")) return;
             var reason = $('#reason').val();
             var notes = $('#notes').val();
             var $this = $(this);

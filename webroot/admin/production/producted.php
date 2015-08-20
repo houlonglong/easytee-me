@@ -84,10 +84,12 @@
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 
 
-<script type="text/javascript">
 
+
+<script type="text/javascript">
+    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var url_api_base   = "admin/production";
-    var url_api_list   = "/api?model="+url_api_base + "&action=list";
+    var url_api_list   = "/api?model="+url_api_base + "&action=list&status=producted";
     var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
     var url_api_detail = "/"+url_api_base + "/detail";
     function do_product($action){
@@ -117,27 +119,19 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:url_api_detail,
-                        addParam: '',//&t=1
-                        idName:'id'
+                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
+                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
                     }
                 },
-                {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false},
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
+                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
+                {title:"预计交货时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: false},
+                {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
+                    formatter:function(cellvalue, options, rowObject){
+                        return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+cellvalue+'">发货</a>';
+                    },
                 },
             ]
 

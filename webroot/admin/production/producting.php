@@ -84,8 +84,114 @@
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 
 
-<script type="text/javascript">
+<div id="product_model" class="bootbox modal fade in" tabindex="-1" role="dialog" aria-hidden="false"
+     style="padding-right: 15px;">
+    <div class="modal-backdrop fade in" style="height: 697px;"></div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title">修改状态</h4></div>
+            <div class="modal-body">
+                <input type="hidden" value="" id="model_act_id">
+                <div class="bootbox-body">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                            <li class="active">
+                                <a data-toggle="tab" href="#change_man">更换供应商</a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" href="#finish_product">完成生产</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="change_man" class="tab-pane in active">
+                                <div class="modal-body">
+                                    <div class="form-group" style="margin-left: 0px;">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">请选择印花供应商</label>
+                                        <div class="col-sm-9">
+                                            <select id="manufacturer_id" class="col-xs-10 col-sm-5">
+                                                <?php
+                                                $manufacturers = PtLib\db_select_rows("select * from manufacturers");
+                                                foreach($manufacturers as $manufacturer){?>
+                                                    <option value="<?=$manufacturer['id']?>"><?=$manufacturer['name']?></option><?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-sm btn-primary apply" onclick="change_man(this)"> 更换 </button>
+                                </div>
+                            </div>
+                            <div id="finish_product" class="tab-pane">
+                                <form class="form-horizontal">
+                                    <div class="form-group" style="margin-left: -120px;">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">质检状态</label>
+                                        <div class="col-sm-9">
+                                            <input name="" id="zj_status" cols="30" rows="10" class="form-control" style="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="margin-left: -120px;">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">质检意见</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="" id="zj_opinion" cols="30" rows="10" class="form-control" style="width: 307px;height: 96px;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-actions center">
+                                        <button type="button" class="btn btn-sm btn-success btn btn-sm" onclick="finish_product(this)">
+                                            完成
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
 
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function change_man(obj){
+        if(!confirm("确定要执行此操作么!")) return;
+        var id = $("#model_act_id").val();
+        var manufacturer_id = $("#manufacturer_id").val();
+        $.post("/api",{
+            model:"/admin/production",
+            action:"change_man",
+            id:id,
+            manufacturer_id:manufacturer_id
+        },function(data){
+            location.reload();
+        });
+    }
+    function finish_product(obj){
+        if(!confirm("确定要执行此操作么!")) return;
+        var id = $("#model_act_id").val();
+        var zj_status = $("#zj_status").val();
+        var zj_opinion = $("#zj_opinion").val();
+        $.post("/api",{
+            model:"/admin/production",
+            action:"finish_product",
+            id:id,
+            zj_status:zj_status,
+            zj_opinion:zj_opinion
+        },function(data){
+            location.reload();
+        });
+
+    }
+    function change_status(obj,id){
+        $("#model_act_id").val(id);
+        $("#product_model").modal("show");
+    }
+
+    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var url_api_base   = "admin/production";
     var url_api_list   = "/api?model="+url_api_base + "&action=list&status=producting";
     var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
@@ -117,26 +223,20 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:url_api_detail,
-                        addParam: '',//&t=1
-                        idName:'id'
+                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
+                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                    formatter:function(cellvalue, options, rowObject){
+                        return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
                     }
                 },
-                {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"利润",name:'profie',index:'profie',width:100,sortable:false,editable: false},
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
+                {title:"预计交货时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: false},
+                {title:"操作",name:'options',index:'', width:160, fixed:true, sortable:false, resize:false,
+                    formatter:function(cellvalue, options, rowObject){
+                        var html = '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+rowObject['id']+'" target = "_black">生产详情</a>';
+                        html += ' <a class="btn btn-xs btn-success" onclick="change_status(this,'+rowObject.id+')" >修改状态</a>';
+                        return html;
                     }
                 },
             ]
