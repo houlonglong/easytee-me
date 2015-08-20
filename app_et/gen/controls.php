@@ -52,6 +52,10 @@ admin/aftersale/pass|通过|admin_list
 admin/aftersale/refused|拒绝|admin_list
 admin/aftersale/waitting|等待处理|admin_list
 
+admin/user/withdraw_apply|提现申请|admin_list
+admin/user/momeyflow|提现申请|admin_list
+
+
 
 
 

@@ -68,41 +68,55 @@
                                     <div class="tab-content">
                                         <div id="home4" class="tab-pane in active">
 
-                                            <div class="row" style="padding:20px 0">
-                                                <div class="col-xs-2">
-                                                    <label>
-                                                        活动名称
-                                                    </label>
-                                                    <input type="text" id="activity-name">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="widget-box">
+
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <div class="row">
+                                                                    <div class="col-xs-2">
+                                                                        <label style="font-weight: 700;">
+                                                                            活动名称
+                                                                        </label>
+                                                                        <input type="text" id="activity-name">
+                                                                    </div>
+                                                                    <div class="col-xs-2">
+                                                                        <label style="font-weight: 700;">
+                                                                            用户名
+                                                                        </label>
+                                                                        <input type="text" id="username">
+                                                                    </div>
+                                                                    <div class="col-xs-2">
+                                                                        <label style="font-weight: 700;">
+                                                                            手机号码
+                                                                        </label>
+                                                                        <input type="text" id="mobile">
+                                                                    </div>
+                                                                    <div class="col-xs-2">
+                                                                        <label style="font-weight: 700;">
+                                                                            开始时间
+                                                                        </label>
+                                                                        <input type="text" id="start-date">
+                                                                    </div>
+                                                                    <div class="col-xs-2">
+                                                                        <label style="font-weight: 700;">
+                                                                            结束时间
+                                                                        </label>
+                                                                        <input type="text" id="end-date">
+                                                                    </div>
+                                                                    <div class="col-xs-2">
+                                                                        <button class="btn-primary" onclick="search()">搜索</button>
+                                                                        <button class="btn-danger label-success" onclick="reset()">重置</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
-                                                <div class="col-xs-2">
-                                                    <label>
-                                                        用户名
-                                                    </label>
-                                                    <input type="text" id="username">
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <label>
-                                                        手机号码
-                                                    </label>
-                                                    <input type="text" id="mobile">
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <label>
-                                                        开始时间
-                                                    </label>
-                                                    <input type="text" id="start-date">
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <label>
-                                                        结束时间
-                                                    </label>
-                                                    <input type="text" id="end-date">
-                                                </div>
-                                                <div class="col-xs-2">
-                                                    <button class="btn-primary" onclick="search()">搜索</button>
-                                                    <button class="btn-danger label-success" onclick="reset()">重置</button>
-                                                </div>
+
 
                                             </div>
                                             <div class="row">
@@ -115,8 +129,6 @@
                                                     <script type="text/javascript">
                                                         var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                                     </script>
-
-
                                                 </div>
                                                 <!-- /.span -->
                                             </div>
@@ -142,31 +154,94 @@
     </div><!-- /.main-content -->
     <?php include(block("admin/block/footer"))?>
 
+
     <div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
+                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"
+                        style="margin-top: 5px;margin-right: 10px;">×
+                </button>
+
                 <div class="modal-header">
-                    <h4 >活动名称：<span id="modal_active"></span></h4>
+                    <h4>活动名称：<span id="modal_active"></span></h4>
+
                 </div>
-                <div class="modal-body">
-                    <div>发起人：<span id="modal_username"></span></div>
-                    <div>开始时间：<span id="modal_start_time"></span></div>
-                    <div>结束时间：<span id="modal_end_time"></span></div>
-                    <div>销售目标：<span id="modal_sales_target"></span></div>
-                    <div>是否涉及敏感字眼？是否辱骂国家领导人？是否传播邪教文化？</div>
+
+
+
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        <li class="active">
+                            <a data-toggle="tab" href="#apply">批准</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#apply_back">驳回</a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="apply" class="tab-pane in active">
+                            <div class="modal-body">
+                                <div>发起人：<span id="modal_username"></span></div>
+                                <div>开始时间：<span id="modal_start_time"></span></div>
+                                <div>结束时间：<span id="modal_end_time"></span></div>
+                                <div>销售目标：<span id="modal_sales_target"></span></div>
+                                <div>是否涉及敏感字眼？是否辱骂国家领导人？是否传播邪教文化？</div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal" data-action="批准"><i
+                                        class="ace-icon fa fa-trash-o"></i> 批准
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="apply_back" class="tab-pane">
+                            <form class="form-horizontal">
+                                <div class="form-group" style="margin-left: -120px;">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">拒绝理由 </label>
+
+                                    <div class="col-sm-9">
+                                        <select name="reason" id="reason" class="col-xs-10 col-sm-5">
+                                            <option value="1">
+                                                内容描述不合法
+                                            </option>
+                                            <option value="2">
+                                                图片不合格
+                                            </option>
+                                            <option value="3">
+                                                其他
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-left: -120px;">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">备注</label>
+
+                                    <div class="col-sm-9">
+                                        <textarea name="" id="notes" cols="30" rows="10" class="form-control" style="width: 307px;height: 96px;"></textarea>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-actions center">
+                                    <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back">
+                                        驳回
+                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                                    </button>
+                                </div>
+                            </form>
+
+
+                        </div>
+
+
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal" data-action="批准"><i
-                            class="ace-icon fa fa-trash-o"></i> 批准
-                    </button>
-                    <button type="button" class="btn btn-sm apply-back" data-dismiss="modal"><i class="ace-icon fa fa-times"></i>
-                        驳回
-                    </button>
-                </div>
+
             </div>
         </div>
-    </div>
-</div><!-- /.main-container -->
+    </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
 <script src="/ace/assets/js/moment.min.js"></script>
@@ -214,7 +289,6 @@
             },
             type:"POST",
             success: function () {
-                console.log($('#'+$id).parents('tr'));
                 $('#'+$id).remove();
             }
 

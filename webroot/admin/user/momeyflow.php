@@ -3,274 +3,112 @@
 <head>
     <?php
     /**
-     * 活动详情
+     * 提现申请
      *
      */
-
-    include(block("admin/block/html_head"));
-    $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
-    ?>
-
+    $__model_path = "admin/test";
+    include(block("admin/block/html_head"))?>
     <!-- page specific plugin styles -->
-    <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
-    <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
-    <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css"/>
-
+    <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
+    <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css" />
     <!-- ace styles -->
-    <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
-    <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
+    <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar")) ?>
+<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
-    <script type="text/javascript">try {
-            ace.settings.check('main-container', 'fixed')
-        } catch (e) {
-        }</script>
-    <?php include(block("admin/block/sidebar")) ?>
+    <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
+    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
-            <?php include(block("admin/block/breadcrumbs")) ?>
+            <?php include(block("admin/block/breadcrumbs"))?>
             <div class="page-content">
-                <?php include(block("admin/block/ace-settings-container")) ?>
+                <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <div class="col-xs-12">
-
-
-                                <a class="btn btn-xs btn-info"
-                                   href="/api?model=admin/activity&action=downloadExcel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
-
-
-                            </div>
-                            <!-- /.span -->
+                        <div class="row" style="padding:20px 0">
+                            <div class="col-xs-12" id="query_area"></div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-
-
-                                <div class="widget-box">
-                                    <div class="widget-header">
-                                        <h4 class="widget-title">众筹详情</h4>
-                                    </div>
-
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <form class="form-inline">
-                                                <div class="row">
-
-                                                    <div class="col-xs-12">
-
-
-                                                        <label style="font-weight: 700">活动名称：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['name']; ?></span>
-
-
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">发起人：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['nick_name']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">开始时间：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['start_time']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">结束时间：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['real_end_time']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">销售目标：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['sales_target']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">实际销售：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['sales_count']; ?></span>
-
-
-                                                    </div>
-                                                    <!-- /.span -->
-                                                </div>
-                                                <!-- /.span -->
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-xs-12">
-
                                 <table id="grid-table"></table>
-
                                 <div id="grid-pager"></div>
-
                                 <script type="text/javascript">
-                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                    var $path_base = ".";
                                 </script>
-
-
                             </div>
-                            <!-- /.span -->
                         </div>
-                        <!-- PAGE CONTENT ENDS -->
                     </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.page-content -->
         </div>
     </div>
-    <!-- /.main-content -->
-    <?php include(block("admin/block/footer")) ?>
+    <?php include(block("admin/block/footer"))?>
 </div>
-<!-- /.main-container -->
-<?php include(block("admin/block/scripts")) ?>
+<?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
-<script src="/ace/assets/js/moment.min.js"></script>
-<script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
-<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
-
-
 <script type="text/javascript">
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
+    function search(){
+        var $query = {
+            title:$('#title').val()
+        };
+        $(grid_selector).jqGrid('setGridParam',{
+            datatype:'json',
+            postData:$query, //发送数据
+            page:1
+        }).trigger("reloadGrid"); //重新载入
+    }
+    jQuery(function($) {
+        //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        var url_api_base   = "<?php echo $__model_path;?>";
+        var url_api_list   = "/api?model="+url_api_base + "&action=list";
+        var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
+        var url_api_detail = "/"+url_api_base + "/detail";
 
 
-    jQuery(function ($) {
         var grid_setting = {
-            url: "/api?model=admin/activity&action=detail_list&id=" +<?php echo $_REQUEST['id'];?>,
-            url_save: "/api?model=admin/activity&action=edit",
-            method: "POST",
-            height: 390,
-            rowNum: 15,
-            rowList: [15, 30, 50, 100],
-            caption: "",
-
-
-            cols: [
-
-                {title: "活动ID", name: 'activity_id', index: 'activity_id', width: 40, sorttype: "int", editable: false},
-
-                {
-                    title: "订单号",
-                    name: 'order_no',
-                    index: 'order_no',
-                    width: 90,
-                    editable: true,
-                    editoptions: {size: "20", maxlength: "30"},
-                },
-                {
-                    title: "收件人",
-                    name: 'ship_name',
-                    index: 'ship_name',
-                    width: 50,
-                    editable: true,
-                    editoptions: {size: "20", maxlength: "30"}
-                },
-                {
-                    title: "联系电话",
-                    name: 'ship_mobile',
-                    index: 'ship_mobile',
-                    width: 80,
-                    sortable: false,
-                    editable: true,
-                    unformat: pickTimeDate
-                },
-                {
-                    title: "收货地址", name: 'ship_addr', index: 'ship_addr', width: 150, sortable: false, editable: true,
-                    unformat: pickTimeDate,
-                    formatter: function (cellvalue, options, rowObject) {
-                        return rowObject['ship_province'] + rowObject['ship_city'] + rowObject['ship_area'] + cellvalue;
+            url:url_api_list,
+            url_save:url_api_edit,
+            method:"POST",
+            height:550,
+            rowNum:15,
+            rowList:[15,30,50,100],
+            caption:"",
+            cols:[
+                {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
+                {title:"Title",name:'title',index:'title',editable: false,sortable:false},
+                /*
+                {title:"Title",name:'title',index:'title',editable: false,
+                    formatter:'showlink',
+                    formatoptions:{
+                        baseLinkUrl:url_api_detail,
+                        addParam: '',//&t=1
+                        idName:'id'
                     }
-                },
-//                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装款式",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装性别",name:'product_name',index:'product_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装颜色",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装尺码",name:'size',index:'size',width:50,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装数量",name:'quantity',index:'quantity',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
+                },*/
+                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
+                /*
+                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
+                    formatter:'actions',
+                    formatoptions:{
+                        keys:true,
+                        //delbutton: false,//disable delete button
+                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
+                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
+                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                    }
+                },*/
             ]
 
         };
-        //enable datepicker
-        function pickTimeDate(cellvalue, options, cell) {
-            setTimeout(function () {
-                $(cell).find('input[type=text]')
-                    .datetimepicker({dateFormat: 'dd-mm-yy'});
-            }, 0);
-        }
-
-        function showudate(tmpob) {
-            $(function () {
-                tmpob.datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
-            });
-        }
-
-        jQuery("#list2").jqGrid('navGrid', '#pager2',
-            {edit: true, add: true, del: true},
-            {
-                width: 400, height: 400, afterShowForm: function () {
-                showudate($(".editable"));
-            }
-            },
-            {width: 400, height: 400}, {}, {multipleSearch: true}, {});
-
-        function myelem(value, options) {
-            value = $(value).data("status");
-            console.log(value, options);
-            var el = document.createElement("select");
-            $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
-            return el;
-        }
-
-        function mystatuselem(value, options) {
-            value = $(value).data("status");
-            console.log(value, options);
-            var el = document.createElement("select");
-            $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
-            return el;
-        }
-
-        //获取值
-        function myvalue(elem) {
-            return $(elem).val();
-        }
-
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -294,29 +132,29 @@
          ],
          */
 
-        function get_col(cols) {
+        function get_col(cols){
             var col_name = [];
-            for (i in cols) {
+            for(i in cols){
                 var col = cols[i];
                 col_name.push(col.title);
             }
             return {
-                'name': col_name,
-                'model': cols
+                'name':col_name,
+                'model':cols
             };
         }
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
-            $(grid_selector).jqGrid('setGridWidth', $(".page-content").width());
+            $(grid_selector).jqGrid( 'setGridWidth', $(".page-content").width() );
         });
         //resize on sidebar collapse/expand
         var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
-            if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
+        $(document).on('settings.ace.jqGrid' , function(ev, event_name, collapsed) {
+            if( event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed' ) {
                 //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
-                setTimeout(function () {
-                    $(grid_selector).jqGrid('setGridWidth', parent_column.width());
+                setTimeout(function() {
+                    $(grid_selector).jqGrid( 'setGridWidth', parent_column.width() );
                 }, 0);
             }
         });
@@ -337,56 +175,37 @@
          */
         var subgrid_data =
             [
-                {id: "1", name: "sub grid item 1", qty: 11}
+                {id:"1", name:"sub grid item 1", qty: 11}
             ];
         jQuery(grid_selector).jqGrid({
             //direction: "rtl",
 
             //subgrid options
-            subGrid: true,
+            subGrid : false,
             //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
             //datatype: "xml",
-            subGridOptions: {
-                plusicon: "ace-icon fa fa-plus center bigger-110 blue",
-                minusicon: "ace-icon fa fa-minus center bigger-110 blue",
-                openicon: "ace-icon fa fa-chevron-right center orange"
+            subGridOptions : {
+                plusicon : "ace-icon fa fa-plus center bigger-110 blue",
+                minusicon  : "ace-icon fa fa-minus center bigger-110 blue",
+                openicon : "ace-icon fa fa-chevron-right center orange"
             },
             //for this example we are using local data
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-                $.ajax({
-                    url: '/api?model=admin/activity&action=ordergoods_detail',
-                    data: {
-                        id: rowId,
-                    },
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (obj) {
-                        console.log(obj);
-                        $("#" + subgridTableId).jqGrid({
-                            datatype: 'local',
-                            data: obj,
-                            colNames: ['订购服装品类', '订购服装款式', '订购服装性别', '订购服装颜色', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
-                            colModel: [
-                                {name: 'manufacturer_name', width: 150},
-                                {name: 'product_style_name', width: 150},
-                                {name: 'product_name', width: 150},
-
-                                {name: 'product_style_name', width: 150},
-                                {name: 'size', width: 150},
-                                {name: 'quantity', width: 150},
-
-                                {name: 'unit_price', width: 150},
-                                {name: 'total', width: 150},
-                                {name: 'real_end_time', width: 180}
-                            ]
-                        });
-                    }
-                })
+                $("#" + subgridTableId).jqGrid({
+                    datatype: 'local',
+                    data: subgrid_data,
+                    colNames: ['No','Item Name','Qty'],
+                    colModel: [
+                        { name: 'id', width: 50 },
+                        { name: 'name', width: 150 },
+                        { name: 'qty', width: 50 }
+                    ]
+                });
             },
             jsonReader: {
-                root: function (obj) {
+                root:  function (obj) {
                     return obj.return.rows;
                 },
                 records: function (obj) {
@@ -399,12 +218,12 @@
                     return obj.return.total;
                 }
             },
-            mtype: grid_setting.method,
+            mtype:grid_setting.method,
             url: grid_setting.url,
             datatype: "json",
             height: grid_setting.height,
-            colNames: get_col(grid_setting.cols)['name'],
-            colModel: get_col(grid_setting.cols)['model'],
+            colNames:get_col(grid_setting.cols)['name'],
+            colModel:get_col(grid_setting.cols)['model'],
             //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
             /*
              colModel:[
@@ -426,19 +245,19 @@
              {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
              ],
              */
-            viewrecords: true,
-            rowNum: grid_setting.rowNum,
-            rowList: grid_setting.rowList,
-            pager: pager_selector,
+            viewrecords : true,
+            rowNum:grid_setting.rowNum,
+            rowList:grid_setting.rowList,
+            pager : pager_selector,
             altRows: false,
             //toppager: true,
             multiselect: false,
             //multikey: "ctrlKey",
             multiboxonly: false,
-            loadComplete: function (xhr) {
+            loadComplete : function(xhr) {
                 console.log(xhr);
                 var table = this;
-                setTimeout(function () {
+                setTimeout(function(){
                     styleCheckbox(table);
 
                     updateActionIcons(table);
@@ -472,45 +291,44 @@
 
 
         //switch element when editing inline
-        function aceSwitch(cellvalue, options, cell) {
-            setTimeout(function () {
-                $(cell).find('input[type=checkbox]')
+        function aceSwitch( cellvalue, options, cell ) {
+            setTimeout(function(){
+                $(cell) .find('input[type=checkbox]')
                     .addClass('ace ace-switch ace-switch-5')
                     .after('<span class="lbl"></span>');
             }, 0);
         }
-
         //enable datepicker
-        function pickDate(cellvalue, options, cell) {
-            setTimeout(function () {
-                $(cell).find('input[type=text]')
-                    .datepicker({format: 'yyyy-mm-dd', autoclose: true});
+        function pickDate( cellvalue, options, cell ) {
+            setTimeout(function(){
+                $(cell) .find('input[type=text]')
+                    .datepicker({format:'yyyy-mm-dd' , autoclose:true});
             }, 0);
         }
 
 
         //navButtons
-        jQuery(grid_selector).jqGrid('navGrid', pager_selector,
+        jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
-                editicon: 'ace-icon fa fa-pencil blue',
-                add: true,
-                addicon: 'ace-icon fa fa-plus-circle purple',
-                del: true,
-                delicon: 'ace-icon fa fa-trash-o red',
-                search: true,
-                searchicon: 'ace-icon fa fa-search orange',
+                edit: false,
+                editicon : 'ace-icon fa fa-pencil blue',
+                add: false,
+                addicon : 'ace-icon fa fa-plus-circle purple',
+                del: false,
+                delicon : 'ace-icon fa fa-trash-o red',
+                search: false,
+                searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
-                refreshicon: 'ace-icon fa fa-refresh green',
-                view: true,
-                viewicon: 'ace-icon fa fa-search-plus grey',
+                refreshicon : 'ace-icon fa fa-refresh green',
+                view: false,
+                viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {
                 //edit record form
                 //closeAfterEdit: true,
                 //width: 700,
                 recreateForm: true,
-                beforeShowForm: function (e) {
+                beforeShowForm : function(e) {
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
                     style_edit_form(form);
@@ -522,7 +340,7 @@
                 closeAfterAdd: true,
                 recreateForm: true,
                 viewPagerButtons: false,
-                beforeShowForm: function (e) {
+                beforeShowForm : function(e) {
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
                         .wrapInner('<div class="widget-header" />')
@@ -532,28 +350,28 @@
             {
                 //delete record form
                 recreateForm: true,
-                beforeShowForm: function (e) {
+                beforeShowForm : function(e) {
                     var form = $(e[0]);
-                    if (form.data('styled')) return false;
+                    if(form.data('styled')) return false;
 
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
                     style_delete_form(form);
 
                     form.data('styled', true);
                 },
-                onClick: function (e) {
+                onClick : function(e) {
                     //alert(1);
                 }
             },
             {
                 //search form
                 recreateForm: true,
-                afterShowSearch: function (e) {
+                afterShowSearch: function(e){
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
                     style_search_form(form);
                 },
-                afterRedraw: function () {
+                afterRedraw: function(){
                     style_search_filters($(this));
                 }
                 ,
@@ -566,7 +384,7 @@
             {
                 //view record form
                 recreateForm: true,
-                beforeShowForm: function (e) {
+                beforeShowForm: function(e){
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
                 }
@@ -607,7 +425,6 @@
             form.find('.add-group').addClass('btn btn-xs btn-success');
             form.find('.delete-group').addClass('btn btn-xs btn-danger');
         }
-
         function style_search_form(form) {
             var dialog = form.closest('.ui-jqdialog');
             var buttons = dialog.find('.EditTable')
@@ -618,7 +435,7 @@
 
         function beforeDeleteCallback(e) {
             var form = $(e[0]);
-            if (form.data('styled')) return false;
+            if(form.data('styled')) return false;
 
             form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
             style_delete_form(form);
@@ -631,6 +448,7 @@
             form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />');
             style_edit_form(form);
         }
+
 
 
         //it causes some flicker when reloading or navigating grid
@@ -673,27 +491,27 @@
         function updatePagerIcons(table) {
             var replacement =
             {
-                'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
-                'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
-                'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
-                'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
+                'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
+                'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
+                'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
             };
-            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
+            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
                 var icon = $(this);
                 var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
 
-                if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
+                if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
             })
         }
 
         function enableTooltips(table) {
-            $('.navtable .ui-pg-button').tooltip({container: 'body'});
-            $(table).find('.ui-pg-div').tooltip({container: 'body'});
+            $('.navtable .ui-pg-button').tooltip({container:'body'});
+            $(table).find('.ui-pg-div').tooltip({container:'body'});
         }
 
         //var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
 
-        $(document).one('ajaxloadstart.page', function (e) {
+        $(document).one('ajaxloadstart.page', function(e) {
             $(grid_selector).jqGrid('GridUnload');
             $('.ui-jqdialog').remove();
         });

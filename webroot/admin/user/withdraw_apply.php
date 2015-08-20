@@ -3,19 +3,19 @@
 <head>
     <?php
     /**
-     * 待审核
+     * 提现申请
      *
      */
+    $__model_path = "admin/user/withdrawapply";
     include(block("admin/block/html_head")) ?>
-
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
-    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css"/>
+
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
-</head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
@@ -29,245 +29,93 @@
             <?php include(block("admin/block/breadcrumbs")) ?>
             <div class="page-content">
                 <?php include(block("admin/block/ace-settings-container")) ?>
+
+
                 <div class="row">
-
                     <div class="col-xs-12">
-                        <div class="tabbable">
-                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/index'">全部</a>
-                                </li>
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <div class="widget-box">
+                                        <div class="widget-header">
+                                            <h4 class="widget-title">搜索条件</h4>
+                                        </div>
 
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/pending_audit'">待审核</a>
-                                </li>
-
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/audit'">已审核</a>
-                                </li>
-                                <li >
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
-                                </li>
-                                <li>
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
-                                </li>
-                                <li >
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/success'">成功的众筹</a>
-                                </li>
-                                <li class="active">
-                                    <a data-toggle="tab" href="#"
-                                       onclick="location.href='/admin/activity/fail'">失败的众筹</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div id="home4" class="tab-pane in active">
-
-                                    <div class="row">
-                                        <div class="col-xs-12">
-                                            <div class="widget-box">
-
-
-                                                <div class="widget-body">
-                                                    <div class="widget-main">
-                                                        <div class="row">
-                                                            <div class="col-xs-2">
-                                                                <label style="font-weight: 700;">
-                                                                    活动名称
-                                                                </label>
-                                                                <input type="text" id="activity-name">
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <label style="font-weight: 700;">
-                                                                    用户名
-                                                                </label>
-                                                                <input type="text" id="username">
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <label style="font-weight: 700;">
-                                                                    手机号码
-                                                                </label>
-                                                                <input type="text" id="mobile">
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <label style="font-weight: 700;">
-                                                                    开始时间
-                                                                </label>
-                                                                <input type="text" id="start-date">
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <label style="font-weight: 700;">
-                                                                    结束时间
-                                                                </label>
-                                                                <input type="text" id="end-date">
-                                                            </div>
-                                                            <div class="col-xs-2">
-                                                                <button class="btn-primary" onclick="search()">搜索</button>
-                                                                <button class="btn-danger label-success" onclick="reset()">重置</button>
-                                                            </div>
-                                                        </div>
+                                        <div class="widget-body">
+                                            <div class="widget-main">
+                                                <form class="form-inline">
+                                                    <div class="col-xs-2">
+                                                        <label>
+                                                            申请人
+                                                        </label>
+                                                        <input type="text" id="username">
                                                     </div>
-                                                </div>
+                                                    <div class="col-xs-2">
+                                                        <label>
+                                                            手机号码
+                                                        </label>
+                                                        <input type="text" id="mobile">
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <label>
+                                                            开始时间
+                                                        </label>
+                                                        <input type="text" id="start-date">
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <label>
+                                                            结束时间
+                                                        </label>
+                                                        <input type="text" id="end-date">
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        <button class="btn-primary" onclick="search()">搜索</button>
+                                                        <button class="btn-danger label-success" onclick="reset()">重置</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
-
+                                            <div class="row" style="padding:20px 0">
+                                                <div class="col-xs-12" id="query_area"></div>
+                                            </div>
                                         </div>
-
-
                                     </div>
-                                    <div class="row">
-                                        <div class="col-xs-12">
-
-                                            <table id="grid-table"></table>
-
-                                            <div id="grid-pager"></div>
-
-                                            <script type="text/javascript">
-                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                            </script>
-                                        </div>
-                                        <!-- /.span -->
-                                    </div>
-
 
                                 </div>
-
-
                             </div>
-                            <!-- /.span -->
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <table id="grid-table"></table>
+                                    <div id="grid-pager"></div>
+                                    <script type="text/javascript">
+                                        var $path_base = ".";
+                                    </script>
+                                </div>
+                            </div>
+
                         </div>
-                        <!-- PAGE CONTENT ENDS -->
-                    </div>
-                    <!-- /.col -->
                 </div>
-                <!-- /.row -->
             </div>
-            <!-- /.page-content -->
         </div>
     </div>
-    <!-- /.main-content -->
     <?php include(block("admin/block/footer")) ?>
 </div>
-<!-- /.main-container -->
 <?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
-
-<div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"
-                    style="margin-top: 5px;margin-right: 10px;">×
-            </button>
-
-            <div class="modal-header">
-                <h4>活动名称：<span id="modal_active"></span></h4>
-
-            </div>
-
-
-
-            <div class="tabbable">
-                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                    <li class="active">
-                        <a data-toggle="tab" href="#apply">批准</a>
-                    </li>
-                    <li>
-                        <a data-toggle="tab" href="#apply_back">驳回</a>
-                    </li>
-
-                </ul>
-
-                <div class="tab-content">
-                    <div id="apply" class="tab-pane in active">
-                        <div class="modal-body">
-                            <div>发起人：<span id="modal_username"></span></div>
-                            <div>开始时间：<span id="modal_start_time"></span></div>
-                            <div>结束时间：<span id="modal_end_time"></span></div>
-                            <div>销售目标：<span id="modal_sales_target"></span></div>
-                            <div>是否涉及敏感字眼？是否辱骂国家领导人？是否传播邪教文化？</div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal" data-action="批准"><i
-                                    class="ace-icon fa fa-trash-o"></i> 批准
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="apply_back" class="tab-pane">
-                        <form class="form-horizontal">
-                            <div class="form-group" style="margin-left: -120px;">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">拒绝理由 </label>
-
-                                <div class="col-sm-9">
-                                    <select name="reason" id="reason" class="col-xs-10 col-sm-5">
-                                        <option value="1">
-                                            内容描述不合法
-                                        </option>
-                                        <option value="2">
-                                            图片不合格
-                                        </option>
-                                        <option value="3">
-                                            其他
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-left: -120px;">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">备注</label>
-
-                                <div class="col-sm-9">
-                                    <textarea name="" id="notes" cols="30" rows="10" class="form-control" style="width: 307px;height: 96px;"></textarea>
-                                </div>
-                            </div>
-
-
-                            <div class="form-actions center">
-                                <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back">
-                                    驳回
-                                    <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                </button>
-                            </div>
-                        </form>
-
-
-                    </div>
-
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="/ace/assets/js/moment.min.js"></script>
+<script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
+<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
-    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function audit(obj) {
-        var id = $(obj).data('id');
-        $('.apply').data('id', id);
-        $('.apply-back').data('id', id);
-        $('#modal_active').text($(obj).parents('tr').find('td').eq(0).text());
-        $('#modal_username').text($(obj).parents('tr').find('td').eq(1).text());
-        $('#modal_end_time').text($(obj).parents('tr').find('td').eq(4).text());
-        $('#modal_start_time').text($(obj).parents('tr').find('td').eq(3).text());
-        $('#modal_sales_target').text($(obj).parents('tr').find('td').eq(2).text());
-    }
     function search() {
         var $query = {
             activity_id: $('#activity-id').val(),
             activity_name: $('#activity-name').val(),
             username: $('#username').val(),
             startDate: $('#start-date').val(),
-            endDate: $('#end-date').val(),
-            status: "failure"
+            endDate: $('#end-date').val()
         };
         $(grid_selector).jqGrid('setGridParam', {
             datatype: 'json',
@@ -275,80 +123,95 @@
             page: 1
         }).trigger("reloadGrid"); //重新载入
     }
+    $('.apply').click(function () {
+        var $this = $(this);
+        var $id = $this.data('id');
+        $.ajax({
+            url: "/api?model=admin/activity&action=audit",
+            data: {
+                id: $id,
+            },
+            type: "POST",
+            success: function () {
+                $('#' + $id).remove();
+            }
+
+        });
+
+    })
     $('#end-date,#start-date').datepicker({dateFormat: 'yy-mm-dd'});
+
+    function reset() {
+        $('#activity-id').val('');
+        $('#activity-name').val('');
+        $('#username').val();
+        $('#activity-status').val('');
+    }
     jQuery(function ($) {
-
-
-        var usl_api_base = "admin/activity";
-        var url_api_list = "/api?model=" + usl_api_base + "&action=list&status=failure";
-        var url_api_edit = "/api?model=" + usl_api_base + "&action=edit";
-        var url_api_detail = "/" + usl_api_base + "/detail";
+        //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        var url_api_base = "<?php echo $__model_path;?>";
+        var url_api_list = "/api?model=" + url_api_base + "&action=list";
+        var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
+        var url_api_detail = "/" + url_api_base + "/detail";
 
 
         var grid_setting = {
             url: url_api_list,
             url_save: url_api_edit,
             method: "POST",
-            height: 390,
+            height: 550,
             rowNum: 15,
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
+                {title: "Id", name: 'id', index: 'id', width: 30, sorttype: "int", editable: false},
+                {title: "申请人", name: 'nick_name', index: 'nick_name', editable: false, sortable: false},
+                {title: "提现金额", name: 'money', index: 'money', editable: false, sortable: false},
+                {title: "申请账号", name: 'pay_account', index: 'pay_account', editable: false, sortable: false},
+                {title: "账户类型", name: 'pay_type', index: 'pay_type', editable: false, sortable: false},
                 {
-                    title: "活动名称",
-                    name: 'name',
-                    index: 'name',
-                    width: 40,
-                    sorttype: "int",
-                    editable: false,
+                    title: "状态", name: 'status', index: 'status', editable: true, sortable: false,
+                    editoptions: {custom_element: mystatuselem, custom_value: myvalue},
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="http://' + frontend_domain + '/activity/' + rowObject['id'] + '" target = "_black">' + cellvalue + '</a';
+                        var img = "";
+                        if (cellvalue == 'unread') {
+                            img = '未处理';
+                        }
+                        if (cellvalue == 'passed') {
+                            img = '通过';
+                        }
+                        if (cellvalue == 'fail') {
+                            img = '驳回';
+                        }
+                        return img;
                     }
                 },
+                {title: "支付单号", name: 'pay_no', index: 'pay_no', editable: true, sortable: false},
                 {
-                    title: "发起人",
-                    name: 'nick_name',
-                    index: 'nick_name',
-                    width: 90,
+                    title: "支付时间",
+                    name: 'pay_time',
+                    index: 'pay_time',
                     editable: true,
-                    editoptions: {size: "20", maxlength: "30"},
+                    sortable: false,
+                    unformat: pickTimeDate
+                },
+                {title: "申请时间", name: 'create_time', index: 'create_time', editable: false, sortable: false},
 
-                },
-                {
-                    title: "销售目标件数",
-                    name: 'sales_target',
-                    index: 'sales_target',
-                    width: 40,
-                    sorttype: "int",
-                    editable: false
-                },
-                {
-                    title: "实际件数",
-                    name: 'sales_count',
-                    index: 'sales_count',
-                    width: 40,
-                    sorttype: "int",
-                    editable: false
-                },
-                {
-                    title: "开始时间",
-                    name: 'start_time',
-                    index: 'start_time',
-                    editable: true,
-                    width: 80,
-                    editoptions: {size: "20", maxlength: "30"}
-                },
-                {
-                    title: "预计结束时间",
-                    name: 'real_end_time',
-                    index: 'real_end_time',
-                    width: 80,
-                    sorttype: "date",
-                    editable: false
-                },
+
+                /*
+                 {title:"Title",name:'title',index:'title',editable: false,
+                 formatter:'showlink',
+                 formatoptions:{
+                 baseLinkUrl:url_api_detail,
+                 addParam: '',//&t=1
+                 idName:'id'
+                 }
+                 },*/
+                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
 
                 {
-                    title: "操作", name: 'options', index: '', width: 120, fixed: true, sortable: false, resize: false,
+                    title: "操作", name: 'options', index: '', width: 80, fixed: true, sortable: false, resize: false,
                     formatter: 'actions',
                     formatoptions: {
                         keys: true,
@@ -356,16 +219,12 @@
                         baseLinkUrl: 'someurl.php', addParam: '&action=edit', idName: 'id',
                         delOptions: {recreateForm: true, beforeShowForm: beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    },
-                    formatter: function (cellvalue, options, rowObject) {
-                        var html='';
-                        html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
-                        return html;
                     }
                 },
             ]
 
         };
+
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -388,46 +247,27 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
-//        function pending_audit(){
-//            $("#modal_test").modal("show");
-//        }
-        $('.apply').click(function () {
-            var $this = $(this);
-            var $id = $this.data('id');
-            $.ajax({
-                url: "/api?model=" + usl_api_base + "&action=audit",
-                data: {
-                    id: $id,
-                },
-                type: "POST",
-                success: function () {
-                    $('#' + $id).remove();
-                }
 
-            });
+        function mystatuselem(value, options) {
+            value = $(value).data("status");
+            var el = document.createElement("select");
+            $(el).append('<option role="option" value="unread">未处理</option><option role="option" value="passed">处理</option><option role="option" value="fail">驳回</option>').val(value);
+            return el;
+        }
 
-        })
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
 
-        $('.apply-back').click(function () {
-            var reason = $('#reason').val();
-            var notes = $('#notes').val();
-            var $this = $(this);
-            var $id = $this.data('id');
-            $.ajax({
-                url: "/api?model=" + usl_api_base + "&action=audit_back",
-                data: {
-                    id: $id,
-                    reason:reason,
-                    notes:notes
-                },
-                type: "POST",
-                success: function () {
-                    $('#' + $id).remove();
-                }
+        //enable datepicker
+        function pickTimeDate(cellvalue, options, cell) {
+            setTimeout(function () {
+                $(cell).find('input[type=text]')
+                    .datetimepicker({dateFormat: 'dd-mm-yy'});
+            }, 0);
+        }
 
-            });
-
-        })
 
         function get_col(cols) {
             var col_name = [];
@@ -608,17 +448,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid', pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon: 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon: 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon: 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon: 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon: 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon: 'ace-icon fa fa-search-plus grey',
             },
             {
