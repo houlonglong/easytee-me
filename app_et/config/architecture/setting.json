@@ -30,7 +30,13 @@
                 "title":"失败的众筹",
                 "url":"/admin/activity/failture",
                 "hide_menu":1
+            },
+            {
+                "title":"订单详情",
+                "url":"/admin/activity/order_detail",
+                "hide_menu":1
             }
+
         ]
     },
     {

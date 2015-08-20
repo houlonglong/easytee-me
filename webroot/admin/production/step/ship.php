@@ -3,15 +3,19 @@
 <head>
     <?php
     /**
-     * 生产管理
+     * 发货
      *
      */
-    include(block("admin/block/html_head"))?>
+
+    include(block("admin/block/html_head"));
+    $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
+    ?>
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
+    <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css" />
+
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
@@ -29,43 +33,19 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row" style="padding:20px 0;display:none">
-                            <div class="col-xs-12">
-                                <label>
-                                    Ttile
-                                </label>
-                                <input type="text" id="title">
-                                <button class="btn-primary" onclick="search()">search</button>
-                            </div>
-                        </div>
+
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="tabbable">
-                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="return do_product('index');">待生产</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="return do_product('producting');">生产中</a>
-                                        </li>
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="return do_product('producted');">已完成侍发货</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="return do_product('shipped');">已发货</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane in active">
-                                            <table id="grid-table"></table>
-                                            <div id="grid-pager"></div>
-                                            <script type="text/javascript">
-                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                            </script>
-                                        </div>
 
-                                    </div>
-                                </div>
+                                <table id="grid-table"></table>
+
+                                <div id="grid-pager"></div>
+
+                                <script type="text/javascript">
+                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                </script>
+
+
                             </div>
                             <!-- /.span -->
                         </div>
@@ -79,63 +59,97 @@
 </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <!-- page specific plugin scripts -->
-<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="/ace/assets/js/moment.min.js"></script>
+<script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
-
-
+<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 
 
 <script type="text/javascript">
-    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
-    var url_api_base   = "admin/production";
-    var url_api_list   = "/api?model="+url_api_base + "&action=list&status=producted";
-    var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
-    var url_api_detail = "/"+url_api_base + "/detail";
-    function do_product($action){
-        location.href = "/"+url_api_base+"/"+$action;
-        return false;
-    }
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function search(){
-        var $query = {
-            title:$('#title').val()
-        };
-        $(grid_selector).jqGrid('setGridParam',{
-            datatype:'json',
-            postData:$query, //发送数据
-            page:1
-        }).trigger("reloadGrid"); //重新载入
-    }
-    jQuery(function($) {
 
+
+    jQuery(function($) {
         var grid_setting = {
-            url:url_api_list,
-            url_save:url_api_edit,
+            url:"/api?model=admin/activity&action=detail_list&id="+<?php echo $_REQUEST['id'];?>,
+            url_save:"/api?model=admin/activity&action=edit",
             method:"POST",
-            height:500,
+            height:390,
             rowNum:15,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动ID",name:'activity_id',index:'activity_id', width:40, sorttype:"int", editable: false},
+                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"收件人",name:'ship_name',index:'ship_name',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"联系电话",name:'ship_mobile',index:'ship_mobile',width:80,sortable:false,editable: true,
+                    unformat: pickTimeDate
+                },
+                {title:"收货地址",name:'ship_addr',index:'ship_addr',width:150,sortable:false,editable: true,
+                    unformat: pickTimeDate,
                     formatter:function(cellvalue, options, rowObject){
-                        return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
+                        return rowObject['ship_province']+rowObject['ship_city']+rowObject['ship_area']+cellvalue;
                     }
                 },
-                {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
-                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
-                {title:"预计交货时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: false},
-                {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:function(cellvalue, options, rowObject){
-                        return '<a class="btn btn-xs btn-primary" target="_blank" href="/admin/production/step/ship?id='+cellvalue+'">发货</a>';
-                    },
-                },
+//                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装款式",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装性别",name:'product_name',index:'product_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装颜色",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装尺码",name:'size',index:'size',width:50,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
+//                {title:"订购服装数量",name:'quantity',index:'quantity',width:100,sortable:false,editable: true,
+//                    unformat: pickTimeDate
+//                },
             ]
 
         };
+        //enable datepicker
+        function pickTimeDate( cellvalue, options, cell ) {
+            setTimeout(function(){
+                $(cell) .find('input[type=text]')
+                    .datetimepicker({ dateFormat: 'dd-mm-yy' });
+            }, 0);
+        }
+
+        function showudate(tmpob) {
+            $(function() { tmpob.datepicker({ changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd" }); });
+        }
+
+        jQuery("#list2").jqGrid('navGrid','#pager2',
+            {edit:true,add:true,del:true},
+            {width:400,height:400,afterShowForm:function(){showudate($(".editable"));}},
+            {width:400,height:400},{},{multipleSearch:true},{});
+
+        function myelem (value, options) {
+            value = $(value).data("status");
+            console.log(value,options);
+            var el = document.createElement("select");
+            $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
+            return el;
+        }
+        function mystatuselem (value, options) {
+            value = $(value).data("status");
+            console.log(value,options);
+            var el = document.createElement("select");
+            $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
+            return el;
+        }
+
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -170,7 +184,6 @@
                 'model':cols
             };
         }
-
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
             $(grid_selector).jqGrid( 'setGridWidth', $(".page-content").width() );
@@ -208,7 +221,7 @@
             //direction: "rtl",
 
             //subgrid options
-            subGrid : false,
+            subGrid : true,
             //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
             //datatype: "xml",
             subGridOptions : {
@@ -220,16 +233,35 @@
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-                $("#" + subgridTableId).jqGrid({
-                    datatype: 'local',
-                    data: subgrid_data,
-                    colNames: ['No','Item Name','Qty'],
-                    colModel: [
-                        { name: 'id', width: 50 },
-                        { name: 'name', width: 150 },
-                        { name: 'qty', width: 50 }
-                    ]
-                });
+                $.ajax({
+                    url:'/api?model=admin/activity&action=ordergoods_detail',
+                    data:{
+                        id:rowId,
+                    },
+                    type:'POST',
+                    dataType:'json',
+                    success:function(obj){
+                        console.log(obj);
+                    $("#" + subgridTableId).jqGrid({
+                        datatype: 'local',
+                        data: obj,
+                        colNames: ['订购服装品类','订购服装款式','订购服装性别','订购服装颜色','订购服装尺码','订购服装数量','采购单价','采购总价','预计交期'],
+                        colModel: [
+                            { name: 'manufacturer_name', width: 150 },
+                            { name: 'product_style_name', width: 150 },
+                            { name: 'product_name', width: 150 },
+
+                            { name: 'product_style_name', width: 150 },
+                            { name: 'size', width: 150 },
+                            { name: 'quantity', width: 150 },
+
+                            { name: 'unit_price', width: 150 },
+                            { name: 'total', width: 150 },
+                            { name: 'real_end_time', width: 180 }
+                        ]
+                    });
+                  }
+                })
             },
             jsonReader: {
                 root:  function (obj) {
@@ -543,9 +575,6 @@
             $('.ui-jqdialog').remove();
         });
     });
-
-
-
 </script>
 </body>
 </html>
