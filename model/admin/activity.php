@@ -105,6 +105,9 @@ class Model_Admin_Activity extends Model_Admin_Abstract
      */
     function action_list()
     {
+        if($this->_request('success') == 1){
+            return self::success();
+        }
         return self::table_list();
     }
 
@@ -275,9 +278,15 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         //$rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql, $args);
         foreach ($rows as $row) {
+
            //筛选出成功的众筹
             if ($request['success'] == 1) {
                 $profie = Model_Cost::calculate_profie($row['id']);
+                //echo $profie;
+                //echo $row['id'];
+                if($row['id'] == 21){
+                    return $row;
+                }
                 if ($profie <= 0) {
                     continue;
                 }
@@ -422,5 +431,114 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             }
             echo json_encode($rows);
         }
+    }
+
+    static function success(){
+        $table_alias = $table = self::$table;
+        //$table_alias = '';
+        $join = ' inner join users as u on u.id = ' . $table_alias . '.uid ';
+        if (empty($table_alias)) throw new ErrorException("table is not defined");
+        //$request = http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("rows", "page", "sidx", "sord", "activity_id", "activity_name", "username", "mobile", 'startDate', 'endDate', 'pass', 'status', 'success');
+        $limit = $request['rows'];
+        $page = $request['page'];
+        $sort = $request['sidx'];
+        $sort_type = $request['sord'];
+        $username = $request['username'];
+
+        //fields
+        $select_fields = " $table_alias.*,u.nick_name ";
+        //where
+        $args = array();
+        if (empty($limit)) $limit = 20;
+        if (empty($page)) $page = 1;
+        if (empty($sort)) {
+            $sort = "id";
+            $sort_type = "desc";
+        } else {
+            if (empty($sort_type)) $sort_type = "desc";
+        }
+        if ($request['status']) {
+            $where = 'where ' . $table_alias . '.status =? ';
+            $args[] = $request['status'];
+
+        } else {
+            $where = 'where ' . $table_alias . '.status !="create" ';
+        }
+
+
+        if ($request['mobile']) {
+            $where = " and u.mobile = ? ";
+            $args[] = $request['mobile'];
+        }
+        if ($username) {
+            $where = " and u.nick_name = ? ";
+            $args[] = $username;
+        }
+        if ($request['activity_id']) {
+            $where .= " and id = ? ";
+            $args[] = $request['activity_id'];
+        }
+        if ($request['activity_name']) {
+            $where .= " and " . $table_alias . ".name like '%" . mysql_escape($request['activity_name']) . "%' ";
+        }
+        if ($request['startDate']) {
+            $where .= ' and ' . $table_alias . '.start_time >="' . date('Y-m-d 00:00:00', strtotime($request['startDate'])) . '"';
+        }
+
+        if ($request['endDate']) {
+            $where .= ' and ' . $table_alias . '.real_end_time <="' . date('Y-m-d 23:59:59', strtotime($request['endDate'])) . '"';
+        }
+        //order
+        $order = "";
+        if ($sort)
+            $order = "order by $table_alias." . addslashes($sort) . " " . $sort_type;
+        //$count_res = db()->select_row($sql,$args);
+//        $count_res = PtLib\db()->select_row($sql, $args);
+
+
+        $sql = "select $select_fields from $table $join $where $order  ";
+        //$rows = db()->select_rows($sql,$args);
+
+        $rows = PtLib\db()->select_rows($sql, $args);
+
+        $response = array();
+        foreach ($rows as $row) {
+            //筛选出成功的众筹
+                $profie = Model_Cost::calculate_profie($row['id']);
+                if ($profie <= 0) {
+                    continue;
+                }
+            $response[] = $row;
+
+        }
+        $records = count($response);
+        $return = new stdClass();
+        $return->page = $page;  //cur page
+
+        if ($records > 0) {
+            $total_pages = ceil($records / $limit);
+        } else {
+            $total_pages = 1;
+        }
+        if ($page > $total_pages) $page = $total_pages;
+
+        $return->total = $total_pages;      //total pages
+        $return->records = $records; //count
+
+        $skip = ($page - 1) * $limit;
+        $count = $limit+$skip;
+        if($count>$records){
+            $count = $records;
+        }
+
+        for($i=$skip;$i<$count;$i++){
+            $return->rows[] = array(
+                'id' => $response[$i]['id'],
+                "cell" =>  $response[$i]
+            );
+        }
+        return $return;
+
     }
 }
