@@ -7,7 +7,7 @@ class Model_Admin_System_Deploy extends Model_Admin_Abstract{
     function __construct(){
         parent::__construct();
         $env = \PtLib\get_pt_env("PT_ENV");
-        if($env == "test" || $env == "product"){
+        if($env == "product"){
             exit;
         }
     }
@@ -77,6 +77,10 @@ class Model_Admin_System_Deploy extends Model_Admin_Abstract{
         );
     }
     function action_git_commit(){
+        $env = \PtLib\get_pt_env("PT_ENV");
+        if($env == "test" || $env == "product"){
+            exit;
+        }
         $msg = slef::_request("msg");
         $root = PATH_PRO;
         $cmd = "cd $root && git add . && git commit -m '{$msg}' && git pull origin master && git push origin master";

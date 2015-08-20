@@ -2,7 +2,7 @@
     <div class="footer-inner">
         <div class="footer-content">
             <span class="bigger-120">
-                <span class="blue bolder">PtPHP</span>
+                <span class="blue bolder">Easytee.me</span>
                 Application &copy; 2015
             </span>
             &nbsp; &nbsp;

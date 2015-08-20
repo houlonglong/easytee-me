@@ -36,6 +36,7 @@ admin/site/design|设计
 admin/site/art|素材
 admin/font/font|字体
 admin/font/category|字体分类
+admin/production/step|待生产
 admin/production/index|待生产
 admin/production/ongoing|生产中
 admin/production/shipped|已发货

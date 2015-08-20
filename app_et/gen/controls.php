@@ -22,6 +22,11 @@ admin/production/producting|生产中|admin_list|admin/production
 admin/production/producted|生产完成侍发货|admin_list|admin/production
 admin/production/shipped|已发货|admin_list|admin/production
 
+admin/production/step/detail|生产详情
+admin/production/step/confirm|确定下单
+admin/production/step/finish|下单完成
+
+
 admin/aftersale/index|售后管理|admin_list
 admin/font/font/index|字体管理|admin_list
 admin/font/category/index|字体分类|admin_list

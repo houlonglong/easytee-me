@@ -43,7 +43,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $join = ' inner join users as u on u.id = activities.uid';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord","shipped");
+        $request = PtLib\http_request("rows","page","sidx","sord","status");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];

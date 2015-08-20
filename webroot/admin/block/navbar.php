@@ -16,7 +16,7 @@ $model_admin_user = $model_admin_user_obj->get_auth_user_info();
             <a href="/admin/index" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
-                    后台管理
+                    易衫网
                 </small>
             </a>
         </div>
