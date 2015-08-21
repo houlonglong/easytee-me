@@ -81,9 +81,9 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动ID",name:'activity_id',index:'activity_id', width:40, sorttype:"int", editable: false},
-                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"收件人",name:'ship_name',index:'ship_name',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"活动ID",name:'activity_id',index:'activity_id', width:40, sorttype:"int",sortable:false, editable: false},
+                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"收件人",name:'ship_name',index:'ship_name',width:50,editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"}},
                 {title:"联系电话",name:'ship_mobile',index:'ship_mobile',width:80,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
@@ -369,17 +369,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {

@@ -29,10 +29,7 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
-
-
                         <div class="row">
-
                             <div class="col-xs-12">
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
@@ -71,81 +68,38 @@
                                             <div class="row">
                                                 <div class="col-xs-12">
                                                     <div class="widget-box">
-
-
                                                         <div class="widget-body">
                                                             <div class="widget-main">
-                                                                <div class="row">
-                                                                    <div class="col-xs-2">
-                                                                        <label style="font-weight: 700;">
-                                                                            活动名称
-                                                                        </label>
-                                                                        <input type="text" id="activity-name">
-                                                                    </div>
-                                                                    <div class="col-xs-2">
-                                                                        <label style="font-weight: 700;">
-                                                                            用户名
-                                                                        </label>
-                                                                        <input type="text" id="username">
-                                                                    </div>
-                                                                    <div class="col-xs-2">
-                                                                        <label style="font-weight: 700;">
-                                                                            手机号码
-                                                                        </label>
-                                                                        <input type="text" id="mobile">
-                                                                    </div>
-                                                                    <div class="col-xs-2">
-                                                                        <label style="font-weight: 700;">
-                                                                            开始时间
-                                                                        </label>
-                                                                        <input type="text" id="start-date">
-                                                                    </div>
-                                                                    <div class="col-xs-2">
-                                                                        <label style="font-weight: 700;">
-                                                                            结束时间
-                                                                        </label>
-                                                                        <input type="text" id="end-date">
-                                                                    </div>
-                                                                    <div class="col-xs-2">
-                                                                        <button class="btn-primary" onclick="search()">搜索</button>
-                                                                        <button class="btn-danger label-success" onclick="reset()">重置</button>
-                                                                    </div>
-                                                                </div>
+                                                                <form class="form-inline">
+                                                                    <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
+                                                                    <input type="text"  class="input-small" placeholder="用户名" id="username">
+                                                                    <input type="text"  class="input-small" placeholder="手机号码" id="mobile">
+                                                                    <input type="text"  class="input-small" placeholder="开始时间" id="start-date">
+                                                                    <input type="text"  class="input-small" placeholder="结束时间" id="end-date">
+                                                                    <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                                        <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </div>
-
-
                                             </div>
                                             <div class="row">
                                                 <div class="col-xs-12">
-
                                                     <table id="grid-table"></table>
-
                                                     <div id="grid-pager"></div>
-
                                                     <script type="text/javascript">
                                                         var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                                     </script>
                                                 </div>
                                                 <!-- /.span -->
                                             </div>
-
-
                                         </div>
-
-
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
-
-                        <!-- PAGE CONTENT BEGINS -->
-
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -153,8 +107,6 @@
         </div>
     </div><!-- /.main-content -->
     <?php include(block("admin/block/footer"))?>
-
-
     <div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -166,9 +118,6 @@
                     <h4>活动名称：<span id="modal_active"></span></h4>
 
                 </div>
-
-
-
                 <div class="tabbable">
                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                         <li class="active">
@@ -314,29 +263,28 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动名称",name:'name',index:'name',editable: false,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
                     }
                 },
-                {title:"发起人",name:'nick_name',index:'nick_name',width:50,editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"销售目标件数/实际销售件数",name:'sales_target',index:'sales_target',width:80,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"发起人",name:'nick_name',index:'nick_name',width:80,editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"目标/实售",name:'sales_target',index:'sales_target',width:70,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                          return cellvalue+'/'+rowObject['sales_count'];
                     }
                 },
-                {title:"开始时间",name:'start_time',index:'start_time',width:80,sortable:false,editable: true,
+                {title:"开始时间",name:'start_time',index:'start_time',width:120,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
-                {title:"预计结束时间",name:'end_time',index:'end_time',width:80,sortable:false,editable: true,
+                {title:"预计结束时间",name:'end_time',index:'end_time',width:120,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
-                {title:"实际结束时间",name:'real_end_time',index:'real_end_time',width:80,sortable:false,editable: true,
+                {title:"实际结束时间",name:'real_end_time',index:'real_end_time',width:120,sortable:false,editable: true,
                     unformat: pickTimeDate
                 },
 
-                {title:"众筹状态",name:'activity_status',index:'activity_status',width:50,sortable:false,editable: true,edittype:"custom",
+                {title:"众筹状态",name:'activity_status',index:'activity_status',width:100,sortable:false,editable: true,edittype:"custom",
                     editoptions:{custom_element: mystatuselem, custom_value:myvalue},
 //                    formatter:function(cellvalue, options, rowObject){
 //                        var img = "";
@@ -356,7 +304,7 @@
 //                    }
                 },
 
-                {title:"操作",name:'options',index:'', width:150, fixed:true, sortable:false, resize:false,
+                {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{
                         keys:true,
@@ -612,17 +560,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid',pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon : 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon : 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon : 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon : 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon : 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon : 'ace-icon fa fa-search-plus grey',
             },
             {

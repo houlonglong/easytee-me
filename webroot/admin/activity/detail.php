@@ -36,17 +36,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <div class="col-xs-12">
 
-
-                                <a class="btn btn-xs btn-info"
-                                   href="/api?model=admin/activity&action=downloadExcel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
-
-
-                            </div>
-                            <!-- /.span -->
-                        </div>
                         <div class="row">
                             <div class="col-xs-12">
 
@@ -58,59 +48,29 @@
 
                                     <div class="widget-body">
                                         <div class="widget-main">
-                                            <form class="form-inline">
-                                                <div class="row">
-
-                                                    <div class="col-xs-12">
-
-
-                                                        <label style="font-weight: 700">活动名称：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['name']; ?></span>
-
-
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">发起人：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['nick_name']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">开始时间：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['start_time']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">结束时间：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['real_end_time']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">销售目标：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['sales_target']; ?></span>
-
-
-                                                    </div>
-                                                    <div class="col-xs-2">
-
-                                                        <label style="font-weight: 700">实际销售：</label><span
-                                                            style="margin-left: 10px;"><?php echo $row['sales_count']; ?></span>
-
-
-                                                    </div>
-                                                    <!-- /.span -->
-                                                </div>
-                                                <!-- /.span -->
+                                            <div>
+                                                <h3>
+                                                    活动名称: <?php echo $row['name']; ?>
+                                                </h3>
+                                            </div>
+                                            <div>
+                                                <table class="table">
+                                                    <tr>
+                                                        <th style="text-align: right">发起人</th>
+                                                        <td style="text-align: left"><?php echo $row['nick_name']; ?></td>
+                                                        <th style="text-align: right">开始时间</th>
+                                                        <td style="text-align: left"><?php echo $row['start_time']; ?></td>
+                                                        <th style="text-align: right">结束时间</th>
+                                                        <td style="text-align: left"><?php echo $row['real_end_time']; ?></td>
+                                                        <th style="text-align: right">销售目标</th>
+                                                        <td style="text-align: left"><?php echo $row['sales_target']; ?></td>
+                                                        <th style="text-align: right">实际销售</th>
+                                                        <td style="text-align: left"><?php echo $row['sales_count']; ?></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
-                                        </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -492,17 +452,17 @@
         //navButtons
         jQuery(grid_selector).jqGrid('navGrid', pager_selector,
             { 	//navbar options
-                edit: true,
+                edit: false,
                 editicon: 'ace-icon fa fa-pencil blue',
-                add: true,
+                add: false,
                 addicon: 'ace-icon fa fa-plus-circle purple',
-                del: true,
+                del: false,
                 delicon: 'ace-icon fa fa-trash-o red',
-                search: true,
+                search: false,
                 searchicon: 'ace-icon fa fa-search orange',
                 refresh: true,
                 refreshicon: 'ace-icon fa fa-refresh green',
-                view: true,
+                view: false,
                 viewicon: 'ace-icon fa fa-search-plus grey',
             },
             {
