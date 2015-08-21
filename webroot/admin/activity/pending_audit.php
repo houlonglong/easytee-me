@@ -10,6 +10,7 @@
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css"/>
 
@@ -150,7 +151,7 @@
                                 <div>开始时间：<span id="modal_start_time"></span></div>
                                 <div>结束时间：<span id="modal_end_time"></span></div>
                                 <div>销售目标：<span id="modal_sales_target"></span></div>
-                                <div>是否涉及敏感字眼？是否辱骂国家领导人？是否传播邪教文化？</div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal"
@@ -168,15 +169,15 @@
 
                                     <div class="col-sm-9">
                                         <select name="reason" id="reason" class="col-xs-10 col-sm-5">
-                                            <option value="1">
-                                                内容描述不合法
-                                            </option>
-                                            <option value="2">
-                                                图片不合格
-                                            </option>
-                                            <option value="3">
-                                                其他
-                                            </option>
+                                              <option value="1">
+                                                                                        是否涉及敏感字眼
+                                                                                    </option>
+                                                                                    <option value="2">
+                                                                                        是否辱骂国家领导人
+                                                                                    </option>
+                                                                                    <option value="3">
+                                                                                        是否传播邪教文化
+                                                                                    </option>
                                         </select>
                                     </div>
                                 </div>

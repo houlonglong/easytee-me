@@ -10,6 +10,7 @@
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css"/>
 
