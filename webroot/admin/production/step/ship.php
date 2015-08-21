@@ -33,6 +33,11 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a class="btn btn-xs btn-primary bulk_shipment" href="#">批量发货</a>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-xs-12">
@@ -69,12 +74,13 @@
 <script type="text/javascript">
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-
-
+    var activity_id = <?php echo (isset($_GET['id'])?$_GET['id']:0);?>;
+    var expressInfo = <?php echo json_encode(Model_Admin_Activity::get_express_info());?>;
     jQuery(function($) {
+
         var grid_setting = {
-            url:"/api?model=admin/activity&action=detail_list&id="+<?php echo $_REQUEST['id'];?>,
-            url_save:"/api?model=admin/activity&action=edit",
+            url:"/api?model=admin/activity&action=detail_list&status=待发货&id="+<?php echo $_REQUEST['id'];?>,
+            url_save:"/api?model=admin/activity&action=add_order_no",
             method:"POST",
             height:390,
             rowNum:15,
@@ -82,15 +88,28 @@
             caption:"",
             cols:[
                 {title:"活动ID",name:'activity_id',index:'activity_id', width:40, sorttype:"int",sortable:false, editable: false},
-                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"订单号",name:'order_no',index:'order_no',width:90,editable: false,sortable:false,editoptions:{size:"20",maxlength:"30"}},
                 {title:"收件人",name:'ship_name',index:'ship_name',width:50,editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"}},
-                {title:"联系电话",name:'ship_mobile',index:'ship_mobile',width:80,sortable:false,editable: true,
-                    unformat: pickTimeDate
+                {title:"联系电话",name:'ship_mobile',index:'ship_mobile',width:50,sortable:false,editable: true,
                 },
                 {title:"收货地址",name:'ship_addr',index:'ship_addr',width:150,sortable:false,editable: true,
-                    unformat: pickTimeDate,
                     formatter:function(cellvalue, options, rowObject){
                         return rowObject['ship_province']+rowObject['ship_city']+rowObject['ship_area']+cellvalue;
+                    }
+                },
+                {title:"快递单号",name:'express_no',index:'express_id',width:80,sortable:false,editable: true,
+                },
+                {title:"快递公司",name:'express_name',index:'express_comp',width:150,sortable:false,editable: true,edittype:"custom",
+                    editoptions:{custom_element: mystatuselem, custom_value:myvalue},
+                },
+                {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
+                    formatter:'actions',
+                    formatoptions:{
+                        keys:true,
+                        //delbutton: false,//disable delete button
+                        baseLinkUrl:'someurl.php', addParam: '&action=add_order_no', idName:'id',
+                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
+                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     }
                 },
 //                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
@@ -139,17 +158,55 @@
             return el;
         }
         function mystatuselem (value, options) {
-            value = $(value).data("status");
-            console.log(value,options);
+            value = $(value).text();
             var el = document.createElement("select");
-            $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
+            var html =null;
+            for(var i in expressInfo){
+                if(value == expressInfo[i].name){
+                    value = expressInfo[i].id;
+                }
+                html +='<option role="option" value="'+ expressInfo[i].id+'">'+expressInfo[i].name+'</option>';
+            }
+            $(el).append(html).val(value);
             return el;
         }
 
         //获取值
         function myvalue(elem) {
-            return $(elem).val();
+            var v = $(elem).val();
+            return v;
+            var value
+            $(elem).children().each(function(){
+
+                if($(this).attr('value') == v){
+                    console.log($(this).attr('value'),v,$(this).text());
+                     value = $(this).text();
+                }
+            });
+            return value;
         }
+
+        $('.bulk_shipment').click(function(){
+            var ids = new Array();
+
+            $("input:checkbox[name*='jqg_grid-table_']:checked").each(function(){
+                var datas = $(this).attr('id').split('jqg_grid-table_');
+                ids.push(datas[datas.length-1]) ;
+            })
+            $.ajax({
+                url:'/api?model=admin/activity&action=bulk_shipment&activity_id='+activity_id,
+                type:'post',
+                data:{
+                    ids:ids.join(',')
+                },
+                success:function(data){
+                    window.location.reload();
+                }
+            })
+        })
+
+
+
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -310,7 +367,7 @@
             pager : pager_selector,
             altRows: false,
             //toppager: true,
-            multiselect: false,
+            multiselect: true,
             //multikey: "ctrlKey",
             multiboxonly: false,
             loadComplete : function(xhr) {

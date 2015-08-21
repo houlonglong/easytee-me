@@ -277,7 +277,7 @@
             pager : pager_selector,
             altRows: false,
             //toppager: true,
-            multiselect: false,
+            multiselect: true,
             //multikey: "ctrlKey",
             multiboxonly: false,
             loadComplete : function(xhr) {
