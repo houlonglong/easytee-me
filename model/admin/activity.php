@@ -584,14 +584,17 @@ class Model_Admin_Activity extends Model_Admin_Abstract
      */
     function action_add_order_no()
     {
-        $expressId = $this->_request('express_name');
+        $expressId = $this->_request('express_id');
         $orderId = $this->_request('id');
         $expressNo = $this->_request('express_no');
-        $datas = array(
-            'order_id' => $orderId,
-            'express_id' => $expressId,
-            'express_no' => $expressNo,
-        );
+        if($expressId){
+            $datas['express_id'] = $expressId;
+        }
+        if($expressNo){
+            $datas['express_no'] = $expressNo;
+        }
+        $datas[ 'order_id'] = $orderId;
+
         if ($orderId) {
             $orderExpressId = PtLib\db()->select_row('select id from order_expresses where order_id=?', $orderId);
             // 存在更新，不存在创建

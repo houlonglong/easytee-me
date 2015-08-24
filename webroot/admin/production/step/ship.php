@@ -76,6 +76,43 @@
     var pager_selector = "#grid-pager";
     var activity_id = <?php echo (isset($_GET['id'])?$_GET['id']:0);?>;
     var expressInfo = <?php echo json_encode(Model_Admin_Activity::get_express_info());?>;
+    function express_change(obj){
+
+        var no_value = $(obj).val();
+        var id = $(obj).parents('tr').attr('id');
+        $.ajax({
+            url:"/api?model=admin/activity&action=add_order_no",
+            type:'POST',
+            data:{
+                express_no:no_value,
+                id:id
+            },
+            success:function(data){
+
+            }
+        })
+
+
+    }
+    function express_change_name(obj){
+
+        var no_value = $(obj).val();
+        var id = $(obj).parents('tr').attr('id');
+        $.ajax({
+            url:"/api?model=admin/activity&action=add_order_no",
+            type:'POST',
+            data:{
+                express_id:no_value,
+                id:id
+            },
+            success:function(data){
+
+            }
+        })
+
+
+    }
+
     jQuery(function($) {
 
         var grid_setting = {
@@ -98,9 +135,25 @@
                     }
                 },
                 {title:"快递单号",name:'express_no',index:'express_id',width:80,sortable:false,editable: true,
+                    formatter:function(cellvalue, options, rowObject){
+                        return '<input type="text" size="20" maxlength="30" onchange="express_change(this)" class="express_no" name="express_no" role="textbox" class="editable" value="'+cellvalue+'">';
+                    }
                 },
                 {title:"快递公司",name:'express_name',index:'express_comp',width:150,sortable:false,editable: true,edittype:"custom",
-                    editoptions:{custom_element: mystatuselem, custom_value:myvalue},
+                    formatter:function(cellvalue, options, rowObject){
+                        var html ='<select class="express_name"  onchange="express_change_name(this)" >';
+                        for(var i in expressInfo){
+                            if(cellvalue == expressInfo[i].name){
+                                html +='<option role="option" value="'+ expressInfo[i].id+'" selected>'+expressInfo[i].name+'</option>';
+                            }else{
+
+                            }
+                            html +='<option role="option" value="'+ expressInfo[i].id+'">'+expressInfo[i].name+'</option>';
+                        }
+                        html+='</select>';
+                        return html;
+                    }
+
                 },
                 {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
@@ -157,19 +210,26 @@
             $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
             return el;
         }
-        function mystatuselem (value, options) {
-            value = $(value).text();
-            var el = document.createElement("select");
-            var html =null;
-            for(var i in expressInfo){
-                if(value == expressInfo[i].name){
-                    value = expressInfo[i].id;
-                }
-                html +='<option role="option" value="'+ expressInfo[i].id+'">'+expressInfo[i].name+'</option>';
-            }
-            $(el).append(html).val(value);
-            return el;
-        }
+
+            $('.express_name').change(function(){
+                var no_value = $(this).val();
+                var id = $(this).parents('tr').attr('id');
+                $.ajax({
+                    url:"/api?model=admin/activity&action=add_order_no",
+                    type:'POST',
+                    data:{
+                        express_name:no_value,
+                        id:id
+                    },
+                    success:function(data){
+
+                    }
+                })
+
+
+            })
+
+
 
         //获取值
         function myvalue(elem) {
