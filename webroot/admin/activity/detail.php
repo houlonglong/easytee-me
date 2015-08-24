@@ -36,7 +36,18 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
+                        <!-- PAGE CONTENT BEGINS -->
+                        <div class="row">
+                            <div class="col-xs-12">
 
+
+                                <a class="btn btn-xs btn-info"
+                                   href="/api?model=admin/activity&action=downloadExcel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
+
+
+                            </div>
+                            <!-- /.span -->
+                        </div>
                         <div class="row">
                             <div class="col-xs-12">
 

@@ -6,7 +6,7 @@
      * 提现申请
      *
      */
-    $__model_path = "admin/test";
+    $__model_path = "admin/user";
     include(block("admin/block/html_head"))?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
@@ -30,6 +30,26 @@
                     <div class="col-xs-12">
                         <div class="row" style="padding:20px 0">
                             <div class="col-xs-12" id="query_area"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <form class="form-inline">
+                                                <input type="text"  class="input-small" placeholder="用户名" id="username">
+                                                <input type="text"  class="input-small" placeholder="手机号码" id="mobile">
+                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">
+                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">
+                                                <input type="text"  class="input-small" placeholder="UID" id="user_id">
+                                                <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                    <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
@@ -57,7 +77,12 @@
     var pager_selector = "#grid-pager";
     function search(){
         var $query = {
-            title:$('#title').val()
+            title:$('#title').val(),
+            uid:$('#user_id').val(),
+            username:$('#username').val(),
+            startTime:$('#start-date').val(),
+            endTime:$('#end-date').val(),
+            mobile:$('#mobile').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -68,7 +93,7 @@
     jQuery(function($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base   = "<?php echo $__model_path;?>";
-        var url_api_list   = "/api?model="+url_api_base + "&action=list";
+        var url_api_list   = "/api?model="+url_api_base + "&action=money_flow";
         var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
         var url_api_detail = "/"+url_api_base + "/detail";
 
@@ -83,7 +108,12 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
-                {title:"Title",name:'title',index:'title',editable: false,sortable:false},
+                {title:"UID",name:'uid',index:'uid',editable: false,sortable:false},
+                {title:"手机号",name:'mobile',index:'mobile',editable: false,sortable:false},
+                {title:"用户昵称",name:'nick_name',index:'nick_name',editable: false,sortable:false},
+                {title:"时间",name:'create_time',index:'create_time',editable: false,sortable:false},
+                {title:"金额",name:'money',index:'money',editable: false,sortable:false},
+                {title:"备注",name:'content',index:'content',editable: false,sortable:false},
                 /*
                 {title:"Title",name:'title',index:'title',editable: false,
                     formatter:'showlink',

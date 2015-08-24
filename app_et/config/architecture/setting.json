@@ -202,6 +202,11 @@
                 "title":"申请提现",
                 "url":"/admin/user/withdraw_apply",
                 "hide_menu":0
+            },
+            {
+                "title":"财务流水",
+                "url":"/admin/user/momeyflow",
+                "hide_menu":0
             }
         ]
     },
