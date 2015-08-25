@@ -127,54 +127,10 @@ class Model_Admin_User extends Model_Admin_Abstract
         return $auth;
     }
 
-    function action_updateStatus()
-    {
-        $id = $this->_request('id');
-        if ($id) {
-            $status = $this->_request('status');
-            $row = PtLib\db()->update('user_withdraw_applies', array('status' => $status), array('id' => $id));
-            echo $row;
-        }
-    }
-
-    function action_withdraw_download()
-    {
-        $rows = PtLib\db()->select_rows('select uwa.*,u.mobile,u.nick_name from user_withdraw_applies as uwa inner join users as u on u.id = uwa.uid  where uwa.status="passed"');
-        if ($rows) {
-
-                $myval = array();
-                $myval[] = "体现人名称,提现金额,联系电话,收款账号,支付类型";
-                $myval[] = "\r\n";
-
-                foreach ($rows as $row) {
-                    $myval[] = "\t" . $row['nick_name'] . ",";
-                    $myval[] = "\t" . $row['money'] - $row['fee'] . ",";
-                    $myval[] = "\t" . $row['mobile'] . ",";
-                    $myval[] = "\t" . $row['pay_account'] . ",";
-                    $myval[] = $row['pay_type'] . ",";
-                    $myval[] = "\r\n";
-                }
-//                var_dump($myval);exit;
-                $content = iconv("UTF-8", "GBK", implode($myval));
-                header("Content-Type: text/html; charset=GBK");
-                header("Pragma: public");
-                header("Expires: 0");
-                header('Content-Encoding: none');
-                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-                header("Cache-Control: public");
-                header("Content-type: application/octet-stream\n");
-                header("Content-Description: File Transfer");
-                header('Content-Disposition: attachment; filename=申请提现明细.csv', $content);
-                header("Content-Transfer-Encoding: binary");
-                header('Content-Length: ' . strlen($content));
-                echo $content;
-                exit;
-            }
-    }
 
     function action_money_flow(){
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows", "page", "sidx", "sord","uid","username","mobile","start_time","end_time");
+        $request = PtLib\http_request("rows", "page", "sidx", "sord","uid","username","mobile","startTime","endTime",'status');
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -205,13 +161,13 @@ class Model_Admin_User extends Model_Admin_Abstract
             $where .=' and u.nick_name = ?';
             $args[] = $request['nick_name'];
         }
-        if($request['start_time']){
+        if($request['startTime']){
             $where .=' and umf.create_time >= ?';
-            $args[] = date('Y-m-d 00:00:00',strtotime($request['start_time']));
+            $args[] = date('Y-m-d 00:00:00',strtotime($request['startTime']));
         }
-        if($request['end_time']){
+        if($request['endTime']){
             $where .=' and umf.create_time <= ?';
-            $args[] = date('Y-m-d 23:59:59',strtotime($request['end_time']));
+            $args[] = date('Y-m-d 23:59:59',strtotime($request['endTime']));
         }
         if($request['mobile']){
             $where .=' and u.mobile = ?';
