@@ -240,6 +240,10 @@
             {
                 "title":"部署管理",
                 "url":"/admin/system/deploy"
+            },
+            {
+                "title":"快递费管理",
+                "url":"/admin/express/price/index"
             }
         ]
     }

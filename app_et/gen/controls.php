@@ -56,6 +56,9 @@ admin/finance/withdraw|提现申请|admin_list
 admin/finance/flow|提现申请|admin_list
 
 
+admin/express/price/index|快递费管理|admin_list|admin/express/price
+
+
 
 
 

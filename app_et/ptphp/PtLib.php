@@ -75,8 +75,8 @@ function get_table_list($table,$table_alias,$join = ''){
     //fields
     $select_fields = " $table_alias.* ";
     if(empty($table_alias)) throw new ErrorException("table is not defined");
-    $request = http_request("rows","page","sidx","sord");
-    #$request = PtLib\http_request("rows","page","sidx","sord");
+//    $request = http_request("rows","page","sidx","sord");
+    $request = PtLib\http_request("rows","page","sidx","sord");
     $limit = $request['rows'];
     $page = $request['page'];
     $sort = $request['sidx'];
