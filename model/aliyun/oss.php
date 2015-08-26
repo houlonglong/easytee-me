@@ -7,12 +7,25 @@ class Model_Aliyun_Oss extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
+
+    /**
+     * @param $local_path 本地路径
+     * @param $remote_path oss 路径
+     * @return string
+     * @throws Exception
+     */
     static function upload_file($local_path,$remote_path){
         $oss = new Service\Aliyun\Oss\Api();
         $setting = PtApp::$setting;
         $url = $oss->oss_upload_file($setting['aliyun_oss']['bucket'],$local_path,$remote_path);
         return $url;
     }
+
+    /**
+     * @param $content 文件内容
+     * @param $remote_path oss 路径
+     * @return string
+     */
     static function upload_content($content,$remote_path){
         $oss = new Service\Aliyun\Oss\Api();
         $setting = PtApp::$setting;

@@ -1,3 +1,4 @@
+
 <?php
 /**
  * 发送邮件
@@ -8,6 +9,7 @@ class Model_Tools_Email  {
         //parent::__construct();
     }
 
+
     /**
      * @param $to_mail   发送邮箱
      * @param $to_name   发送人NAME
@@ -15,6 +17,7 @@ class Model_Tools_Email  {
      */
 
     static function subemail_send($to_mail,$to_name,$project){
+
         require_once PATH_LIBS . '/submail/SUBMAILAutoload.php';
 
         /*
@@ -32,6 +35,64 @@ class Model_Tools_Email  {
 
         print_r($xsend);
 
+    }
+
+    /**
+     * @param $to_mail 接收邮箱
+     * @param $title   邮件title
+     * @param $content 邮件内容
+     * @param int $debug debug
+     * @return bool
+     * @throws Exception
+     */
+    static function phpmailer_send_email($to_mail,$title,$content,$debug=0){
+        require_once PATH_LIBS . '/phpmailer/PHPMailerAutoload.php';
+        $setting = PtApp::$setting;
+        try{
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->SMTPSecure = $setting['phpmailer']['secure'];
+            //$mail->SMTPSecure = "tls";
+            $mail->SMTPDebug = $debug;
+            $mail->Debugoutput = 'text';
+            $mail->Host = $setting['phpmailer']['host'];
+            $mail->Port = $setting['phpmailer']['port'];
+            $mail->SMTPAuth = true;
+            $mail->Username = $setting['phpmailer']['username'];
+            $mail->Password = $setting['phpmailer']['password'];
+            $mail->setFrom($setting['phpmailer']['from_mail'], $setting['phpmailer']['from_name']);
+            $mail->addReplyTo($setting['phpmailer']['reply_mail'], $setting['phpmailer']['reply_name']);
+            $mail->addAddress($to_mail, "John");
+            $mail->Subject = $title;
+
+            $t =  <<<template
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{$title}</title>
+</head>
+<body>
+<div style="width: 640px; font-family: Arial, Helvetica, sans-serif; font-size: 11px;">
+    <h1>{$title}</h1>
+    <div>
+        {$content}
+    </div>
+</div>
+</body>
+</html>
+template;
+            $mail->msgHTML($t);
+            #$mail->msgHTML($body);
+
+            if (!$mail->send()) {
+                throw new Exception($mail->ErrorInfo);
+            } else {
+                return true;
+            }
+        }catch (Exception $e){
+            throw new Exception($e->getMessage());
+        }
     }
     /**
      * 详情视图
