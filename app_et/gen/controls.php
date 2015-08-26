@@ -55,6 +55,7 @@ admin/aftersale/waitting|等待处理|admin_list
 admin/user/withdraw_apply|提现申请|admin_list
 admin/user/momeyflow|提现申请|admin_list
 
+admin/design/tool/index|设计工具|admin_default
 
 
 

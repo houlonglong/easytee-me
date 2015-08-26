@@ -2,21 +2,10 @@
 /**
  * 图片服务
  */
-class Model_Service_Pic{
+class Model_Service_Pic extends BaseModel{
     static $table = "";
     function __construct(){
         //parent::__construct();
-    }
-    static function test(){
-        $rows = PtLib\db_select_rows("select id from activities");
-        foreach($rows as $row){
-            PtLib\db()->insert("task_act_pic_merge",
-                array(
-                    "act_id"=>$row['id']
-                )
-            );
-        }
-
     }
     function cli_run(){
         $t = 1;
@@ -118,7 +107,35 @@ class Model_Service_Pic{
         return array("remote_png_path"=>$remote_png_path,"location_png_path"=>$location_png_path);
 
     }
+    function cli_gen_design_side_svg(){
+
+    }
+    function action_gen_design_side_svg(){
+        $design_id = $this->_request("design_id");
+        $side = $this->_request("side");
+
+        $PATH_PRO = PATH_PRO;
+        $cmd = "php $PATH_PRO/bin/cli.php --model=service/pic --action=gen_design_side_svg --env=";
+
+
+        return $cmd;
+        $_design_svg = PtLib\db_select_row("select id,side,status,img_url,svg_url from design_svg_side where design_id = ? and side = ?",$design_id,$side);
+
+        $base_path = self::formate_design_upload_path($design_id,$side);
+        $location_png_path = self::convert_design_svg_to_png($_design_svg['svg_url'],$base_path);
+        return $location_png_path;
+        $remote_png_path = self::upload_to_aliyun_oss($location_png_path,$base_path.".png");
+        PtLib\db()->update("design_svg_side",array(
+            "img_url"=>$remote_png_path,
+            "up_time"=>date("Y-m-d H:i:s"),
+            "status"=>1,
+        ),array("id"=>$_design_svg['id']));
+        return $design_id;
+    }
+
+
     static function merge_activity_pics($act_id){
+        return;
         $act = PtLib\db_select_row("select design_id from activities where id = ?",$act_id);
         $design_id = $act['design_id'];
         //self::merge_design_pics($act_id,$design_id);

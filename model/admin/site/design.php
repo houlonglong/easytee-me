@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 设计
  */
@@ -56,7 +57,33 @@ class Model_Admin_Site_Design extends Model_Admin_Abstract{
     function action_list(){
         return self::table_list();
     }
+    static function upload_content_to_aliyun_oss($content,$remote_path){
+        $oss = new Service\Aliyun\Oss\Api();
+        $setting = PtApp::$setting;
+        $res = $oss->oss_upload_file_content($setting['aliyun_oss']['bucket'],$remote_path,$content,strlen($content));
+        return $res;
+    }
+    function action_save_svg_png(){
+        $design_id = $this->_request("design_id");
+        $side = $this->_request("side");
+        $base_path = Model_Service_Pic::formate_design_upload_path($design_id,$side);
+        $img_content = $this->_request("img_content");
+        $img_content = substr($img_content,strlen("data:image/png;base64,"));
+        $img_content = base64_decode($img_content);
+        $remote_png_path = self::upload_content_to_aliyun_oss($img_content,$base_path.".png");
+        PtLib\db()->update("design_svg_side",array(
+            "img_url"=>$remote_png_path,
+            "up_time"=>date("Y-m-d H:i:s"),
+            "status"=>1,
+        ),array(
+            "design_id"=>$design_id,
+            "side"=>$side,
+        ));
 
+        return $base_path;
+
+        return $img_content;
+    }
 
     /**
      * 修改
