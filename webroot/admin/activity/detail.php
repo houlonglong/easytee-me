@@ -73,10 +73,14 @@
                                                         <td style="text-align: left"><?php echo $row['start_time']; ?></td>
                                                         <th style="text-align: right">结束时间</th>
                                                         <td style="text-align: left"><?php echo $row['real_end_time']; ?></td>
+                                                    </tr>
+                                                    <tr>
                                                         <th style="text-align: right">销售目标</th>
                                                         <td style="text-align: left"><?php echo $row['sales_target']; ?></td>
                                                         <th style="text-align: right">实际销售</th>
                                                         <td style="text-align: left"><?php echo $row['sales_count']; ?></td>
+                                                        <th style="text-align: right">颜色数量</th>
+                                                        <td style="text-align: left"><?php echo $row['colors']; ?></td>
                                                     </tr>
                                                 </table>
                                             </div>

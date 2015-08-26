@@ -20,7 +20,8 @@ class Model_Admin_Activity extends Model_Admin_Abstract
     static function activity_detail()
     {
         $request = PtLib\http_request("id");
-        $row = PtLib\db_select_row("select a.*,u.nick_name from " . self::$table . " as a inner join users as u on u.id = a.uid where a.id = ?", $_REQUEST['id']);
+        $row = PtLib\db_select_row("select a.*,u.nick_name,d.colors from " . self::$table . " as a inner join users as u on u.id = a.uid
+         inner join designs as d on d.id = a.design_id  where a.id = ?", $_REQUEST['id']);
         return $row;
     }
 
