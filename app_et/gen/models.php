@@ -48,6 +48,10 @@ admin/sales/after_sales|等待处理
 admin/user/withdrawapply|提现申请
 
 
+aliyun/oss|阿里云上传
+tools/sms|短信发送
+tools/email|发送邮件
+
 
 
 
