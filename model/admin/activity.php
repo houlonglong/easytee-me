@@ -20,7 +20,8 @@ class Model_Admin_Activity extends Model_Admin_Abstract
     static function activity_detail()
     {
         $request = PtLib\http_request("id");
-        $row = PtLib\db_select_row("select a.*,u.nick_name from " . self::$table . " as a inner join users as u on u.id = a.uid where a.id = ?", $_REQUEST['id']);
+        $row = PtLib\db_select_row("select a.*,u.nick_name,d.colors from " . self::$table . " as a inner join users as u on u.id = a.uid
+         inner join designs as d on d.id = a.design_id  where a.id = ?", $_REQUEST['id']);
         return $row;
     }
 
@@ -241,11 +242,11 @@ class Model_Admin_Activity extends Model_Admin_Abstract
 
 
         if ($request['mobile']) {
-            $where = " and u.mobile = ? ";
+            $where .= " and u.mobile = ? ";
             $args[] = $request['mobile'];
         }
         if ($username) {
-            $where = " and u.nick_name = ? ";
+            $where .= " and u.nick_name = ? ";
             $args[] = $username;
         }
         if ($request['activity_id']) {
@@ -437,11 +438,11 @@ class Model_Admin_Activity extends Model_Admin_Abstract
     {
         $id = $this->_request('id');
         if ($id) {
-            $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name from order_goods as og inner join orders as o on o.id = og.order_id
+            $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name,pc.name as product_category_name from order_goods as og inner join orders as o on o.id = og.order_id
                               inner join activities as a on a.id = o.activity_id' .
                 '    inner join product_styles as ps on ps.id = og.product_style_id ' .
                 ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ' .
+                   ' .' inner join product_category_maps as map on map.product_id = p.id inner join product_categories as pc on pc.id = map.product_category_id '.
                 'where og.order_id = ?', $id);
             foreach ($rows as $key => $row) {
                 $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
@@ -487,11 +488,11 @@ class Model_Admin_Activity extends Model_Admin_Abstract
 
 
         if ($request['mobile']) {
-            $where = " and u.mobile = ? ";
+            $where .= " and u.mobile = ? ";
             $args[] = $request['mobile'];
         }
         if ($username) {
-            $where = " and u.nick_name = ? ";
+            $where .= " and u.nick_name = ? ";
             $args[] = $username;
         }
         if ($request['activity_id']) {

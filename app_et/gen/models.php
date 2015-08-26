@@ -1,3 +1,4 @@
+
 <?php
 $rows = <<<EOT
 ec/bargain|砍价
@@ -47,7 +48,14 @@ admin/product/image|产品图片
 admin/sales/after_sales|等待处理
 admin/user/withdrawapply|提现申请
 
+
 admin/design/tool|设计工具
+
+aliyun/oss|阿里云上传
+tools/sms|短信发送
+tools/email|发送邮件
+
+
 
 
 

@@ -1886,6 +1886,9 @@ class ALIOSS{
 	private function log($msg){
 		if(defined('ALI_LOG_PATH') ){
 			$log_path = ALI_LOG_PATH;
+			if(strtoupper(substr(PHP_OS,0,3))==='WIN'){
+				$log_path = "C:".$log_path;
+			}
 			if(empty($log_path) || !file_exists($log_path)){
 				throw new OSS_Exception($log_path.OSS_LOG_PATH_NOT_EXIST);
 			}
