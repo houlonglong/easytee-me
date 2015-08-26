@@ -40,20 +40,20 @@ class Model_Admin_Activity extends Model_Admin_Abstract
     {
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' ;
-//            ' inner join order_goods as og on og.order_id = o.id inner join product_styles as ps on ps.id = og.product_style_id ' .
+        $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' .
+            ' left join order_expresses as oe on oe.order_id = o.id left join expresses as e on e.id = oe.express_id ';
 //            ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
 //                   ';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows", "page", "sidx", "sord");
+        $request = PtLib\http_request("rows", "page", "sidx", "sord", "status");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " o.* ";
+        $select_fields = " o.*,oe.express_no,e.name as express_name ";
 
         if (empty($limit)) $limit = 20;
         if (empty($page)) $page = 1;
@@ -64,6 +64,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             if (empty($sort_type)) $sort_type = "desc";
         }
         $where = 'where ' . $table_alias . '.id = ?';
+        $args[] = $_REQUEST['id'];
         //order
         $order = "";
         if ($sort)
@@ -86,10 +87,14 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $response->records = $records; //count
 
         $skip = ($page - 1) * $limit;
+        if ($request['status']) {
+            $where .= ' and o.status=?';
+            $args[] = $request['status'];
+        }
 
         $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
         //$rows = db()->select_rows($sql,$args);
-        $rows = PtLib\db()->select_rows($sql, $_REQUEST['id']);
+        $rows = PtLib\db()->select_rows($sql, $args);
         foreach ($rows as $row) {
             $response->rows[] = array(
                 'id' => $row['id'],
@@ -105,7 +110,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
      */
     function action_list()
     {
-        if($this->_request('success') == 1){
+        if ($this->_request('success') == 1) {
             return self::success();
         }
         return self::table_list();
@@ -291,12 +296,12 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $rows = PtLib\db()->select_rows($sql, $args);
         foreach ($rows as $row) {
 
-           //筛选出成功的众筹
+            //筛选出成功的众筹
             if ($request['success'] == 1) {
                 $profie = Model_Cost::calculate_profie($row['id']);
                 //echo $profie;
                 //echo $row['id'];
-                if($row['id'] == 21){
+                if ($row['id'] == 21) {
                     return $row;
                 }
                 if ($profie <= 0) {
@@ -314,10 +319,10 @@ class Model_Admin_Activity extends Model_Admin_Abstract
                     } else {
                         if ($row['pass'] == 0) {
                             $row['activity_status'] = '审核未通过';
-                        }else{
-                            if($row['status'] == 'ongoing'){
+                        } else {
+                            if ($row['status'] == 'ongoing') {
                                 $row['activity_status'] = '审核通过进行中';
-                            }else{
+                            } else {
                                 $row['activity_status'] = '已审核';
                             }
                         }
@@ -428,24 +433,26 @@ class Model_Admin_Activity extends Model_Admin_Abstract
 
     }
 
-    function action_ordergoods_detail(){
+    function action_ordergoods_detail()
+    {
         $id = $this->_request('id');
-        if($id){
-           $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name from order_goods as og inner join orders as o on o.id = og.order_id
-                              inner join activities as a on a.id = o.activity_id'.
-               '    inner join product_styles as ps on ps.id = og.product_style_id ' .
-            ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   '.
-               'where og.order_id = ?',$id);
-            foreach($rows as $key=>$row){
-                $rows[$key]['total'] = $row['quantity']*$row['unit_price'];
-                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s',strtotime($row['real_end_time'].'+7 day'));
+        if ($id) {
+            $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name from order_goods as og inner join orders as o on o.id = og.order_id
+                              inner join activities as a on a.id = o.activity_id' .
+                '    inner join product_styles as ps on ps.id = og.product_style_id ' .
+                ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
+                   ' .
+                'where og.order_id = ?', $id);
+            foreach ($rows as $key => $row) {
+                $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
+                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
             }
             echo json_encode($rows);
         }
     }
 
-    static function success(){
+    static function success()
+    {
         $table_alias = $table = self::$table;
         //$table_alias = '';
         $join = ' inner join users as u on u.id = ' . $table_alias . '.uid ';
@@ -517,10 +524,10 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $response = array();
         foreach ($rows as $row) {
             //筛选出成功的众筹
-                $profie = Model_Cost::calculate_profie($row['id']);
-                if ($profie <= 0) {
-                    continue;
-                }
+            $profie = Model_Cost::calculate_profie($row['id']);
+            if ($profie <= 0) {
+                continue;
+            }
             $response[] = $row;
 
         }
@@ -539,18 +546,81 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $return->records = $records; //count
 
         $skip = ($page - 1) * $limit;
-        $count = $limit+$skip;
-        if($count>$records){
+        $count = $limit + $skip;
+        if ($count > $records) {
             $count = $records;
         }
 
-        for($i=$skip;$i<$count;$i++){
+        for ($i = $skip; $i < $count; $i++) {
             $return->rows[] = array(
                 'id' => $response[$i]['id'],
-                "cell" =>  $response[$i]
+                "cell" => $response[$i]
             );
         }
         return $return;
 
+    }
+
+
+    /**
+     * 批量发货
+     */
+    function action_bulk_shipment()
+    {
+        $stringId = $this->_request('ids');
+        if ($stringId) {
+            try {
+                $rows = PtLib\db()->run_sql('update orders set status="已发货" where id in (' . $stringId . ')');
+                if (!$rows) {
+                    throw new Exception('发货失败');
+                }
+                $count = count(explode(',', $stringId));
+                $rows = Ptlib\db()->run_sql('update activity_produces set order_shipped_count= `order_shipped_count`+' . $count .
+                    ' where activity_id = ' . $this->_request('activity_id') . ' and order_count != `order_shipped_count`+' . $count);
+                if (!$rows) {
+                    $row = Ptlib\db()->run_sql('update activity_produces set order_shipped_count= `order_shipped_count`+' . $count .
+                        ',status="已发货" where activity_id = ' . $this->_request('activity_id') . ' and order_count = `order_shipped_count`+' . $count);
+                    if (!$rows) {
+                        throw new Exception('发货失败');
+                    }
+                }
+                echo 1;
+            } catch (Exception $e) {
+                echo 0;
+            }
+        }
+    }
+
+    /**
+     *添加快递单号
+     */
+    function action_add_order_no()
+    {
+        $expressId = $this->_request('express_id');
+        $orderId = $this->_request('id');
+        $expressNo = $this->_request('express_no');
+        if($expressId){
+            $datas['express_id'] = $expressId;
+        }
+        if($expressNo){
+            $datas['express_no'] = $expressNo;
+        }
+        $datas[ 'order_id'] = $orderId;
+
+        if ($orderId) {
+            $orderExpressId = PtLib\db()->select_row('select id from order_expresses where order_id=?', $orderId);
+            // 存在更新，不存在创建
+            if ($orderExpressId) {
+                PtLib\db()->update('order_expresses', $datas,array('id'=>$orderExpressId['id']));
+            } else {
+                PtLib\db()->insert('order_expresses', $datas);
+            }
+        }
+    }
+
+    static function get_express_info()
+    {
+        $rows = PtLib\db()->select_rows('select id,name from expresses');
+        return $rows;
     }
 }

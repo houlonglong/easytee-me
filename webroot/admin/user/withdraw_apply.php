@@ -33,39 +33,37 @@
 
                 <div class="row">
                     <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12">
+
+                                <a class="btn btn-xs btn-info" href="/api?model=admin/user&action=withdraw_download">下载Excel</a>
+
+                            </div>
+
+                        </div>
                             <div class="row">
                                 <div class="col-xs-10">
                                     <div class="widget-box">
-                                        <div class="widget-header">
-                                            <h4 class="widget-title">搜索条件</h4>
-                                        </div>
+
 
                                         <div class="widget-body">
                                             <div class="widget-main">
                                                 <form class="form-inline">
                                                     <div class="col-xs-2">
-                                                        <label>
-                                                            申请人
-                                                        </label>
-                                                        <input type="text" id="username">
+                                                        <input type="text" id="username" placeholder="申请人">
                                                     </div>
                                                     <div class="col-xs-2">
-                                                        <label>
-                                                            手机号码
-                                                        </label>
-                                                        <input type="text" id="mobile">
+
+                                                        <input type="text" id="mobile" placeholder="手机号码">
                                                     </div>
                                                     <div class="col-xs-2">
-                                                        <label>
-                                                            开始时间
-                                                        </label>
-                                                        <input type="text" id="start-date">
+
+                                                        <input type="text" id="start-date" placeholder="开始时间">
                                                     </div>
                                                     <div class="col-xs-2">
-                                                        <label>
-                                                            结束时间
-                                                        </label>
-                                                        <input type="text" id="end-date">
+
+
+                                                        <input type="text" id="end-date"  placeholder="结束时间">
                                                     </div>
                                                     <div class="col-xs-2">
                                                         <button class="btn-primary" onclick="search()">搜索</button>
@@ -147,6 +145,26 @@
         $('#username').val();
         $('#activity-status').val('');
     }
+
+    function momey_option(obj){
+        var id = $(obj).data('id');
+        var status = $(obj).data('status');
+        $.ajax({
+            url:'/api?model=admin/user&action=updateStatus',
+            data:{
+                id:id,
+                status:status
+            },
+            type:'POST',
+            success: function (data) {
+                  if(data == 1){
+                      location.reload()
+                  }
+            }
+
+        })
+
+    }
     jQuery(function ($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base = "<?php echo $__model_path;?>";
@@ -212,13 +230,18 @@
 
                 {
                     title: "操作", name: 'options', index: '', width: 80, fixed: true, sortable: false, resize: false,
-                    formatter: 'actions',
-                    formatoptions: {
-                        keys: true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl: 'someurl.php', addParam: '&action=edit', idName: 'id',
-                        delOptions: {recreateForm: true, beforeShowForm: beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                    formatter: function (cellvalue, options, rowObject) {
+                        var img = "";
+                        if (rowObject['status'] == 'unread') {
+                            img = '<a onclick="momey_option(this)" class="btn btn-xs btn-info " href="#" data-status="passed" data-id="'+rowObject['id']+'">通过</a>';
+                        }
+                        if (rowObject['status'] == 'passed') {
+                            img = '<a onclick="momey_option(this)" class="btn btn-xs btn-success " href="#" data-status="paid" data-id="'+rowObject['id']+'">打款</a>';
+                        }
+                        if (rowObject['status'] == 'paid') {
+                            img = '<label class=" btn-danger">已打款</label> </label>';
+                        }
+                        return img;
                     }
                 },
             ]

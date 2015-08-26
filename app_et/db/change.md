@@ -25,3 +25,11 @@
 	ALTER TABLE `product_style_image_regions` ADD `y` INT  NULL  DEFAULT NULL  AFTER `region`;
 	ALTER TABLE `product_style_image_regions` ADD `x` INT  NULL  DEFAULT NULL  AFTER `region`;
 
+
+#李晓梅 2015-08-21
+	ALTER TABLE `activity_produces`
+    ADD COLUMN `order_count`  int(11) NULL DEFAULT 0 COMMENT '订单数量' AFTER `zj_opinion`,
+    ADD COLUMN `order_shipped_count`  int(11) NULL DEFAULT 0 COMMENT '订单发货数量' AFTER `order_count`;
+
+
+

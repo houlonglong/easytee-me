@@ -2,7 +2,7 @@
 /**
  * 提现申请
  */
-class Model_Admin_User_Withdrawapply{
+class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
     static $table = "user_withdraw_applies";
     function __construct(){
         //parent::__construct();
@@ -42,10 +42,10 @@ class Model_Admin_User_Withdrawapply{
         //$table_alias = '';
         $join = ' inner join users as u on u.id = '.$table_alias.'.uid';
         //fields
-        $select_fields = " $table_alias.*,u.nick_name ";
+        $select_fields = " $table_alias.*,u.nick_name,u.id as uid ";
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord","username","mobile","startDate","endDate");
+        $request = PtLib\http_request("rows","page","sidx","sord","username","mobile","startDate","endDate","status");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -71,6 +71,11 @@ class Model_Admin_User_Withdrawapply{
             $where .= ' and ' . $table_alias . '.create_time <="' . date('Y-m-d 23:59:59', strtotime($request['endDate'])) . '"';
         }
 
+        if($request['status']){
+            $where .=' and '.$table_alias.'.status = ?';
+            $args[] = $request['status'];
+        }
+
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
         if(empty($sort)){
@@ -84,7 +89,6 @@ class Model_Admin_User_Withdrawapply{
         if($sort)
             $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
         $sql = "select count($table_alias.id) as total from $table as $table_alias $join $where ";
-//        $count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
         $response = new stdClass();
@@ -155,4 +159,53 @@ class Model_Admin_User_Withdrawapply{
         return $data;
     }
      */
+
+    function action_updateStatus()
+    {
+        $id = $this->_request('id');
+        if ($id) {
+            $status = $this->_request('status');
+            $fields = array('status' => $status);
+            if($status == 'paid'){
+                $fields['pay_time'] = date('Y-m-d H:i:s');
+            }
+            $row = PtLib\db()->update('user_withdraw_applies', $fields, array('id' => $id));
+            echo $row;
+        }
+    }
+
+    function action_withdraw_download()
+    {
+        $rows = PtLib\db()->select_rows('select uwa.*,u.mobile,u.nick_name from user_withdraw_applies as uwa inner join users as u on u.id = uwa.uid  where uwa.status="passed"');
+        if ($rows) {
+
+            $myval = array();
+            $myval[] = "体现人名称,提现金额,联系电话,收款账号,支付类型";
+            $myval[] = "\r\n";
+
+            foreach ($rows as $row) {
+                $myval[] = "\t" . $row['nick_name'] . ",";
+                $myval[] = "\t" . $row['money'] - $row['fee'] . ",";
+                $myval[] = "\t" . $row['mobile'] . ",";
+                $myval[] = "\t" . $row['pay_account'] . ",";
+                $myval[] = $row['pay_type'] . ",";
+                $myval[] = "\r\n";
+            }
+            $content = iconv("UTF-8", "GBK", implode($myval));
+            header("Content-Type: text/html; charset=GBK");
+            header("Pragma: public");
+            header("Expires: 0");
+            header('Content-Encoding: none');
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header("Cache-Control: public");
+            header("Content-type: application/octet-stream\n");
+            header("Content-Description: File Transfer");
+            header('Content-Disposition: attachment; filename=申请提现明细.csv', $content);
+            header("Content-Transfer-Encoding: binary");
+            header('Content-Length: ' . strlen($content));
+            echo $content;
+            exit;
+        }
+    }
+
 }

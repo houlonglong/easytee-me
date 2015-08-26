@@ -215,7 +215,17 @@
             },
             {
                 "title":"申请提现",
-                "url":"/admin/user/withdraw_apply",
+                "url":"/admin/finance/withdraw",
+                "hide_menu":1
+            },
+            {
+                "title":"财务流水",
+                "url":"/admin/finance/flow",
+                "hide_menu":1
+            },
+            {
+                "title":"财务总结",
+                "url":"/admin/finance/withdraw",
                 "hide_menu":0
             }
         ]
@@ -245,6 +255,10 @@
             {
                 "title":"部署管理",
                 "url":"/admin/system/deploy"
+            },
+            {
+                "title":"快递费管理",
+                "url":"/admin/express/price/index"
             }
         ]
     }
