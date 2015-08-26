@@ -12,4 +12,4 @@ function pt_autoload_test($classname)
 
 }
 spl_autoload_register('pt_autoload_test');
-set_setting();
+pt_init();

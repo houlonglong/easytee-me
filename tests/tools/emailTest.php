@@ -8,8 +8,7 @@ class EmailTest extends UnitTest{
 
 
     function test_send_email(){
-
-       $ret =  Model_Tools_Email::send_email('1061109495@qq.com','OS8iI2','紫精灵');
+       $ret =  Model_Tools_Email::subemail_send('1061109495@qq.com','紫精灵','OS8iI2');
         var_dump($ret);
     }
 

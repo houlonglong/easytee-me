@@ -110,6 +110,7 @@
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false) ;
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false) ;
             $output = curl_exec($ch);
+            $info = curl_getinfo($ch);
             curl_close($ch);
             $output = trim($output, "\xEF\xBB\xBF");
             return json_decode($output,true);
