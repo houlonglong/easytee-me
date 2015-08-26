@@ -13,6 +13,15 @@ class EmailTest extends UnitTest{
         var_dump($ret);
     }
 
+    function test_phpmailer_send_email(){
+        $to_mail = '1020983581@qq.com';
+        $title = 'xxx';
+        $content = 'xxx';
+        $debug = 1;
+        $res = Model_Tools_Email::phpmailer_send_email($to_mail,$title,$content);
+        var_dump($res);
+    }
+
     /**
      *
      *

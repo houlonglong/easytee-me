@@ -14,6 +14,13 @@ class Model_Tools_Sms
         var_dump($argvs);
     }
 
+    /**
+     * @param $mobile 手机号码
+     * @param $project summail project
+     * @param $option  短信参数
+     * @return mixed
+     * @throws Exception
+     */
     static function sendsms($mobile,$project,$option)
     {
         require_once PATH_LIBS . '/submail/SUBMAILAutoload.php';
