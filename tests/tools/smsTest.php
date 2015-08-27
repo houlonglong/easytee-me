@@ -18,11 +18,11 @@ class SmsTest extends UnitTest{
     }
     /**
      *
-     *
-    function test_cli_test(){
-        $this->cli("deamon/task","run");
-    }
      */
+    function test_cli_test(){
+        $this->cli("tools/sms","send");
+    }
+
 
     /**
      *

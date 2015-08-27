@@ -10,8 +10,8 @@ class Model_Tools_Sms
 {
     function cli_send()
     {
-        $argvs = pt_get_argvs();
-        var_dump($argvs);
+        $id = $_REQUEST['id'];
+        echo $id;
     }
 
     /**
