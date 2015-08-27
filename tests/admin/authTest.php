@@ -19,12 +19,19 @@ class AuthTest extends PtLib\UnitTest {
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
-            "cookie"=>0,
+            "cookie"=>1,
         ));
-        $res = $this->post_action("/admin/auth?action=login",array(
-            "username"=>"test",
-            "password"=>md5("test"),
+        $this->test_host = "2.dev.jzw.com";
+        $this->set_local_test_proxy();
+        $res = $this->post_action("/api",array(
+            "model"=>"admin/auth",
+            "action"=>"login",
+            "captcha"=>"captcha",
+            "username"=>"admin",
+            "password"=>"admin8888",
         ));
+        $res = json_decode($res,1);
+        print_r($res);
     }
 
 

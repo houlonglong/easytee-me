@@ -6,12 +6,12 @@
  * Date: 7/10/15
  * Time: 5:49 PM
  */
-class Model_Tools_Sms
+class Model_Tools_Sms extends BaseModel
 {
-    function cli_send()
+    function cli_send_sms()
     {
-        $argvs = pt_get_argvs();
-        var_dump($argvs);
+        $id = $_REQUEST['name'];
+        echo $id;
     }
 
     /**
@@ -43,8 +43,5 @@ class Model_Tools_Sms
         }catch (Exception $e){
             throw new Exception($e->getMessage());
         }
-
-
-
     }
 }

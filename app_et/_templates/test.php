@@ -22,7 +22,12 @@ class Model_Test_Class_Name extends UnitTest{
             "header"=>0,
             "cookie"=>0,
         ));
-        $res = $this->post_action("/auth/login?action=do_login",array(
+
+        //$this->test_host = "2.dev.jzw.com";
+        $this->set_local_test_proxy();
+        $res = $this->post_action("/api",array(
+            "model"=>"test",
+            "action"=>"test",
             "username"=>"test",
             "password"=>md5("test"),
         ));
