@@ -38,8 +38,15 @@ class PtApp{
             $model = "/".$model;
         return $model;
     }
-}
 
+    static function get_default_db_setting(){
+        return empty($GLOBALS['setting']['db']['default'])?array():$GLOBALS['setting']['db']['default'];
+    }
+}
+function print_pre($var){
+    echo PRE;
+    print_r($var);exit;
+}
 function pt_autoload($classname)
 {
     if(substr($classname,0,8) == "Service\\") {
@@ -74,8 +81,6 @@ function pt_autoload($classname)
     }
 }
 
-
-
 function set_setting(){
     $GLOBALS['setting'] = parse_ini_file(PATH_CONFIG."/setting.ini",true);
     $_PT_ENV = PtLib\get_pt_env("PT_ENV");
@@ -97,12 +102,19 @@ function set_setting(){
     PtApp::$setting = $GLOBALS['setting'];
     //return $setting;
 }
+function pt_init(){
+    set_exception_handler('PtLib\exception_handler');
+    set_error_handler('PtLib\error_handler');
+    spl_autoload_register('pt_autoload');
+    register_shutdown_function('PtLib\shutdown');
+    set_setting();
+}
 function pt_debug($msg){
     if(defined("PT_DEBUG") && !PT_DEBUG) return;
     if(strtolower(PHP_SAPI) == "cli") return;
     $uri = $_SERVER['REQUEST_URI'];
     if(!is_dir("/tmp")) return;
-    $date = "h:i:s";
+    $date = date("m-d h:i:s");
     if(is_array($msg) ||  is_object($msg)){
         $msg = json_encode($msg,JSON_UNESCAPED_UNICODE);
     }
@@ -197,7 +209,7 @@ function route_control($path){
     include_once $path;exit;
 }
 function web_route(){
-    set_setting();
+    pt_init();
     define("DOCUMENT_ROOT",$_SERVER['DOCUMENT_ROOT']);
     define("SCRIPT_FILENAME",$_SERVER['SCRIPT_FILENAME']);
     define("SCRIPT_NAME",$_SERVER['SCRIPT_NAME']);
@@ -283,7 +295,7 @@ function cli_route(){
     }else{
         $_SERVER['PT_ENV'] = $options['env'];
     }
-    set_setting();
+    pt_init();
     if(empty($options['model'])){
         throw new ErrorException($usage);
     }

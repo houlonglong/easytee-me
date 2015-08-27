@@ -7,7 +7,6 @@ use PtLib\UnitTest as UnitTest;
 class SmsTest extends UnitTest{
 
     function test_sms(){
-
         $options = array(
             'username' => "叶子洛奇",
             'activity' => '1234',
@@ -16,11 +15,16 @@ class SmsTest extends UnitTest{
         $res = Model_Tools_Sms::sendsms('15601854797','tTCBU',$options);
         var_dump($res);
     }
+
     /**
      *
      */
     function test_cli_test(){
+<<<<<<< HEAD
         $this->cli("tools/sms","send");
+=======
+        $this->cli("tools/sms","send_sms");
+>>>>>>> c3e0f4209393ec64d5c99b6e825793961188198b
     }
 
 

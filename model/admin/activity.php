@@ -117,14 +117,14 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         return self::table_list();
     }
 
-    function view_detail()
+    function view_detail_design()
     {
         $table = self::$table;
         $request = PtLib\http_request("id");
         $act_id = $request['id'];
 
         $act_product_styles = PtLib\db_select_rows("select
-              aps.*,p.name as p_name,psi.imgurl,psi.side,ps.color_name,ps.colors,psir.region
+              aps.*,p.name as p_name,psi.imgurl,psi.side,ps.color,psir.x,psir.y,psir.w,psir.h,psir.region
                       from activity_product_styles as aps
                       left join products as p on p.id = aps.product_id
                       left join product_style_images as psi on psi.product_style_id = aps.product_style_id and psi.product_id = aps.product_id
@@ -136,7 +136,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $act = self::detail($act_id);
         $design_id = $act['design_id'];
 
-        $design_svgs = PtLib\db()->select_row("select * from design_svgs where design_id = ?", $design_id);
+        $design_svgs = PtLib\db()->select_rows("select * from design_svg_side where design_id = ?", $design_id);
         $design_product = PtLib\db()->select_rows("select * from design_product_maps where design_id = ?", $design_id);
         $canvas = PtLib\db()->select_rows("select * from canvas where design_id = ?", $design_id);
 
@@ -144,14 +144,26 @@ class Model_Admin_Activity extends Model_Admin_Abstract
               left join canvas as c on c.id = co.canvas_id
               left join arts as a on a.id = co.art_id
               where c.design_id = ?", $design_id);
+        $_act_product_styles = array();
+        foreach($act_product_styles as $act_product_style){
+            $act_product_style['imgurl'] = replace_cdn($act_product_style['imgurl']);
+            $_act_product_styles[$act_product_style['app_product_id']][] = $act_product_style;
+        }
+        //print_pre($design_svgs);
+        $svgs = array();
+        foreach($design_svgs as $design_svg){
+            $svgs[$design_svg['side']] = $design_svg['svg_url'];
+        }
 
         $res = array(
             "design_product" => $design_product,
             "canvas" => $canvas,
+            "svgs" => $svgs,
             "canvas_objects" => $canvas_objects,
             "design_svgs" => $design_svgs,
-            "act_product_styles" => $act_product_styles,
+            "act_product_styles" => $_act_product_styles,
         );
+        //print_pre($res);
         return $res;
     }
 

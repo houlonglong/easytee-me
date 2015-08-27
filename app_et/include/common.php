@@ -13,3 +13,4 @@
 function replace_cdn($content){
     return str_replace("REPLACE_DOMAIN_WITH",CDN_DOMAIN_OPEN,$content);
 }
+

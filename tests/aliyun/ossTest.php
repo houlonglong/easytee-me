@@ -12,16 +12,13 @@ class OssTest extends UnitTest{
         $remote_path = "test/test/test/test.png";
         $url = Model_Aliyun_Oss::upload_file($local_path,$remote_path);
         \PtLib\log($url);
-
     }
 
     function test_upload_content(){
-
         $local_path = __DIR__."/test.png";
-        $remote_path = "test/test/test/test.png";
+        $remote_path = "test/test/test/test1.png";
         $url = Model_Aliyun_Oss::upload_content(file_get_contents($local_path),$remote_path);
         \PtLib\log($url);
-
     }
 
     /**

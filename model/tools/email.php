@@ -1,3 +1,4 @@
+
 <?php
 /**
  * 发送邮件
@@ -8,7 +9,15 @@ class Model_Tools_Email  {
         //parent::__construct();
     }
 
-    static function submail_send_email($account,$project,$name){
+
+    /**
+     * @param $to_mail   发送邮箱
+     * @param $to_name   发送人NAME
+     * @param $project   SUBMIAL PROJECT
+     */
+
+    static function subemail_send($to_mail,$to_name,$project){
+
         require_once PATH_LIBS . '/submail/SUBMAILAutoload.php';
 
         /*
@@ -17,7 +26,7 @@ class Model_Tools_Email  {
          */
 
         $submail=new MAILXsend(PtApp::$setting['submail']['email']);
-        $submail->AddTo($account,$name);
+        $submail->AddTo($to_mail,$to_name);
         $submail->SetProject($project);
         $submail->AddHeaders('X-Accept','zh-cn');
         $submail->AddHeaders('X-Mailer','leo App');

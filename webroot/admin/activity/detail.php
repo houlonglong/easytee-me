@@ -19,6 +19,7 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
+
 </head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar")) ?>
@@ -45,12 +46,15 @@
                                    href="/api?model=admin/activity&action=downloadExcel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
 
 
+
                             </div>
                             <!-- /.span -->
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-
+                                <div>
+                                    <a class="btn btn-primary" href="/admin/activity/detail_design?id=<?php echo $_GET['id'] ?>" target="_blank">设计详情</a>
+                                </div>
 
                                 <div class="widget-box">
                                     <div class="widget-header">
@@ -102,8 +106,6 @@
                                 <script type="text/javascript">
                                     var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                 </script>
-
-
                             </div>
                             <!-- /.span -->
                         </div>
@@ -119,9 +121,11 @@
     <!-- /.main-content -->
     <?php include(block("admin/block/footer")) ?>
 </div>
+
 <!-- /.main-container -->
 <?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
+<script type="text/javascript" src="/js/libs/canvg/canvg.js"></script>
 <script src="/ace/assets/js/moment.min.js"></script>
 <script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
@@ -130,9 +134,48 @@
 
 
 <script type="text/javascript">
+
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
+    function gen_product_svg(obj){
+        var $svg = $(obj).parents("tr").find(".product_svg").html();
+        //console.log($svg);
+        canvg('canvas', $svg,{
+            log:true,
+            useCORS: true,
+            ignoreDimensions: true,
+            ignoreClear: true,
+            ignoreMouse: true, ignoreAnimation: true ,
+            renderCallback: function (dom) {
+                var imageDataUri = canvas.toDataURL("image/png");
+                console.log(imageDataUri);
 
+            }
+        });
+    }
+    function gen_design_svg(obj){
+
+        var id = $(obj).parents("tr").data("id");
+        var side = $(obj).parents("tr").data("side");
+        var $svg_url = $(obj).parents("tr").find(".svg_url").attr("src");
+
+        canvg('canvas', $svg_url,{
+            renderCallback: function (dom) {
+                var imageDataUri = canvas.toDataURL("image/png");
+                $(obj).parents("tr").find(".img_url").html('<img src="'+imageDataUri+'">');
+                $.post("/api",{
+                    model:"admin/site/design",
+                    action:"save_svg_png",
+                    side:side,
+                    design_id:id,
+                    img_content:imageDataUri,
+                },function(data){
+
+                });
+            }
+        });
+
+    }
 
     jQuery(function ($) {
         var grid_setting = {
@@ -143,10 +186,7 @@
             rowNum: 15,
             rowList: [15, 30, 50, 100],
             caption: "",
-
-
             cols: [
-
                 {title: "活动ID", name: 'activity_id', index: 'activity_id', width: 40, sorttype: "int", editable: false},
 
                 {

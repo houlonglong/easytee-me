@@ -13,8 +13,9 @@ class Model_Design{
             $color = "'#{$color}'";
         }
         $cmd = "convert -background {$color} {$from_path} {$to_path}";
-        //echo $cmd;
+        pt_debug($cmd);
         system($cmd,$return_var);
+        pt_debug($return_var);
         return $return_var;
     }
     static function merge_design_png($front_img,$bg_img,$x,$y,$dest_img){

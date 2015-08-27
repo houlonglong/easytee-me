@@ -17,6 +17,7 @@ class Model_Admin_Auth{
      * 登陆
      */
     function action_login(){
+        //PtApp::session_start();
         $request = PtLib\http_request("username","password","captcha","redirect");
         Model_Tools_Captcha::check_captcha_code($request['captcha'],'admin_auth_login');
         if(self::login($request['username'],$request['password'])){
@@ -46,7 +47,7 @@ class Model_Admin_Auth{
             self::set_login($user_info);
             return true;
         }else{
-            throw new PtLib\ErrorException("用户名和密码不正确");
+            throw new Exception("用户名和密码不正确");
         }
     }
     static function get_cookie_auth_key(){

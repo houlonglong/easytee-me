@@ -81,6 +81,21 @@
         ]
     },
     {
+        "title":"设计工具",
+        "hide_menu":0,
+        "icon":"fa-coffee",
+        "model": {
+            "path": "/admin/design/tool",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"设计工具",
+                "url":"/admin/design/tool/index"
+            }
+        ]
+    },
+    {
         "title":"产品管理",
         "hide_menu":0,
         "icon":"fa-coffee",
