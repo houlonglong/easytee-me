@@ -135,7 +135,6 @@
                         var time = date.getTime();
                         console.log(time,timestamp);
                         if(timestamp>=time){
-
                             return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+cellvalue+'">安排生产</a>';
                         }else{
                             return '';
