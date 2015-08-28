@@ -9,7 +9,8 @@
     </testsuites>
     <php>
         <const name="TEST_URL" value="http://2.dev.jzw.com"/>
-        <server name="PT_ENV" value="develop"/>
+        <server name="PT_ENV" value="test"/>
+        <server name="HTTP_HOST" value="lxm.jzw.la"/>
         <!--
         <includePath>.</includePath>
         <ini name="foo" value="bar"/>

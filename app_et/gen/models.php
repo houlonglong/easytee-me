@@ -55,9 +55,9 @@ aliyun/oss|阿里云上传
 tools/sms|短信发送
 tools/email|发送邮件
 
-
-
-
+order/pay/wechat|微信支付
+order/pay/alipay|支付宝支付
+order/pay|支付
 
 EOT;
 

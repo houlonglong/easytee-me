@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__."/../lib/WxPay.Api.php";
 /**
  * 
  * JSAPI支付实现类
@@ -42,8 +43,9 @@ class JsApiPay
 		//通过code获得openid
 		if (!isset($_GET['code'])){
 			//触发微信返回code码
-			$baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].$_SERVER['QUERY_STRING']);
+			$baseUrl = urlencode('http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 			$url = $this->__CreateOauthUrlForCode($baseUrl);
+			echo $url;exit;
 			Header("Location: $url");
 			exit();
 		} else {
@@ -108,9 +110,11 @@ class JsApiPay
 		}
 		//运行curl，结果以jason形式返回
 		$res = curl_exec($ch);
+		$info = curl_getinfo($ch);
 		curl_close($ch);
 		//取出openid
 		$data = json_decode($res,true);
+		//var_dump($data);exit;
 		$this->data = $data;
 		$openid = $data['openid'];
 		return $openid;

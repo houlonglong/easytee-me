@@ -1,5 +1,5 @@
 <?php
-require_once PATH_WXPAY."/lib/WxPay.Api.php";
+require_once  __DIR__."/../lib/WxPay.Api.php";
 
 /**
  * 
