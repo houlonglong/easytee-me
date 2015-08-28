@@ -10,8 +10,7 @@ class Model_Tools_Sms extends BaseModel
 {
     function cli_send_sms()
     {
-        $id = $_REQUEST['name'];
-        echo $id;
+
     }
 
     /**

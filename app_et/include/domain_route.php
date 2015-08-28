@@ -1,4 +1,6 @@
 <?php
+
+
 function domain_route($file){
     if(PtLib\is_cli()) return;
     $file = str_replace(PATH_WEBROOT,"",$file);

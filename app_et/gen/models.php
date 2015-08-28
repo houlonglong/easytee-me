@@ -59,6 +59,10 @@ tools/email|发送邮件
 tools/db/merge1|数据库迁移
 
 
+order/pay/wechat|微信支付
+order/pay/alipay|支付宝支付
+order/pay|支付
+
 EOT;
 
 include_once(__DIR__."/../init.php");

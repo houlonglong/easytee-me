@@ -123,12 +123,11 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $skip = ($page - 1) * $limit;
 
         $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
-//        $rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
             $profie = Model_Cost::calculate_profie($row['id']);
             if($status == 'index'){
-                if($profie<=0){
+                if($profie<=0 ){
                     continue;
                 }
             }
@@ -169,8 +168,9 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $where  = " where 1=1 ";
         $status = $request['status'];
         if($status == 'index'){//侍生产
-            $where .='and activities.sales_count >= 10 and activities.real_end_time > ? and ap.status is null';
-            $args[] = date('Y-m-d H:i:s');
+//            $where .='and activities.sales_count >= 10 and activities.real_end_time > ? and ap.status is null';
+            $where .='and activities.sales_count >= 10  and ap.status is null';
+//            $args[] = date('Y-m-d H:i:s');
         }
         if($status == 'producting'){
             $where .='and ap.status = "生产中" ';
@@ -211,7 +211,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         foreach($rows as $row){
             $profie = Model_Cost::calculate_profie($row['id']);
             if($status == 'index'){
-                if($profie<=0){
+                if($profie<=0 && $row['status']!='fabrication'){
                     continue;
                 }
             }
