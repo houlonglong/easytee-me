@@ -45,13 +45,16 @@ class Database {
     public  $auto_commit = True;
     public  $last_sql;
     public static $config = array();
+    public static $db_config = array();
     public static $run_stack = array();
     private function __construct($key)
     {
         //pt_log("init");
         $this->config($key);
     }
-
+    function print_setting(){
+        print_r(self::$db_config);exit;
+    }
     public static function init($key = 'default')
     {
         if(empty(self::$config)){
@@ -82,7 +85,7 @@ class Database {
             throw new Exception("no config find in setting");
         }
 
-        $_config = self::$config[$key];
+        self::$db_config = $_config = self::$config[$key];
 
         try{
             if(!isset($_config['type'])){

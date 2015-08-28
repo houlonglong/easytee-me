@@ -172,6 +172,47 @@ function http_client(){
     return $http_client_obj;
 }
 
+function redis($key = "default"){
+    $g_key = "redis_cache_obj_$key";
+    if(!isset($GLOBALS[$g_key])){
+        global $setting;
+        if(isset($setting) && isset($setting['redis']) && isset($setting['redis'][$key])){
+            $config = $setting['redis'][$key];
+            $config['pconnect'] = isset($config['pconnect'])?$config['pconnect']:false;
+            $config['timeout']  = isset($config['timeout'])?$config['timeout']:1.5;
+
+        }else{
+            $config['host']     = "127.0.0.1";
+            $config['port']     = "6379";
+            $config['pconnect'] = false;
+            $config['timeout']  = 1.5;
+        }
+
+        if(!class_exists("Redis")){
+            throw new Exception("Redis not found");
+        }
+        try{
+            $timeout = $config['timeout'];
+            $obj  = new Redis();
+            if(isset($config['pconnect']) && $config['pconnect']){
+                $obj->pconnect($config['host'],intval($config['port']),$timeout);
+            }else{
+                $obj->connect($config['host'],intval($config['port']),$timeout);
+            }
+            $GLOBALS[$g_key] = $obj;
+
+        }catch (RedisException $e){
+            throw new Exception($e->getMessage());
+        }catch (Exception $e){
+            throw new Exception($e->getMessage());
+        }
+
+    }else{
+        $obj = $GLOBALS[$g_key];
+    }
+    return $obj;
+}
+
 function mem_cache($key = "default"){
     $g_key = "memcache_obj_$key";
     if(!isset($GLOBALS[$g_key])){

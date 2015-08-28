@@ -56,7 +56,7 @@ tools/sms|短信发送
 tools/email|发送邮件
 
 
-
+tools/db/merge1|数据库迁移
 
 
 EOT;

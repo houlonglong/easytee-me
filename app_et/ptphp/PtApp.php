@@ -14,6 +14,12 @@ class PtApp{
     static $breadcrumb = array();
     static $session_started = false;
     static $ob_flushed = false;
+    static function print_setting(){
+        PtLib\log(self::$setting);exit;
+    }
+    static function print_env(){
+        PtLib\log(self::$ENV);exit;
+    }
     static function session_start(){
         if(!self::$session_started){
             session_start();
@@ -410,6 +416,14 @@ class BaseModel
 
 
     static function _db($key = "default"){
-        return PtLib\db();
+        return PtLib\db($key);
+    }
+
+    static function _redis($key = "default"){
+        return PtLib\redis($key);
+    }
+
+    static function _location($url = "/"){
+        PtLib\location($url);
     }
 }
