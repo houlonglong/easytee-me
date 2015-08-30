@@ -2,10 +2,58 @@
 /**
  * 字体
  */
-class Model_Font{
+class Model_Font extends BaseModel{
     static $table = "";
     function __construct(){
         //parent::__construct();
+    }
+    function action_get_list(){
+        $fontCategorieId = self::_request("fontCategorieId");
+        $fonts = self::_db(NEW_DB)->select_rows("select f.*,c.is_embroidery,c.font_count from font as f left join font_cat_rel as rel on rel.font_id = f.id left join font_cat as c on c.id = rel.cat_id where c.id = ?",$fontCategorieId);
+        $FontList = array();
+        foreach ($fonts as $key => $font) {
+            $FontList[] = array(
+                'name' => 'fonts',
+                'attribute' => array(
+                    'font_id' => $font['id'],
+                    'name' => $font['name'],
+                    'swfpath' => $font['swfpath'],
+                    'jspath' => $font['jspath'],
+                    'gifpath' => $font['gifpath'],
+                    'is_embroidery' => $font['is_embroidery'],
+                    'FontCount' => $font['font_count'],
+                ),
+            );
+        }
+        $result = array(
+            'name' => 'FontList',
+            'item' => $FontList,
+        );
+        xml_response($result);
+    }
+    function action_get_js_font(){
+        $fontid = self::_request("fontid");
+        $text = self::_request("text");
+        $font = self::_db(NEW_DB)->select_row("select * from font where id = ?",$fontid);
+        if (!$font) {
+            $font = self::_db(NEW_DB)->select_row("select * from font where id = ?",136);
+        }
+
+        $arr = array();
+        if ($text) {
+            $text = urldecode($text);
+            $text = preg_split('/(?<!^)(?!$)/u', $text);
+            $text = array_unique($text);
+            header('Content-Type:application/json;charset=utf-8');
+            $config = json_decode($font['config'], true);
+            $glyphps = array();
+            $fontGlyphs = self::_db(NEW_DB)->select_rows("select * from font_glyph where font_id = ? and str in ('".implode("','",$text)."')",$fontid);
+            foreach ($fontGlyphs as $value) {
+                $glyphps[$value['str']] = json_decode($value['glyph']);
+            }
+            $config['glyphs'] = $glyphps;
+            echo 'Raphael.registerFont(' . json_encode($config). ');'; exit;
+        }
     }
     /**
      * 详情

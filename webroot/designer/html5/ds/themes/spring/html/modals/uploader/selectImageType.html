@@ -1,0 +1,44 @@
+﻿<form id="isd-selectImageType" ng-controller="SelectImageTypeController">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4>
+            您想要哪种效果?
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <a ng-click="selectLogo()">
+                    <img ng-src="{{ezdLocation}}/ds/images/uploaderExampleLogo.png"/>
+                    <div>使用易衫提供的图片处理工具预处理，将会节省印刷成本。</div>
+                    <div class="btn btn-info btn-lg">图片处理</div>
+                </a>
+                <div class="form-group isd-selectImageType-seting" ng-show="isTestEnvironment">
+                    <label>设置:</label>
+                    <input type="radio" value="independent" ng-model="speedSettings.reduceOrder"/>默认<br/>
+                    <input type="radio" value="dependentFast" ng-model="speedSettings.reduceOrder"/>快速<br/>
+                    <input type="radio" value="dependentSlow" ng-model="speedSettings.reduceOrder"/>精确<br/>
+                    # 颜色数量 (10-256): <input type="text" ng-model="speedSettings.minHueCols" style="width:40px;"/>
+                </div>
+            </div>
+            <div class="col-sm-6" ng-hide="disableUploadRasterArt">
+                <a  ng-click="selectPhoto()">
+                    <img  ng-src="{{ezdLocation}}/ds/images/uploaderExamplePhoto.jpg"/>
+                    <div>不做处理，直接使用上传的图片.</div>
+                    <div class="btn btn-success btn-lg">原图</div>
+                </a>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <fieldset>
+                    <legend>隐私声明</legend>
+                    <p>
+                        您提交的任何设计必须是您设计或者拥有合法使用权。你不得使用他人拥有的内容，除非你得到他们的许可。如果有人因为你的设计向我们索赔，您同意支付我们受到损失，包括律师费等任何损失。
+                    </p>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</form>

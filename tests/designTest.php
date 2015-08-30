@@ -13,6 +13,57 @@ class DesignTest extends UnitTest{
     }
      */
     /**
+     * init
+     */
+    function test_action_init(){
+        $this->set_http_opt(array(
+            "debug"=>0,
+            "header"=>0,
+            "cookie"=>0,
+        ));
+        $this->set_local_test_proxy();
+        $this->set_test_host("2.dev.jzw.com");
+        $res = $this->post_action("api",array(
+            "model"=>"design",
+            "action"=>"init",
+            "pro_id"=>2,
+        ));
+
+        print_r($res);
+    }
+    function test_action_design_get(){
+        $this->set_http_opt(array(
+            "debug"=>0,
+            "header"=>0,
+            "cookie"=>0,
+        ));
+        $this->set_local_test_proxy();
+        $this->set_test_host("2.dev.jzw.com");
+        $res = $this->post_action("api",array(
+            "model"=>"design",
+            "action"=>"get",
+        ));
+
+        print_r($res);
+    }
+    function test_action_design_save(){
+        $this->set_http_opt(array(
+            "debug"=>0,
+            "header"=>0,
+            "cookie"=>0,
+        ));
+        $xmlDesign = '<UserDesign><designs designer_version="HTML5DS" admin="None" is_embroidery="0" design_id="11" name="未命名" product_style_id="18" notes=""/><canvases canvas_id="-1"   distress_id="" is_distressed="0"  region="前胸" region_id="69" location="front" width="436" height="86" bgcolor="DEB7CA" shadow="false" /><canvas_text  x = "44" y = "256" width = "348" height = "69" value = "请输入文字" fill_color = "FFFFFF" stroke_color = "FFFFFF" shape = "arcup" font_id = "136" location = "FRONT"/></UserDesign>';
+
+        $this->set_local_test_proxy();
+        $this->set_test_host("2.dev.jzw.com");
+        $res = $this->post_action("api",array(
+            "model"=>"design",
+            "action"=>"save",
+            "xmlDesign"=>$xmlDesign
+        ));
+        print_r($res);
+    }
+    /**
      * 设计工具页面
      */
     function test_action_design(){

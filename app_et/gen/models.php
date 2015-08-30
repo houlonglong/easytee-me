@@ -9,6 +9,8 @@ tshirt/cost|订制成功
 admin/ui|管理界面UI
 user|用户管理
 user/auth|用户认证
+user/auth/weibo|微博登录
+user/register|用户注册
 admin/user|管理员管理
 admin/auth|管理认证
 service/pic|图片服务
@@ -29,7 +31,6 @@ admin/order|订单管理
 init|初始化
 activity|活动
 product|产品
-design|设计
 art|素材
 font|字体
 cost|成本

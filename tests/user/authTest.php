@@ -12,14 +12,16 @@ class AuthTest extends UnitTest{
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
-            "cookie"=>0,
+            "cookie"=>1,
         ));
         $this->set_local_test_proxy();
-        $res = $this->post_action("http://11.dev.jzw.com/login/",array(
+        $res = $this->post_action("api",array(
+            "model"=>"user/auth",
+            "action"=>"login",
             "username"=>"18601628937",
             "password"=>"111111",
         ));
-        print_r($res);
+        echo \PtLib\unicodeString($res);
     }
 
     /**
@@ -27,14 +29,17 @@ class AuthTest extends UnitTest{
      */
     function test_actin_loginout(){
         $this->set_http_opt(array(
-            "debug"=>0,
+            "debug"=>1,
             "header"=>0,
-            "cookie"=>0,
+            "cookie"=>1,
         ));
 
         $this->set_local_test_proxy();
-        $res = $this->get_action("http://11.dev.jzw.com/login/loginout");
-        //var_dump($res);
+        $res = $this->post_action("api",array(
+            "model"=>"user/auth",
+            "action"=>"logout"
+        ));
+        var_dump($res);
     }
     /**
      * 帐户设置

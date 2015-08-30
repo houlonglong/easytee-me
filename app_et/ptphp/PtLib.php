@@ -349,8 +349,9 @@ function json_response($return,$status = 0,$message = '',$redirect = '',$excepti
         "status"=>$status,
     );
     if(local_dev()){
-        $data['debig'] = $debug;
         $data['exception'] = $exception;
+        $data['debug_sql'] = $debug['debug']['sql'];
+        $data['debug_app'] = $debug['debug']['app'];
     }
     echo json_encode($data);exit;
 }

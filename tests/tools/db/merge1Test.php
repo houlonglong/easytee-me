@@ -12,7 +12,6 @@ class Merge1Test extends UnitTest{
         $this->cli("tools/db/merge1","run","","local");
     }
 
-
     /**
      *
      *

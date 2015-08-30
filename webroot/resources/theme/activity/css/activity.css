@@ -1,0 +1,417 @@
+.activity {
+
+}
+
+.activity .container {
+    background-color: #fff
+}
+
+.activity h1 {
+    font-size: 2em;
+    line-height: 38px;
+    margin: 10px 0 0 0px;
+}
+
+.activity .activity-author {
+    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+}
+
+.activity .activity-author .iconfont {
+    color: #fff;
+    padding: 3px;
+    background-color: #ff4400;
+    font-size: 12px;
+    position: relative;
+    top: -1px
+}
+
+.activity .activity-showbox {
+    position: relative;
+}
+
+.activity .activity-showbox .activity-showbox-photo {
+    border: 1px solid #edeef0;
+    position: relative;
+}
+
+.activity .activity-showbox .activity-showbox-photo svg{
+    display: block;
+    margin: 0 auto;
+    max-width: 500px;
+    max-height: 500px;
+}
+.activity .activity-showbox .activity-showbox-photo .img-responsive {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+.activity .activity-showbox .img-design {
+    position: absolute;
+}
+
+.activity .activity-showbox .activity-showbox-photo .activity-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.7) url("../../../public/image/loading.gif") no-repeat center center;
+    width: 100%;
+    height: 100%;
+}
+
+.activity .activity-showbox .activity-showbox-imglist {
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    right: 30px;
+    top: 15px;
+}
+
+.activity .activity-showbox .activity-showbox-imglist li {
+    width: 7em;
+    height: 7em;
+    cursor: pointer;
+    margin-bottom: 15px;
+    padding: 3px;
+    border: 1px solid #fff;
+    background-color: #fff;
+}
+
+.activity .activity-showbox .activity-showbox-imglist li svg {
+    width: 100%;
+    height: 100%;
+}
+
+.activity .activity-showbox .activity-showbox-imglist li.active {
+    border: 1px solid #F95410;
+}
+
+.activity .activity-showbox .activity-showbox-imglist li:hover {
+    border-color: #024F03;
+}
+#activity{
+    overflow-x: hidden;
+}
+#activity img{
+    width:auto;
+    height: auto;
+    max-width: 100%;
+}
+.activity .activity-detail {
+    margin-top: 20px;
+}
+.activity .activity-detail #detail img{
+    width:auto;
+    height: auto;
+    max-width: 100%;
+}
+.activity .activity-detail .activity-detail-nav {
+    padding-top: 20px;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.activity .activity-detail .activity-detail-nav .nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+}
+
+.activity .activity-detail .activity-detail-nav .nav-tabs.nav-justified > li > a {
+    margin-bottom: -1px;
+    text-align: center;
+}
+
+.activity .activity-detail .activity-detail-nav .nav-tabs.nav-justified > li.active a {
+    border-bottom-color: #fff;
+}
+
+.activity .activity-detail .activity-detail-nav .nav-tabs.nav-justified > li > a .icon-hot {
+    color: #b00;
+    line-height: 1;
+    -webkit-text-size-adjust: none;
+    font-size: 10px;
+    position: relative;
+    top: -1px;
+}
+
+.activity .activity-detail .nav-tabs.nav-justified {
+    bottom: -1px;
+    position: relative;
+}
+
+.activity .activity-detail .media-heading {
+    font-size: 14px;
+}
+
+.activity .activity-detail .media-heading span {
+    font-weight: 100;
+    font-size: 12px;
+}
+
+.activity .activity-body {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.activity .activity-body img {
+    width: 40px;
+    height: 40px;
+}
+
+.activity .activity-share {
+    margin-top: 20px;
+    padding: 0px 5px;
+    background-color: #dbe1e7;
+    border-radius: 5px;
+    border:1px solid #ccd3d8;
+}
+.activity .activity-share .pull-right{
+    border-left:1px solid #ccd3d8;
+    padding-left: 10px;
+}
+
+.activity .activity-share .pull-right a em{
+    position: relative;
+    font-style: normal;
+    font-size:12px;
+    top: -4px;
+}
+.activity .activity-share a{
+    margin-right: 10px;
+}
+.activity .activity-share a:hover{
+    text-decoration: none;
+}
+.activity .activity-share a span{
+    color:#4b6070;
+    font-size: 30px;
+}
+.activity .activity-share a:hover span{
+    color:#FF4400
+}
+.activity .activity-share .pull-right a{
+    font-size: 14px;
+}
+
+
+
+
+.activity .activity-property {
+    padding-top: 15px;
+}
+
+.activity .activity-property label {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.activity .activity-property #chang-product {
+    list-style: none;
+    margin: 0;
+    padding: 0px 5px 5px 0px;
+}
+
+.activity .activity-property #chang-product li {
+    display: inline-block;
+    cursor: pointer;
+    padding: 1px 5px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+.activity .activity-property #chang-product li:hover {
+    border-color: #009ddc;
+}
+
+.activity .activity-property #chang-product li.active {
+    background-color: #f95410;
+    border-color: #f95410;
+    color: #fff;
+}
+
+.activity .activity-property #chang-product img {
+    width: 100%;
+    cursor: pointer;
+}
+
+.activity .activity-property #chang-style {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.activity .activity-property #chang-style li {
+    margin: 0 3px 10px 0;
+    width: 35px;
+    height: 35px;
+    border: 2px solid #d6d6d6;
+    padding: 3px;
+    display: inline-block;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.activity .activity-property #chang-style li:hover {
+    border-color: #009ddc;
+}
+
+.activity .activity-property #chang-style li.active {
+    border-color: #f95410;
+}
+
+.activity .activity-property #chang-style li div {
+    width: 50%;
+    height: 25px;
+    float: left;
+    cursor: pointer;
+}
+
+.activity .activity-property p {
+    font-size: 14px;
+}
+
+.activity .activity-property .activity-price {
+    color: #f95410;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.activity .activity-property .activity-price em {
+    font-size: 36px;
+}
+
+.activity .activity-property .activity-time {
+    padding-top: 10px;
+}
+
+.activity .activity-property .activity-time .progress {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.activity .activity-property .activity-time ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid #d6d6d6;
+}
+
+.activity .activity-property .activity-time ul li {
+    display: inline-block;
+    text-align: center;
+    width: 49%;
+}
+
+.activity .activity-property .activity-time ul li:first-child {
+    border-right: 1px solid #d6d6d6;
+}
+
+.activity .activity-property .activity-time ul li h4 {
+    margin-bottom: 5px;
+}
+
+.activity button.btn-warning {
+    padding: 20px;
+    background-image: none;
+    font-size: 18px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+@media (max-width: 767px) {
+    .activity .activity-property {
+        padding-top: 0px;
+    }
+    .activity .activity-showbox .activity-showbox-imglist {
+        top: inherit;
+        right: inherit;
+        bottom: 0px;
+        left: 30px;
+
+    }
+
+    .activity .activity-showbox .activity-showbox-imglist li {
+        display: inline-block;
+        margin-bottom: 0;
+        margin-right: 15px;
+        width: 4em;
+        height: 4em;
+    }
+
+    .activity button.btn-warning {
+        position: fixed;
+        z-index: 1049;
+        bottom: 0;
+        left: 0;
+        border-radius: 0;
+    }
+
+    .activity .activity-detail .activity-detail-nav .nav-tabs.nav-justified > li > a {
+        padding: 5px;
+    }
+}
+
+/*评论开始*/
+.activity .comment-login {
+
+}
+
+.activity .comment {
+
+}
+
+.activity .comment .media {
+
+}
+
+.activity .comment .media .media-heading {
+    color: #34495e;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.activity .comment .media {
+    color: #bdbdbd;
+    font-size: 12px;
+}
+
+/*支持者*/
+.activity .supporter .col-sm-4 {
+    margin-bottom: 10px;
+}
+
+.activity .supporter .col-sm-4 .media {
+    line-height: 22px;
+    padding: 10px;
+    color: #333;
+    text-align: left;
+    background: #f5f5f5;
+}
+
+.activity .supporter .col-sm-4 .media p {
+    -webkit-text-size-adjust: none;
+    font-size: 12px;
+    margin: 0;
+}
+
+.activity .supporter .col-sm-4 .media .media-heading {
+    color: #34495e;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*尺码表*/
+@media (max-width: 767px) {
+    #sizemodel .modal-dialog,#chang-style-number .modal-dialog {
+        margin: 0;
+    }
+}
+
+.size-modal select {
+    margin-bottom: 10px;
+}

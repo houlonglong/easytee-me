@@ -1,0 +1,16 @@
+﻿<div class="dropdown-menu ds-colorPicker"  ng-controller="ColorPickerController">
+    <span>已用颜色 &nbsp;( {{designColors.length}} )</span>
+    <ul class="clearfix">
+        <li ng-repeat="color in designColors" show-color-tooltip ng-style="{'background-color':color}"
+            class="{{transparentClass(color)}} isd-border-for-white isd-color-swatch" data-color="{{color}}"
+            ng-click="selectColor(color)">
+        </li>
+    </ul>
+    <span>所有颜色 &nbsp;( {{otherColors.length}} )</span>
+    <ul class="clearfix">
+        <li data-color="none" ng-show="allowTransparent" show-color-tooltip ng-click="selectColor('None')">
+            <span class="glyphicon glyphicon-ban-circle"></span>
+        </li>
+        <li ng-repeat="color in otherColors" ng-style="{'background-color':color.color || color.html_color}" data-color="{{color.color || color.html_color}}" show-color-tooltip ng-click="selectColor(color.color || color.html_color)"></li>
+    </ul>
+</div>

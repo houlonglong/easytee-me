@@ -7,6 +7,52 @@ class Model_Art{
     function __construct(){
         //parent::__construct();
     }
+    function action_save(){
+        $rand = rand(1000,999).rand(10,99);
+        if (isset($_FILES['Filename'])) { //svg
+            $files = $_FILES['Filename'];
+            //获取svg转换位图后的图片
+            $extention = str_replace('image/', '', $files['type']);
+            $file_name_org = $files['name'];
+            $filename = date("Y/m/d")."/".$file_name_org ."_". $rand . '.' . $extention;
+            $remote_path = "arts/svg/{$filename}";
+            $local_path = $files['tmp_name'];
+        } else {
+            $files = $_FILES['file'];
+            $extention = str_replace('image/', '', $files['type']);
+            $file_name_org = $files['name'];
+            $filename = date("Y/m/d")."/".$file_name_org ."_". $rand . '.' . $extention;
+            $remote_path = "arts/bitmap/{$filename}";
+            $local_path = $files['tmp_name'];
+        }
+        $url = Model_Aliyun_Oss::upload_file($local_path,$remote_path);
+        $printAtr = array(
+            'name' => 'Art',
+            'item' => array(
+                array(
+                    'name' => 'ArtID',
+                    'value' => $url
+                ),
+                array(
+                    'name' => 'SessionID',
+                    'value' => 0
+                ),
+                array(
+                    'name' => 'SessionToken',
+                    'value' => 0
+                ),
+                array(
+                    'name' => 'ArtName',
+                    'value' => $file_name_org,
+                ),
+                array(
+                    'name' => 'Status',
+                    'value' => 'OK'
+                ),
+            ),
+        );
+        xml_response($printAtr);
+    }
     /**
      * 详情
      * @return array

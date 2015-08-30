@@ -1,0 +1,279 @@
+.account {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #fff;
+}
+
+.account #reservation {
+    cursor: pointer;
+}
+
+.account-header {
+}
+
+.account-header .account-photo {
+    width: 135px;
+    height: 135px;
+    padding: 5px;
+    position: relative;
+    z-index: 2
+}
+
+.account-header .account-photo img {
+    max-height: 100%;
+    max-width: 100%;
+    background-color: #dcdde0;
+    border: 5px solid #dcdde0;
+    padding: 1px
+}
+
+.account-header .account-profile {
+    margin-left: 160px;
+}
+
+.account-header .account-profile .name {
+    color: #262635;
+    font-size: 42px;
+    padding-top: 10px;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.account-header .account-profile .profession {
+    color: #797987;
+    font-size: 12px;
+    margin: 0;
+}
+
+.account-header .account-profile .account-tip {
+    margin-top: 10px;
+    background-color: #f4f4f4;
+    border: 1px solid #dcdde0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.account-header .account-profile .account-tip span {
+    color: #b00;
+    font-size: 18px;
+}
+
+.account-header .account-profile .account-tip .btn {
+    padding: 2px 10px;
+    vertical-align: middle;
+    margin-top: -3px;
+    margin-left: 10px;
+}
+
+.account-nav {
+    position: relative;
+    z-index: 1;
+    top: -40px;
+    height: 50px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #dcdde0;
+    padding-top: 10px;
+}
+
+.account-nav .nav-tabs {
+    position: relative;
+    top: 1px;
+    border-bottom: none;
+}
+
+.account-nav .nav-tabs:last-child {
+    margin-left: 160px;
+}
+
+.account-nav .nav-tabs a {
+    color: #222343
+}
+
+.account-nav .nav-tabs a {
+    color: #222343
+}
+
+.account-nav .nav-tabs > li.active > a,
+.account-nav .nav-tabs > li.active > a:focus,
+.account-nav .nav-tabs > li.active > a:hover {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid #fff;
+}
+
+.account-main {
+    padding-bottom: 20px;
+}
+
+.account-main .nav {
+    margin-right: -15px;
+}
+
+.account-main .nav a {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.account-main .nav > li {
+    margin: 5px 0;
+}
+
+.account-main .nav > li.active a {
+    background-color: #33B78A
+}
+
+.account-main .account-main-right {
+    border-left: 1px solid #dcdde0;
+    padding: 0 20px;
+    min-height: 370px;
+}
+
+.account-main .account-main-right hr {
+    border-bottom: 1px dotted #fff;
+}
+
+/*活动管理*/
+.account-main .account-main-right .activity-item {
+    height: 150px;
+}
+
+.account-main .account-main-right .activity-item img {
+    display: block;
+    height: 150px;
+    margin: 0 auto;
+    background: url(/resources/public/image/design-bg.png) repeat;
+
+}
+
+.account-main .account-main-right .activity-item h4 {
+    padding: 5px 0;
+}
+
+.account-main .account-main-right .activity-item h4 span {
+    position: relative;
+    top: -3px;
+    margin-left: 5px
+}
+
+.account-main .account-main-right .activity-item .account-activity-other td {
+    padding: 0 5px;
+    font-size: 18px;
+}
+
+.account-main .account-main-right .activity-item .account-activity-other span {
+    font-size: 14px;
+}
+
+.account-main .account-main-right .activity-item .account-activity-tool {
+    padding-top: 10px;
+}
+
+.account-main .account-main-right .activity-item .account-activity-tool a.link {
+    margin-right: 10px;
+    padding: 3px 5px;
+}
+
+.account-main .account-main-right .activity-item .account-activity-tool a.link:hover {
+    color: #fff;
+    background-color: #222343;
+}
+
+/*我的订单*/
+.account-order {
+}
+
+.account-order .account-main-right img {
+    height: 36px;
+    margin: 0 auto;
+}
+
+.account-order .account-main-right a.no-link {
+    color: #000
+}
+
+.account-order .account-main-right .table-striped td {
+    vertical-align: middle;
+}
+
+/*订单详情*/
+.account-order-detail{
+    position: relative;
+    
+}
+.account-order-detail .account-main-right h3 {
+    margin-top: 0;
+}
+.account-order-detail .account-main-right .media-left img{
+ max-height: 50px;
+}
+.account-order-detail .account-main-right .icon-97kuaidi {
+    font-size: 4em;
+    color: #909fa7;
+}
+.account-order-detail  .goto_pay{
+    position: absolute;
+    display:none;
+    padding: 10px;
+    background-color: #fff;
+}
+
+/*提现*/
+.account-moneyflow {
+    position: relative;
+}
+
+.account-moneyflow .glyphicon-info-sign {
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+    font-size: 18px;
+}
+
+.account-moneyflow .table-tip {
+    border: 1px solid #666;
+    width: 400px;
+    background: #fff;
+    position: absolute;
+    left: 70px;
+    top: -220px;
+    z-index: 2;
+    display: none;
+}
+
+/*我的设计*/
+.account-design .account-main-right img {
+    display: block;
+    margin: 0 auto;
+    max-height: 100%;
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    padding: 1px;
+}
+
+.account-design .account-main-right .icon-delete {
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    padding: 1px 6px;
+    right: 20px;
+    top: 5px;
+    background-color: #fff;
+    color: #515151;
+}
+
+/*个人资料*/
+.personal {
+    margin-top: 20px;
+    height: 125px;
+}
+
+.personal .img-responsive {
+    max-height: 125px;
+    background-color: #dcdde0;
+    border: 5px solid #dcdde0;
+    padding: 1px;
+}
