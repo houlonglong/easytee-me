@@ -35,7 +35,7 @@ class AuthTest extends UnitTest{
         ));
 
         $this->set_local_test_proxy();
-        $res = $this->post_action("api",array(
+        $res = $this->get_action("api",array(
             "model"=>"user/auth",
             "action"=>"logout"
         ));
@@ -52,8 +52,7 @@ class AuthTest extends UnitTest{
         ));
 
         $this->set_local_test_proxy();
-        $res = $this->get_action("http://11.dev.jzw.com/account/setting");
-        //echo $res;exit;
+        $res = $this->get_action("/design");
         $this->assertContains('<a href="/login/loginout">注销</a>',$res,"用户没有登陆");
     }
 

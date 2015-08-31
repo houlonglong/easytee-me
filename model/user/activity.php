@@ -1,35 +1,44 @@
 <?php
 /**
- * 用户注册
+ * 用户活动
  */
-class Model_User_Register extends BaseModel {
+class Model_User_Activity extends Model_User_Abstract {
     static $table = "";
     function __construct(){
-        //parent::__construct();
+        parent::__construct();
     }
-    function action_do_register(){
-        PtApp::session_start();
-        $reg_captcha = $_SESSION['reg_captcha'];
-        $captcha = self::_request("captcha");
-        $mobile = self::_request("mobile");
-        $password = md5(sha1(self::_request("password")));
-        if($captcha != $reg_captcha) throw new Exception("验证码不正确");
-        self::_db(NEW_DB)->insert("user",array(
-            "mobile"=>$mobile,
-            "password"=>$password,
-            "add_time"=>add_time,
-        ));
+    function view_index(){
+        $uid = self::get_uid();
+        $p = self::_request("p");
+        $page = (empty($p)  || intval($p) == 0) ? 1 : intval($p);
+        $limit = 2;
+        $row_total = self::_db(NEW_DB)->select_row("select count(id) as total from activity where uid = ?",$uid);
+        $total = $row_total['total'];
+        if( $total > 0 )
+            $total_pages = ceil($total/$limit);
+        else
+            $total_pages = 1;
 
+        if ($page > $total_pages) $page = $total_pages;
+
+        $skip = ($page - 1) * $limit;
+
+        $rows = self::_db(NEW_DB)->select_rows("select * from activity where uid = ? limit {$skip},{$limit}",$uid);
+
+        $params = array(
+            'total_rows'=>$total, #(必须)
+            'list_rows'=>$limit,
+            'now_page'  =>$page,  #(必须),
+            'base_url' => "/user/activity/index"
+        );
+        $pager = new PtPager($params);
+        return array("pager"=>$pager,'rows'=>$rows);
     }
-    function action_get_code(){
-        PtApp::session_start();
-        //注册验证码
-        $reg_captcha = $_SESSION['reg_captcha'] = rand(1000,9999).rand(10,99);
-        $mobile = self::_request("mobile");
-        $project = "";
-        $option = array();
-        Model_Tools_Sms::sendsms($mobile,$project,$option);
-        return array();
+    function view_detail(){
+        $id = self::_request("id");
+        $uid = self::get_uid();
+        $detail = self::_db(NEW_DB)->select_row("select * from activity where uid = ? and id = ?",$uid,$id);
+        return array("detail"=>$detail);
     }
     /**
      * 详情视图

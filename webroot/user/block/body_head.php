@@ -3,7 +3,15 @@
 <!--[if lt IE 7]>
 <p class="alert alert-danger">You are using an <strong>outdated</strong> browser. Please <a href="../../browsehappy.com/default.htm">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-
+<style>
+    #logo.light-version{
+        background-color: #ff4400;
+        border-bottom: 1px solid #e4e5e7;
+        text-align: left;
+        background-image: url(/resources/public/image/site-logo.png);
+        text-indent: -99999px;
+    }
+</style>
 <!-- Header -->
 <div id="header">
     <div class="color-line">

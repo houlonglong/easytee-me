@@ -75,24 +75,28 @@
                                             <th>操作</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody><?php foreach($rows as $row){ ?>
                                         <tr>
                                             <td>
                                                 <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me//products/2/front.png">
-                                                <b>15081116330585232  </b>
+                                                <b><?=$row['order_no']?>  </b>
                                             </td>
                                             <td>
                                                 李四
                                             </td>
-                                            <td>100.0</td>
-                                            <td>20120823</td>
-                                            <td><a href="#">查看</a></td>
+                                            <td><?=$row['goods_price']?></td>
+                                            <td><?=$row['add_time']?></td>
+                                            <td><a href="/user/order/detail?id=<?=$row['id']?>">查看</a></td>
                                         </tr>
+                                        <?php } ?>
 
                                         </tbody>
                                     </table>
                                 </div>
 
+                            </div>
+                            <div class="panel-footer">
+                                <?=$pager?>
                             </div>
                         </div>
 

@@ -409,7 +409,7 @@ class BaseModel
     {
         if (!$key) return null;
         if (isset($_REQUEST[$key]))
-            return $_REQUEST[$key];
+            return trim($_REQUEST[$key]);
         else
             return null;
     }

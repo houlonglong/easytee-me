@@ -12,12 +12,9 @@
 <body>
 <?php include(block("user/block/body_head"))?>
 <?php include(block("user/block/menu"))?>
-
 <!-- Main Wrapper -->
 <div id="wrapper">
-
     <div class="content animate-panel">
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="hpanel">
@@ -66,35 +63,37 @@
                 <div class="hpanel">
                     <div class="panel-body list">
                         <div class="table-responsive project-list">
-
                             <table class="table table-striped">
-
                                 <tbody>
-                                <tr>
-                                    <td style="width: 70px;">
-                                        <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me/products/2/front.png">
-                                    </td>
-                                    <td>
-                                        <strong>******</strong>
-                                    </td>
-                                    <td>
-                                        <span class="pie">10/50</span>
-                                    </td>
-                                    <td>剩余时间:1 天</td>
-                                    <td style="width: 150px;" class="tooltip-action">
-                                        <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></button>
-                                        <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="提前结束"><i class="fa fa-stop"></i></button>
-                                        <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="复制"><i class="fa fa-copy"></i></button>
+                                <?php foreach($rows as $row){ ?>
+                                    <tr>
+                                        <td style="width: 70px;">
+                                            <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me/products/2/front.png">
+                                        </td>
+                                        <td>
+                                            <strong><?=$row['name']?></strong>
+                                        </td>
+                                        <td>
+                                            <span class="pie">10/<?=$row['sale_target']?></span>
+                                        </td>
+                                        <td>剩余时间:1 天</td>
+                                        <td style="width: 150px;" class="tooltip-action">
+                                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="修改"><i class="fa fa-edit"></i></button>
+                                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="提前结束"><i class="fa fa-stop"></i></button>
+                                            <button type="button" class="btn btn-sm btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="复制"><i class="fa fa-copy"></i></button>
 
-                                    </td>
-                                    <td style="width: 80px;" class="tooltip-action">
-                                        <button style="outline: none" type="button" class="btn btn-sm btn-circle btn-warning" data-toggle="tooltip" data-placement="top" title="进行中"></button>
-                                    </td>
-                                </tr>
-
+                                        </td>
+                                        <td style="width: 80px;" class="tooltip-action">
+                                            <button style="outline: none" type="button" class="btn btn-sm btn-circle btn-warning" data-toggle="tooltip" data-placement="top" title="进行中"></button>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="panel-footer">
+                        <?=$pager?>
                     </div>
                 </div>
             </div>
@@ -122,11 +121,12 @@
 
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
+
 <script>
     $(function () {
         $('.tooltip-action').tooltip({
             selector: "[data-toggle=tooltip]"
-        })
+        });
 
     });
 </script>

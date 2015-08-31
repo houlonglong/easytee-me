@@ -8,6 +8,13 @@ tools/mongolog|Mongo日志
 tshirt/cost|订制成功
 admin/ui|管理界面UI
 user|用户管理
+user/setting|用户中心
+user/address|用户收货地址
+user/widthdraw|用户提现
+user/finance|用户财务
+user/activity|用户活动
+user/order|用户订单
+
 user/auth|用户认证
 user/auth/weibo|微博登录
 user/register|用户注册

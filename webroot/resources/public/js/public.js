@@ -191,7 +191,7 @@ function authLogin(type, reurl) {
             location.href = "/auths/wechat/web?relurl=" + escape(reurl);
         }
     }else{
-        location.href = "/auths/" + type + "?relurl=" + escape(reurl);
+        location.href = "/api?model=user/auth&action=oauth_" + type + "&relurl=" + escape(reurl);
     }
 
 

@@ -98,11 +98,14 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         }
         return $opt;
     }
-    function get_action($action){
+    function get_action($action,$data = array()){
         $action = $this->__parse_url_action($action);
         $curl = new Curl();
         $opt = $this->set_curl_opt();
         //print_r($opt);exit;
+        if($data){
+            $action = $action."?".http_build_query($data);
+        }
         $res = $curl->get($action,$opt);
         return $this->__handle_action_result($res);
     }

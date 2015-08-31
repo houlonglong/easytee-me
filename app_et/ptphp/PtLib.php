@@ -281,7 +281,7 @@ function http_request(){
     $_args = array();
     $args = func_get_args();
     foreach($args as $key){
-        $_args[$key] = isset($_REQUEST[$key])?$_REQUEST[$key]:null;
+        $_args[$key] = isset($_REQUEST[$key])?trim($_REQUEST[$key]):null;
     }
     return $_args;
 }

@@ -12,6 +12,9 @@ class Model_User_Auth extends BaseModel{
         PtLib\remove_cookie(self::get_cookie_auth_key());
         PtLib\location("/");
     }
+    function view_login(){
+        if(Model_User_Auth::is_logined()) $this->_location("/user/index");
+    }
 
     /**
      * 登陆
@@ -38,7 +41,8 @@ class Model_User_Auth extends BaseModel{
         setcookie($cookie_auth_key,$value,time()+60*60*$expire,"/");
     }
     static function login($username,$password){
-        $user = self::_db(NEW_DB)->select_row("select * from user where mobile = ?",$username);
+        $field = email_check($username)?"email":"mobile";
+        $user = self::_db(NEW_DB)->select_row("select * from user where {$field} = ?",$username);
         if(!$user) throw new Exception("用户不存在");
         $password = md5(sha1($password));
         if($user['password'] == $password){
@@ -78,6 +82,10 @@ class Model_User_Auth extends BaseModel{
             self::redirect_login_page();
         }
     }
+    static function get_uid(){
+        if(empty(PtApp::$auth['uid'])) throw new Exception("用户没有登陆");
+        return PtApp::$auth['uid'];
+    }
     static function is_logined(){
         if(PtLib\is_cli()){
             return true;
@@ -95,5 +103,25 @@ class Model_User_Auth extends BaseModel{
             $logined = false;
         }
         return $logined;
+    }
+    function action_oauth_weibo(){
+        /**
+         * App Key:
+        2237309004
+        App Secret:
+        a54dd14d6c840c3621369fa9a8b5a4dd
+         *
+         *
+         * product
+         * App Key:
+        889544367
+        App Secret:
+        9a0cf0196ed5164d1cca579798920925
+         */
+        require PATH_LIBS . '/weibo/saetv2.ex.class.php';
+        $o = new SaeTOAuthV2("889544367", "9a0cf0196ed5164d1cca579798920925");
+        $code_url = $o->getAuthorizeURL("http://"+$_SERVER['HTTP_HOST']+"/user/auth/weibo_callback");
+        //echo $code_url;
+        self::_location($code_url);
     }
 }
