@@ -19,6 +19,7 @@ class Model_User_Register extends BaseModel {
             "password"=>$password,
             "add_time"=>add_time,
         ));
+        unset($_SESSION['reg_captcha']);
 
     }
     function action_get_code(){
