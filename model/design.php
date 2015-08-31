@@ -69,6 +69,7 @@ class Model_Design extends BaseModel{
         }
         $cache['color_count'] = $color_count;
         $cache['canvas_color'] = $canvasColors;
+
         $design_id = self::set_design_cache($cache);
         $res = '<Design>
 <name>name</name>
@@ -307,13 +308,7 @@ class Model_Design extends BaseModel{
     }
 
     function action_init(){
-        /**
-         *
-        $curl = new PtLib\Curl();
-        $curl->_proxy = '127.0.0.1:80';
-        $res = $curl->get('http://11.dev.jzw.com/init/getConfig/?appKey=wqdc&productId=2&embroideryMode=false');
-        xml_response($res['body']);
-         */
+
         $pro_id = self::_request("pro_id");
         //$design_init_config = self::_redis()->get("design_init_config");
         //if($design_init_config){
@@ -403,6 +398,7 @@ class Model_Design extends BaseModel{
             throw new Exception("没有找到产品");
         }
         $ProductResult = Model_Product::info($pro_id,$product);
+
         $ProductColorResult = array(
             'name' => 'ProductColorResult',
             'attribute' => null,
