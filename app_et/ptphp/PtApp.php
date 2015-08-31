@@ -426,4 +426,18 @@ class BaseModel
     static function _location($url = "/"){
         PtLib\location($url);
     }
+
+    static function file_cache_set($filename,$content){
+        file_put_contents(PATH_APP.'/../log/'.$filename.'log',json_encode($content));
+    }
+
+    static function file_cache_get($filename){
+        if(file_exists(PATH_APP.'/../log/'.$filename.'log')){
+            $res = file_get_contents(PATH_APP.'/../log/'.$filename.'log');
+            return json_decode($res);
+        }else{
+            return false;
+        }
+
+    }
 }

@@ -15,20 +15,21 @@ class Model_Design extends BaseModel{
         PtApp::session_start();
         $sid = md5(session_id()."_salt");
         $sid = "test1";
-        \PtLib\mem_cache()->set("desigin_cache_".$sid,json_encode($cache));
+        self::file_cache_set("desigin_cache_".$sid,json_encode($cache));
         return $sid;
     }
     static function get_design_from_cache(){
         PtApp::session_start();
         $sid = md5(session_id()."_salt");
         $sid = "test1";
-        $res = \PtLib\mem_cache()->get("desigin_cache_".$sid);
+        $res = self::file_cache_get("desigin_cache_".$sid);
         if($res) $res = json_decode($res,1);
         return $res;
     }
     function action_save(){
         $cache = array();
-        $cache['xmlDesign'] = self::_request("xmlDesign");
+        $xmlDesign = self::_request("xmlDesign");
+        $cache['xmlDesign'] = $xmlDesign;
         $sides = array("front","back","third","fourth");
         $side_svgs = array();
         foreach($sides as $side){
@@ -38,6 +39,36 @@ class Model_Design extends BaseModel{
             }
         }
         $cache['side_svgs'] = $side_svgs;
+        $xmlDatas = simplexml_load_string($xmlDesign, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $design_colors = array();
+        foreach ($xmlDatas->canvas_text as $text) {
+            $cTextAttribute = $text->attributes();
+            $location = strtolower($cTextAttribute->location . '');
+            if(isset($cTextAttribute->stroke_width)){
+                $design_colors[$location][] = $cTextAttribute->fill_color;
+                $design_colors[$location][] = $cTextAttribute->stroke_color;
+            }else{
+                $design_colors[$location][] = $cTextAttribute->fill_color;
+            }
+        }
+        foreach ($xmlDatas->canvas_art as $cart) {
+            $cArtAttribute = $cart->attributes();
+            $location = strtolower($cArtAttribute->location . '');
+            foreach ($cArtAttribute as $key => $attr) {
+                if (strstr($key, 'color') && !strstr($key, '_map')) {
+                    $design_colors[$location][] = $attr . '';
+                    continue;
+                }
+            }
+        }
+        $color_count = 0;
+        $canvasColors = array();
+        foreach($design_colors as $location=>$colors){
+            $canvasColors[$location] = count(array_unique($colors));
+            $color_count +=count(array_unique($colors));
+        }
+        $cache['color_count'] = $color_count;
+        $cache['canvas_color'] = $canvasColors;
         $design_id = self::set_design_cache($cache);
         $res = '<Design>
 <name>name</name>
@@ -79,7 +110,7 @@ class Model_Design extends BaseModel{
                 'design_id' => 1,
                 'uri' => 1,
                 'name' => "",
-                'colors' => "",
+                'colors' => $desigin_cache['color_count'],
                 'max_colors_per_side' => "",
                 'can_customize' => "",
                 'notes' => "",
@@ -100,6 +131,7 @@ class Model_Design extends BaseModel{
         );
         $printCanvasArt = $printCanvasText = $printCanvas = array();
 
+
         foreach ($xmlDatas->canvases as $canvas) {
             $canvases = $canvas->attributes();
             $canvaseArr = array();
@@ -111,7 +143,7 @@ class Model_Design extends BaseModel{
             $canvaseArr['height'] = $canvases->height . '';
             $canvaseArr['bgcolor'] = $canvases->bgcolor . '';
             $canvaseArr['shadow'] = ($canvases->shadow . '' == 'false')?0:1;
-            $canvaseArr['colors'] = 1;
+            $canvaseArr['colors'] = $desigin_cache['canvas_color'][$canvaseArr['location']];
             $canvaseArr['disable_image_add'] = 0;
             $canvaseArr['disable_text_add'] = 0;
             $canvaseArr['disable_image_delete'] = 0;
