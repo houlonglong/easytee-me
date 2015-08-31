@@ -541,7 +541,7 @@ function get_model_file_path($path){
     return PATH_MODEL.$path;
 }
 function local_dev(){
-    if(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '127.0.0.1')
+    if((defined("LOCAL_DEV") && LOCAL_DEV) || isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] == '127.0.0.1')
         return true;
     else
         return false;

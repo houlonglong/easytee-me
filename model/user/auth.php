@@ -117,9 +117,12 @@ class Model_User_Auth extends BaseModel{
         889544367
         App Secret:
         9a0cf0196ed5164d1cca579798920925
+         *
+         * App Key：3011908425
+        App Sercet：5a6e96aae5f888e8fd8bdcec1b1c5a07
          */
         require PATH_LIBS . '/weibo/saetv2.ex.class.php';
-        $o = new SaeTOAuthV2("889544367", "9a0cf0196ed5164d1cca579798920925");
+        $o = new SaeTOAuthV2("3011908425", "5a6e96aae5f888e8fd8bdcec1b1c5a07");
         $code_url = $o->getAuthorizeURL("http://"+$_SERVER['HTTP_HOST']+"/user/auth/weibo_callback");
         //echo $code_url;
         self::_location($code_url);

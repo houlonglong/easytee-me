@@ -15,14 +15,14 @@ class Model_Design extends BaseModel{
         PtApp::session_start();
         $sid = md5(session_id()."_salt");
         $sid = "test1";
-        \PtLib\mem_cache()->set("desigin_cache_".$sid,json_encode($cache));
+        self::_redis()->set("desigin_cache_".$sid,json_encode($cache));
         return $sid;
     }
     static function get_design_from_cache(){
         PtApp::session_start();
         $sid = md5(session_id()."_salt");
         $sid = "test1";
-        $res = \PtLib\mem_cache()->get("desigin_cache_".$sid);
+        $res = self::_redis()->get("desigin_cache_".$sid);
         if($res) $res = json_decode($res,1);
         return $res;
     }
