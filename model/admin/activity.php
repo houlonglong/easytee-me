@@ -526,7 +526,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         foreach ($rows as $row) {
             //筛选出成功的众筹
             $profie = Model_Cost::calculate_profie($row['id']);
-            if ($profie <= 0) {
+            if ($profie <= 0 && $row['status'] != 'fabrication') {
                 continue;
             }
             $response[] = $row;
