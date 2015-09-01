@@ -78,7 +78,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         $table_alias = $table = self::$table;
         //$table_alias = '';
         $join = ' left join users as u on u.id = '.$table_alias.'.uid inner join activities as a on a.id = '.$table_alias.'.activity_id left join order_expresses as express
-         on express.order_id = '.$table_alias.'.id ';
+         on express.order_id = '.$table_alias.'.id left join expresses as e on e.id = express.express_id  ';
         //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
@@ -93,7 +93,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         $status = $request['status'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name AS username,a.id AS activity_id ,express.express_no,express.express_name";
+        $select_fields = " $table_alias.*,u.nick_name AS username,a.id AS activity_id ,express.express_no,e.name as express_name";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
