@@ -312,10 +312,10 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             // 当显示全部的时候，需要众筹状态
             if ($request['success'] == 'index') {
                 $profie = Model_Cost::calculate_profie($row['id']);
-                if ($profie > 0) {
+                if ($profie > 0 || $row['status'] =='fabrication') {
                     $row['activity_status'] = '成功的众筹';
                 } else {
-                    if ($row['real_end_time'] <= date('Y-m-d H:i:s')) {
+                    if ($row['real_end_time'] <= date('Y-m-d H:i:s') && $row['status'] !='fabrication') {
                         $row['activity_status'] = '失败的众筹';
                     } else {
                         if ($row['pass'] == 0) {
