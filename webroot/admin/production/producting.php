@@ -57,11 +57,36 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane in active">
-                                            <table id="grid-table"></table>
-                                            <div id="grid-pager"></div>
-                                            <script type="text/javascript">
-                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                            </script>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="widget-box">
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <form class="form-inline">
+                                                                    <input type="text" class="input-small" placeholder="活动名称" id="activity-name">
+                                                                    <input type="text" class="input-small" placeholder="活动ID" id="activity-id">
+                                                                    <input type="text" class="input-small" placeholder="用户名" id="username">
+                                                                    <input type="text" class="input-small" placeholder="手机号码" id="mobile">
+                                                                    <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                                        <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="grid-table"></table>
+                                                    <div id="grid-pager"></div>
+                                                    <script type="text/javascript">
+                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                                    </script>
+                                                </div>
+
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -202,9 +227,13 @@
     }
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function search(){
+    function search() {
         var $query = {
-            title:$('#title').val()
+            activity_name: $('#activity-name').val(),
+            username: $('#username').val(),
+            mobile: $('#mobile').val(),
+            activity_id:$('#activity-id').val()
+
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',

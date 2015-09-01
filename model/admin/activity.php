@@ -366,7 +366,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             $select_fields = " o.*,og.*,m.name as manufacturer_name ";
 
 
-            $where = 'where ' . $table_alias . '.id = ?';
+            $where = 'where ' . $table_alias . '.id = ? and o.status in ("待发货","已付款","已完成")';
 
             $sql = "select $select_fields from $table $join $where  ";
             $myval = array();

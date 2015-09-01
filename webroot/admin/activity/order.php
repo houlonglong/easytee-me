@@ -6,69 +6,64 @@
      * 订单管理
      *
      */
-    include(block("admin/block/html_head"))?>
+    include(block("admin/block/html_head")) ?>
 
     <!-- page specific plugin styles -->
-    <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
-    <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css" />
+    <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css"/>
     <!-- ace styles -->
-    <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
-    <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
+    <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
+    <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
     <style>
-        .jqgfirstrow{
-            background-color:#C7D3A9;
+        .jqgfirstrow {
+            background-color: #C7D3A9;
         }
     </style>
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
+<?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
-    <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
+    <script type="text/javascript">try {
+            ace.settings.check('main-container', 'fixed')
+        } catch (e) {
+        }</script>
+    <?php include(block("admin/block/sidebar")) ?>
     <div class="main-content">
         <div class="main-content-inner">
-            <?php include(block("admin/block/breadcrumbs"))?>
+            <?php include(block("admin/block/breadcrumbs")) ?>
             <div class="page-content">
-                <?php include(block("admin/block/ace-settings-container"))?>
+                <?php include(block("admin/block/ace-settings-container")) ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
-                        <div class="row" style="margin-bottom:20px">
-                                <div class="col-xs-2">
-                                    <label>
-                                        订单号
-                                    </label>
-                                    <input type="text" id="order-no">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <form class="form-inline">
+                                                <input type="text" class="input-small" placeholder="订单号" id="order-no">
+                                                <input type="text" class="input-small" placeholder="活动名称"
+                                                       id="activity-name">
+                                                <input type="text" class="input-small" placeholder="活动ID"
+                                                       id="activity-id">
+                                                <input type="text" class="input-small" placeholder="用户名" id="username">
+                                                <input type="text" class="input-small" placeholder="手机号码" id="mobile">
+                                                <select id="order-status">
+                                                    <option value="">状态</option>
+                                                    <option value="待付款">待付款</option>
+                                                    <option value="已发货">已发货</option>
+                                                    <option value="已完成">已完成</option>
+                                                    <option value="已关闭">已关闭</option>
+                                                </select>
+                                                <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                    <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col-xs-2">
-                                    <label>
-                                        活动名称
-                                    </label>
-                                    <input type="text" id="activity-name">
-                                </div>
-                                <div class="col-xs-2">
-                                    <label>
-                                        订单状态
-                                    </label>
-                                    <input type="text" id="order-status">
-                                </div>
-                                <div class="col-xs-2">
-                                    <label>
-                                        用户名
-                                    </label>
-                                    <input type="text" id="username">
-                                </div>
-                            <div class="col-xs-2">
-                                <label>
-                                    手机号码
-                                </label>
-                                <input type="text" id="mobile">
                             </div>
-                                <div class="col-xs-2">
-                                    <button class="btn-primary" onclick="search()">search</button>
-                                </div>
-
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
@@ -86,14 +81,19 @@
                             <!-- /.span -->
                         </div>
                         <!-- PAGE CONTENT ENDS -->
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.page-content -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.page-content -->
         </div>
-    </div><!-- /.main-content -->
-    <?php include(block("admin/block/footer"))?>
-</div><!-- /.main-container -->
-<?php include(block("admin/block/scripts"))?>
+    </div>
+    <!-- /.main-content -->
+    <?php include(block("admin/block/footer")) ?>
+</div>
+<!-- /.main-container -->
+<?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
@@ -102,94 +102,139 @@
 
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function search(){
+    function search() {
         var $query = {
-            order_no:$('#order-no').val(),
-            activity_name:$('#activity-name').val(),
-            status:$('#order-status').val(),
-            username:$('#username').val(),
-            mobile:$('#mobile').val()
+            order_no: $('#order-no').val(),
+            activity_name: $('#activity-name').val(),
+            status: $('#order-status').val(),
+            username: $('#username').val(),
+            mobile: $('#mobile').val(),
+            activity_id:$('#activity-id').val()
 
         };
-        $(grid_selector).jqGrid('setGridParam',{
-            datatype:'json',
-            postData:$query, //发送数据
-            page:1
+        $(grid_selector).jqGrid('setGridParam', {
+            datatype: 'json',
+            postData: $query, //发送数据
+            page: 1
         }).trigger("reloadGrid"); //重新载入
     }
     var status = {
-        "待发货":"label label-sm label-success arrowed-in",
-        "已关闭":"label label-sm label-warning",
-        '已发货':"label label-sm label-info arrowed arrowed-righ",
-        '已完成':"label label-sm label-inverse arrowed-in",
+        "待发货": "label label-sm label-success arrowed-in",
+        "已关闭": "label label-sm label-warning",
+        '已发货': "label label-sm label-info arrowed arrowed-righ",
+        '已完成': "label label-sm label-inverse arrowed-in",
     };
-    jQuery(function($) {
+    jQuery(function ($) {
         var grid_setting = {
-            url:"/api?model=admin/order&action=list",
-            url_save:"/api?model=admin/order&action=edit",
-            method:"POST",
-            height:500,
-            rowNum:15,
-            rowList:[15,30,50,100],
-            caption:"",
-            cols:[
-                {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"订单号",name:'order_no',index:'order_no',width:110,editable: false,editoptions:{size:"20",maxlength:"30"},
-                    formatter:'showlink',
-                    formatoptions:{
-                        baseLinkUrl:'/admin/activity/order_detail',
+            url: "/api?model=admin/order&action=list",
+            url_save: "/api?model=admin/order&action=edit",
+            method: "POST",
+            height: 500,
+            rowNum: 15,
+            rowList: [15, 30, 50, 100],
+            caption: "",
+            cols: [
+                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: "int", editable: false},
+                {
+                    title: "订单号",
+                    name: 'order_no',
+                    index: 'order_no',
+                    width: 110,
+                    editable: false,
+                    editoptions: {size: "20", maxlength: "30"},
+                    formatter: 'showlink',
+                    formatoptions: {
+                        baseLinkUrl: '/admin/activity/order_detail',
                         addParam: '',//&t=1
-                        idName:'id'
+                        idName: 'id'
                     }
                 },
-                {title:"用户名",name:'username',index:'username',width:90,editable: false,editoptions:{size:"20",maxlength:"30"}},
-                {title:"活动名称",name:'name',index:'name',editable: false,editoptions:{size:"20",maxlength:"30"},
+                {
+                    title: "用户名",
+                    name: 'username',
+                    index: 'username',
+                    width: 90,
+                    editable: false,
+                    editoptions: {size: "20", maxlength: "30"}
+                },
+                {
+                    title: "活动名称",
+                    name: 'name',
+                    index: 'name',
+                    editable: false,
+                    editoptions: {size: "20", maxlength: "30"},
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">'+cellvalue+'</a>';
+                        return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
                     }
                 },
-                {title:"数量",name:'quantity',index:'quantity',width:90,sortable:false,editable: false},
-                {title:"订单金额",name:'total_price',index:'total_price',width:90,sortable:false,editable: false},
-                {title:"运费",name:'express_price',index:'express_price',width:90,sortable:false,editable: false},
-                {title:"状态",name:'status',index:'status',width:90,sortable:false,editable: true,edittype:"custom",
+                {title: "数量", name: 'quantity', index: 'quantity', width: 90, sortable: false, editable: false},
+                {title: "订单金额", name: 'total_price', index: 'total_price', width: 90, sortable: false, editable: false},
+                {
+                    title: "运费",
+                    name: 'express_price',
+                    index: 'express_price',
+                    width: 90,
+                    sortable: false,
+                    editable: false
+                },
+                {
+                    title: "状态",
+                    name: 'status',
+                    index: 'status',
+                    width: 90,
+                    sortable: false,
+                    editable: true,
+                    edittype: "custom",
 //                    editoptions:{value:"待付款:待付款;已发货:已发货;已收货:已收货;已完成:已完成;已关闭:已关闭"},
-                    editoptions:{custom_element: mystatuselem, custom_value:myvalue},
-                    formatter:function(cellvalue, options, rowObject){
+                    editoptions: {custom_element: mystatuselem, custom_value: myvalue},
+                    formatter: function (cellvalue, options, rowObject) {
                         var img = "";
-                        if(cellvalue == '待付款'){
-                            img = '<span class="label label-sm label-default arrowed-in">'+cellvalue+'</span>';
+                        if (cellvalue == '待付款') {
+                            img = '<span class="label label-sm label-default arrowed-in">' + cellvalue + '</span>';
                         }
-                        if(cellvalue == '待发货'){
-                            img = '<span class="label label-sm label-success arrowed-in">'+cellvalue+'</span>';
+                        if (cellvalue == '待发货') {
+                            img = '<span class="label label-sm label-success arrowed-in">' + cellvalue + '</span>';
                         }
-                        if(cellvalue == '已关闭'){
+                        if (cellvalue == '已关闭') {
                             img = '<span class="label label-sm label-warning">订单已取消</span>';
                         }
-                        if(cellvalue == '已发货'){
-                            img = '<span class="label label-sm label-info arrowed arrowed-righ">'+cellvalue+'</span>';
+                        if (cellvalue == '已发货') {
+                            img = '<span class="label label-sm label-info arrowed arrowed-righ">' + cellvalue + '</span>';
                         }
-                        if(cellvalue == '已完成'){
-                            img = '<span class="label label-sm label-danger arrowed-in">'+cellvalue+'</span>';
+                        if (cellvalue == '已完成') {
+                            img = '<span class="label label-sm label-danger arrowed-in">' + cellvalue + '</span>';
                         }
-                        if(cellvalue == '已收货'){
-                            img = '<span class="label label-sm label-primary arrowed-in">'+cellvalue+'</span>';
+                        if (cellvalue == '已收货') {
+                            img = '<span class="label label-sm label-primary arrowed-in">' + cellvalue + '</span>';
                         }
                         return img;
                     }
                 },
-                {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
-                    formatter:'actions',
-                    formatoptions:{
-                        keys:true,
+                {title: "快递信息", name: 'express_no', index: 'express_no', width: 90, sortable: false, editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        if(cellvalue!=null){
+                            return '<span>快递单号：'+cellvalue+'</span></br><span>快递公司:'+rowObject['express_name']+'</span>';
+                        }else{
+                            return '';
+                        }
+
+                    }
+                },
+                {
+                    title: "操作", name: 'options', index: '', width: 80, fixed: true, sortable: false, resize: false,
+                    formatter: 'actions',
+                    formatoptions: {
+                        keys: true,
                         //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
+                        baseLinkUrl: 'someurl.php', addParam: '&action=edit', idName: 'id',
+                        delOptions: {recreateForm: true, beforeShowForm: beforeDeleteCallback}
                         //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
                     }
                 },
             ]
 
         };
+
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -213,7 +258,7 @@
          ],
          */
 
-        function mystatuselem (value, options) {
+        function mystatuselem(value, options) {
             value = $(value).data("status");
             var el = document.createElement("select");
             $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="待付款">待付款</option><option role="option" value="待发货">待发货' +
@@ -226,29 +271,30 @@
         function myvalue(elem) {
             return $(elem).val();
         }
-        function get_col(cols){
+
+        function get_col(cols) {
             var col_name = [];
-            for(i in cols){
+            for (i in cols) {
                 var col = cols[i];
                 col_name.push(col.title);
             }
             return {
-                'name':col_name,
-                'model':cols
+                'name': col_name,
+                'model': cols
             };
         }
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
-            $(grid_selector).jqGrid( 'setGridWidth', $(".page-content").width() );
+            $(grid_selector).jqGrid('setGridWidth', $(".page-content").width());
         });
         //resize on sidebar collapse/expand
         var parent_column = $(grid_selector).closest('[class*="col-"]');
-        $(document).on('settings.ace.jqGrid' , function(ev, event_name, collapsed) {
-            if( event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed' ) {
+        $(document).on('settings.ace.jqGrid', function (ev, event_name, collapsed) {
+            if (event_name === 'sidebar_collapsed' || event_name === 'main_container_fixed') {
                 //setTimeout is for webkit only to give time for DOM changes and then redraw!!!
-                setTimeout(function() {
-                    $(grid_selector).jqGrid( 'setGridWidth', parent_column.width() );
+                setTimeout(function () {
+                    $(grid_selector).jqGrid('setGridWidth', parent_column.width());
                 }, 0);
             }
         });
@@ -269,55 +315,55 @@
          */
         var subgrid_data =
             [
-                {id:"1", name:"sub grid item 1", qty: 11}
+                {id: "1", name: "sub grid item 1", qty: 11}
             ];
         jQuery(grid_selector).jqGrid({
             //direction: "rtl",
 
             //subgrid options
-            subGrid : true,
+            subGrid: true,
             //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
             //datatype: "xml",
-            subGridOptions : {
-                plusicon : "ace-icon fa fa-plus center bigger-110 blue",
-                minusicon  : "ace-icon fa fa-minus center bigger-110 blue",
-                openicon : "ace-icon fa fa-chevron-right center orange"
+            subGridOptions: {
+                plusicon: "ace-icon fa fa-plus center bigger-110 blue",
+                minusicon: "ace-icon fa fa-minus center bigger-110 blue",
+                openicon: "ace-icon fa fa-chevron-right center orange"
             },
             //for this example we are using local data
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table  style='background-color:#C7D3A9;' id='" + subgridTableId + "'></table>");
                 $.ajax({
-                    url:'/api?model=admin/activity&action=ordergoods_detail',
-                    data:{
-                        id:rowId,
+                    url: '/api?model=admin/activity&action=ordergoods_detail',
+                    data: {
+                        id: rowId,
                     },
-                    type:'POST',
-                    dataType:'json',
-                    success:function(obj){
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (obj) {
                         $("#" + subgridTableId).jqGrid({
                             datatype: 'local',
                             data: obj,
-                            colNames: ['订购服装品类','订购服装款式','订购服装性别','订购服装颜色','订购服装尺码','订购服装数量','采购单价','采购总价','预计交期'],
+                            colNames: ['订购服装品类', '订购服装款式', '订购服装性别', '订购服装颜色', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
-                                { name: 'manufacturer_name', width: 150,color: "#3c763d" },
-                                { name: 'product_style_name', width: 150 },
-                                { name: 'product_name', width: 150 },
+                                {name: 'manufacturer_name', width: 150, color: "#3c763d"},
+                                {name: 'product_style_name', width: 150},
+                                {name: 'product_name', width: 150},
 
-                                { name: 'product_style_name', width: 150 },
-                                { name: 'size', width: 150 },
-                                { name: 'quantity', width: 150 },
+                                {name: 'product_style_name', width: 150},
+                                {name: 'size', width: 150},
+                                {name: 'quantity', width: 150},
 
-                                { name: 'unit_price', width: 150 },
-                                { name: 'total', width: 150 },
-                                { name: 'real_end_time', width: 180 }
+                                {name: 'unit_price', width: 150},
+                                {name: 'total', width: 150},
+                                {name: 'real_end_time', width: 180}
                             ]
                         });
                     }
                 })
             },
             jsonReader: {
-                root:  function (obj) {
+                root: function (obj) {
                     return obj.return.rows;
                 },
                 records: function (obj) {
@@ -330,12 +376,12 @@
                     return obj.return.total;
                 }
             },
-            mtype:grid_setting.method,
+            mtype: grid_setting.method,
             url: grid_setting.url,
             datatype: "json",
             height: grid_setting.height,
-            colNames:get_col(grid_setting.cols)['name'],
-            colModel:get_col(grid_setting.cols)['model'],
+            colNames: get_col(grid_setting.cols)['name'],
+            colModel: get_col(grid_setting.cols)['model'],
             //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
             /*
              colModel:[
@@ -357,19 +403,19 @@
              {name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
              ],
              */
-            viewrecords : true,
-            rowNum:grid_setting.rowNum,
-            rowList:grid_setting.rowList,
-            pager : pager_selector,
+            viewrecords: true,
+            rowNum: grid_setting.rowNum,
+            rowList: grid_setting.rowList,
+            pager: pager_selector,
             altRows: false,
             //toppager: true,
             multiselect: false,
             //multikey: "ctrlKey",
             multiboxonly: false,
-            loadComplete : function(xhr) {
+            loadComplete: function (xhr) {
                 console.log(xhr);
                 var table = this;
-                setTimeout(function(){
+                setTimeout(function () {
                     styleCheckbox(table);
 
                     updateActionIcons(table);
@@ -403,44 +449,45 @@
 
 
         //switch element when editing inline
-        function aceSwitch( cellvalue, options, cell ) {
-            setTimeout(function(){
-                $(cell) .find('input[type=checkbox]')
+        function aceSwitch(cellvalue, options, cell) {
+            setTimeout(function () {
+                $(cell).find('input[type=checkbox]')
                     .addClass('ace ace-switch ace-switch-5')
                     .after('<span class="lbl"></span>');
             }, 0);
         }
+
         //enable datepicker
-        function pickDate( cellvalue, options, cell ) {
-            setTimeout(function(){
-                $(cell) .find('input[type=text]')
-                    .datepicker({format:'yyyy-mm-dd' , autoclose:true});
+        function pickDate(cellvalue, options, cell) {
+            setTimeout(function () {
+                $(cell).find('input[type=text]')
+                    .datepicker({format: 'yyyy-mm-dd', autoclose: true});
             }, 0);
         }
 
 
         //navButtons
-        jQuery(grid_selector).jqGrid('navGrid',pager_selector,
+        jQuery(grid_selector).jqGrid('navGrid', pager_selector,
             { 	//navbar options
                 edit: false,
-                editicon : 'ace-icon fa fa-pencil blue',
+                editicon: 'ace-icon fa fa-pencil blue',
                 add: false,
-                addicon : 'ace-icon fa fa-plus-circle purple',
+                addicon: 'ace-icon fa fa-plus-circle purple',
                 del: false,
-                delicon : 'ace-icon fa fa-trash-o red',
+                delicon: 'ace-icon fa fa-trash-o red',
                 search: false,
-                searchicon : 'ace-icon fa fa-search orange',
+                searchicon: 'ace-icon fa fa-search orange',
                 refresh: true,
-                refreshicon : 'ace-icon fa fa-refresh green',
+                refreshicon: 'ace-icon fa fa-refresh green',
                 view: false,
-                viewicon : 'ace-icon fa fa-search-plus grey',
+                viewicon: 'ace-icon fa fa-search-plus grey',
             },
             {
                 //edit record form
                 //closeAfterEdit: true,
                 //width: 700,
                 recreateForm: true,
-                beforeShowForm : function(e) {
+                beforeShowForm: function (e) {
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
                     style_edit_form(form);
@@ -452,7 +499,7 @@
                 closeAfterAdd: true,
                 recreateForm: true,
                 viewPagerButtons: false,
-                beforeShowForm : function(e) {
+                beforeShowForm: function (e) {
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
                         .wrapInner('<div class="widget-header" />')
@@ -462,28 +509,28 @@
             {
                 //delete record form
                 recreateForm: true,
-                beforeShowForm : function(e) {
+                beforeShowForm: function (e) {
                     var form = $(e[0]);
-                    if(form.data('styled')) return false;
+                    if (form.data('styled')) return false;
 
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
                     style_delete_form(form);
 
                     form.data('styled', true);
                 },
-                onClick : function(e) {
+                onClick: function (e) {
                     //alert(1);
                 }
             },
             {
                 //search form
                 recreateForm: true,
-                afterShowSearch: function(e){
+                afterShowSearch: function (e) {
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
                     style_search_form(form);
                 },
-                afterRedraw: function(){
+                afterRedraw: function () {
                     style_search_filters($(this));
                 }
                 ,
@@ -496,7 +543,7 @@
             {
                 //view record form
                 recreateForm: true,
-                beforeShowForm: function(e){
+                beforeShowForm: function (e) {
                     var form = $(e[0]);
                     form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
                 }
@@ -537,6 +584,7 @@
             form.find('.add-group').addClass('btn btn-xs btn-success');
             form.find('.delete-group').addClass('btn btn-xs btn-danger');
         }
+
         function style_search_form(form) {
             var dialog = form.closest('.ui-jqdialog');
             var buttons = dialog.find('.EditTable')
@@ -547,7 +595,7 @@
 
         function beforeDeleteCallback(e) {
             var form = $(e[0]);
-            if(form.data('styled')) return false;
+            if (form.data('styled')) return false;
 
             form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
             style_delete_form(form);
@@ -560,7 +608,6 @@
             form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />');
             style_edit_form(form);
         }
-
 
 
         //it causes some flicker when reloading or navigating grid
@@ -603,27 +650,27 @@
         function updatePagerIcons(table) {
             var replacement =
             {
-                'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
-                'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
-                'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
-                'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+                'ui-icon-seek-first': 'ace-icon fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev': 'ace-icon fa fa-angle-left bigger-140',
+                'ui-icon-seek-next': 'ace-icon fa fa-angle-right bigger-140',
+                'ui-icon-seek-end': 'ace-icon fa fa-angle-double-right bigger-140'
             };
-            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function () {
                 var icon = $(this);
                 var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
 
-                if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+                if ($class in replacement) icon.attr('class', 'ui-icon ' + replacement[$class]);
             })
         }
 
         function enableTooltips(table) {
-            $('.navtable .ui-pg-button').tooltip({container:'body'});
-            $(table).find('.ui-pg-div').tooltip({container:'body'});
+            $('.navtable .ui-pg-button').tooltip({container: 'body'});
+            $(table).find('.ui-pg-div').tooltip({container: 'body'});
         }
 
         //var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
 
-        $(document).one('ajaxloadstart.page', function(e) {
+        $(document).one('ajaxloadstart.page', function (e) {
             $(grid_selector).jqGrid('GridUnload');
             $('.ui-jqdialog').remove();
         });

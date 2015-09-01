@@ -77,11 +77,12 @@ class Model_Admin_Order extends Model_Admin_Abstract{
     static function table_list(){
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' left join users as u on u.id = '.$table_alias.'.uid inner join activities as a on a.id = '.$table_alias.'.activity_id ';
+        $join = ' left join users as u on u.id = '.$table_alias.'.uid inner join activities as a on a.id = '.$table_alias.'.activity_id left join order_expresses as express
+         on express.order_id = '.$table_alias.'.id ';
         //$join = '';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord",'order_no','activity_name','username','status','mobile');
+        $request = PtLib\http_request("rows","page","sidx","sord",'order_no','activity_name','username','status','mobile','activity_id');
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -92,7 +93,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         $status = $request['status'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name AS username,a.id AS activity_id";
+        $select_fields = " $table_alias.*,u.nick_name AS username,a.id AS activity_id ,express.express_no,express.express_name";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
@@ -120,6 +121,10 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         if($request['mobile']){
             $where .= 'and u.mobile = ? ';
             $args[] = $request['mobile'];
+        }
+        if($request['activity_id']){
+            $where .= 'and a.id = ? ';
+            $args[] = $request['activity_id'];
         }
         //order
         $order = "";
