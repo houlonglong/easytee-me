@@ -106,17 +106,21 @@ class Model_Activity extends BaseModel{
         }
 
         $pro_ids = array_unique($pro_ids);
-        $sizes = self::_db(NEW_DB)->select_rows("select ps.id,pss.size from pro_style_size as pss left join pro_style as ps on ps.color = pss.color and pss.pro_id = ps.pro_id where ps.id in (".implode(",",$style_ids).")");
+        $product_sizes = $sizes = $images = $products = array();
+        if($style_ids){
+            $sizes = self::_db(NEW_DB)->select_rows("select ps.id,pss.size from pro_style_size as pss left join pro_style as ps on ps.color = pss.color and pss.pro_id = ps.pro_id where ps.id in (".implode(",",$style_ids).")");
 
-        $images = self::_db(NEW_DB)->select_rows("select i.pro_id,i.side,i.img_url,a.left,a.top,a.width,a.height from pro_img as i left join pro_design_area as a on a.pro_id = i.pro_id and i.side = a.side where i.pro_id in (".implode(",",$pro_ids).")");
-        $products = self::_db(NEW_DB)->select_rows("select p.*, c.name as cat_name,mb.name as brand_name,m.name as manufacturer_name
+            $images = self::_db(NEW_DB)->select_rows("select i.pro_id,i.side,i.img_url,a.left,a.top,a.width,a.height from pro_img as i left join pro_design_area as a on a.pro_id = i.pro_id and i.side = a.side where i.pro_id in (".implode(",",$pro_ids).")");
+            $products = self::_db(NEW_DB)->select_rows("select p.*, c.name as cat_name,mb.name as brand_name,m.name as manufacturer_name
           from product as p
           left join man_brand as mb on mb.id = p.brand_id
           left join manufacturer as m on m.id = mb.man_id
           left join pro_cat_rel as rel on rel.pro_id = p.id
           left join pro_cat as c on c.id = rel.cat_id
           where p.id in (".implode(",",$pro_ids).")");
-        $product_sizes = self::_db(NEW_DB)->select_rows("select * from product_sizes where product_id in (".implode(",",$pro_ids).")");
+            $product_sizes = self::_db(NEW_DB)->select_rows("select * from product_sizes where product_id in (".implode(",",$pro_ids).")");
+
+        }
         //print_pre($products);
 
         return array(
@@ -130,6 +134,7 @@ class Model_Activity extends BaseModel{
         );
     }
     static function get_detail(){
+
         $id = self::_request("id");
         $activity = self::_db(NEW_DB)->select_row("select * from activity where id = ?",$id);
         return $activity;

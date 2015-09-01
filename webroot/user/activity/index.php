@@ -71,7 +71,7 @@
                                             <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me/products/2/front.png">
                                         </td>
                                         <td>
-                                            <strong><?=$row['name']?></strong>
+                                            <a target="_blank" href="/activity?id=<?=$row['id']?>"><strong><?=$row['name']?></strong></a>
                                         </td>
                                         <td>
                                             <span class="pie">10/<?=$row['sale_target']?></span>

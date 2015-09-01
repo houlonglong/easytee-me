@@ -15,6 +15,7 @@ class Model_Design extends BaseModel{
         PtApp::session_start();
         $sid = md5(session_id()."_salt");
         $sid = "test1";
+        //self::_redis()->set("desigin_cache_".$sid,json_encode($cache));
         self::file_cache_set("desigin_cache_".$sid,json_encode($cache));
         return $sid;
     }
@@ -22,6 +23,7 @@ class Model_Design extends BaseModel{
         PtApp::session_start();
         $sid = md5(session_id()."_salt");
         $sid = "test1";
+        //$res = self::_redis()->get("desigin_cache_".$sid);
         $res = self::file_cache_get("desigin_cache_".$sid);
         if($res) $res = json_decode($res,1);
         return $res;
@@ -496,72 +498,4 @@ class Model_Design extends BaseModel{
         }
         return $svg;
     }
-    /*
-     * 详情
-     * @return array
-     *
-    function action_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
-
-    /**
-     * 详情
-     * @param $id
-     * @return array
-     *
-    static function detail($id){
-        $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
-        return $row;
-    }
-     */
-
-    /**
-     * 列表
-     *
-    function action_list(){
-        return self::table_list();
-    }
-     */
-
-    /**
-     * 修改
-     *
-    function action_edit(){
-        return self::table_edit();
-    }
-     */
-
-    /*
-    * 修改
-    *
-    static function table_edit(){
-        $table = self::$table;
-        return PtLib\table_edit($table);
-    }
-    */
-
-    /*
-    * 列表
-    *
-    static function table_list(){
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $response = PtLib\get_table_list($table,$table_alias);
-        return $response;
-    }
-    */
-    /**
-     * @param
-     * @return
-     *
-    function action_test(){
-        $request = PtLib\http_request("id");
-        $data = array();
-        $data['id'] = $request;
-        return $data;
-    }
-     */
 }

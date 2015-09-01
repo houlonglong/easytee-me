@@ -13,3 +13,4 @@ class WxPayConfig
     const NOTIFY_URL = 'http://lxm.jzw.la/api?model=order/pay/wechat&action=notify';
 
 }
+define("LOCAL_DEV",true);
