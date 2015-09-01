@@ -56,9 +56,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(255, 255, 255, 0.7) url("../../../public/image/loading.gif") no-repeat center center;
     width: 100%;
     height: 100%;
+    text-align: center;
+
 }
 
 .activity .activity-showbox .activity-showbox-imglist {

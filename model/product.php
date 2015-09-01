@@ -7,6 +7,16 @@ class Model_Product extends BaseModel{
     function __construct(){
         //parent::__construct();
     }
+    function view_sizes(){
+        $act_id = self::_request("act_id");
+        $productSizes = self::_db(NEW_DB)->select_rows("select * from  product_sizes as ps left join act_product as ap on ap.pro_id = ps.product_id where ap.act_id = ?",$act_id);
+        $sizes = array();
+        foreach ($productSizes as $value) {
+            $sizes[$value['pro_id']][] = $value;
+        }
+
+        return array("size"=>$sizes);
+    }
     function action_get(){
 
         $style_id = self::_request("productStyleId");

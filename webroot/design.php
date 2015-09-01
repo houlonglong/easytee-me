@@ -17,7 +17,7 @@ $is_login = Model_User_Auth::is_logined()?1:0;
     <meta name="description" content="使用易衫网的T恤在线设计工具来创建您的作品.您可以上传自己的设计,或者使用我们丰富的素材库和众多的各种字体."/>
     <?php include(block("block/html_head"));?>
     <script type="text/javascript" src="/js/libs/canvg/canvg.js"></script>
-
+    <script src="/js/libs/snap.svg/snap.svg.js"></script>
 </head>
 <body>
 <?php include(block("block/nav_bar"));?>
@@ -145,27 +145,17 @@ $is_login = Model_User_Auth::is_logined()?1:0;
 </div>
 <?php include(block("block/page_footer"));?>
 
-<div style="display: none">
+<div style="display: block">
     <canvas id="canvas_convert" width="500px" height="500px"></canvas>
 </div>
+<svg width='500' height='500' id='svg_tmp'></svg>
+
 <script>
-    function convert(){
-        //canvg('canvas_convert', 'http://oss-cn-hangzhou.aliyuncs.com/open-edit/dev/design/svg/825/front.svg',{
-        //renderCallback: function (dom) {
-        //var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
-        //console.log(imageDataUri);
-        //}
-        //});
-        canvg('canvas_convert', $("#designerContainer svg")[0].outerHTML,{
-            log:true,
-            useCORS: true,
-            ignoreMouse: true, ignoreAnimation: true ,
-            renderCallback: function (dom) {
-                var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
-                console.log(imageDataUri);
-            }
-        })
-    }
+function pt_get_js(){
+    $.getScript("/js/app/convert.js?"+(+new Date()),function(){
+
+    });
+}
 </script>
 </body>
 </html>

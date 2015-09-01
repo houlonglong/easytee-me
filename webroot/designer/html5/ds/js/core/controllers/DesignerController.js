@@ -318,10 +318,13 @@ ui.controllers.DesignerController = function(b, d, c, g, k, $location) {
         console.log('done');
         eventManager.trigger('doneActivity', function(){
             //TODO 成功后跳转地址
+            var time = 2000;
+            //var $time = 11112000;
+            alert($time);
             state.isDone = true;
             setTimeout(function(){
                 window.location.href = $('#activityDirect').attr('href');
-            },2000);
+            },$time);
             $('#doneDialog').show();
         });
     };

@@ -146,7 +146,7 @@ class Model_Design extends BaseModel{
             $canvaseArr['height'] = $canvases->height . '';
             $canvaseArr['bgcolor'] = $canvases->bgcolor . '';
             $canvaseArr['shadow'] = ($canvases->shadow . '' == 'false')?0:1;
-            $canvaseArr['colors'] = $desigin_cache['canvas_color'][$canvaseArr['location']];
+            $canvaseArr['colors'] = isset($desigin_cache['canvas_color'][$canvaseArr['location']]) ? $desigin_cache['canvas_color'][$canvaseArr['location']]:0;
             $canvaseArr['disable_image_add'] = 0;
             $canvaseArr['disable_text_add'] = 0;
             $canvaseArr['disable_image_delete'] = 0;

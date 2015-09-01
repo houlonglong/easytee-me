@@ -121,6 +121,7 @@ class Model_Activity extends BaseModel{
             $product_sizes = self::_db(NEW_DB)->select_rows("select * from product_sizes where product_id in (".implode(",",$pro_ids).")");
 
         }
+
         //print_pre($products);
 
         return array(
@@ -136,7 +137,7 @@ class Model_Activity extends BaseModel{
     static function get_detail(){
 
         $id = self::_request("id");
-        $activity = self::_db(NEW_DB)->select_row("select * from activity where id = ?",$id);
+        $activity = self::_db(NEW_DB)->select_row("select *,s.sale_count from activity as a left join act_sale as s on s.act_id = a.id where id = ?",$id);
         return $activity;
     }
 }

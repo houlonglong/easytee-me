@@ -167,7 +167,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
             }
             self::_db("to")->insert("act_sale",array(
                 "act_id"=>$activity['id'],
-                "sales_count"=>$activity['sales_count'],
+                "sale_count"=>$activity['sales_count'],
                 "profit"=>floatval($activity['profie']),
             ));
 

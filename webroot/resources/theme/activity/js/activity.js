@@ -256,7 +256,8 @@ function initProductStyle(pid) {
     var pro = getProductStyle(pid), styleList = $("#chang-style");
 
     styleList.empty();
-    pro && $('#detail').html(pro.description) && pro.style && $.each(pro.style, function (index, item) {
+    pro.style && $.each(pro.style, function (index, item) {
+        console.log(item);
         var li = $('<li data-id="' + item.id + '"></li>');
         $.each(item.colors, function () {
             li.append('<div title="'+item.color_name+'" style="position:relative;background-color:#' + this.name + ';width:' + this.accounting + '%">' +
@@ -335,7 +336,7 @@ function setPreviewPhoto(pid, sid, side) {
     }
 
     var product = getProductStyle(pid, sid);
-    product && ($('#detail').html(product.description)) && product.style && $.each(product.style, function (index, style) {
+    product.style && $.each(product.style, function (index, style) {
         if (sid == style.id) {
             var image = style.image, colors = style.colors, bgColor;
             var photoSide = products.select.side || style.has_design[0];
@@ -473,7 +474,7 @@ function YFshare(config) {
 
 $(function () {
     $('#showsize').click(function () {
-        popup('尺码表', '/Activity/sizes/?activityId=' + activity.id, {
+        popup('尺码表', '/product/sizes?act_id=' + $("#activity_id").val(), {
             ok: {show: true,callback:function(a){
                 a.modal('hide');
             }},
