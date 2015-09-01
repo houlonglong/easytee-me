@@ -202,7 +202,7 @@
                     name: 'ship_name',
                     index: 'ship_name',
                     width: 50,
-                    editable: true,
+                    editable: false,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
@@ -219,6 +219,19 @@
                     unformat: pickTimeDate,
                     formatter: function (cellvalue, options, rowObject) {
                         return rowObject['ship_province'] + rowObject['ship_city'] + rowObject['ship_area'] + cellvalue;
+                    }
+                },
+                {
+                    title: "状态", name: 'status', index: 'status', width: 150, sortable: false, editable: true,
+                    formatter: function (cellvalue, options, rowObject) {
+                        if(cellvalue == '待发货'){
+                             return '<span class="label label-warning arrowed arrowed-right">'+cellvalue+'</span>';
+                        }
+                        if(cellvalue == '待付款'){
+                            return '<span class="label arrowed">'+cellvalue+'</span>';
+                        }
+
+                        return cellvalue;
                     }
                 },
 //                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,

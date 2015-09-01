@@ -62,7 +62,7 @@ class Model_Admin_Production_Step extends Model_Admin_Abstract{
         $craft = $this->_request("craft");
         $manufacturer_id = $this->_request("manufacturer_id");
         $operator_id = $this->_request("operator_id");
-        $count = PtLib\db()->select_row('select count(id) from orders where status="待发货"');
+        $count = PtLib\db()->select_row('select count(id) as count from orders where status="待发货" and activity_id = ?',$activity_id);
         try{
             self::_db()->insert("activity_produces",array(
                 "activity_id"=>$activity_id,
@@ -71,7 +71,7 @@ class Model_Admin_Production_Step extends Model_Admin_Abstract{
                 "operator_id"=>$operator_id,
                 "status"=>'生产中',
                 "create_time"=>date('Y-m-d H:i:s'),
-                "order_count"=>$count
+                "order_count"=>$count['count']
             ));
         }catch (Exception $e){
 
