@@ -234,7 +234,7 @@
             activity_id:$activity_id,
         },function(data){
             console.log(data);
-            //location.reload();
+            location.reload();
         });
 
     }
