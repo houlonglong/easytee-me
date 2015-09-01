@@ -228,7 +228,13 @@
                              return '<span class="label label-warning arrowed arrowed-right">'+cellvalue+'</span>';
                         }
                         if(cellvalue == '待付款'){
-                            return '<span class="label arrowed">'+cellvalue+'</span>';
+                            return '<span class="label arrowed"><s>'+cellvalue+'</s></span>';
+                        }
+                        if(cellvalue == '已发货'){
+                            return '<span class="label label-success arrowed-in arrowed-in-right">'+cellvalue+'</span>';
+                        }
+                        if(cellvalue == '已完成'){
+                            return '<span class="label label-danger arrowed">'+cellvalue+'</span>';
                         }
 
                         return cellvalue;
