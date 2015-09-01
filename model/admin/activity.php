@@ -250,7 +250,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             $args[] = $username;
         }
         if ($request['activity_id']) {
-            $where .= " and id = ? ";
+            $where .= " and ".$table_alias.".id = ? ";
             $args[] = $request['activity_id'];
         }
         if ($request['activity_name']) {

@@ -203,6 +203,7 @@
                             <div class="col-sm-9">
                                 <select id="operator_id" class="col-xs-10 col-sm-5">
                                         <option value="1">洪波</option>
+                                        <option value="2">徐萍</option>
                                 </select>
                             </div>
                         </div>
@@ -233,8 +234,8 @@
             operator_id:$operator_id,
             activity_id:$activity_id,
         },function(data){
-            console.log(data);
-            location.reload();
+//            location.reload();
+            location.href="/admin/production/producting";
         });
 
     }
