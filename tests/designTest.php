@@ -124,7 +124,7 @@ class DesignTest extends UnitTest{
             "cookie"=>0,
         ));
         $this->set_local_test_proxy();
-        $res = $this->get_action("http://11.dev.jzw.com/Design/Get/?appKey=wqdc&designId=741&userToken=9fafd364225b156f23b4e17fe89d5e9763f94245");
+        $res = $this->get_action("http://11.dev.jzw.com/Design/Get/?appKey=wqdc&designId=2623&userToken=9fafd364225b156f23b4e17fe89d5e9763f94245");
         $xmlDatas = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
         //echo $res;
         echo PtLib\unicodeString(json_encode($xmlDatas,JSON_PRETTY_PRINT));
@@ -138,6 +138,7 @@ class DesignTest extends UnitTest{
         ));
         $this->set_local_test_proxy();
         $res = $this->get_action("http://11.dev.jzw.com/product/getList/1/?productCategoryId=1&appKey=wqdc");
+        echo $res;exit;
         $xmlDatas = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
         //echo $res;
         echo PtLib\unicodeString(json_encode($xmlDatas,JSON_PRETTY_PRINT));
@@ -151,6 +152,7 @@ class DesignTest extends UnitTest{
         ));
         $this->set_local_test_proxy();
         $res = $this->get_action("http://11.dev.jzw.com/Product/Get/?appKey=wqdc&productId=2&productStyleId=18");
+        //echo $res;exit;
         $xmlDatas = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
         //echo $res;
         echo PtLib\unicodeString(json_encode($xmlDatas,JSON_PRETTY_PRINT));

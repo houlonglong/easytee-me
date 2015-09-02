@@ -71,6 +71,8 @@ order/pay/wechat|微信支付
 order/pay/alipay|支付宝支付
 order/pay|支付
 
+order|订单
+
 EOT;
 
 include_once(__DIR__."/../init.php");

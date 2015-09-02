@@ -23,13 +23,13 @@ class Model_Tools_Captcha{
     }
     static function check_captcha_code($code,$type){
         if(empty($code)){
-            throw new Exception("楠岃瘉鐮佷笉鑳戒负绌?);
+            throw new Exception("验证码不能为空");
         }
         PtApp::session_start();
         $_code = self::get_session_code($type);
         //Pt\log("code:%s,_code:%s,type:%s",$code,$_code,$type);
         if($_code != $code){
-            throw new Exception("楠岃瘉鐮佷笉姝ｇ‘");
+            throw new Exception("验证码不正确");
         }
     }
 }

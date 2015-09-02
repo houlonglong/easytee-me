@@ -57,13 +57,8 @@ admin/finance/flow|提现申请|admin_list
 
 
 admin/express/price/index|快递费管理|admin_list|admin/express/price
-
 admin/design/tool/index|设计工具|admin_default
-
 order/pay/wechat/notify|微信支付回调
-
-
-
 
 EOT;
 
