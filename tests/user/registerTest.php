@@ -34,23 +34,37 @@ class RegisterTest extends UnitTest{
         echo $res;
     }
 
+    function test_action_login(){
+        $this->set_http_opt(array(
+            "debug"=>1,
+            "header"=>0,
+            "cookie"=>1,
+        ));
+
+        $this->test_host = "11.dev.jzw.com";
+        $this->set_local_test_proxy();
+        $res = $this->post_action("/login/index",array(
+            "username"=>'15601854797',
+            "password"=>"123456",
+        ));
+        echo $res;
+    }
     function test_action_auth(){
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
-            "cookie"=>0,
+            "cookie"=>1,
         ));
-
-        $this->test_host = "1.dev.jzw.com";
+        $this->test_action_login();
+        $this->test_host = "11.dev.jzw.com";
+        $content = "data:image/png;base64,".base64_encode(file_get_contents('E:/11.jpg'));
         $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"campus",
-            "action"=>"do_auth",
-            "img_url"=>"",
-            "real_name"=>"",
-            "student_no"=>"",
-            "school_name"=>"",
-            "major"=>"",
+        $res = $this->post_action("/campus/do_auth",array(
+            "img_url"=>$content,
+            "real_name"=>"lixiaomei",
+            "student_no"=>"09010614",
+            "school_name"=>"jiangxi",
+            "major"=>"informatin manager",
         ));
         echo $res;
     }

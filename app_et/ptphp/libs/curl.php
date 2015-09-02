@@ -18,7 +18,7 @@ class Curl{
     }
     function get_cookie_save_file($url){
         $info = parse_url($url);
-        return "/tmp/".$info['host'].(empty($info['port'])?"":"_".$info['port']).".cookie";
+        return (is_win()?"e:\\":"/tmp/").$info['host'].(empty($info['port'])?"":"_".$info['port']).".cookie";
     }
 
     /**
@@ -145,8 +145,6 @@ class Curl{
         $res['location'] = '';
         $res['body'] = '';
         $res['error'] = '';
-
-
 
         if(!$content){
             return $res;
