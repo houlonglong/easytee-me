@@ -2,8 +2,8 @@
 /**
  * 订单
  */
-class Model_Order extends BaseModel {
-    static $table = "";
+class Model_Order extends Model_User_Abstract {
+    static $table = "order";
     function __construct(){
         //parent::__construct();
     }
@@ -17,37 +17,102 @@ class Model_Order extends BaseModel {
 
     /**
      * 订单保存API
-     * @api
+     * @link http://git.ptphp.com/easytee/easytee-me/blob/master/docs/order.md
      *
      */
     function action_save(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
+
+    }
+    static function gen_order_no(){
+        return date('ymdHis') . sprintf('%03d', floor(microtime() * 1000)) . mt_rand(10, 99);
+    }
+    /**
+     *
+     * 保存订单
+     *
+     * @param $uid
+     * @param $goods_price
+     * @param $exp_price
+     * @param $quantity
+     * @param $subject
+     * @param $body
+     * @param $img_url
+     * @param $notes
+     */
+    static function save($uid,$goods_price,$exp_price,$quantity,$subject,$body,$img_url,$notes){
+        $order_no = self::gen_order_no();
+        $order_id = self::_db(NEW_DB)->insert("order",array(
+            'uid'=>$uid,
+            'order_no'=>$order_no,
+            'goods_price'=>$goods_price,
+            'exp_price'=>$exp_price,
+            'quantity'=>$quantity,
+            'subject'=>$subject,
+            'body'=>$body,
+            'img_url'=>$img_url,
+            'notes'=>$notes,
+            'add_time'=>date_time_now(),
         ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"order",
-            "action"=>"save",
-
-            "pay_type"=>"0",#支付类型 - 0 支付宝 - 1 微信 - 2 帐户余额
-            "ship_name"=>"",
-            "ship_name"=>"",
-            "ship_tel"=>"",
-            "ship_province"=>"",
-            "ship_city"=>"",
-            "ship_county"=>"",
-            "exp_price"=>"",
+        return $order_id;
+    }
+    static function bind_activity($order_id,$activity_id){
+        self::_db(NEW_DB)->insert("order_activity",array(
+            "order_id"=>$order_id,
+            "activity_id"=>$activity_id,
         ));
     }
+    static function get_order_info_by_id($id){
+        return self::_db(NEW_DB)->select_row("
+              select o.*,pay.*,ship.*
+              from `order` as o
+              left join order_pay as pay on pay.order_id = o.id
+              left join order_ship as ship on ship.order_id = o.id
+              left join order_activity as ac on ac.order_id = o.id
+              where o.id = ?
+              ",$id);
+    }
+    static function get_order_info_by_order_no($order_no){
+        return self::_db(NEW_DB)->select_row("
+              select o.*,pay.*,ship.*
+              from `order` as o
+              left join order_pay as pay on pay.order_id = o.id
+              left join order_ship as ship on ship.order_id = o.id
+              left join order_activity as ac on ac.order_id = o.id
+              where o.order_no = ?
+              ",$order_no);
+    }
 
+    static function get_order_status_by_id($id){
+        return self::_db(NEW_DB)->select_row("
+              select o.status,pay.pay_status,ship.ship_status
+              from `order` as o
+              left join order_pay as pay on pay.order_id = o.id
+              left join order_ship as ship on ship.order_id = o.id
+              where o.id = ?
+              ",$id);
+    }
 
+    static function get_order_status_by_order_no($order_no){
+        return self::_db(NEW_DB)->select_row("
+              select o.status,pay.pay_status,ship.ship_status
+              from `order` as o
+              left join order_pay as pay on pay.order_id = o.id
+              left join order_ship as ship on ship.order_id = o.id
+              where o.id = ?
+              ",$order_no);
+    }
 
-
-
+    /**
+     * 关闭订单
+     * @param $id
+     * @throws Exception
+     */
+    static function close($id){
+        self::_db(NEW_DB)->update("order",array(
+            "status"=>0,
+            "up_time"=>date_time_now()
+        ),array("id"=>$id));
+    }
     /**
      * 详情视图
      *

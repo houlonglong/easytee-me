@@ -1,18 +1,22 @@
 <?php
 use PtLib\UnitTest as UnitTest;
 /**
- * 支付
+ * 发货
  *
  */
-class PayTest extends UnitTest{
+class ShipTest extends UnitTest{
     function test_save(){
-        Model_Order_Pay::save(111,0,111,0);
+        $order_id = 44;
+        $name= "张三";
+        $tel= "13555555555";
+        $province= "上海市";
+        $city= "市辖区";
+        $county= "长宁区";
+        $addr= "长宁路100号";
+        $exp_com= "韵达";
+        $exp_price= 8.0;
+        Model_Order_Ship::save($order_id,$name,$tel,$province,$city,$county,$addr,$exp_com,$exp_price);
     }
-
-    function test_update_pay_success(){
-        Model_Order_Pay::update_pay_success(111,1,11.1,"ssss");
-    }
-
     /**
      *
      *

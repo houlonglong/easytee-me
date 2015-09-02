@@ -6,7 +6,9 @@ function email_check($email){
     // Validate e-mail
     return !filter_var($email, FILTER_VALIDATE_EMAIL) === false;
 }
-
+function date_time_now(){
+    return date("Y-m-d H:i:s");
+}
 /**
  * @param $content
  * @return mixed

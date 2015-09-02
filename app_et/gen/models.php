@@ -63,14 +63,13 @@ aliyun/oss|阿里云上传
 tools/sms|短信发送
 tools/email|发送邮件
 
-
 tools/db/merge1|数据库迁移
-
-
+ß
 order/pay/wechat|微信支付
 order/pay/alipay|支付宝支付
 order/pay|支付
-
+order/ship|发货
+order/goods|订单产品
 order|订单
 
 EOT;

@@ -33,6 +33,7 @@ class RegisterTest extends UnitTest{
         ));
         echo $res;
     }
+
     function test_action_auth(){
         $this->set_http_opt(array(
             "debug"=>0,

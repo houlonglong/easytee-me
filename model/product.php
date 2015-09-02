@@ -300,4 +300,20 @@ class Model_Product extends BaseModel{
         return $result;
     }
 
+    static function get_product_styles_by($style_ids){
+        if(empty($style_ids)) return array();
+        $rows = self::_db(NEW_DB)->select_rows("
+            select ps.id,ps.pro_id,ps.cost_price,ps.sale_price as unit_price,
+            ps.color as pro_color,ps.color_name as pro_color_name,p.name as pro_name,
+            brand.name as brand_name,cat.name as pro_cat_name
+            from pro_style as ps
+            left join product as p on p.id = ps.pro_id
+            left join man_brand as brand on brand.id = p.brand_id
+            left join pro_cat_rel as rel on rel.pro_id = p.id
+            left join pro_cat as cat on cat.id = rel.cat_id
+            where ps.id in (".implode(",",$style_ids).")
+        ");
+        return $rows;
+    }
+
 }

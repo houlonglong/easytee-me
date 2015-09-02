@@ -1,18 +1,24 @@
 <?php
 use PtLib\UnitTest as UnitTest;
 /**
- * 支付
+ * 订单产品
  *
  */
-class PayTest extends UnitTest{
+class GoodsTest extends UnitTest{
     function test_save(){
-        Model_Order_Pay::save(111,0,111,0);
+        $goods = array(
+            array(
+                #款式ID
+                "style_id"=>1,
+                #尺码
+                "size"=>"XL",
+                #数量
+                "quantity"=>1,
+            ),
+        );
+        $order_id = 1;
+        Model_Order_Goods::save($order_id,$goods);
     }
-
-    function test_update_pay_success(){
-        Model_Order_Pay::update_pay_success(111,1,11.1,"ssss");
-    }
-
     /**
      *
      *

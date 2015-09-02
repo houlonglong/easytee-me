@@ -308,9 +308,11 @@ class Database {
             }
         }catch (PDOException $e){
             $this->add_run_stack($stack);
-            //echo json_encode($this->stm->errorInfo());
-            //exit;
-            throw new Exception($e->getMessage());
+            $msg = $e->getMessage();
+            if(is_cli()){
+                $msg .="\n".var_export($stack,true);
+            }
+            throw new Exception($msg);
         }
         return $RSarray;
 
