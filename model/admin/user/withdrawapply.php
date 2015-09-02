@@ -168,9 +168,25 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
             $fields = array('status' => $status);
             if($status == 'paid'){
                 $fields['pay_time'] = date('Y-m-d H:i:s');
+                try{
+                    self::_db()->bt();
+                    $status = PtLib\db()->update('user_withdraw_applies', $fields, array('id' => $id));
+                    $money  = PtLib\db()->select_row('select money,uid from user_withdraw_applies where id = ?',$id);
+                    $row = self::_db()->run_sql('update users set money_disabled =money_disabled-'.$money['money'] .' where id=?',$money['uid']);
+                    if(!$row || !$status){
+                       throw new Exception('提现失败');
+                    }
+                    self::_db()->commit();
+                    echo 1;
+                }catch (Exception $e){
+                    self::_db()->rollback();
+                    self::_db()->commit();
+                }
+
+            }else{
+                $row = PtLib\db()->update('user_withdraw_applies', $fields, array('id' => $id));
+                echo $row;
             }
-            $row = PtLib\db()->update('user_withdraw_applies', $fields, array('id' => $id));
-            echo $row;
         }
     }
 

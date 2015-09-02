@@ -52,6 +52,7 @@
                                                 <select id="order-status">
                                                     <option value="">状态</option>
                                                     <option value="待付款">待付款</option>
+                                                    <option value="待发货">待发货</option>
                                                     <option value="已发货">已发货</option>
                                                     <option value="已完成">已完成</option>
                                                     <option value="已关闭">已关闭</option>
