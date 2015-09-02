@@ -250,7 +250,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             $args[] = $username;
         }
         if ($request['activity_id']) {
-            $where .= " and id = ? ";
+            $where .= " and ".$table_alias.".id = ? ";
             $args[] = $request['activity_id'];
         }
         if ($request['activity_name']) {
@@ -312,10 +312,10 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             // 当显示全部的时候，需要众筹状态
             if ($request['success'] == 'index') {
                 $profie = Model_Cost::calculate_profie($row['id']);
-                if ($profie > 0) {
+                if ($profie > 0 || $row['status'] =='fabrication') {
                     $row['activity_status'] = '成功的众筹';
                 } else {
-                    if ($row['real_end_time'] <= date('Y-m-d H:i:s')) {
+                    if ($row['real_end_time'] <= date('Y-m-d H:i:s') && $row['status'] !='fabrication') {
                         $row['activity_status'] = '失败的众筹';
                     } else {
                         if ($row['pass'] == 0) {
@@ -366,7 +366,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
             $select_fields = " o.*,og.*,m.name as manufacturer_name ";
 
 
-            $where = 'where ' . $table_alias . '.id = ?';
+            $where = 'where ' . $table_alias . '.id = ? and o.status in ("待发货","已付款","已完成")';
 
             $sql = "select $select_fields from $table $join $where  ";
             $myval = array();
@@ -526,7 +526,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         foreach ($rows as $row) {
             //筛选出成功的众筹
             $profie = Model_Cost::calculate_profie($row['id']);
-            if ($profie <= 0) {
+            if ($profie <= 0 && $row['status'] != 'fabrication') {
                 continue;
             }
             $response[] = $row;

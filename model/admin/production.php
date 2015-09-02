@@ -146,7 +146,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $join = ' inner join users as u on u.id = activities.uid left join activity_produces as ap on ap.activity_id = activities.id';
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord","status");
+        $request = PtLib\http_request("rows","page","sidx","sord","status","activity_name","activity_id","mobile","username");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -180,6 +180,22 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         }
         if($status == 'shipped'){
             $where .='and ap.status= "已发货" ';
+        }
+        if($request['mobile']){
+            $where .=' and u.mobile= ? ';
+            $args[] = $request['mobile'];
+        }
+        if($request['username']){
+            $where .=' and u.nick_name= ? ';
+            $args[] = $request['username'];
+        }
+        if($request['activity_name']){
+            $where .=' and '.$table_alias.'.name= ? ';
+            $args[] = $request['activity_name'];
+        }
+        if($request['activity_id']){
+            $where .=' and '.$table_alias.'.id= ? ';
+            $args[] = $request['activity_id'];
         }
         //order
         $order = "";

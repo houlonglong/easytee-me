@@ -55,13 +55,39 @@
                                             <a data-toggle="tab" href="#" onclick="return do_product('shipped');">已发货</a>
                                         </li>
                                     </ul>
+
                                     <div class="tab-content">
                                         <div class="tab-pane in active">
-                                            <table id="grid-table"></table>
-                                            <div id="grid-pager"></div>
-                                            <script type="text/javascript">
-                                                var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                            </script>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="widget-box">
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <form class="form-inline">
+                                                                    <input type="text" class="input-small" placeholder="活动名称" id="activity-name">
+                                                                    <input type="text" class="input-small" placeholder="活动ID" id="activity-id">
+                                                                    <input type="text" class="input-small" placeholder="用户名" id="username">
+                                                                    <input type="text" class="input-small" placeholder="手机号码" id="mobile">
+                                                                    <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                                        <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="grid-table"></table>
+                                                    <div id="grid-pager"></div>
+                                                    <script type="text/javascript">
+                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                                    </script>
+                                                </div>
+
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -96,9 +122,13 @@
     }
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function search(){
+    function search() {
         var $query = {
-            title:$('#title').val()
+            activity_name: $('#activity-name').val(),
+            username: $('#username').val(),
+            mobile: $('#mobile').val(),
+            activity_id:$('#activity-id').val()
+
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -124,14 +154,12 @@
                 {title:"预计交货时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: false},
                 {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
-                    formatoptions:{
-                        keys:true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                        delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
+                    formatter: function (cellvalue, options, rowObject) {
+                        var html='';
+                        html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
+                        return html;
                 },
+        }
             ]
 
         };
@@ -277,7 +305,7 @@
             pager : pager_selector,
             altRows: false,
             //toppager: true,
-            multiselect: true,
+            multiselect: false,
             //multikey: "ctrlKey",
             multiboxonly: false,
             loadComplete : function(xhr) {

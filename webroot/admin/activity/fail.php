@@ -73,6 +73,7 @@
                                                 <div class="widget-body">
                                                     <div class="widget-main">
                                                         <form class="form-inline">
+                                                            <input type="text"  class="input-small" placeholder="活动ID" id="activity-id">
                                                             <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
                                                             <input type="text"  class="input-small" placeholder="用户名" id="username">
                                                             <input type="text"  class="input-small" placeholder="手机号码" id="mobile">

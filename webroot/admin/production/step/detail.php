@@ -38,16 +38,39 @@
                                 <h2>活动ID:<?=$activity['id']?></h2>
                                 <?php if($produce){ ?>
                                     <div>
-                                        <?=$produce['status']?> -
-                                        <?=$produce['m_name']?> -
-                                        <?=$produce['operator_id']?> -
-                                        <?=$produce['create_time']?>
+
+                                        <table class="table table-striped table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>状态</th>
+                                                <th>厂商</th>
+                                                <th>操作员</th>
+                                                <th>下单时间</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <td><?=$produce['status']?></td>
+                                            <td><?=$produce['m_name']?></td>
+                                            <td><?=$produce['operator_id']?></td>
+                                            <td><?=$produce['create_time']?></td>
+
+                                            </tbody>
+
+                                        </table>
                                     </div>
                                 <?php }else{?>
                                     <div>
                                         <button onclick="$('#comfirm_model').modal('show')" class="btn btn-primary" onclick="">下单生产</button>
                                     </div>
                                 <?php } ?>
+
+
+
+
+
+
+
+
 
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -180,6 +203,7 @@
                             <div class="col-sm-9">
                                 <select id="operator_id" class="col-xs-10 col-sm-5">
                                         <option value="1">洪波</option>
+                                        <option value="2">徐萍</option>
                                 </select>
                             </div>
                         </div>
@@ -210,8 +234,8 @@
             operator_id:$operator_id,
             activity_id:$activity_id,
         },function(data){
-            console.log(data);
-            location.reload();
+//            location.reload();
+            location.href="/admin/production/producting";
         });
 
     }
