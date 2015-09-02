@@ -92,6 +92,7 @@ class DesignTest extends UnitTest{
         ));
         $this->set_local_test_proxy();
         $res = $this->get_action("http://11.dev.jzw.com/init/getConfig/?appKey=wqdc&productId=2&embroideryMode=false");
+        echo $res;exit;
         $xmlDatas = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
         //echo $res;
         echo PtLib\unicodeString(json_encode($xmlDatas,JSON_PRETTY_PRINT));
@@ -108,6 +109,7 @@ class DesignTest extends UnitTest{
         ));
         $this->set_local_test_proxy();
         $res = $this->get_action("http://11.dev.jzw.com/product/getCategoryList/?appKey=wqdc");
+        //echo $res;exit;
         $xmlDatas = simplexml_load_string($res, 'SimpleXMLElement', LIBXML_NOCDATA);
         //echo $res;
         echo PtLib\unicodeString(json_encode($xmlDatas,JSON_PRETTY_PRINT));
