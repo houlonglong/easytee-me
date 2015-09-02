@@ -227,6 +227,11 @@
                 "title":"财务总结",
                 "url":"/admin/finance/withdraw",
                 "hide_menu":0
+            },
+            {
+                "title":"学生列表",
+                "url":"/admin/campus/index",
+                "hide_menu":0
             }
         ]
     },
