@@ -1,0 +1,143 @@
+﻿<div id="isd-chooseNumberOfColors" ng-controller="ChooseNumberOfColorsController">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4>
+            上传图片处理
+        </h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div ng-hide="showMatchColors">
+                    <h4>在您上传的图片中有哪些颜色?</h4>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>小提示：</strong> 减少图片中的颜色可以降低生产成本。
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6" ng-repeat="num in numColorChoicesLeft track by $index">
+                            <input type="radio" name="numColors" value="{{$index + 1}}" ng-change="changeNumColors($index + 1)" ng-model="colorSettings.numColors"/>&nbsp;{{$index + 1}} 种颜色
+                        </label>
+                    </div>
+                    <div ng-hide="vectorOnly">
+                        <label>
+                            <input type="radio" name="numColors" value="blackAndWhite" ng-change="changeNumColors('blackAndWhite')" ng-model="colorSettings.numColors"/>&nbsp; 转换为黑白图片
+                        </label>
+                    </div>
+                    <div ng-hide="vectorOnly" ng-show="{{1==2}}">
+                        <label>
+                            <input type="radio" name="numColors" value="fullColor" ng-change="changeNumColors('fullColor')" ng-model="colorSettings.numColors"/>&nbsp;使用原图
+                        </label>
+                    </div>
+                    <a class="btn btn-success btn-lg" ng-click="showColorMatchingScreen()" style="margin-top:20px;">下一步</a>
+                </div>
+                <div ng-show="showMatchColors">
+                    <h4>更改颜色</h4>
+                    <div class="alert alert-warning alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>小提示：</strong> 您可以对颜色进行替换，减少图片中的颜色可以降低生产成本。
+                    </div>
+                    <div class="isd-uploaderColorMatchControls">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    当前颜色
+                                </th>
+                                <th></th>
+                                <th>
+                                    替换颜色
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="color in currentColors" ng-init="parentIndex = $index">
+                                <td class="isd-uploaderColorMatcherDelete">
+                                    <div class="btn glyphicon glyphicon-remove" ng-click="deleteColor(color, parentIndex)"></div>
+                                </td>
+                                <td class="isd-uploaderCurrentColor">
+                                    <div class="isd-uploaderColorSelector"
+                                         ng-style="{'background-color': getColorString(color.originalColor)}"
+                                         class="{{transparentClass(color)}}"
+                                         data-color="{{getColorString(color.originalColor)}}" show-color-tooltip></div>
+                                </td>
+                                <td class="isd-uploaderCurrentColorArrow">
+                                    <div class="glyphicon glyphicon-menu-right"></div>
+                                </td>
+                                <td>
+                                    <div ng-init="showingInlineModal=false">
+
+                                        <div class="isd-uploaderColorSelector"
+                                             ng-style="{'background-color': getColorString(color.matchedColor)}" ng-show="color.matchedColor"
+                                             ng-click="showColorOptions(color, parentIndex, $event)"
+                                             data-color="{{getColorString(color.matchedColor)}}" show-color-tooltip
+                                             ng-class="transparentClass(color.matchedColor)">
+                                        </div>
+                                        <div class="btn btn-info btn-sm" ng-hide="color.matchedColor" ng-click="showColorOptions(color, parentIndex, $event)">
+                                            选择颜色
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div id="uploaderColorOptions" class="ds-colorsBox clearfix" ng-show="showingInlineModal"
+                             is-inline-modal="showingInlineModal"
+                             ng-style="{'left': colorOptionsX + 'px', 'top': colorOptionsY + 'px'}">
+                            <div class="ds-colorPicker">
+                                <ul class="clearfix">
+                                    <li ng-style="{'background-color': storeColor.html_color}"
+                                        ng-repeat="storeColor in storeColors" ng-click="mapColor(color, storeColor, parentIndex);"
+                                        title="{{storeColor.name}}" data-color="{{storeColor.name}}" show-color-tooltip>
+                                    </li>
+                                    <li class="isd-color-selector isd-transparentColor" ng-click="mapColor(color, 'none', parentIndex);"
+                                        data-color="None" title="Transparent" show-color-tooltip>
+                                        <span class="glyphicon glyphicon-ban-circle"></span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <div class="isd-uploaderTotalImageColors">
+                            <div ng-show="numImageColors > maxColors">您的图片中有 {{numImageColors}} 种颜色, 为保证印刷质量我们最多支持 {{maxColors}}种颜色. 在继续之前，请减少颜色数量.
+                            </div>
+                            <div>
+                                <span class="label label-info">颜色总数: {{numImageColors}}</span>
+                            </div>
+                            <a ng-hide="numImageColors > maxColors" ng-click="addImageToDesigner()" class="btn btn-success btn-lg">继续</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="isd-eyedropperHint" ng-show="isRaster">
+                    <span class="glyphicon glyphicon glyphicon-pushpin"></span> 使用滴管工具，点击一个颜色，可以从图像中删除该颜色
+                </div>
+                <div class="isd-backgroundButtons" ng-hide="vectorOnly || showMatchColors">
+                    <button class="btn btn-default" ng-click="removeBackground(false)" ng-hide="backgroundRemoved">删除白色</button>
+                    <button class="btn btn-default" ng-click="removeBackground(true)" ng-hide="backgroundRemoved">删除白色背景</button>
+                    <div ng-show="backgroundRemoved" class="isd-backgroundRemoved">
+                        <span>{{preservedFigure ? "已删除白色背景" : "已删除所有"}}</span>
+                        <button ng-click="restoreBackground()">重设</button>
+                    </div>
+                </div>
+                <div class="isd-imageContainer" ng-class="{'isd-vector':!isRaster}">
+                    <img id="sourceImage" ng-src="{{originalSource}}" style="display:none"/>
+
+                    <div id="targetImageContainer">
+                        <div id="imageUploadPreloader" ng-show="loadingImage">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-show="loadingImage"
+             style="width:100%;height:100%;z-index:999;background-color:#fff;border:none; position:absolute; top:0px;left:0px;">
+            <h1 style="margin-top: 150px;font-size: 35px;line-height: 50px;text-align: center">正在处理图片，请稍等...</h1>
+            <p style="text-align:center;">所需时间取决于您图片的大小.</p>
+        </div>
+    </div>
+
+</div>

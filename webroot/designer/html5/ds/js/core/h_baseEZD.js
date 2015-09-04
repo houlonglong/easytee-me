@@ -1589,7 +1589,7 @@ function BaseEZD(b) {
             }
             q += u;
             q += "</UserDesign>";
-            g = "//" + ea.domain + "/api?model=design&action=save";
+            g = "//" + ea.domain + "/api?model=design/tool/beta&action=design_save&appKey=" + ea.AppToken + "&userToken=" + (p ? p : "");
             r.xmlDesign = q;
             for (d = 0; d < E.sides.length; d++) {
                 0 < E.sides[d].elements.length && (r["svg" + E.sides[d].side.name] = this.fixLinkedImagesInSVG(this.getSVG(E.sides[d], 4500), E.sides[d]));

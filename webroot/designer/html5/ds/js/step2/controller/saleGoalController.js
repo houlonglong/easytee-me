@@ -276,13 +276,17 @@ ui.controllers.SaleGoalController = function($scope){
             _products.push(_product);
         }
         var data = {
+            dataType: 'json',
+            appKey: ezdVars.AppToken,
+            userToken: ezdVars.UserToken,
             type: 0,//0代表众筹，1代表采购
+            activityId: ezdVars.ActivityID,
             designId: state.selectedDesignID,
             target: parseInt($scope.saleGoal),
             products: _products
         };
         $.ajax({
-            url: '//' + ezdVars.ApiDomain + '/api?model=activity&action=save',
+            url: '//' + ezdVars.ApiDomain + '/api?model=design/tool/beta&action=activity_save',
             type: 'post',
             dataType: 'json',
             data: data,
@@ -313,7 +317,11 @@ ui.controllers.SaleGoalController = function($scope){
     //保存活动
     eventManager.on('doneActivity', function(callback){
         var data = {
+            dataType: 'json',
+            appKey: ezdVars.AppToken,
+            userToken: ezdVars.UserToken,
             designId: ezdVars.DesignID,
+            activityId: ezdVars.ActivityID,
             name: $scope.activityName,//0代表众筹，1代表采购
             description: $scope.description,
             deadline: $scope.deadline,
@@ -337,12 +345,11 @@ ui.controllers.SaleGoalController = function($scope){
             $('[ng-model=description]').parents('.form-group').removeClass('has-error');
         }
         $.ajax({
-            url: '//' + ezdVars.ApiDomain + '/api?model=activity&action=save_info',
+            url: '//' + ezdVars.ApiDomain + '/api?model=design/tool/beta&action=activity_save_info',
             type: 'post',
             dataType: 'json',
             data: data,
             success: function(data){
-                $('#activityDirect').attr('href',data.return.url)
                 callback();
             },
             failure: function(){
@@ -356,7 +363,7 @@ ui.controllers.SaleGoalController = function($scope){
         $('#activityDirect').attr('href', '/activity/'+ezdVars.ActivityID);
         $scope.products = [];
         $.ajax({
-            url: '//' + ezdVars.ApiDomain + '/api?model=activity&action=info',
+            url: '//' + ezdVars.ApiDomain + '/api?model=design/tool/beta&action=activity_activity_info',
             type: 'post',
             dataType: 'json',
             data: {

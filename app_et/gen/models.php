@@ -27,6 +27,8 @@ activity|活动
 init|初始化
 product|产品
 design|设计
+design/tool/beta|设计工具
+
 font|字体
 art|素材
 admin/deamon/task|后台任务
@@ -37,6 +39,8 @@ admin/aftersale|售后管理
 admin/order|订单管理
 init|初始化
 activity|活动
+activity/beta|活动beta
+
 product|产品
 art|素材
 font|字体

@@ -19286,7 +19286,7 @@ ui.controllers.SaleGoalController = function($scope){
         $('#activityDirect').attr('href', '/activity/'+ezdVars.ActivityID);
         $scope.products = [];
         $.ajax({
-            url: '//' + ezdVars.ApiDomain + '/activity/activityInfo/',
+            url: '//' + ezdVars.ApiDomain + '/api?model=design/tool/beta&action=activity_activity_info',
             type: 'post',
             dataType: 'json',
             data: {

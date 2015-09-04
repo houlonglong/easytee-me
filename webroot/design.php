@@ -1,7 +1,28 @@
 <?php
 $http_host = $_SERVER['HTTP_HOST'];
-$pro_id = 2;
-$style_id = 18;
+
+$activityId = '';
+$designId = '';
+if (!isset($_REQUEST['ActivityID'])) {
+    $res = Model_Design_Tool_Beta::init();
+    $design_id = $res['design_id'];
+    $activity_id = $res['activity_id'];
+    \PtLib\location("/design?DesignID={$design_id}&ActivityID={$activity_id}");exit;
+} else {
+    $activityId = intval($_REQUEST['ActivityID']);
+    $activity = Model_Design_Tool_Beta::get_act_by_id($activityId);
+    // 已经生产的活动不能回到设计
+    if ($activity['status'] != 'create') {
+        \PtLib\location("/activity/{$activityId}");exit;
+    }
+    $style_id = $activity['app_product_style_id'];
+    $pro_id = $activity['app_product_id'];
+    $design_id = $activity['design_id'];
+}
+if (!isset($pro_id)) {
+    $pro_id = 2;
+    $style_id = 18;
+}
 $is_login = Model_User_Auth::is_logined()?1:0;
 ?>
 <!DOCTYPE html>
@@ -61,7 +82,7 @@ $is_login = Model_User_Auth::is_logined()?1:0;
                     "Embroidery": false,   //刺绣，暂未能提供该功能
                     "MaxScreenPrintColors": "12", // 丝网印刷最多支持的颜色数量
 
-                    "DesignID": "1",  //修改现有设计时，传入该参数
+                    "DesignID": "<?=$design_id?>",  //修改现有设计时，传入该参数
                     "DefaultProductID": "<?=$pro_id?>", //默认产品ID
                     "DefaultProductStyleID": "<?=$style_id?>", //默认产品款式ID
                     "ProductID": "<?=$pro_id?>",
@@ -145,10 +166,12 @@ $is_login = Model_User_Auth::is_logined()?1:0;
 </div>
 <?php include(block("block/page_footer"));?>
 
-<div style="display: block">
+<div style="display: none">
     <canvas id="canvas_convert" width="500px" height="500px"></canvas>
 </div>
-<svg width='500' height='500' id='svg_tmp'></svg>
+<div style="display: none">
+    <svg width='500' height='500' id='svg_tmp'></svg>
+</div>
 
 <script>
 function pt_get_js(){

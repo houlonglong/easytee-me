@@ -1,7 +1,7 @@
 var numErrorsLogged = 0;
 window.onerror = function(b, d, c) {
     console && console.log && console.log("错误: " + b + "\n" + d + ":" + c);
-    10 > numErrorsLogged && (jQuery.post(service.adjustUrl("/DesignerInterface/LogJavascriptError"), {
+    10 > numErrorsLogged && (jQuery.post(service.adjustUrl("/" + (ezdVars && ezdVars.ApiDomain ? ezdVars.ApiDomain : "open.dev.jzw.la/clientapi") + "/DesignerInterface/LogJavascriptError"), {
         msg: b,
         jsUrl: d,
         line: c,

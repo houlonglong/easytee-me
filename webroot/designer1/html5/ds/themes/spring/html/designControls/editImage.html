@@ -1,0 +1,50 @@
+﻿<form id="isd-editImage">
+    <div class="form-group">
+        <label>上传的图片</label>
+        <div class="form-control" style="white-space: nowrap;text-overflow: ellipsis;position: relative;overflow: hidden">
+            {{imageName}}
+            <span class="glyphicon glyphicon-trash pull-right" ng-click="delobj()"></span>
+        </div>
+
+    </div>
+    <div class="form-group" ng-show="colors" style="display: none;"><!-- && colors.length <= 10-->
+        <label>颜色替换</label>
+        <div>
+            <div class="dropdown ds-colorsBox " ng-repeat="color in colors track by $index" >
+                <a  ng-style="{'background-color':color}" ng-class="transparentClass(color)" data-color="{{color}}" ng-click="showChangeColorModal($index,$event)"
+                    show-color-tooltip>&nbsp;</a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" style="position: relative;"><!-- ng-hide="disableResolutionMeter" -->
+        <label>印刷质量</label>
+        <span style="position: absolute;top: 38px;left: 0; color: #8D8D8D;">低</span>
+        <span style="position: absolute;top: 38px;right: 0; color: #8D8D8D;">高</span>
+        <div style="position: relative; margin: 0 25px 5px;">
+            <img style="width: 100%; margin-top:10px;"
+                 ng-src="{{ezdLocation}}/ds/themes/spring/images/exp.png" alt="" title=""/>
+            <img style="  width: 11px; position: absolute; z-index: 2; top: 15px;"
+                 ng-style="{'left': qualityWidth}" ng-src="{{ezdLocation}}/ds/themes/spring/images/gauge.png"
+                 width="11" alt="" title=""/>
+        </div>
+        <span style="display:none">{{quality}}</span>
+        <span style="text-align:left; margin-top:0px;margin-bottom: 10px;font-size: 12px;color: #8D8D8D">为了提高印刷质量，请缩小图片尺寸.</span>
+    </div>
+    <div class="form-group">
+        <label>对齐</label>
+        <div>
+            <a class="btn btn-default btn-sm" title="垂直居中" ng-click="align_vertical()">
+                <span class="glyphicon glyphicon glyphicon-object-align-horizontal"></span>
+            </a>
+            <a class="btn btn-default btn-sm" title="水平居中" ng-click="align_horizontal()">
+                <span class="glyphicon glyphicon-object-align-vertical"></span>
+            </a>
+            <a class="btn btn-default btn-sm" title="水平翻转" ng-click="resize_horizontal()">
+                <span class="glyphicon glyphicon-resize-horizontal"></span>
+            </a>
+            <a class="btn btn-default btn-sm" title="垂直翻转" ng-click="resize_vertical()">
+                <span class="glyphicon glyphicon-resize-vertical"></span>
+            </a>
+        </div>
+    </div>
+</form>

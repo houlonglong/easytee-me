@@ -125,12 +125,12 @@ ui.controllers.UploaderLandingController = function(b, d, c) {
                     var f = new Image;
                     f.onload = function() {
                         var w  = parseInt($(f).context.width, 10),h= parseInt($(f).context.height, 10);
-                        if(w*h<(1024*1024)){
-                            alert("您上传的作品至少需要达到100万像素(当前像素："+w*h+")。\n如有问题请咨询客服：400-920-2085 协助您解决。");
+                        if(w*h<(400*400)){
+                            alert("您上传的作品至少需要达到16万像素(当前像素："+w*h+")。\n如有问题请咨询客服：400-920-2085 协助您解决。");
                             return;
                         }
-                        if(w*h > 36000000){
-                            alert("您上传的图片太大了！\n过大的尺寸会导致整个设计体验急剧变差。\n请适当缩小图片的宽高（3600万像数以内）或咨询客服：400-920-2085 协助您解决。");
+                        if(w*h > 3000*3000){
+                            alert("您上传的图片太大了！\n过大的尺寸会导致整个设计体验急剧变差。\n请适当缩小图片的宽高（900万像数以内）或咨询客服：400-920-2085 协助您解决。");
                             return;
                         }
                         state.imageUploadData.art_width = w;

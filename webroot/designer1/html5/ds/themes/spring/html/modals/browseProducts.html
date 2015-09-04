@@ -1,0 +1,62 @@
+﻿<div class=" product-type info dialog normal product-type-info modal window" name="product-type-info" tabindex="-1"  ng-controller="BrowseProductsController">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="close()">×</button>
+        <div name="header"><h3 ng-bind-html="product.name"></h3></div>
+    </div>
+    <div name="body" class="modal-body">
+        <div class=" product-type-views dialog-header">
+            <div class="info-image-wrapper">
+                <div class="info-image sprd-image product-type-image product-type-686 loading-error" style="display: inline-block;">
+                    <img ng-src="{{productRegion.imgurl}}" style="height: 320px; max-height: 320px;" src="" alt="{{product.name}}">
+                </div>
+            </div>
+            <div class="view-list-wrapper">
+                <ul class="view-list">
+                    <li ng-class="active" ng-repeat="region in productStyle.product_regions" ng-show="region.is_default == '1'" ng-click="selectProductRegion(region)">
+                        <div class=" sprd-image product-type-image product-type-686 loading-error" style="display: inline-block;">
+                            <img alt="{{product.name}}" ng-src="{{region.thumburl}}" style="width: 50px; max-width: 50px; height: 50px; max-height: 50px;">
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class=" details">
+            <div class="title">
+                {{product.name}}
+            </div>
+            <div class="description">
+                {{product.long_description}}
+            </div>
+            <div class="brand">
+                品牌：{{product.manufacturer}}
+            </div>
+            <div class="sizes">
+                尺码: S, M, L, XL, XXL
+            </div>
+            <div class="clearfix">
+                <div class="appearance-list-wrapper">
+                    <ul class="appearance-list">
+                        <li class=" appearance-color appearance-567" ng-repeat="style in product.product_styles"
+                            ng-class="{'active':style==productStyle}"
+                            ng-click="selectProductStyle(style,$event)"
+                            data-color="{{style.color}}" title="{{style.color}}" show-color-tooltip>
+                            <div>
+                                <div style="width: 100%;" ng-style="{'background-color':'#' + style.html_color}"></div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="select-wrapper">
+                <div class="price" ng-hide="{{hideProductPricing}}">
+                    ￥{{formatPrice(productStyle.unit_price)}}
+                </div>
+                <a class=" select-button bootstrap btn btn-success"  ng-click="loadProduct()">
+                    选择该产品
+                </a></div>
+        </div>
+    </div>
+    <div name="footer" class="modal-footer"></div>
+</div>

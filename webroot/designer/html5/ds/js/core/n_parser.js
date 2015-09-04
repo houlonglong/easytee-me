@@ -278,7 +278,7 @@ function Parser() {
             h(b.data);
         }, 50) : b.productId ? $.ajax({
             type: "GET",
-            url: "//" + f + "/api?model=product&action=get&productId=" + b.productId + "&style_id=" + b.productStyleId,
+            url: "//" + f + "/api?model=design/tool/beta&action=product_get&appKey=" + m + "&productId=" + b.productId + "&productStyleId=" + b.productStyleId,
             dataType: "xml",
             success: h
         }) : setTimeout(function() {
@@ -301,7 +301,7 @@ function Parser() {
         // debugger;
         $.ajax({
             type: "GET",
-            url: "//" + f + "/api?model=design&action=get&id=" + b,
+            url: "//" + f + "/api?model=design/tool/beta&action=design_get&appKey=" + m + "&designId=" + b + '&userToken=' + ezdVars.UserToken,
             dataType: "xml",
             success: d
         });

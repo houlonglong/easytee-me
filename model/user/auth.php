@@ -42,12 +42,12 @@ class Model_User_Auth extends BaseModel{
     }
     static function login($username,$password){
         $field = email_check($username)?"email":"mobile";
-        $user = self::_db(NEW_DB)->select_row("select * from user where {$field} = ?",$username);
+        $user = self::_db()->select_row("select * from new_users where {$field} = ?",$username);
         if(!$user) throw new Exception("用户不存在");
-        $password = md5(sha1($password));
+        $password = sha1($password);
         if($user['password'] == $password){
             $user_info = array(
-                "nick_name"=>$user['nick_name'] ? $user['nick_name']:($user['mobile']?$user['mobile']:$user['email']),
+                "nick_name"=>$user['nickname'] ? $user['nickname']:($user['mobile']?$user['mobile']:$user['email']),
                 "mobile"=>$user['mobile'],
                 "email"=>$user['email'],
                 "uid"=>$user['id']

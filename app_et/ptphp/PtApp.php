@@ -236,8 +236,10 @@ function web_route(){
                 $REDIRECT_URL = $_SERVER['REDIRECT_URL'];
 
             if(substr($REDIRECT_URL,-4) == '.php') $REDIRECT_URL = substr($REDIRECT_URL,0,-4);
-            $path =  PATH_WEBROOT.$REDIRECT_URL.".php";
-            PtApp::$control = $REDIRECT_URL;
+
+            $control = parse_control($REDIRECT_URL);
+            $path =  PATH_WEBROOT.$control.".php";
+            PtApp::$control = $control;
             if(is_file($path)){
                 route_control($path);
             }else{//action

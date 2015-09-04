@@ -10,7 +10,7 @@ ui.controllers.AddressListController = function($scope, $compile, $routeParams, 
         $scope.addressList = [];
         var defaultId;
         $.ajax({
-            url: '//' + ezdVars.ApiDomain + '/Address/getList/',
+            url: '//' + ezdVars.ApiDomain + '/api?model=design/tool/beta&action=address_get_list',
             type: 'post',
             data: {
                 dataType: 'json',

@@ -434,6 +434,8 @@ class Model_Design extends BaseModel{
         //self::_redis()->set("design_init_config",$xml);
         xml_response($xml);
     }
+
+
     static function convert_svg_to_png($from_path,$to_path,$color = 'none'){
         if($color != 'none'){
             $color =  str_replace("#","",$color);

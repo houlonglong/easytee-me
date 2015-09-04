@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<?php
+$redirect = empty($_REQUEST['redirect'])?"":$_REQUEST['redirect'];
+?><!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -39,7 +41,7 @@
                                                 <button type="button" data-loading-text="正在努力登录中..." class="btn btn-success btn-lg" id="loginAction">登录</button>
                                                 <a href="/login/findPassword" class="forget-pass hide">忘记密码?</a>
                                             </div>
-                                            <input name="relurl" type="hidden" value="http://11.dev.jzw.com/">
+                                            <input name="redirect" type="hidden" id="redirect" value="<?=$redirect?>">
                                         </form>
                                         <hr>
                                     </div>

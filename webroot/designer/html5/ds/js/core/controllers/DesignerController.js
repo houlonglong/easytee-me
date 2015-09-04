@@ -173,7 +173,7 @@ ui.controllers.DesignerController = function(b, d, c, g, k, $location) {
                 eventManager.trigger('validateActivity', function(){
                     if(ezdVars.UserToken == '0'){
                         var url = window.location.href;
-                        window.location.href = '/login?relurl='+encodeURIComponent(url);
+                        window.location.href = '/user/auth/login?redirect='+encodeURIComponent(url);
                     }else{
                         $('.step').addClass('isd-disabled');
                         eventManager.trigger('saveActivity', function(){
@@ -318,13 +318,10 @@ ui.controllers.DesignerController = function(b, d, c, g, k, $location) {
         console.log('done');
         eventManager.trigger('doneActivity', function(){
             //TODO 成功后跳转地址
-            var time = 2000;
-            //var $time = 11112000;
-            alert($time);
             state.isDone = true;
             setTimeout(function(){
                 window.location.href = $('#activityDirect').attr('href');
-            },$time);
+            },2000);
             $('#doneDialog').show();
         });
     };

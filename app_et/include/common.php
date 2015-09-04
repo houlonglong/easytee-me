@@ -1,5 +1,13 @@
 <?php
-
+function parse_control($control){
+    $act = "/activity/";
+    $_control = substr($control,0,strlen($act));
+    if($_control == $act){
+        $_REQUEST['id'] = $_GET['id'] = str_replace($act,"",$control);
+        $control = "/activity";
+    }
+    return $control;
+}
 function email_check($email){
     // Remove all illegal characters from email
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);

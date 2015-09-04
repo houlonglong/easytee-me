@@ -6,7 +6,7 @@ var EasyTeeService = function(b) {
         var e = options.methodName;
         var k = options.parameters;
         var s = options.queryStringParameters||{};
-        s.appKey=b.AppToken;
+        //s.appKey=b.AppToken;
         var w = options.successRootTagName;
         var v = options.error;
         var x = options.postData;
@@ -25,19 +25,19 @@ var EasyTeeService = function(b) {
         var reqUrl = "";
         switch(e){
             case "GetProduct":
-                reqUrl = "api?model=product&action=get";
+                reqUrl = "api?model=design/tool/beta&action=product_get";
                 break;
             case "GetProductCategoryList":
-                reqUrl = "api?model=product&action=cat_list";
+                reqUrl = "api?model=design/tool/beta&action=product_get_cat_list";
                 break;
             case "GetProductList":
-                reqUrl = "api?model=product&action=get_list";
+                reqUrl = "api?model=design/tool/beta&action=product_get_list";
                 break;
             case "GetFontList":
-                reqUrl = "api?model=font&action=get_list";
+                reqUrl = "api?model=design/tool/beta&action=font_get_list";
                 break;
             case "GetDesign":
-                reqUrl = "api?model=design&action=get";
+                reqUrl = "design/get";
                 break;
             case "GetDesignCategoryList":
                 reqUrl = "design/getCategoryList";
@@ -66,15 +66,9 @@ var EasyTeeService = function(b) {
         v = y ? "/" + b.AppURI + "/" : "/";
         t && b.sslDomain && (v = "https://" + b.sslDomain + v);
         //添加请求方法名
+        v += reqUrl ;
 
-
-        //v += reqUrl + "/";
-
-        v += reqUrl;
-        //d.noAppTokenInUrl || (v += b.AppToken + "/");
-
-        if(e =="GetProductList" || e =="GetProduct" || e == 'GetFontList'){
-
+        if(e =="GetProductList" || e =="GetProduct" || e == 'GetFontList' || e == 'GetProduct'){
 
         }else{
             //这一段可能和缓存有关
@@ -85,16 +79,15 @@ var EasyTeeService = function(b) {
             for (y = 0; y <= t; y++) {
                 "undefined" !== k[y] && k[y] ? k[y] && (v += escape(k[y]) + "/") : v += "0/";
             }
-
         }
-
 
         //如果queryStringParameters不为空,将queryStringParameters的值放到Url参数里。
         var parameters = s;
         if (parameters) {
             var pArr = [];
             for (var pName in parameters) {
-                if(pName != 'appKey') pArr.push(pName+'='+encodeURIComponent(parameters[pName]));
+                //alert(pName);
+                pArr.push(pName+'='+encodeURIComponent(parameters[pName]));
             }
             if(pArr.length > 0){
                 if(v.indexOf("?")>0){
@@ -103,8 +96,6 @@ var EasyTeeService = function(b) {
                     v += '?' + pArr.join('&');
                 }
             }
-
-
         }
 
         //若使用本地消息
@@ -442,7 +433,7 @@ var EasyTeeService = function(b) {
         $.ajax({
             type: "POST",
             xhrFields: r,
-            url: m.adjustUrl("/api?model=design&action=init&pro_id=" + c),
+            url: m.adjustUrl("/api?model=design/tool/beta&action=init&appKey=" + b.AppToken  +"&productId=" + c + "&embroideryMode=" + d),
             success: function(e) {
 //                debugger;
                 $('.design-tool, .design-product').fadeIn();
@@ -841,7 +832,7 @@ var EasyTeeService = function(b) {
         };
         n || (n = h);
 //        if(d){
-            d = "/api?model=art&action=save";
+            d = "/art/save/?appKey=" + b.AppToken + "&userToken=" + d + "&DesignID=" + ezdVars.DesignID;
             service.ajaxCallStarted && service.ajaxCallStarted("SaveArt", "处理图像中...");
             $.ajax({
                 type: "POST",
@@ -1195,8 +1186,7 @@ var EasyTeeService = function(b) {
     };
     this.getDistressList = function(b, e) {
         return d({
-            //methodName: "GetDistressList",
-            methodName: "api?model=design&action=get_distress_list",
+            methodName: "GetDistressList",
             parameters: [],
             successRootTagName: "DistressList",
             deserializationSettings: {},
@@ -1223,7 +1213,7 @@ var EasyTeeService = function(b) {
         // debugger;
         var tagId = font.font || font.fontFamily;
         var fontId = font.font_id || font.fontId;
-        var src = "//" + b.domain + "/api?model=font&action=get_js_font&fontid=" + fontId + "&text=" + encodeURIComponent(text);
+        var src = "//" + b.domain + "/api?model=design/tool/beta&action=font_get_js_font&appKey=" + b.AppToken + "&fontid=" + fontId + "&text=" + encodeURIComponent(text);
         service.loadScript(src, tagId, callback, errCallback, callback2)
     };
     this.getExcludedFontIDs = function(c, e) {

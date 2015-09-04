@@ -140,4 +140,5 @@ class Model_Activity extends BaseModel{
         $activity = self::_db(NEW_DB)->select_row("select *,s.sale_count from activity as a left join act_sale as s on s.act_id = a.id where id = ?",$id);
         return $activity;
     }
+
 }
