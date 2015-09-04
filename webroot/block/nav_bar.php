@@ -21,12 +21,15 @@
                 <li><a href="/design" class="design">开始设计</a></li>
                 <!--<li><a href="/invite">邀请朋友</a></li>-->
             </ul>
-            <?php if(Model_User_Auth::is_logined()){?>
+            <?php if(Model_User_Auth::is_logined()){
+                    $uid = Model_User_Auth::get_uid();
+                $user = \PtLib\db_select_row("select * from users where id = ?",$uid);
+                ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/user/order/index">我的订单</a></li>
                     <li><a href="/user/activity/index">我的活动</a></li>
                     <li class="dropdown  pull-right">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">你好，18601628937 <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">你好，<?=$user['nick_name']?> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="/user/setting/profile">账户设置</a></li>
                             <li class="divider"></li>

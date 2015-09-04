@@ -5,11 +5,13 @@
             <a href="/user/index">
                 <img style="width: 50px;height:50px" src="/static/images/no-photo.png" class="img-circle m-b" alt="logo">
             </a>
-
+            <?php
+            $uid = Model_User_Auth::get_uid();
+            $user = PtLib\db_select_row("select nick_name from users where id = ?",$uid);
+            ?>
             <div class="stats-label text-color">
-                <span class="font-extra-bold font-uppercase">小叶子</span>
-
-                <div class="dropdown">
+                <span class="font-extra-bold"><?=$user['nick_name']?></span>
+                <div class="dropdown" style="margin-top: 10px;">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
                         <small class="text-muted">注册用户 <b class="caret"></b></small>
                     </a>

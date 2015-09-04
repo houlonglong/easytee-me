@@ -65,16 +65,19 @@
                         <div class="table-responsive project-list">
                             <table class="table table-striped">
                                 <tbody>
-                                <?php foreach($rows as $row){ ?>
+                                <?php
+                                foreach($rows as $row){
+
+                                    ?>
                                     <tr>
                                         <td style="width: 70px;">
                                             <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me/products/2/front.png">
                                         </td>
                                         <td>
-                                            <a target="_blank" href="/activity?id=<?=$row['id']?>"><strong><?=$row['name']?></strong></a>
+                                            <a target="_blank" href="/activity?id=<?=$row['id']?>"><strong><?=$row['id']?><br><?=$row['name']?></strong></a>
                                         </td>
                                         <td>
-                                            <span class="pie">10/<?=$row['sale_target']?></span>
+                                            <span class="pie"><?=$row['sales_count']?>/<?=$row['sales_target']?></span>
                                         </td>
                                         <td>剩余时间:1 天</td>
                                         <td style="width: 150px;" class="tooltip-action">

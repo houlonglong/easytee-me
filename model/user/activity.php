@@ -3,16 +3,15 @@
  * 用户活动
  */
 class Model_User_Activity extends Model_User_Abstract {
-    static $table = "";
     function __construct(){
         parent::__construct();
     }
     function view_index(){
-        $uid = self::get_uid();
+        $uid = Model_Design_Tool_Beta::get_uid();
         $p = self::_request("p");
         $page = (empty($p)  || intval($p) == 0) ? 1 : intval($p);
-        $limit = 2;
-        $row_total = self::_db(NEW_DB)->select_row("select count(id) as total from activity where uid = ?",$uid);
+        $limit = 10;
+        $row_total = self::_db()->select_row("select count(id) as total from activities where uid = ?",$uid);
         $total = $row_total['total'];
         if( $total > 0 )
             $total_pages = ceil($total/$limit);
@@ -23,8 +22,8 @@ class Model_User_Activity extends Model_User_Abstract {
 
         $skip = ($page - 1) * $limit;
 
-        $rows = self::_db(NEW_DB)->select_rows("select * from activity where uid = ? limit {$skip},{$limit}",$uid);
-
+        $rows = self::_db()->select_rows("select * from activities where uid = ? order by id desc limit {$skip},{$limit} ",$uid);
+        //var_dump($rows);exit;
         $params = array(
             'total_rows'=>$total, #(必须)
             'list_rows'=>$limit,

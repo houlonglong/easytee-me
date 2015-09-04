@@ -46,7 +46,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.2s;">
-                                <h4>订单号 <small>144444444</small></h4>
+                                <h4>订单号 <small><?=$order['order_no']?></small></h4>
                             </div>
                             <div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.2s;">
                                 <div class="text-right">
@@ -63,19 +63,19 @@
                             <div class="col-sm-6 animated-panel zoomIn" style="animation-delay: 0.3s;">
                                 <h4></h4>
                                 <p>
-                                    <span><strong>订购时间:</strong> 2015-06-07</span><br>
-                                    <span><strong>订单状态:</strong> 未付款</span><br>
+                                    <span><strong>订购时间:</strong> <?=$order['create_time']?></span><br>
+                                    <span><strong>订单状态:</strong> <?=$order['status']?></span><br>
                                 </p>
                             </div>
                             <div class="col-sm-6 text-right animated-panel zoomIn" style="animation-delay: 0.4s;">
                                 <span>收货人:</span>
                                 <address>
-                                    <strong>李四</strong><br>
-                                    山东 - 济南 - 章丘市<br>
-                                    双山街道办事处<br>
-                                    <abbr title="Phone">电话:</abbr> 13555555555
+                                    <strong><?=$order['ship_name']?></strong><br>
+                                    <?=$order['ship_province']?> - <?=$order['ship_city']?> - <?=$order['ship_area']?><br>
+                                    <?=$order['ship_addr']?><br>
+                                    <abbr title="Phone">电话:</abbr> <?=$order['ship_mobile']?>
                                 </address>
-                                <p>
+                                <p style="display: none">
                                     <span><strong>发货时间:</strong> 2015-06-07</span><br>
                                 </p>
                             </div>
@@ -115,25 +115,23 @@
 
                                     <tr>
                                         <td><strong>快递费 :</strong></td>
-                                        <td>5 元</td>
+                                        <td><?=$order['express_price']?> 元</td>
                                     </tr>
                                     <tr>
                                         <td><strong>总计 :</strong></td>
-                                        <td>115 元</td>
+                                        <td><?=$order['express_price']+$order['total_price'] ?> 元</td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-                        <div class="row">
+                        <div class="row" style="display: <?=empty($order['notes'])?'none':'block' ?>">
                             <div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.5s;">
                                 <div class="m-t"><strong>备注</strong>
-
+                                <p><?=$order['notes']?></p>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 

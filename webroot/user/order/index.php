@@ -84,8 +84,8 @@
                                             <td>
                                                 李四
                                             </td>
-                                            <td><?=$row['goods_price']?></td>
-                                            <td><?=$row['add_time']?></td>
+                                            <td><?=$row['express_price'] +  $row['total_price']?></td>
+                                            <td><?=$row['create_time']?></td>
                                             <td><a href="/user/order/detail?id=<?=$row['id']?>">查看</a></td>
                                         </tr>
                                         <?php } ?>

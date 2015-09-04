@@ -1,19 +1,3 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta http-equiv="Cache-Control" content="no-siteapp"/>
-<meta name="renderer" content="webkit">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>T恤在线设计工具-易衫网-中国服装定制首选平台</title>
-<meta name="keywords" content="定制T恤,定制T恤,T恤,T恤丝网印刷,刺绣,数码印刷,设计,定制服装"/>
-<meta name="description" content="使用易衫网的T恤在线设计工具来创建您的作品.您可以上传自己的设计,或者使用我们丰富的素材库和众多的各种字体."/>
-<?php include(block("block/html_head"));?>
-<script src="/resources/public/js/jquery.cookie.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/theme/activity/css/activity.css">
-<body>
-<?php include(block("block/nav_bar"));?>
-
 <?php
 $info = Model_Activity_Beta::get_activity_info();
 $svgs = $info['svgs'];
@@ -26,7 +10,23 @@ if (isset($user)) {
     $uid = $user['id'];
 }
 
-?>
+?><!DOCTYPE html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta name="renderer" content="webkit">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title><?=$activity['name']?>-易衫网-中国服装定制首选平台</title>
+<meta name="keywords" content="定制T恤,定制T恤,T恤,T恤丝网印刷,刺绣,数码印刷,设计,定制服装"/>
+<meta name="description" content="使用易衫网的T恤在线设计工具来创建您的作品.您可以上传自己的设计,或者使用我们丰富的素材库和众多的各种字体."/>
+<?php include(block("block/html_head"));?>
+<script src="/resources/public/js/jquery.cookie.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/theme/activity/css/activity.css">
+<body>
+<?php include(block("block/nav_bar"));?>
+
+
 <div class="page-wrapper activity">
     <?php
     if ($activity['pass'] == 0 && ($user['id'] == $activity['publisher']['uid'] || $easyteeAdmin)) {

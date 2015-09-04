@@ -42,20 +42,20 @@
         <div>
 
             <div class="row">
-                <div class="col-lg-5 animated-panel zoomIn" style="animation-delay: 0.2s;">
+                <div class="col-lg-8 animated-panel zoomIn" style="animation-delay: 0.2s;">
                     <div class="hpanel">
 
                         <div class="panel-body">
                             <form method="get" onsubmit="return false;" class="form-horizontal">
                                 <div class="form-group"><label class="col-sm-2 control-label">昵称</label>
 
-                                    <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                    <div class="col-sm-10"><input type="text" id="nick_name" class="form-control" value="<?=$nick_name?>"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 
                                 <div class="form-group">
                                     <div class="col-sm-8 col-sm-offset-2">
-                                        <button class="btn btn-primary" type="button">保存</button>
+                                        <button class="btn btn-primary" type="button" onclick="change_profile()">修改</button>
                                     </div>
                                 </div>
                             </form>
@@ -90,6 +90,21 @@
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
 <script>
+    function change_profile(){
+        var nick_name = $("#nick_name").val();
+        $.post("/api",{
+            model:"user/setting",
+            action:"profile_save",
+            nick_name:nick_name
+        },function(data){
+            if(data.status == 0){
+                alert("修改成功");
+                location.reload();
+            }else{
+                alert(data.message);
+            }
+        },"json");
+    }
     $(function () {
 
 

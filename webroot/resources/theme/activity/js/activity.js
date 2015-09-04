@@ -41,6 +41,7 @@ function showdetail(typ) {
  * @returns {undefined}
  */
 function activityPage(page, url) {
+    reutrn;
     url = url || '';
     if (url == '') {
         url = '/Activity/getSupporter/' + activity.id + '?page=' + page;
@@ -194,7 +195,7 @@ function callOrder() {
                     var form = modal.find('form');
                     var data = get_product_list(form);
                     $.cookie("act_order_form", data, {path: "/"});
-                    window.location.href = "/order?act_id=" + activity.id;
+                    window.location.href = "/order/beta?act_id=" + activity.id;
                 } else {
                     btn.button('reset');
                 }

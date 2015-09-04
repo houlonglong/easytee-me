@@ -45,23 +45,41 @@
                     <div class="hpanel">
 
                         <div class="panel-body">
+                            <style>
+                                .text_height{
+                                    line-height: 24px;
+                                    height: 24px;
+                                    margin-top: 4px;
+                                    display: inline-block;
+                                }
+                            </style>
                             <form method="get" onsubmit="return false;" class="form-horizontal">
 
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">帐户余额</label>
-                                    <div class="col-sm-5">100.1</div>
+                                    <div class="col-sm-5"><div class="text_height"><?=$balance_tx?></div> 元</div>
+                                </div>
+                                <div class="form-group"><label class="col-sm-2 control-label">提现帐户类型</label>
+                                    <?php
+                                    $pay_types = array(
+                                        "wechat"=>"微信支付",
+                                        "alipay"=>"支付宝"
+                                    );
+
+                                    ?>
+                                    <div class="col-sm-5"><div class="text_height"><?=$pay_types[$pay_type]?></div></div>
                                 </div>
                                 <div class="form-group"><label class="col-sm-2 control-label">提现帐户</label>
-                                    <div class="col-sm-5">fangtee@qq.com</div>
+                                    <div class="col-sm-5"><div class="text_height"><?=$pay_account?></div></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">提现金额</label>
-                                    <div class="col-sm-5"><input type="text" class="form-control"></div>
+                                    <div class="col-sm-3"><input type="number" id="amount" class="form-control"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-8 col-sm-offset-2">
-                                        <button class="btn btn-primary" type="button">提现</button>
+                                        <button class="btn btn-primary" type="button" onclick="do_withdraw(this)">提现</button>
                                     </div>
                                 </div>
                             </form>
@@ -76,53 +94,6 @@
     </div>
     <!-- Footer-->
     <?php include(block("user/block/footer"))?>
-
-    <div class="modal fade" id="model_address" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="color-line"></div>
-                <div class="modal-header text-center">
-                    <h4 class="modal-title">收货地址</h4>
-                </div>
-                <div class="modal-body">
-
-                    <form method="get" onsubmit="return false;" class="form-horizontal">
-                        <div class="form-group"><label class="col-sm-2 control-label">收人人姓名</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">电话</label>
-                            <div class="col-sm-4"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">省</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">市</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">区</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">地址</label>
-                            <div class="col-sm-10"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <!-- Vendor scripts -->
@@ -143,6 +114,25 @@
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
 <script>
+    function do_withdraw(obj){
+        var amount = $("#amount").val();
+        if(!amount)
+            return alert("提现金额不能为空");
+        $(obj).attr("disabled",true);
+        $.post("/api",{
+            model:"user/setting",
+            action:"do_withdraw",
+            amount:amount
+        },function(data){
+            if(data.status == 0){
+                alert("提交成功");
+                location.href = "/user/setting/withdraw_record";
+            }else{
+                alert(data.message);
+                $(obj).removeAttr("disabled");
+            }
+        },"json");
+    }
     $(function () {
 
 

@@ -73,6 +73,7 @@ order/pay/wechat|微信支付
 order/pay/alipay|支付宝支付
 order/pay|支付
 order/ship|发货
+order/beta|订单确认
 order/goods|订单产品
 order|订单
 

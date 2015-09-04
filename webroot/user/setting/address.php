@@ -66,16 +66,16 @@
                                         <th width="80px">操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody><?php foreach($rows as $row){ ?>
                                     <tr>
                                         <td>
-                                            ***<br>
-                                            ** - ** - **
+                                            <?=$row['address']?><br>
+                                            <?=$row['province']?> - <?=$row['city']?> - <?=$row['county']?>
                                         </td>
-                                        <td>李四</td>
-                                        <td>13555555555</td>
+                                        <td><?=$row['name']?></td>
+                                        <td><?=$row['mobile']?></td>
                                         <td><a href="#" class="btn btn-primary btn-sm">修改</a></td>
-                                    </tr>
+                                    </tr><?php } ?>
 
                                     </tbody>
                                 </table>

@@ -48,21 +48,20 @@
                             <form method="get" onsubmit="return false;" class="form-horizontal">
                                 <div class="form-group"><label class="col-sm-2 control-label">帐号类型</label>
                                     <div class="col-sm-3">
-                                        <select name="" id="" class="form-control">
-                                            <option value="">支付宝</option>
-                                            <option value="">微信</option>
-                                            <option value="">银行帐户</option>
+                                        <select name="" id="pay_type" class="form-control">
+                                            <option <?php if($pay_type == 'alipay') echo 'selected'?> value="alipay">支付宝</option>
+                                            <option <?php if($pay_type == 'wechat') echo 'selected'?> value="wechat">微信</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group"><label class="col-sm-2 control-label">帐户</label>
-                                    <div class="col-sm-5"><input type="text" class="form-control"></div>
+                                    <div class="col-sm-5"><input  id="pay_account" type="text" class="form-control" value="<?=$pay_account?>"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-8 col-sm-offset-2">
-                                        <button class="btn btn-primary" type="button">保存</button>
+                                        <button class="btn btn-primary" type="button" onclick="save_account()">保存</button>
                                     </div>
                                 </div>
                             </form>
@@ -79,51 +78,6 @@
     <!-- Footer-->
     <?php include(block("user/block/footer"))?>
 
-    <div class="modal fade" id="model_address" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="color-line"></div>
-                <div class="modal-header text-center">
-                    <h4 class="modal-title">收货地址</h4>
-                </div>
-                <div class="modal-body">
-
-                    <form method="get" onsubmit="return false;" class="form-horizontal">
-                        <div class="form-group"><label class="col-sm-2 control-label">收人人姓名</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">电话</label>
-                            <div class="col-sm-4"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">省</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">市</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">区</label>
-                            <div class="col-sm-3"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="hr-line-dashed"></div>
-                        <div class="form-group"><label class="col-sm-2 control-label">地址</label>
-                            <div class="col-sm-10"><input type="text" class="form-control"></div>
-                        </div>
-                        <div class="hr-line-dashed"></div>
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                    <button type="button" class="btn btn-primary">保存</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
 
@@ -145,6 +99,23 @@
 <!-- App scripts -->
 <script src="/static/scripts/homer.js"></script>
 <script>
+    function save_account(){
+        var pay_account = $("#pay_account").val();
+        var pay_type = $("#pay_type").val();
+        $.post("/api",{
+            model:"user/setting",
+            action:"pay_account_save",
+            pay_account:pay_account,
+            pay_type:pay_type
+        },function(data){
+            if(data.status == 0){
+                alert("保存成功");
+                location.reload();
+            }else{
+                alert(data.message);
+            }
+        },"json");
+    }
     $(function () {
 
 

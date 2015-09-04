@@ -12,7 +12,7 @@ class Model_User_Order extends Model_User_Abstract {
         $p = self::_request("p");
         $page = (empty($p)  || intval($p) == 0) ? 1 : intval($p);
         $limit = 2;
-        $row_total = self::_db(NEW_DB)->select_row("select count(id) as total from `order` where uid = ?",$uid);
+        $row_total = self::_db()->select_row("select count(id) as total from `orders` where uid = ?",$uid);
         $total = $row_total['total'];
         if( $total > 0 )
             $total_pages = ceil($total/$limit);
@@ -23,7 +23,7 @@ class Model_User_Order extends Model_User_Abstract {
 
         $skip = ($page - 1) * $limit;
 
-        $rows = self::_db(NEW_DB)->select_rows("select * from `order` where uid = ? limit {$skip},{$limit}",$uid);
+        $rows = self::_db()->select_rows("select * from `orders` where uid = ? limit {$skip},{$limit}",$uid);
 
         $params = array(
             'total_rows'=>$total, #(必须)
@@ -35,7 +35,9 @@ class Model_User_Order extends Model_User_Abstract {
         return array("pager"=>$pager,'rows'=>$rows);
     }
     function view_detail(){
-
+        $id = $_GET['id'];
+        $order = self::_db()->select_row("select * from orders where id = ?",$id);
+        return array("order"=>$order);
     }
 
     /**

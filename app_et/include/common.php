@@ -8,6 +8,13 @@ function parse_control($control){
     }
     return $control;
 }
+/**
+ * 判断是不是微信浏览器
+ * @return bool
+ */
+function is_wechat_browser(){
+    return isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') !== false;
+}
 function email_check($email){
     // Remove all illegal characters from email
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);

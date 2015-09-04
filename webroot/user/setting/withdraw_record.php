@@ -56,14 +56,22 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($rows as $row){ ?>
                                     <tr>
                                         <td>
-                                            2015-06-17
+                                            <?=$row['create_time']?>
                                         </td>
-                                        <td>100.1</td>
-                                        <td>**@qq.com</td>
-                                        <td>提现中</td>
-                                    </tr>
+                                        <td><?=$row['money']?></td>
+                                        <td><?=$row['pay_account']?></td>
+                                        <td><?php
+                                            $status_array = array(
+                                                "unread"=>"申请中",
+                                                "passed"=>"通过",
+                                                "fail"=>"失败"
+                                            );
+
+                                            echo $status_array[$row['status']]?></td>
+                                    </tr><?php } ?>
 
                                     </tbody>
                                 </table>

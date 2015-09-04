@@ -380,25 +380,13 @@ function do_pay(obj,type){
     //产品款式列表
     data.product_list = get_product_list();
     //console.log(JSON.stringify(data));
-    $.post("/order/save",data,function(data){
-        if(data){
-            if(data.status == 0){
-                alert(data.msg.value);
-                $(obj).removeAttr("disabled");
-            }else{
-                if(data.url){
-                    location.href = data.url;
-                }else{
-                    $(obj).removeAttr("disabled");
-                    alert("系统错误");
-                }
-            }
+    $.post("/api?model=order&action=beta_save",data,function(data){
+        $(obj).removeAttr("disabled");
+        if(data.status == 0){
+            location.href = data.return.url;
         }else{
-            alert("系统错误");
-            $(obj).removeAttr("disabled");
+            alert(data.message);
         }
-
-
     },"json")
 }
 
