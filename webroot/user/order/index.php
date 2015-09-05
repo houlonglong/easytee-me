@@ -46,13 +46,12 @@
             <div class="col-lg-12 animated-panel zoomIn" style="animation-delay: 0.4s;">
                 <div class="hpanel">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> 全部</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">未付款</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">已付款</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">已发货</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">已退款</a></li>
-                        <li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false">已关闭</a></li>
-                        <li role="presentation" class="dropdown">
+                        <li class="<?php if($status == '') echo 'active';?>"><a data-toggle="tab" onclick="location.href='/user/order/index'"  aria-expanded="true"> 全部</a></li>
+                        <li class="<?php if($status == '待付款') echo 'active';?>"><a data-toggle="tab" onclick="location.href='/user/order/index?status=待付款'" aria-expanded="false">待付款</a></li>
+                        <li class="<?php if($status == '待发货') echo 'active';?>"><a data-toggle="tab" onclick="location.href='/user/order/index?status=待发货'" aria-expanded="false">已付款</a></li>
+                        <li class="<?php if($status == '已发货') echo 'active';?>"><a data-toggle="tab" onclick="location.href='/user/order/index?status=已发货'" aria-expanded="false">已发货</a></li>
+                        <li class="<?php if($status == '已关闭') echo 'active';?>"><a data-toggle="tab" onclick="location.href='/user/order/index?status=已关闭'" aria-expanded="false">已关闭</a></li>
+                        <li role="presentation" class="dropdown" style="display: none;">
                             <a href="#" id="myTabDrop1" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">更多 <span class="caret"></span></a>
                             <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
                                 <li class=""><a href="#dropdown1" role="tab" id="dropdown1-tab" data-toggle="tab" aria-controls="dropdown1" aria-expanded="false">已发货</a></li>
@@ -77,9 +76,9 @@
                                         </thead>
                                         <tbody><?php foreach($rows as $row){ ?>
                                         <tr>
-                                            <td>
+                                            <td><a href="/user/order/detail?id=<?=$row['id']?>">
                                                 <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me//products/2/front.png">
-                                                <b><?=$row['order_no']?>  </b>
+                                                <b><?=$row['order_no']?>  </b></a>
                                             </td>
                                             <td>
                                                 李四

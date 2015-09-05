@@ -75,7 +75,12 @@
                 },
                 {title:"mobile",name:'mobile',index:'mobile',editable: false,sortable:false},
                 {title:"create_time",name:'create_time',index:'create_time',sortable:false,editable: false},
-                {title:"token",name:'token',index:'token',width:220,sortable:false,editable: false},
+                {title:"操作",name:'操作',index:'操作',editable: false,sortable:false,width:80,
+                    formatter:function(cellvalue, options, rowObject){
+                        return '<a href="/api?model=admin/auth&action=login_as&uid='+rowObject['id']+'" target = "_black">Login As</a';
+                    }
+                },
+
                 /**
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
                     formatter:'actions',

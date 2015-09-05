@@ -7,11 +7,28 @@ class Model_User_Activity extends Model_User_Abstract {
         parent::__construct();
     }
     function view_index(){
+        $status = self::_request("status");
+        if($status == "") $status = "进行中";
+
+
+        $where = 'where 1=1 ';
+        if($status != "全部"){
+            $_status_array = array(
+                "进行中"=>"ongoing",
+                "成功"=>"success",
+                "编辑中"=>"create",
+                "已结束"=>"create",
+                "成功"=>"success",
+            );
+            $_status = $_status_array[$status];
+            $where .= " and status = '{$_status}'";
+        }
+
         $uid = Model_Design_Tool_Beta::get_uid();
         $p = self::_request("p");
         $page = (empty($p)  || intval($p) == 0) ? 1 : intval($p);
         $limit = 10;
-        $row_total = self::_db()->select_row("select count(id) as total from activities where uid = ?",$uid);
+        $row_total = self::_db()->select_row("select count(id) as total from activities $where and uid = ?",$uid);
         $total = $row_total['total'];
         if( $total > 0 )
             $total_pages = ceil($total/$limit);
@@ -22,7 +39,7 @@ class Model_User_Activity extends Model_User_Abstract {
 
         $skip = ($page - 1) * $limit;
 
-        $rows = self::_db()->select_rows("select * from activities where uid = ? order by id desc limit {$skip},{$limit} ",$uid);
+        $rows = self::_db()->select_rows("select * from activities $where and uid = ? order by id desc limit {$skip},{$limit} ",$uid);
         //var_dump($rows);exit;
         $params = array(
             'total_rows'=>$total, #(必须)
@@ -31,7 +48,10 @@ class Model_User_Activity extends Model_User_Abstract {
             'base_url' => "/user/activity/index"
         );
         $pager = new PtPager($params);
-        return array("pager"=>$pager,'rows'=>$rows);
+
+        $money = Model_User_Setting::get_balance_tx();
+        $money_all = Model_User_Setting::get_total_earn();
+        return array("pager"=>$pager,'rows'=>$rows,"money"=>$money,"money_all"=>$money_all,"status"=>$status);
     }
     function view_detail(){
         $id = self::_request("id");

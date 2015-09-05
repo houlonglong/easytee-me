@@ -10,7 +10,9 @@ class WxPayConfig
     const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
     const CURL_PROXY_PORT = 0;//8080;
     const REPORT_LEVENL = 1;
-    const NOTIFY_URL = 'http://lxm.jzw.la/order/pay/wechat/notify';
-
+    const NOTIFY_URL = '/order/pay/wechat/notify';
+    static function get_notify_url(){
+        return "http://".$_SERVER['HTTP_HOST'].self::NOTIFY_URL;
+    }
 }
 define("LOCAL_DEV",true);

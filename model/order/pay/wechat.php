@@ -11,6 +11,9 @@ class Model_Order_Pay_Wechat extends BaseModel {
         //parent::__construct();
     }
     static function notify_callback($order_no,$pay_no,$pay_price){
+        pt_debug($order_no);
+        pt_debug($pay_no);
+        pt_debug($pay_price);
         Model_Order_Pay::success($order_no,$pay_no,$pay_price,'wechat');
     }
     static function notify(){
@@ -29,13 +32,17 @@ class Model_Order_Pay_Wechat extends BaseModel {
     }
 
     /**
-     *
+     * @param $order_no
+     * @param $body
+     * @param $price
+     * @return json数据 可直接填入js函数作为参数
      */
     static function build_js_param($order_no,$body,$price){
         require_once PATH_LIBS."/wechat/lib/WxPay.Api.php";
         require_once PATH_LIBS . "/wechat/WxPay.JsApiPay.php";
         $tools = new JsApiPay();
         $openId = $tools->GetOpenid();
+        pt_debug($openId);
         //②、统一下单
         $input = new WxPayUnifiedOrder();
         $input->SetBody($body);
@@ -45,7 +52,7 @@ class Model_Order_Pay_Wechat extends BaseModel {
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
 //        $input->SetGoods_tag("test");
-        $input->SetNotify_url(WxPayConfig::NOTIFY_URL);
+        $input->SetNotify_url(WxPayConfig::get_notify_url());
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order = WxPayApi::unifiedOrder($input);

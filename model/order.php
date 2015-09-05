@@ -9,7 +9,7 @@ class Model_Order extends Model_User_Abstract {
     }
     static function get_user_address_list(){
         $uid = Model_Design_Tool_Beta::get_uid();
-        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ?",$uid);
+        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
         foreach($addresses as $key=>$address){
             if($address['default'] == 1){
                 unset($addresses[$key]);
@@ -82,7 +82,7 @@ class Model_Order extends Model_User_Abstract {
             die("act_id不能为空");
         }
         if(!Model_User_Auth::is_logined()){
-            $this->_location("/user/auth/login?redirect=".urlencode("/order/beta?act_id"+$act_id));
+            $this->_location("/user/auth/login?redirect=".urlencode("/order/beta?act_id=".$act_id));
         }
         $activity = self::_db()->select_row("select delivery_type,name,pass,end_time from activities where id = ?",$act_id);
 
@@ -116,7 +116,6 @@ class Model_Order extends Model_User_Abstract {
             header("Location: /order?act_id=" . $act_id);
             exit;
         }
-        //$this->set(compact('page_name', 'act_id', 'addresses', 'express_area_price','activity'));
         return array(
             "act_id"=>$act_id,
             "addresses"=>$addresses,
@@ -136,6 +135,7 @@ class Model_Order extends Model_User_Abstract {
             }
             //支付类型
             $pay_type = @$_POST['pay_type'];
+            pt_debug($pay_type);
             if (!in_array($pay_type, array("wechat", "alipay")))
                 throw new Exception("支付类型不合法");
 

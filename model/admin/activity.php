@@ -39,6 +39,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
 
     static function action_detail_list()
     {
+
         $table_alias = $table = self::$table;
         //$table_alias = '';
         $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' .
@@ -274,6 +275,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         if ($sort)
             $order = "order by $table_alias." . addslashes($sort) . " " . $sort_type;
         $sql = "select count($table_alias.id) as total from $table $join $where ";
+        echo $sql;exit;
         //$count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql, $args);
         $records = $count_res['total'];

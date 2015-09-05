@@ -38,14 +38,12 @@ ui.controllers.AddressController = function($scope, $compile, $routeParams, $loc
     $scope.saveAndUse = function(){
         var data = {
             dataType: 'json',
-            appKey: ezdVars.AppToken,
-            userToken: ezdVars.UserToken,
             name: $scope.address.name,
             tel: $scope.address.tel,
             province: $scope.province,
             city: $scope.city,
-            area: $scope.area,
-            addr: $scope.address.address
+            county: $scope.area,
+            address: $scope.address.address
         };
         var name = $('[ng-model="address.name"]');
         if (!name.val()) {
@@ -78,7 +76,7 @@ ui.controllers.AddressController = function($scope, $compile, $routeParams, $loc
         var btn = $(event.target);
         btn.text('保存中...');
         $.ajax({
-            url: '//' + ezdVars.ApiDomain + '/Address/save/',
+            url: '//' + ezdVars.ApiDomain + '/api?model=user/setting&action=save_address',
             type: 'post',
             data: data,
             success: function(data){

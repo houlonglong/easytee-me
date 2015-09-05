@@ -12,7 +12,19 @@ class Model_Admin_Auth{
         PtLib\remove_cookie(self::get_cookie_auth_key());
         PtLib\location("/admin/index");
     }
-
+    function action_login_as(){
+        $request = \PtLib\http_request("uid");
+        $uid = $request['uid'];
+        $user = \PtLib\db_select_row("select n.* from users as u left join new_users as n on n.id = u.app_uid where n.id = ?",$uid);
+        $user_info = array(
+            "nick_name"=>$user['nickname'] ? $user['nickname']:($user['mobile']?$user['mobile']:$user['email']),
+            "mobile"=>$user['mobile'],
+            "email"=>$user['email'],
+            "uid"=>$user['id']
+        );
+        Model_User_Auth::set_login($user_info);
+        \PtLib\location("/user/index");
+    }
     /**
      * 登陆
      */

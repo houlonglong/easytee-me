@@ -7,6 +7,188 @@ class Model_Activity_Beta extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
+    /*
+     *
+    static function setActivityToEnd($id, $activity, $uid){
+        self::_db()->update("activities",array(
+            "real_end_time"=>date('Y-m-d H:i:s'),
+            "status"=>"failure"
+        ),array(
+            "id"=>$id
+        ));
+        // 众筹失败，给活动发起人发送短信
+        $user = self::_db()->select_row("select mobile from users where id = ?",$uid);
+        $options = array(
+            'username' => $user['nick_name'],
+            'salesNum' => $activity['sales_count'],
+            'activity' => $activity['name'],
+        );
+        Model_Tools_Sms::sendsms($user['mobile'],"MIzRx2",$options);
+        if (!$activity['sales_count']) {
+            return array('status' => 1, 'msg' => "成功结束活动");
+        }
+        $orders = self::_db()->select_row("select * from orders where activity_id = ?",$id);
+
+        // 把当前活动的订单状态是已付款的改成已完成
+        //todo
+        self::_db()->update("orders",array(
+            "status"=>"已关闭"
+        ),array(
+            "activity_id"=>$id,
+            "status"=>"待发货",
+        ));
+
+        $userOrders = array();
+        $activityName = '';
+        foreach ($orders as $order) {
+            $activityName = $order['name'];
+            if (isset($userOrders[$order['uid']])) {
+                $userOrders[$order['uid']] +=$order['total_price'] + $order['express_price'];
+                continue;
+            }
+            $userOrders[$order['uid']] = $order['total_price'] + $order['express_price'];
+        }
+        // 给购买的用户设置退款
+        $userMoneyFlow = array(
+            'pay_type' => 'easytee',
+            'create_time' => date('Y-m-d H:i:s'),
+            'type' => 1,
+            'ip' => "",
+        );
+
+        foreach ($userOrders as $uid => $money) {
+            $result = $this->User->updateMoney($uid, $money);
+
+
+            $userMoneyFlow['money'] = $money;
+            $userMoneyFlow['uid'] = $uid;
+            $userMoneyFlow['content'] = "退款(活动:{$activityName})";
+            $lastInsert = $this->UserMoneyFlow->add($userMoneyFlow);
+            if (!$result) {
+                throw new Exception("退款出错", 0);
+            }
+            // 给退款用户发送短信
+            $user = $this->User->get($uid);
+            $options = array(
+                'mobile' => $user['User']['mobile'],
+                'username' => $user['User']['nick_name'],
+                'salesNum' => $activity['sales_count'],
+                'activity' => $activity['name'],
+                'id' => $activity['id'],
+            );
+            sendMessage($options, 9, $this);
+        }
+
+        return array('status' => 1, 'msg' => "成功结束活动");
+    }
+
+    static function close($id){
+        $activity = self::_db()->select_row("select * from activities where id = ?",$id);
+        $uid = $activity['uid'];
+        // 小于10 直接结束
+        $id = $activity['id'];
+        if ($activity['sales_count'] < 10) {
+            $arr = self::setActivityToEnd($id, $activity, $uid);
+            return $arr;
+        }
+        // 大于10，小于众筹目标
+        $profie = $this->calculateProfie($id);
+        $user = $this->User->get($uid);
+        $balance = $user['User']['money'];
+        if ($activity['sales_count'] >= 10 && $activity['sales_count'] < $activity['sales_target']) {
+            // 不管是否有利润，都要结束活动
+            if ($status == 'end') {
+                $arr = $this->setActivityToEnd($id, $activity, $uid);
+                return $arr;
+            }
+            // 利润为负，余额不够支付，不能生产 (手动结束的情况)
+            if ($profie[1] < 0 && $balance < abs($profie[1]) && $status == 'product') {
+                return array('status' => 0, 'msg' => "利润为负，余额不够支付，不能生产");
+            }
+        }
+        // 有利润的，直接进入生产
+        $info['status'] = "'fabrication'";
+        $info['real_end_time'] = "'" . date('Y-m-d H:i:s') . "'";
+        $this->Activity->query('BEGIN');
+        try {
+            $userMoneyFlow = array(
+                'uid' => $uid,
+                'money' => abs($profie[1]),
+                'content' => "其他支出(补足生产成本,活动{$activity['name']})",
+                'pay_type' => 'easytee',
+                'create_time' => date('Y-m-d H:i:s'),
+                'type' => -1,
+                'ip' => getIp(),
+            );
+            $this->loadModel('UserMoneyFlow');
+            if ($balance > abs($profie[1]) && $profie[1] < 0) {
+                $plusMoney = "-" . abs($profie[1]);
+                $userMoneyFlow['money'] = abs($profie[1]);
+                $userMoneyFlow['content'] = "其他支出(补足生产成本,活动:{$activity['name']})";
+                $result = $this->User->updateMoney($uid, $plusMoney);
+                $lastInsert = $this->UserMoneyFlow->add($userMoneyFlow);
+                if (!$lastInsert) {
+                    throw new Exception("生产失败", 0);
+                }
+                if (!$result) {
+                    throw new Exception("生产失败", 0);
+                }
+            } else {
+                // 当有利润的时候，分配利润
+                $result = $this->User->allocationMoney($uid, ($profie[1] * 6) / 10, ($profie[1] * 4) / 10);
+                if (!$result && $profie[1] != 0) {
+                    throw new Exception("生产失败", 1);
+                }
+                $userMoneyFlow['money'] = ($profie[1] * 6) / 10;
+                $userMoneyFlow['type'] = 1;
+                $userMoneyFlow['content'] = "活动收入(活动:{$activity['name']})";
+                $lastInsert = $this->UserMoneyFlow->add($userMoneyFlow);
+                if (!$lastInsert) {
+                    throw new Exception("生产失败", 0);
+                }
+            }
+            // 把订单状态变成已完成
+//            $this->Order->updateStatus($activity['id'],'"已完成"');
+            $this->Activity->query('COMMIT');
+            //发送短信给活动发起人
+            $options = array(
+                'mobile' => $user['User']['mobile'],
+                'username' => $user['User']['nick_name'],
+                'salesNum' => $activity['sales_count'],
+                'activity' => $activity['name'],
+                'money' => $profie[1],
+                'id' => $activity['id'],
+            );
+            sendMessage($options, 11, $this);
+            //发送短信给生产负责人
+            $options = array(
+                'mobile' => PRODUCTION_NOTICE,
+                'activityId' => $activity['id'],
+                'activityTitle' => $activity['name'],
+                'id' => $activity['id'],
+            );
+            sendMessage($options, 2, $this);
+            //  活动结束修改订单状态和更新活动利润
+            $info['profie'] = $profie[1];
+            $ret = $this->Activity->updateActivity($this->_app->id, $uid, $id, $info);
+            if (!$ret) {
+                throw new Exception("生产失败", 1);
+            }
+            return array('status' => 1, 'msg' => "进入生产");
+        } catch (Exception $e) {
+            $this->Activity->query('ROLLBACK');
+            $this->Activity->query('COMMIT');
+            return array('status' => 0, 'msg' => $e->getMessage());
+        }
+    }
+     */
+    function action_close(){
+
+
+    }
+    function action_copy(){
+
+    }
     static function get_activity_info(){
         $id = $_REQUEST['id'];
         if (!$id) {

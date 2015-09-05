@@ -139,17 +139,17 @@ class Model_Order_Pay_Alipay extends BaseModel
     {
         if ($is_notify) {
             $result = self::notify();
+            pt_debug($result);
             if (in_array($result['trade_status'], array('TRADE_FINISHED', 'TRADE_SUCCESS'))) {
                 Model_Order_Pay::success($result['order_no'], $result['trade_no'], $result['price'], 'alipay',$is_notify);
-                echo 'success';
-                exit;
             } else {
-                echo "fail";
-                exit;
+                echo "fail";exit;
             }
         } else {
             $result = self::return_callback();
-            if (in_array($result['trade_status'], array('TRADE_FINISHED', 'TRADE_SUCCESS'))) {
+            pt_debug($result);
+            var_dump($result);
+            if ($result && in_array($result['trade_status'], array('TRADE_FINISHED', 'TRADE_SUCCESS'))) {
                 Model_Order_Pay::success($result['order_no'], $result['trade_no'], $result['price'], 'alipay',$is_notify);
             } else {
                 throw new Exception('验证签名不正确');

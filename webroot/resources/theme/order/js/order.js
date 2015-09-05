@@ -250,6 +250,7 @@ function on_back_addr_list(){
 function on_save_addr_from_order(obj) {
 
     var name = $("#name").val();
+
     if (!name) {
         $("#name").focus().parent().addClass("has-error");
         return;
@@ -258,7 +259,6 @@ function on_save_addr_from_order(obj) {
     }
 
     var tel = $("#tel").val();
-
     var filter  = /^((1[0-9]{1})+\d{9})$/;
     if (!tel || !filter.test(tel)) {
         $("#tel").focus().parent().addClass("has-error");
@@ -266,8 +266,6 @@ function on_save_addr_from_order(obj) {
     }else{
         $("#tel").focus().parent().removeClass("has-error");
     }
-
-
     var province = $("#province").val();
     if (!province) {
         $("#province").focus().parent().addClass("has-error");
@@ -282,8 +280,8 @@ function on_save_addr_from_order(obj) {
     }else{
         $("#city").focus().parent().removeClass("has-error");
     }
-    var area = $("#area").val();
-    if (!area) {
+    var county = $("#area").val();
+    if (!county) {
         $("#area").focus().parent().addClass("has-error");
         return;
     }else{
@@ -296,42 +294,24 @@ function on_save_addr_from_order(obj) {
     }else{
         $("#addr").focus().parent().removeClass("has-error");
     }
+
     var data = {};
     data.id = "";
     data.name = name;
     data.tel = tel;
     data.province = province;
     data.city = city;
-    data.area = area;
-    data.addr = addr;
+    data.county = county;
+    data.address = addr;
+    console.log(data);
     $(this).attr("disabled",true);
-    $.post('/account/ajaxSaveAddress',data,function(data){
-        $(this).removeAttr("disabled");
-        if(data.status == 1){//成功
-            console.log('data: ',data);
-            var id = data.id;
-//            var lable_html = '<label class="addr_item list-group-item">' +
-//                '<input class="addr_item_input" data-id="'+id+'"' +
-//                'name="addressId" type="radio"' +
-//                'onclick="sel_address(this)"' +
-//                ' <strong>'+name+'</strong> ' +
-//                '<span class="addr_province">'+province+'</span> -' +
-//                '<strong>'+city+'</strong>' +
-//                '<strong>'+area+'</strong>' +
-//                '<strong>'+addr+'</strong>' +
-//                '</label>';
-            var label_html = '<label class="addr_item list-group-item">';
-            label_html += '<input class="addr_item_input pull-left" data-id="'+id+'" name="addressId" type="radio" onclick="sel_address(this)">';
-            label_html += '<div style="margin-left: 25px" class="addr_area"><strong style="font-size: 14px;">'+name+'</strong><span class="pull-right">'+tel+'</span>';
-            label_html += '<div><span class="addr_province">'+province+'</span> -'+city+' -'+area+' -'+addr+'</div>';
-            label_html += '</div></label>';
-            $("#addr_list_div").append(label_html).find("label:last").click();
-            $("#name").val("");
-            $("#tel").val("");
-            $("#addr").val("");
-            on_back_addr_list();
+    $.post('/api?model=user/setting&action=save_address',data,function(data){
+        if(data.status == 0){//成功
+            location.reload();
+        }else{
+            alert(data.message);
+            $(this).removeAttr("disabled");
         }
-        //window.location.reload();
     },"json");
 }
 
@@ -383,7 +363,9 @@ function do_pay(obj,type){
     $.post("/api?model=order&action=beta_save",data,function(data){
         $(obj).removeAttr("disabled");
         if(data.status == 0){
-            location.href = data.return.url;
+            var url = data.return.url;
+            //location.href = url;
+            window.open(url);
         }else{
             alert(data.message);
         }

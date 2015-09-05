@@ -8,11 +8,18 @@ class Model_User_Order extends Model_User_Abstract {
         parent::__construct();
     }
     function view_index(){
+        $status = self::_request("status");
         $uid = self::get_uid();
         $p = self::_request("p");
         $page = (empty($p)  || intval($p) == 0) ? 1 : intval($p);
-        $limit = 2;
-        $row_total = self::_db()->select_row("select count(id) as total from `orders` where uid = ?",$uid);
+        $limit = 10;
+
+        $where = 'where 1=1 ';
+        if($status){
+            $where .= " and status = '{$status}'";
+        }
+
+        $row_total = self::_db()->select_row("select count(id) as total from `orders` $where and uid = ?",$uid);
         $total = $row_total['total'];
         if( $total > 0 )
             $total_pages = ceil($total/$limit);
@@ -23,7 +30,7 @@ class Model_User_Order extends Model_User_Abstract {
 
         $skip = ($page - 1) * $limit;
 
-        $rows = self::_db()->select_rows("select * from `orders` where uid = ? limit {$skip},{$limit}",$uid);
+        $rows = self::_db()->select_rows("select * from `orders` $where and uid = ? limit {$skip},{$limit}",$uid);
 
         $params = array(
             'total_rows'=>$total, #(必须)
@@ -32,12 +39,13 @@ class Model_User_Order extends Model_User_Abstract {
             'base_url' => "/user/order/index"
         );
         $pager = new PtPager($params);
-        return array("pager"=>$pager,'rows'=>$rows);
+        return array("pager"=>$pager,'rows'=>$rows,"status"=>$status);
     }
     function view_detail(){
         $id = $_GET['id'];
         $order = self::_db()->select_row("select * from orders where id = ?",$id);
-        return array("order"=>$order);
+        $order_goods = self::_db()->select_rows("select * from order_goods where order_id = ?",$id);
+        return array("order"=>$order,"order_goods"=>$order_goods);
     }
 
     /**

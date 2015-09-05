@@ -1574,19 +1574,21 @@ class Model_Design_Tool_Beta extends BaseModel {
             if (!$address) {
                 throw new Exception("没有找到收货地址");
             }
-            $address = $address['UserAddress'];
-            $activityData['delivery_address'] = $address['province'] . $address['city'] . $address['county'] . $address['address'] ;
+            $activityData['delivery_address'] = $address['province'] ." - ". $address['city'] ." - ". $address['county'] ." - ". $address['address'] ;
             $activityData['address_id'] = $_REQUEST['addressId'];
         }
         $activityData['uid'] = $uid;
         self::_db()->update("activities",$activityData,array("id"=>$activityId));
+        try{
+            self::_db()->insert("task_act_pic_merge",array(
+                "act_id"=>$activityId
+            ));
+        }catch (Exception $e){
 
-
-        self::_db()->insert("task_act_pic_merge",array(
-            "act_id"=>$activityId
-        ));
+        }
         self::_db()->update("designs",array("uid"=>$uid),array("id"=> $_REQUEST['designId']));
-        echo json_encode(array('name' => 'activity', 'attribute' => array('id' => $activityId), 'value' => ""));exit;
+        return array("ok");
+        //echo json_encode(array('name' => 'activity', 'attribute' => array('id' => $activityId), 'value' => ""));exit;
     }
 
     /**

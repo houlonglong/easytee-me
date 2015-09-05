@@ -48,7 +48,7 @@
                             <div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.2s;">
                                 <h4>订单号 <small><?=$order['order_no']?></small></h4>
                             </div>
-                            <div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.2s;">
+                            <div class="col-md-6 animated-panel zoomIn" style="animation-delay: 0.2s;display: none;">
                                 <div class="text-right">
                                     <button class="btn btn-default btn-sm"><i class="fa fa-pencil"></i> 修改 </button>
                                     <button class="btn btn-default btn-sm"><i class="fa fa-check "></i> 保存 </button>
@@ -92,18 +92,18 @@
                                     <th>总价</th>
                                 </tr>
                                 </thead>
-                                <tbody>
+                                <tbody><?php foreach($order_goods as $goods){?>
                                 <tr>
                                     <td>
-                                        <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me//products/2/front.png">
-                                        <strong>圆领男款(浅粉色)</strong>
+                                        <img style="width: 50px;height:50px;" src="<?=$goods['img_path']?>">
+                                        <strong><?=$goods['product_name']?>(<?=$goods['product_style_name']?>)</strong>
                                     </td>
-                                    <td>XL</td>
-                                    <td>2</td>
-                                    <td>21.1 元</td>
-                                    <td>21.1 元</td>
+                                    <td><?=$goods['size']?></td>
+                                    <td><?=$goods['quantity']?></td>
+                                    <td><?=$goods['unit_price']?> 元</td>
+                                    <td><?=$goods['quantity'] * $goods['unit_price'] ?> 元</td>
                                 </tr>
-
+                                <?php } ?>
 
                                 </tbody>
                             </table>

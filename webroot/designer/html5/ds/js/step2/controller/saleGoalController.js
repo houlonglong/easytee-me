@@ -350,7 +350,12 @@ ui.controllers.SaleGoalController = function($scope){
             dataType: 'json',
             data: data,
             success: function(data){
-                callback();
+                if(data.status == 0){
+                    callback();
+                }else{
+                    alert(data.message);
+                }
+
             },
             failure: function(){
                 console.log('failure');

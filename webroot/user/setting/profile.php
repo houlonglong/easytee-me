@@ -49,7 +49,7 @@
                             <form method="get" onsubmit="return false;" class="form-horizontal">
                                 <div class="form-group"><label class="col-sm-2 control-label">昵称</label>
 
-                                    <div class="col-sm-10"><input type="text" id="nick_name" class="form-control" value="<?=$nick_name?>"></div>
+                                    <div class="col-sm-10"><input type="text" id="nick_name" class="form-control" value="<?=empty($nick_name)?"":$nick_name;?>"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
 

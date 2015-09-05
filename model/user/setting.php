@@ -20,9 +20,81 @@ class Model_User_Setting extends Model_User_Abstract {
     }
     function view_address(){
         $uid = self::get_uid();
-        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ?",$uid);
+        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
         return array("rows"=>$addresses);
     }
+    function action_address_detail(){
+
+        $id = self::_request("id");
+        $uid = Model_User_Auth::get_uid();
+        $row = self::_db()->select_row("select * from user_addresses where id = ? and uid = ?",$id,$uid);
+        return $row;
+    }
+    function action_address_delete(){
+        $id = self::_request("id");
+        $uid = Model_User_Auth::get_uid();
+        self::_db()->delete("user_addresses",array("uid"=>$uid,"id"=>$id));
+        return array("ok");
+    }
+    function action_address_list(){
+        $uid = Model_User_Auth::get_uid();
+        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
+        return $addresses;
+    }
+    function action_save_address(){
+        $id = self::_request("id");
+        $uid = Model_User_Auth::get_uid();
+        $name = self::_request("name");
+        if(!$name){
+            throw new Exception("姓名不能为空");
+        }
+        $tel = self::_request("tel");
+        if(!$tel){
+            throw new Exception("电话不能为空");
+        }
+        $province = self::_request("province");
+        if(!$province){
+            throw new Exception("省份不能为空");
+        }
+        $city = self::_request("city");
+        if(!$city){
+            throw new Exception("城市不能为空");
+        }
+        $county = self::_request("county");
+        if(!$county){
+            throw new Exception("区不能为空");
+        }
+        $address = self::_request("address");
+        if(!$address){
+            throw new Exception("地址不能为空");
+        }
+        $source = self::_request("source");
+        $row = array(
+            "name"=>$name,
+            "tel"=>$tel,
+            "mobile"=>$tel,
+            "province"=>$province,
+            "city"=>$city,
+            "county"=>$county,
+            "address"=>$address,
+            "zipcode"=>"",
+            "source"=>$source?1:0,
+        );
+        if($id){
+            $row['update_time']=date_time_now();
+            self::_db()->update("user_addresses",$row,array(
+                "id"=>$id,
+                "uid"=>$uid,
+            ));
+        }else{
+            $row['uid']=$uid;
+            $row['create_time']=date_time_now();
+            self::_db()->insert("user_addresses",$row);
+        }
+
+        return array("ok");
+    }
+
     function view_pay_account(){
         $uid = self::get_uid();
         $account = self::_db()->select_row("select * from user_attributes where uid = ?",$uid);
@@ -48,8 +120,17 @@ class Model_User_Setting extends Model_User_Abstract {
         $account['balance_tx'] = self::get_balance_tx();;
         return $account;
     }
+    static function get_user_money(){
+        return self::_db()->select_row("select * from users where id = ?",Model_User_Auth::get_uid());
+    }
+
     static function get_balance_tx(){
-        return 100;
+        $money = self::get_user_money();
+        return empty($money['money'])?0:$money['money'];
+    }
+    static function get_total_earn(){
+        $money = self::get_user_money();
+        return empty($money['money_all'])?0:$money['money_all'];
     }
     function action_do_withdraw(){
         $uid = self::get_uid();
@@ -71,6 +152,7 @@ class Model_User_Setting extends Model_User_Abstract {
             "uid"=>$uid,
             "create_time"=>date_time_now(),
             ));
+        self::_db()->update("users",array("money"=>$balance_tx -$amount ),array("id"=>$uid));
         return array("ok");
     }
     function view_withdraw_record(){

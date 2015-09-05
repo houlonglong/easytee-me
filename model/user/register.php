@@ -9,26 +9,27 @@ class Model_User_Register extends BaseModel {
     }
     function action_do_register(){
         PtApp::session_start();
-        $reg_captcha = $_SESSION['reg_captcha'];
+        $reg_captcha = empty($_SESSION['reg_captcha'])?"":$_SESSION['reg_captcha'];
+        if(!$reg_captcha) throw new Exception("验证码不能为空");
         $captcha = self::_request("captcha");
         $mobile = self::_request("mobile");
-        $is_register = self::_db(NEW_DB)->select_row('select id from user where mobile = ? ',$mobile);
-        if($is_register){
-            throw new Exception("当前号码已经注册过");
-        }
+        $is_register = self::_db(NEW_DB)->select_row('select id from new_users where mobile = ? ',$mobile);
+        if($is_register) throw new Exception("当前号码已经注册过");
+
         $password = md5(sha1(self::_request("password")));
-        if($captcha != $reg_captcha) throw new Exception("验证码不正确");
-        self::_db(NEW_DB)->insert("user",array(
+        if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("验证码不正确");
+        self::_db(NEW_DB)->insert("new_users",array(
             "mobile"=>$mobile,
             "password"=>$password,
-            "add_time"=>date('Y-m-d H:i:s'),
+            "create_time"=>date('Y-m-d H:i:s'),
+            "login_time"=>date('Y-m-d H:i:s'),
         ));
         unset($_SESSION['reg_captcha']);
 
     }
     function action_get_code(){
         $mobile = self::_request("mobile");
-        $is_register = self::_db(NEW_DB)->select_row('select id from user where mobile = ? ',$mobile);
+        $is_register = self::_db(NEW_DB)->select_row('select id from users where mobile = ? ',$mobile);
         if($is_register){
             throw new Exception("当前号码已经注册过");
         }

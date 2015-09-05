@@ -173,40 +173,19 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
 
                                                 }
                                                 $.cookie("mobile",mobile.val(),{path:"/"});
-
                                                 $(this).attr('disabled', true);
-
-                                                $.ajax({
-                                                    url:"/api?model=user/register&action=get_code&mobile=" + mobile.val(),
-                                                    dataType:'json',
-                                                    success:function(json){
-                                                        console.log(json);
-                                                        if (json.status == 0) {
-                                                            $.cookie("Captcha",60,{path:"/"});
-                                                            smsCountDown('#getCaptcha');
-                                                            $("#captcha").focus();
-                                                        } else {
-                                                            if(json && json.message){
-                                                                $('#getCaptcha').focus().parents('.form-group').addClass('has-error').find('label.control-label').text(json.msg);
-                                                            }else{
-                                                                $('#getCaptcha').focus().parents('.form-group').addClass('has-error').find('label.control-label').text('验证码获取失败,请稍后重试');
-
-                                                            }
-                                                            $('#getCaptcha').text('获取验证码');
-                                                        }
-                                                        return;
-                                                    },
-                                                    error:function(){
-                                                        alert('因为网络问题注册失败，请重试！');
-                                                        return false;
+                                                $.post("/api?model=user/register&action=get_code&mobile=" + mobile.val(),function(data){
+                                                    if (data.status == 0) {
+                                                        $.cookie("Captcha",60,{path:"/"});
+                                                        smsCountDown('#getCaptcha');
+                                                        $("#captcha").focus();
+                                                    } else {
+                                                        alert(data.message);
+                                                        $('#getCaptcha').focus().parents('.form-group').addClass('has-error').find('label.control-label').text(json.msg);
                                                     }
-
-                                                });
+                                                },"json");
                                                 return false;
-
                                             });
-
-
                                         });
                                     </script>
                                 </div>
