@@ -586,7 +586,6 @@ class Model_Design_Tool_Beta extends BaseModel {
                 $art = self::_db()->select_row("select * from arts where id = ?",$object['art_id']);
                 $printArt = array();
                 if ($art) {
-                    $art = $art[0]['Art'];
                     $printArt = array(
                         'name' => 'art',
                         'attribute' => array(
