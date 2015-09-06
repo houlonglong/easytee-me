@@ -263,9 +263,14 @@ function web_route(){
                 if(substr($REDIRECT_URL,-1) == "/"){
                     $REDIRECT_URL = $REDIRECT_URL."index";
                 }
-                PtApp::$control = $REDIRECT_URL;
-                $REDIRECT_URL = $REDIRECT_URL.".php";
-                $path =  PATH_WEBROOT.$REDIRECT_URL;
+
+                $control = parse_control($REDIRECT_URL);
+                $path =  PATH_WEBROOT.$control.".php";
+                PtApp::$control = $control;
+
+                //PtApp::$control = $REDIRECT_URL;
+                //$REDIRECT_URL = $REDIRECT_URL.".php";
+                //$path =  PATH_WEBROOT.$REDIRECT_URL;
 
             }
             if(is_file($path)) {
