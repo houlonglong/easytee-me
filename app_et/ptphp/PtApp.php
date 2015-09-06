@@ -258,13 +258,18 @@ function web_route(){
 
             if(substr($REDIRECT_URL,-4) == ".php"){
                 PtApp::$control = substr($REDIRECT_URL,0,-4);
-                $path =  PATH_WEBROOT.$REDIRECT_URL;
+
+                $control = parse_control($REDIRECT_URL);
+                PtApp::$control = $control;
+                $path =  PATH_WEBROOT.$control.".php";
             }else{
                 if(substr($REDIRECT_URL,-1) == "/"){
                     $REDIRECT_URL = $REDIRECT_URL."index";
                 }
-                PtApp::$control = $REDIRECT_URL;
-                $REDIRECT_URL = $REDIRECT_URL.".php";
+                $control = parse_control($REDIRECT_URL);
+                PtApp::$control = $control;
+                $path =  PATH_WEBROOT.$control.".php";
+
                 $path =  PATH_WEBROOT.$REDIRECT_URL;
 
             }
