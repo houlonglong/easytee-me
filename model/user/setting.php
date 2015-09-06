@@ -43,7 +43,7 @@ class Model_User_Setting extends Model_User_Abstract {
     }
     function action_save_address(){
         $id = self::_request("id");
-        $uid = slef::get_uid();
+        $uid = self::get_uid();
         $name = self::_request("name");
         if(!$name){
             throw new Exception("姓名不能为空");
