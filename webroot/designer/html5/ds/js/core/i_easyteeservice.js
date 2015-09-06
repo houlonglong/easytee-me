@@ -832,7 +832,7 @@ var EasyTeeService = function(b) {
         };
         n || (n = h);
 //        if(d){
-            d = "/art/save/?appKey=" + b.AppToken + "&userToken=" + d + "&DesignID=" + ezdVars.DesignID;
+            d = "/api?model=design/tool/beta&action=art_save&DesignID=" + ezdVars.DesignID;
             service.ajaxCallStarted && service.ajaxCallStarted("SaveArt", "处理图像中...");
             $.ajax({
                 type: "POST",

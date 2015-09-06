@@ -1595,6 +1595,101 @@ class Model_Design_Tool_Beta extends BaseModel {
     }
 
     /**
+     * 保存上传的剪贴画
+     * @param $appKey
+     * @param $userToken
+     * @param $uid
+     */
+    public function action_art_save() {
+        $value = rand(10000, 99999);
+        $art['date_created'] = date('Y-m-d H:i:s');
+        $art['uid'] = self::get_uid();
+        $art_id = self::_db()->insert('arts',$art);
+        $artData = $this->art_upload_file_to_oss($art_id,$value);
+        $art['id'] = $art_id;
+        $art['original_art_path'] = $artData['originalPath'];
+        $art['thumb_jit'] = $artData['thumbpath'];
+        $art['art_path'] = $artData['originalPath'];
+        $art['art_extension'] = $artData['extention'];
+        $art['url'] = $artData['url'];
+        $art['type'] = 'image';
+        if (!in_array(strtolower($artData['extention']), array('jpg', 'jpeg', 'png', 'gif', 'bmp'))) {
+            $art['type'] = 'vector';
+        }
+        $path_datas = array(
+            'art_extension'=>$artData['extention'],
+            'original_art_path'=>$artData['originalPath'],
+            'art_path'=>$artData['originalPath'],
+            'url'=>$artData['url'],
+        );
+        self::_db()->update('arts',$path_datas,array('id'=>$art_id));
+        $printAtr = array(
+            'name' => 'Art',
+            'item' => array(
+                array(
+                    'name' => 'ArtID',
+                    'value' => $art_id
+                ),
+                array(
+                    'name' => 'SessionID',
+                    'value' => ''
+                ),
+                array(
+                    'name' => 'SessionToken',
+                    'value' => ''
+                ),
+                array(
+                    'name' => 'ArtName',
+                    'value' => $artData['originalName'],
+                ),
+                array(
+                    'name' => 'Status',
+                    'value' => 'OK'
+                ),
+            ),
+        );
+        xml_response($printAtr);
+    }
+
+    function art_upload_file_to_oss($id,$rand) {
+        if (isset($_FILES['Filename'])) {
+            $files = $_FILES['Filename'];
+            // 获取svg转换位图后的图片
+            $extention = str_replace('image/', '', $files['type']);
+            $originalName = $files['name'];
+            $filepath = $files['tmp_name'];
+            $filename = $originalName . $rand . '.' . $extention;
+            $newfilename = $originalName;
+            $path = $GLOBALS['setting']['aliyun_oss']['bucket_root']."/arts/svg/{$id}/{$newfilename}";
+            $type = 'svg';
+        } else {
+            $files = $_FILES['file'];
+            $extention = str_replace('image/', '', $files['type']);
+            if (in_array(strtolower($extention), array('jpg', 'jpeg', 'png', 'gif', 'bmp'))) {
+                $originalName = $files['name'];
+                $filename = $originalName . $rand . '.' . $extention;
+                $newfilename = $filename;
+                $filepath = $files['tmp_name'];
+                //m_log($filepath);
+                $path = $GLOBALS['setting']['aliyun_oss']['bucket_root']."/arts/Bitmap/{$id}/{$newfilename}";
+                $type = 'bit';
+            }
+            //TODO 矢量图的处理
+        }
+        $thumbpath = $GLOBALS['setting']['aliyun_oss']['bucket_root']."/arts/Art/{$id}/{$filename}";
+        $oss_filepath = Model_Aliyun_Oss::upload_file($files['tmp_name'],$path);
+        $arr = array(
+            'extention' => $extention,
+            'originalPath' => "REPLACE_DOMAIN_WITH".$path,
+            'thumbpath' => "REPLACE_DOMAIN_WITH".$thumbpath,
+            'originalName' => $originalName,
+            "url"=>$oss_filepath
+        );
+        return $arr;
+    }
+
+
+    /**
      * 详情视图
      *
     function view_detail(){
