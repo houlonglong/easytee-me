@@ -28,7 +28,7 @@ init|初始化
 product|产品
 design|设计
 design/tool/beta|设计工具
-
+campus|易衫开学礼
 font|字体
 art|素材
 admin/deamon/task|后台任务

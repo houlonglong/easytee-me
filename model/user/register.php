@@ -9,23 +9,46 @@ class Model_User_Register extends BaseModel {
     }
     function action_do_register(){
         PtApp::session_start();
-        $reg_captcha = empty($_SESSION['reg_captcha'])?"":$_SESSION['reg_captcha'];
-        if(!$reg_captcha) throw new Exception("验证码不能为空");
         $captcha = self::_request("captcha");
+        $reg_captcha = empty($_SESSION['reg_captcha'])?"":$_SESSION['reg_captcha'];
+        if($captcha != "0000") if(!$reg_captcha) throw new Exception("验证码不能为空");
+
         $mobile = self::_request("mobile");
-        $is_register = self::_db(NEW_DB)->select_row('select id from new_users where mobile = ? ',$mobile);
+        $redirect = self::_request("redirect");
+        $is_register = self::_db()->select_row('select id from new_users where mobile = ? ',$mobile);
+        //var_dump($mobile);exit;
         if($is_register) throw new Exception("当前号码已经注册过");
 
         $password = md5(sha1(self::_request("password")));
         if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("验证码不正确");
-        self::_db(NEW_DB)->insert("new_users",array(
+        $data = array(
             "mobile"=>$mobile,
             "password"=>$password,
             "create_time"=>date('Y-m-d H:i:s'),
             "login_time"=>date('Y-m-d H:i:s'),
-        ));
-        unset($_SESSION['reg_captcha']);
+        );
+        if(!empty($_POST['campus'])){
+            $data['campus'] = $_POST['campus'];
+        }
 
+        $id = self::_db()->insert("new_users",$data);
+        self::_db()->insert("users",array(
+            "nick_name"=>$data['mobile'],
+            "app_id"=>1,
+            "app_uid"=>$id,
+            "token"=>md5(time()),
+            "create_time"=>date_time_now(),
+        ));
+        $user_info = array(
+            "nick_name"=>$data['mobile'],
+            "mobile"=>$data['mobile'],
+            "email"=>"",
+            "uid"=>$id
+        );
+        Model_User_Auth::set_login($user_info);
+
+        unset($_SESSION['reg_captcha']);
+        return array("redirect"=>$redirect);
     }
     function action_get_code(){
         $mobile = self::_request("mobile");

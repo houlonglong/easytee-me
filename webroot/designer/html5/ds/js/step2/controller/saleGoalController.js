@@ -351,7 +351,11 @@ ui.controllers.SaleGoalController = function($scope){
             data: data,
             success: function(data){
                 if(data.status == 0){
-                    callback();
+                    convert_to_png(function(content){
+                        $.post("/api?model=design/tool/beta&action=save_act_thumb",{"act_id":ezdVars.ActivityID,content:content},function(data){
+                            callback();
+                        });
+                    })
                 }else{
                     alert(data.message);
                 }
