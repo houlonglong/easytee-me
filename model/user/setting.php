@@ -26,24 +26,24 @@ class Model_User_Setting extends Model_User_Abstract {
     function action_address_detail(){
 
         $id = self::_request("id");
-        $uid = Model_User_Auth::get_uid();
+        $uid = slef::get_uid();
         $row = self::_db()->select_row("select * from user_addresses where id = ? and uid = ?",$id,$uid);
         return $row;
     }
     function action_address_delete(){
         $id = self::_request("id");
-        $uid = Model_User_Auth::get_uid();
+        $uid = slef::get_uid();
         self::_db()->delete("user_addresses",array("uid"=>$uid,"id"=>$id));
         return array("ok");
     }
     function action_address_list(){
-        $uid = Model_User_Auth::get_uid();
+        $uid = slef::get_uid();
         $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
         return $addresses;
     }
     function action_save_address(){
         $id = self::_request("id");
-        $uid = Model_User_Auth::get_uid();
+        $uid = slef::get_uid();
         $name = self::_request("name");
         if(!$name){
             throw new Exception("姓名不能为空");
@@ -121,7 +121,7 @@ class Model_User_Setting extends Model_User_Abstract {
         return $account;
     }
     static function get_user_money(){
-        return self::_db()->select_row("select * from users where id = ?",Model_User_Auth::get_uid());
+        return self::_db()->select_row("select * from users where id = ?",Model_User_Abstract::get_uid());
     }
 
     static function get_balance_tx(){
