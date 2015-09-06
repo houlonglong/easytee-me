@@ -5,6 +5,7 @@
 class Model_Design_Tool_Beta extends BaseModel {
     static $table = "";
     function __construct(){
+
         //parent::__construct();
     }
     static function get_uid(){
@@ -23,11 +24,13 @@ class Model_Design_Tool_Beta extends BaseModel {
      */
     static function init(){
         #初始化设计
+
         $uid  = self::get_uid();
         $info = array(
             'app_id' => 1,
             'uid' => $uid,
         );
+
         $design_id = self::_db()->insert("designs",$info);
         #初始化活动
         $info['design_id'] = $design_id;
