@@ -83,7 +83,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: right">快递总费用</th>
-                                                        <td style="text-align: left"><?php echo $row['total_express']; ?></td>
+                                                        <td style="text-align: left"><?php echo empty($row['total_express'])?0:$row['total_express']; ?></td>
                                                     </tr>
                                                 </table>
                                             </div>
