@@ -148,10 +148,10 @@ class Model_Order extends Model_User_Abstract {
             if (!$address)
                 throw new Exception("地址不存在");
 
-            $express_price_res = self::_db()->select_row("select * from express_prices where area = ?",str_replace("市","",str_replace("省","",$address['province'])));
-
-            if (!$express_price_res)
-                throw new Exception("快递费没有配置,请联系网站管理员");
+            //$express_price_res = self::_db()->select_row("select * from express_prices where area = ?",str_replace("市","",str_replace("省","",$address['province'])));
+            $total_express = $_POST['total_express'];
+//            if (!$express_price_res)
+//                throw new Exception("快递费没有配置,请联系网站管理员");
 
             //备注
             $notes = @$_POST['notes'];
@@ -162,11 +162,11 @@ class Model_Order extends Model_User_Abstract {
 
             $activity = self::_db()->select_row("select * from activities where id = ?",$activityId);
 
-            if($activity['delivery_type'] == "unity"){
-                $total_express = $express_price_res['price']/5;
-            }else{
-                $total_express = $express_price_res['price'];
-            }
+//            if($activity['delivery_type'] == "unity"){
+//                $total_express = $express_price_res['price']/5;
+//            }else{
+//                $total_express = $express_price_res['price'];
+//            }
 
             if (!$activity)
                 throw new Exception("活动不存在");
