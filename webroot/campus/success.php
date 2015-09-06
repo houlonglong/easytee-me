@@ -47,17 +47,28 @@
 $http_host = $_SERVER['HTTP_HOST']  ?>
 </body>
 <script>
+	<?php if(Model_User_Auth::is_logined()){
+    echo 'var uid = '.Model_User_Auth::get_uid();
+    }else{
+    echo 'var uid = null';
+    }?>;
+
+	if(uid){
+		var bdUrl = 'http://<?php echo $http_host ?>/campus/index?invite='+uid;
+	}else{
+		var bdUrl = 'http://<?php echo $http_host ?>/campus/index';
+	}
+	alert(bdUrl);
 window._bd_share_config = {
         common: {
             bdText: '易衫开学送好礼，学生注册即送20元现金，分享再获好礼',
             bdDesc: '开学“易”，好礼“衫”重奏，快来体验易衫网的全新定制服务',
-            bdUrl: 'http://<?php echo $http_host ?>/campus',
+            bdUrl: bdUrl,
             bdPic: 'http://<?php echo $http_host ?>/resources/theme/index/image/fenxiang.jpg'
         },
         share: [{
             "bdSize": 32
         }]
-     
     };
     with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)]
 </script>

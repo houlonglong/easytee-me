@@ -69,6 +69,7 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                     </button>
                                                     <?php if(!empty($_GET['campus'])){
                                                         ?>
+                                                        <input type="hidden" name="campus" value="<?=$_GET['campus']?>">
                                                         <span style="display: inline-block;vertical-align:bottom; height: 40px;">
                                                             <input type="checkbox" name="checkbox"  disabled checked   class="labelauty" id="labelauty-704876" style="display: none; ">
                                                             <label for="labelauty-704876">
