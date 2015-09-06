@@ -56,7 +56,7 @@ class Model_User_Activity extends Model_User_Abstract {
     function view_detail(){
         $id = self::_request("id");
         $uid = self::get_uid();
-        $detail = self::_db(NEW_DB)->select_row("select * from activity where uid = ? and id = ?",$uid,$id);
+        $detail = self::_db()->select_row("select * from activities where uid = ? and id = ?",$uid,$id);
         return array("detail"=>$detail);
     }
     /**
@@ -110,21 +110,52 @@ class Model_User_Activity extends Model_User_Abstract {
 
     /**
      * 修改
-     *
+     */
     function action_edit(){
         return self::table_edit();
     }
-     */
+
 
     /*
     * 修改
-    *
-    static function table_edit(){
-        $table = self::$table;
-        return PtLib\table_edit($table);
-    }
     */
+    static function table_edit(){
+       $id = self::_request('id');
+        if($id){
+            $name = self::_request('name');
+            if($name){
+                $data['name'] = $name;
+            }
+            $descripion = self::_request('description');
+            if($descripion){
+                $data['description'] = $descripion;
+            }
+            $row = self::_db()->update('activities',$data,array('id'=>$id));
+            echo $row;
+        }
+    }
 
+    function action_close_activity(){
+        $id = self::_request('id');
+        if($id){
+            $activity = self::_db()->select_row('select a.*,d.colors from activities as a INNER JOIN designs as d on a.design_id = d.id where a.id = ?',$id);
+            if($activity['sales_count']<=0){
+                return array('msg'=>'msg1');
+            }
+            if($activity['sales_count']<10){
+                return array('msg'=>'msg2');
+            }
+            if($activity['sales_count']>10 &&  $activity['sales_count']< $activity['sales_target']){
+                $eachPrice = Model_Cost::calculate_cost($activity['colors'],$activity['sales_count']);
+                $profie = Model_Cost::calculate_profie($id);
+                return array('msg'=>'msg3','eachPrice'=>$eachPrice,'profie'=>$profie);
+            }
+            if($activity['sales_count']>=$activity['sales_target']){
+                return array('msg'=>'msg4');
+            }
+        }
+        return array();
+    }
     /**
      * @param
      * @return

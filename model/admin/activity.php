@@ -120,6 +120,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         return self::table_list();
     }
 
+
     function view_detail_design()
     {
         $table = self::$table;

@@ -108,14 +108,29 @@ class Model_Admin_Campus extends BaseModel {
     function action_audit(){
         $id = $this->_request('id');
         if($id){
+            $userDatas = self::_db()->select_row('select nu.invite_id,nu.id,u.id as new_uid from new_users as nu
+inner join users as u on u.app_uid = nu.id
+inner join user_campus as uc on uc.uid = u.id  where uc.id =?
+',$id);
             $status = $this->_request('status');
+            self::_db()->bt();
             $row = PtLib\db()->update('user_campus',array('status'=>$status),array('id'=>$id));
-            self::_db()->run_sql('update users set money=money+'.$GLOBALS['setting']['campus']['add_money'].' where id = ?',$id);
-            $invite_id = self::_db()->select_row('select invite_id from users where id =?',$id);
-            if($invite_id){
-                self::_db()->run_sql('update users set money=money+'.$GLOBALS['setting']['campus']['invite_money'].' where id = ?',$invite_id);
+            $add_money_rows = self::_db()->run_sql('update users set money=money+'.$GLOBALS['setting']['campus']['add_money'].' where id = ?',$userDatas['id']);
+
+            $add_new_money_rows = self::_db()->run_sql('update new_users set money=money+'.$GLOBALS['setting']['campus']['add_money'].' where id = ?',$userDatas['new_uid']);
+            self::_db()->commit();
+            $invite_row = 1;
+            if($userDatas['invite_id']){
+                $invite_row = self::_db()->run_sql('update new_users set invite_money=invite_money+'.$GLOBALS['setting']['campus']['invite_money'].' where id = ?',$userDatas['invite_id']);
             }
-            echo $invite_id;
+            if(!$add_money_rows || !$row || !$invite_row || !$add_new_money_rows){
+                self::_db()->rollback();
+                self::_db()->commit();
+                echo 0;
+            }else{
+                self::_db()->commit();
+                echo 1;
+            }
         }else{
             echo 0;
         }
