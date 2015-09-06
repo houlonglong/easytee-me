@@ -364,8 +364,8 @@ function do_pay(obj,type){
         $(obj).removeAttr("disabled");
         if(data.status == 0){
             var url = data.return.url;
-            //location.href = url;
-            window.open(url);
+            location.href = url;
+            //window.open(url);
         }else{
             alert(data.message);
         }

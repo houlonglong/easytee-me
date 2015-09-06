@@ -41,7 +41,7 @@ function showdetail(typ) {
  * @returns {undefined}
  */
 function activityPage(page, url) {
-    reutrn;
+    return;
     url = url || '';
     if (url == '') {
         url = '/Activity/getSupporter/' + activity.id + '?page=' + page;

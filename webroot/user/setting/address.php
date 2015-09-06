@@ -75,7 +75,7 @@
                                         <td><?=$row['name']?></td>
                                         <td><?=$row['mobile']?></td>
                                         <td>
-                                            <button onclick="change_address(this)" class=" btn btn-primary btn-sm">修改</button>
+                                            <button onclick="change_address(this)" class="hide btn btn-primary btn-sm">修改</button>
                                             <button onclick="delete_address(this)" class="btn btn-danger btn-sm">删除</button>
                                         </td>
                                     </tr><?php } ?>

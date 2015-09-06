@@ -45,7 +45,7 @@ class Model_Admin_Campus extends BaseModel {
         $page = $request['page'];
         $sort = $request['sidx'];
         $sort_type = $request['sord'];
-        $join = ' inner join users as u on u.id = '.$table_alias.'.uid ';
+        $join = ' inner join users as u on u.app_uid = '.$table_alias.'.uid ';
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
         if(empty($sort)){

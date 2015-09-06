@@ -30,7 +30,7 @@ class Model_User_Order extends Model_User_Abstract {
 
         $skip = ($page - 1) * $limit;
 
-        $rows = self::_db()->select_rows("select * from `orders` $where and uid = ? limit {$skip},{$limit}",$uid);
+        $rows = self::_db()->select_rows("select * from `orders` $where and uid = ? order by id desc limit {$skip},{$limit}",$uid);
 
         $params = array(
             'total_rows'=>$total, #(必须)

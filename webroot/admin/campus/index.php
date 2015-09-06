@@ -268,7 +268,7 @@
                 {
                     title: "认证图片", name: 'img_url', index: 'img_url', editable: false, sortable: false,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="' + cellvalue + '" target="_black"><img src="' + cellvalue + '"></img></a>';
+                        return '<a href="' + cellvalue + '" target="_black"><img style="width:100px;" src="' + cellvalue + '"></img></a>';
                     }
                 },
                 {title: "真实姓名", name: 'real_name', index: 'real_name', editable: false, sortable: false},
