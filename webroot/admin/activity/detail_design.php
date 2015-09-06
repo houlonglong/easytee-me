@@ -6,7 +6,6 @@
      * 活动详情
      *
      */
-
     include(block("admin/block/html_head"));
     $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
     ?>
@@ -22,26 +21,94 @@
 
     <script src="/js/libs/snap.svg/snap.svg.js"></script>
     <script>
-        var svgs = <?php echo json_encode($svgs)?>;
-        function gen_svg($id,$side,$color,$url,region){
-            $t = region.split(",");
-            console.log($id,$color,$url,$side,region  );
-            var s = Snap("#product_"+$side+"_"+$id);
-            var r = s.paper.rect( 0, 0, 500, 500);
-            r.paper.attr("fill","#"+$color);
-            var c = s.paper.image($url, 0, 0, 500, 500);
-            var c1 = s.paper.image(svgs[$side], $t[0]/2,$t[1]/2,$t[2]/2,$t[3]/2);
-            //s.paper.attr("style", "background-color:#"+$color);
-            //var svg_url = svgs[$side];
-            /**
-             * Snap.load(svg_url, function (f) {
-                s.append(f);
-                s.select("svg").attr("x",$t[0]/2)
-                s.select("svg").attr("y",$t[1]/2)
-                s.select("svg").attr("width",$t[2]/2)
-                s.select("svg").attr("height",$t[3]/2)
+
+        function get_act_info(){
+            return;
+            $.get("/api?model=admin/activity&action=get_act_info",function(data){
+                $("#convert_area").html('<div style="display: block"><h1>' +
+                    '<a href="/activity/'+data.return.id+'" target="_blank">'+data.return.name+'</a>' +
+                    '</h1><canvas id="canvas_convert" width="500px" height="500px"></canvas></div><div style="display: block"><svg width="500" height="500" id="svg_tmp"></svg></div><div style="display: block"><svg width="500" height="500" id="svg_tmp1"></svg></div>');
+                var svg = Snap("#svg_tmp");
+                var svg1 = Snap("#svg_tmp1");
+
+                var rect = svg.paper.rect(0, 0, 500, 500, 0);
+                rect.attr({
+                    fill: "#"+data.return.color
+                });
+                svg.paper.image(data.return.imgurl, 0, 0, 500, 500);
+
+                $t = data.return.region.split(",");
+                svg1.paper.image(data.return.svg_front_image, $t[0]/2,$t[1]/2,$t[2]/2,$t[3]/2);
+
+                canvg('canvas_convert', $("#svg_tmp1")[0].outerHTML,{
+                    log:true,
+                    useCORS: true,
+                    ignoreMouse: true, ignoreAnimation: true ,
+                    renderCallback: function (dom) {
+                        var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
+                        console.log(imageDataUri);
+                        svg.paper.image(imageDataUri, 0, 0, 500, 500);
+                        canvg('canvas_convert', $("#svg_tmp")[0].outerHTML,{
+                            log:true,
+                            useCORS: true,
+                            ignoreMouse: true, ignoreAnimation: true ,
+                            renderCallback: function (dom) {
+                                var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
+                                console.log(imageDataUri);
+                                $.post("/api?model=design/tool/beta&action=save_act_thumb",{content:imageDataUri,act_id:data.return.id},function(){
+
+                                });
+
+                            }
+                        })
+                    }
+                })
+
+            },"json")
+        }
+
+        function convert_to_png(cb){
+            var svg = Snap("#svg_tmp");
+            var rect = svg.paper.rect(0, 0, 500, 500, 0);
+            rect.attr({
+                fill: $("#designerContainer svg")[0].style.backgroundColor
             });
-             */
+            canvg('canvas_convert', $("#designerContainer svg")[0].outerHTML,{
+                log:true,
+                useCORS: true,
+                ignoreMouse: true, ignoreAnimation: true ,
+                renderCallback: function (dom) {
+                    var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
+                    svg.paper.image(imageDataUri, 0, 0, 500, 500);
+                    canvg('canvas_convert', $("#side1 svg")[0].outerHTML,{
+                        log:true,
+                        useCORS: true,
+                        ignoreMouse: true, ignoreAnimation: true ,
+                        renderCallback: function (dom) {
+                            var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
+                            svg.paper.image(imageDataUri, 0, 0, 500, 500);
+                            canvg('canvas_convert', $("#svg_tmp")[0].outerHTML,{
+                                log:true,
+                                useCORS: true,
+                                ignoreMouse: true, ignoreAnimation: true ,
+                                renderCallback: function (dom) {
+                                    var imageDataUri = $("#canvas_convert")[0].toDataURL("image/png");
+                                    //console.log(imageDataUri);
+                                    if(cb) cb(imageDataUri);
+                                }
+                            })
+
+                        }
+                    })
+                }
+            })
+            //var r = s.paper.rect( 0, 0, 500, 500);
+            //r.paper.attr("fill","#"+$color);
+        }
+
+        var svgs = <?php echo json_encode($svgs)?>;
+        function gen_svg(){
+
         }
     </script>
 </head>
@@ -71,27 +138,29 @@
                                         <li class="">
                                             <a data-toggle="tab" href="#design_svg">Design Svg</a>
                                         </li>
-
                                     </ul>
-
                                     <div class="tab-content">
                                         <div id="design_product" class="tab-pane in active">
-                                            <div style="display: none;">
+
+                                            <button class="btn" onclick="get_act_info()">load act</button>
+                                            <div id="convert_area">
+                                                <div style="display: block"><canvas id="canvas_convert" width="500px" height="500px"></canvas></div>
+                                                <div style="display: block"><svg width='500' height='500' id='svg_tmp'></svg></div>
+                                                <div style="display: block"><svg width='500' height='500' id='svg_tmp1'></svg></div>
+                                            </div>
+
+                                            <div style="display: block;">
                                                 <canvas id="canvas" width="500px" height="500px"></canvas>
                                             </div>
                                             <table class="table table-striped table-bordered table-hover">
-
                                            <?php
                                            foreach($act_product_styles as $products){
                                                 foreach($products as $product){?>
                                                     <tr>
-
                                                         <td><?php echo "<div class='product_svg'><svg width='500' height='500' id='product_".$product['side']."_".$product['product_style_id']."'></svg></div><script>gen_svg(".$product['product_style_id'].",'".$product['side']."','".$product['color']."','".$product['imgurl']."','".$product['region']."','".$product['y']."','".$product['w']."','".$product['h']."')</script><hr>";?></td>
                                                         <td class="product_img"></td>
                                                         <td><button class="btn btn-primary btn-xs" onclick="gen_product_svg(this)">生成</button></td>
-
                                                     </tr>
-
                                                 <?php }
                                            }
                                            ?></table>

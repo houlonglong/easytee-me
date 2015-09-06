@@ -1446,7 +1446,15 @@ class Model_Design_Tool_Beta extends BaseModel {
         return $money;
          */
     }
-
+    function action_save_act_thumb(){
+        $act_id = self::_request("act_id");
+        $content = self::_request("content");
+        $content = str_replace("data:image/png;base64,","",$content);
+        $rand = rand(1000,9999);
+        $path = PtApp::$setting['aliyun_oss']['bucket_root'].'/activity/thumb/'.date('Y-m-d-H-i-s').'/'.$rand.'.png';
+        $url = Model_Aliyun_Oss::upload_content(base64_decode($content),$path);
+        self::_db()->update("activities",array("thumb"=>$url),array("id"=>$act_id));
+    }
     function action_activity_save(){
 
         if (!isset($_REQUEST['designId']) || !$_REQUEST['designId']) {

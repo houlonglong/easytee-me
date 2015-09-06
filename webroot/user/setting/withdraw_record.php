@@ -69,8 +69,7 @@
                                                 "passed"=>"通过",
                                                 "fail"=>"失败"
                                             );
-
-                                            echo $status_array[$row['status']]?></td>
+                                            echo empty($status_array[$row['status']])?"":$status_array[$row['status']]?></td>
                                     </tr><?php } ?>
 
                                     </tbody>

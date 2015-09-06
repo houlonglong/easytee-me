@@ -56,6 +56,7 @@ admin/finance/withdraw|提现申请|admin_list
 admin/finance/flow|提现申请|admin_list
 
 admin/campus/index|学生管理|admin_list|admin/campus
+campus/index|易衫开学礼
 
 
 admin/express/price/index|快递费管理|admin_list|admin/express/price

@@ -315,8 +315,8 @@ ui.controllers.DesignerController = function(b, d, c, g, k, $location) {
         d.goToStep(d.step+1);
     };
     d.done = function(){
-        console.log('done');
         eventManager.trigger('doneActivity', function(){
+
             //TODO 成功后跳转地址
             state.isDone = true;
             setTimeout(function(){
@@ -324,6 +324,8 @@ ui.controllers.DesignerController = function(b, d, c, g, k, $location) {
             },2000);
             $('#doneDialog').show();
         });
+
+
     };
     d.save = function(){
         b.SaveDesign();

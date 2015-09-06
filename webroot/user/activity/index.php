@@ -97,8 +97,9 @@
                                         ?>
                                         <tr data-id="<?= $row['id'] ?>">
                                             <td style="width: 70px;">
-                                                <img style="width: 50px;height:50px;"
-                                                     src="http://cdn.open.easytee.me/products/2/front.png">
+
+                                                <img style="width: 50px;height:50px;display:none" src="http://cdn.open.easytee.me/products/2/front.png">
+                                                <img style="width: 50px;height:50px;" src="<?=$row['thumb']?>">
                                             </td>
                                             <td>
                                                 <?php

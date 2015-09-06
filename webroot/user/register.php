@@ -14,6 +14,11 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
     <meta name="keywords" content="定制T恤,定制T恤,T恤,T恤丝网印刷,刺绣,数码印刷,设计,定制服装"/>
     <meta name="description" content="使用易衫网的T恤在线设计工具来创建您的作品.您可以上传自己的设计,或者使用我们丰富的素材库和众多的各种字体."/>
     <?php include(block("block/html_head"));?>
+    <link rel="stylesheet" type="text/css" href="/resources/public/css/jquery-labelauty.css">
+
+
+    <script src="/resources/public/js/jquery-labelauty.js" type="text/javascript"></script>
+
 </head>
 <body>
 <?php include(block("block/nav_bar"));?>
@@ -62,8 +67,20 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                     <button type="button" data-loading-text="正在玩命注册中..." class="btn btn-success btn-lg" id="registerAction">
                                                         免费注册
                                                     </button>
+                                                    <?php if(!empty($_GET['campus'])){
+                                                        ?>
+                                                        <span style="display: inline-block;vertical-align:bottom; height: 40px;">
+                                                            <input type="checkbox" name="checkbox"  disabled checked   class="labelauty" id="labelauty-704876" style="display: none; ">
+                                                            <label for="labelauty-704876">
+                                                                <span class="labelauty-unchecked-image">
+                                                                </span><span class="labelauty-unchecked">校园达人</span>
+                                                                <span class="labelauty-checked-image">
+                                                                </span><span class="labelauty-checked">校园达人</span></label>
+                                                        </span>
+                                                    <?php } ?>
                                                 </div>
-                                                <input name="relurl" type="hidden" value="/">
+
+                                                <input name="redirect" type="hidden" value="<?php echo empty($_GET['redirect'])? '/user/index': $_GET['redirect'] ?>">
                                             </form>
                                         </div>
                                         <div>
@@ -72,7 +89,7 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                 <!--<a class="btn-login btn-login-zhifubao hidden-xs" href="javascript:authLogin('alipay','http://11.dev.jzw.com/');"><em class="iconfont icon-alipay"></em></a>
                                                 <a class="btn-login-weixin" href="javascript:authLogin('wechat','http://11.dev.jzw.com/');"><em class="iconfont icon-iconfontweixin"></em></a>-->
                                                 <!--<a class="btn-login-qq" href="javascript:authLogin('qq','http://11.dev.jzw.com/');"><em class="iconfont icon-qq"></em></a>-->
-                                                <a class="btn-login-weibo" href="javascript:authLogin('weibo','http://<?=$_SERVER['HTTP_HOST']?>/');"><em class="iconfont icon-weibo"></em></a>
+                                                <a class="btn-login-weibo hide" href="javascript:authLogin('weibo','http://<?=$_SERVER['HTTP_HOST']?>/');"><em class="iconfont icon-weibo"></em></a>
                                                 <!--<a class="btn-login btn-login-douban" href="javascript:authLogin('douban','http://11.dev.jzw.com/');"><em class="iconfont icon-douban"></em></a>-->
                                             </div>
                                         </div>
@@ -84,7 +101,7 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                     <script src="/resources/public/js/jquery.cookie.js"></script>
                                     <script type="text/javascript">
                                         $(function () {
-                                            var mobile = $.cookie("mobile");
+                                            var mobile = $.cookie("mobile_cookie");
                                             if(mobile){
                                                 $("#mobile").val(mobile);
                                             };
@@ -136,10 +153,11 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                     dataType:'json',
                                                     data: $('#registerForm').serialize(),
                                                     success: function(data){
+
                                                         if(data.status == 0){
-                                                            $.cookie("mobile",'',{path:"/"});
-                                                            if(data.redirect && data.redirect !=''){
-                                                                location.href=data.redirect;
+                                                            $.cookie("mobile_cookie",'',{path:"/"});
+                                                            if(data.return.redirect && data.return.redirect !=''){
+                                                                location.href=data.return.redirect;
                                                             }else{
                                                                 location.href='/user/index';
                                                             }
@@ -172,7 +190,7 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                     $("#mobile").parents('.form-group').removeClass('has-error').find(".control-label").text("手机");
 
                                                 }
-                                                $.cookie("mobile",mobile.val(),{path:"/"});
+                                                $.cookie("mobile_cookie",mobile.val(),{path:"/"});
                                                 $(this).attr('disabled', true);
                                                 $.post("/api?model=user/register&action=get_code&mobile=" + mobile.val(),function(data){
                                                     if (data.status == 0) {

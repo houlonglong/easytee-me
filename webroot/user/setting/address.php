@@ -196,7 +196,7 @@
             action:"address_delete",
             id:id
         },function(){
-            //location.reload();
+            location.reload();
         });
     }
     function save_address(){

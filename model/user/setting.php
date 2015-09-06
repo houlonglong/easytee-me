@@ -158,6 +158,7 @@ class Model_User_Setting extends Model_User_Abstract {
     function view_withdraw_record(){
         $uid = self::get_uid();
         $records = self::_db()->select_rows("select * from user_withdraw_applies where uid = ? order by id desc",$uid);
+        //var_dump($records);exit;
         return array("rows"=>$records);
     }
     /**

@@ -39,6 +39,7 @@ $is_login = Model_User_Auth::is_logined()?1:0;
     <?php include(block("block/html_head"));?>
     <script type="text/javascript" src="/js/libs/canvg/canvg.js"></script>
     <script src="/js/libs/snap.svg/snap.svg.js"></script>
+    <script src="/js/app/convert.js"></script>
 </head>
 <body>
 <?php include(block("block/nav_bar"));?>

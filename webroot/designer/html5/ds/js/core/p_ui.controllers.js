@@ -130,7 +130,7 @@ ui.controllers.UploaderLandingController = function(b, d, c) {
                             return;
                         }
                         if(w*h > 3000*3000){
-                            alert("您上传的图片太大了！\n过大的尺寸会导致整个设计体验急剧变差。\n请适当缩小图片的宽高（900万像数以内）或咨询客服：400-920-2085 协助您解决。");
+                            alert("您上传的图片太大了！为了确保您的使用体验，您上传的图片最大不超过5M，最大像素请不超过3000 x 3000像素，最小不低于200 x 200像素。如有任何问题，请咨询客服：QQ 202351473或致电400-920-2085。");
                             return;
                         }
                         state.imageUploadData.art_width = w;

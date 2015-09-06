@@ -140,5 +140,23 @@ class Model_Activity extends BaseModel{
         $activity = self::_db(NEW_DB)->select_row("select *,s.sale_count from activity as a left join act_sale as s on s.act_id = a.id where id = ?",$id);
         return $activity;
     }
+    static function get_act_svg_content($act_id){
 
+        $act = self::_db()->select_row("select a.name,a.id,a.design_id,region.region,a.default_product_style_id,image.imgurl,ps.color,ps.color_name,d.svg_front,d.svg_front_image
+    from activities as a
+    left join design_svgs as d on d.design_id = a.design_id
+left join app_product_styles as aps on aps.id = a.default_product_style_id
+left join product_styles as ps on ps.id = aps.product_style_id
+left join product_style_images as image on image.side = 'front' and image.product_style_id = aps.product_style_id
+left join product_style_image_regions as region on  region.product_style_image_id = image.id
+where a.default_product_style_id is not null and a.thumb is null and a.uid <> 0 and d.svg_front is not null order by a.id asc
+",$act_id);
+        $act['imgurl'] = replace_cdn($act['imgurl']);
+        if(!$act['svg_front_image']){
+            $act['svg_front_image'] = Model_Aliyun_Oss::upload_content($act['svg_front'],"design/svg/".$act['design_id']."/front.svg");
+            self::_db()->update("design_svgs",array("svg_front_image"=>$act['svg_front_image']),array("design_id"=>$act['design_id']));
+        }
+        return $act;
+
+    }
 }
