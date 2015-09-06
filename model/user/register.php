@@ -19,7 +19,7 @@ class Model_User_Register extends BaseModel {
         //var_dump($mobile);exit;
         if($is_register) throw new Exception("当前号码已经注册过");
 
-        $password = md5(sha1(self::_request("password")));
+        $password = sha1(self::_request("password"));
         if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("验证码不正确");
         $data = array(
             "nickname"=>$mobile,

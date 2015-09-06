@@ -84,7 +84,7 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                 <input name="redirect" type="hidden" value="<?php echo empty($_GET['redirect'])? '/user/index': $_GET['redirect'] ?>">
                                             </form>
                                         </div>
-                                        <div>
+                                        <div class="hide">
                                             <h4>合作网站登录</h4>
                                             <div>
                                                 <!--<a class="btn-login btn-login-zhifubao hidden-xs" href="javascript:authLogin('alipay','http://11.dev.jzw.com/');"><em class="iconfont icon-alipay"></em></a>
@@ -93,9 +93,10 @@ if(Model_User_Auth::is_logined()) \PtLib\location("/user/index");
                                                 <a class="btn-login-weibo hide" href="javascript:authLogin('weibo','http://<?=$_SERVER['HTTP_HOST']?>/');"><em class="iconfont icon-weibo"></em></a>
                                                 <!--<a class="btn-login btn-login-douban" href="javascript:authLogin('douban','http://11.dev.jzw.com/');"><em class="iconfont icon-douban"></em></a>-->
                                             </div>
+                                            <hr>
                                         </div>
                                         <div>
-                                            <hr>
+
                                             <a href="/user/auth/login" class="btn btn-primary btn-block btn-lg">已有帐号？立即登录</a>
                                         </div>
                                     </div>
