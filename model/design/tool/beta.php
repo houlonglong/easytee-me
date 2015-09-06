@@ -584,6 +584,7 @@ class Model_Design_Tool_Beta extends BaseModel {
                 $objectArr['attribute']['art_id'] = $object['art_id'];
                 //$art = $this->Art->getArtByIds($appId, $object['art_id']);
                 $art = self::_db()->select_row("select * from arts where id = ?",$object['art_id']);
+                //var_dump($art);exit;
                 $printArt = array();
                 if ($art) {
                     $printArt = array(

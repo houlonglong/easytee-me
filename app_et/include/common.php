@@ -29,7 +29,7 @@ function date_time_now(){
  * @return mixed
  */
 function replace_cdn($content){
-    return str_replace("REPLACE_DOMAIN_WITH",CDN_DOMAIN_OPEN,$content);
+    return str_replace("REPLACE_DOMAIN_WITH",CDN_DOMAIN_OPEN.'/',$content);
 }
 function xml_response($xml){
     header("Content-Type:text/xml");
