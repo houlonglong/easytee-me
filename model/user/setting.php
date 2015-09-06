@@ -26,18 +26,18 @@ class Model_User_Setting extends Model_User_Abstract {
     function action_address_detail(){
 
         $id = self::_request("id");
-        $uid = slef::get_uid();
+        $uid = self::get_uid();
         $row = self::_db()->select_row("select * from user_addresses where id = ? and uid = ?",$id,$uid);
         return $row;
     }
     function action_address_delete(){
         $id = self::_request("id");
-        $uid = slef::get_uid();
+        $uid = self::get_uid();
         self::_db()->delete("user_addresses",array("uid"=>$uid,"id"=>$id));
         return array("ok");
     }
     function action_address_list(){
-        $uid = slef::get_uid();
+        $uid = self::get_uid();
         $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
         return $addresses;
     }
