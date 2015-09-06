@@ -137,6 +137,7 @@ limit 1");
         return self::table_list();
     }
 
+
     function view_detail_design()
     {
         $table = self::$table;

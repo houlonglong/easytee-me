@@ -417,22 +417,7 @@ class Model_Activity_Beta extends BaseModel {
     }
      */
 
-    /**
-     * 修改
-     *
-    function action_edit(){
-        return self::table_edit();
-    }
-     */
 
-    /*
-    * 修改
-    *
-    static function table_edit(){
-        $table = self::$table;
-        return PtLib\table_edit($table);
-    }
-    */
 
     /**
      * @param

@@ -28,7 +28,7 @@ img{display: block;}
 	position: relative;
 	left:50%;
 	margin-left: -175px;
-	/* vertical-align: text-bottom; */
+	display: inline-flex;
 }
 .anniu .left,.anniu .right{
 	display: inline-block;
@@ -41,7 +41,7 @@ img{display: block;}
 	line-height: 44px;
 	color: #3e3a39;
 	text-decoration: none;
-	vertical-align: text-bottom;
+
 }
 
 .anniu a.left{

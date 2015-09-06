@@ -12,7 +12,6 @@
 <body>
 <?php include(block("user/block/body_head"))?>
 <?php include(block("user/block/menu"))?>
-
 <!-- Main Wrapper -->
 <div id="wrapper">
     <div class="normalheader transition animated fadeIn">
@@ -47,30 +46,27 @@
                         <form method="get" onsubmit="return false;" class="form-horizontal">
 
                             <div class="form-group"><label class="col-sm-2 control-label">名称</label>
-                                <div class="col-sm-8"><input type="text" class="form-control"></div>
+                                <div class="col-sm-8"><input type="text" class="form-control" name="activity_name" value="<?php echo @$detail['name'];?>"></div>
                             </div>
 
                             <div class="hr-line-dashed"></div>
                             <div class="form-group"><label class="col-sm-2 control-label">介绍</label>
                                 <div class="col-sm-8">
-                                    <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
+                                        <textarea  cols="30" rows="10" class="form-control" id="description" ><?php echo @$detail['description'];?></textarea>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-8 col-sm-offset-2">
-                                    <button class="btn btn-primary" type="button">保存</button>
+                                    <button class="btn btn-primary edit-activity" type="button">保存</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
-
     </div>
-
     <!-- Footer-->
     <?php include(block("user/block/footer"))?>
 
@@ -95,7 +91,23 @@
 <script src="/static/scripts/homer.js"></script>
 <script>
     $(function () {
-
+     $('.edit-activity').click(function(){
+         var id = <?php echo empty($_REQUEST['id'])?0:$_REQUEST['id'];?>;
+         $.ajax({
+             url:"/api?model=user/activity&action=edit",
+             data:{
+                 name:$("input[name='activity_name']").val(),
+                 description:$("#description").val(),
+                 id:id
+             },
+             type:'POST',
+             success: function (status) {
+                 if(status == 0){
+                     alert("保存失败");
+                 }
+             }
+         })
+     })
 
     });
 </script>

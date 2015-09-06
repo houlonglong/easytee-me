@@ -226,7 +226,7 @@
             type: "POST",
             success: function (status) {
                 if(status){
-                    location.reload();
+//                    location.reload();
                 }
             }
 
