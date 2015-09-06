@@ -22,6 +22,8 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $request = PtLib\http_request("id");
         $row = PtLib\db_select_row("select a.*,u.nick_name,d.colors from " . self::$table . " as a inner join users as u on u.id = a.uid
          inner join designs as d on d.id = a.design_id  where a.id = ?", $_REQUEST['id']);
+        $totalExpress = self::_db()->select_row('select sum(express_price) as total_express from orders where activity_id=? AND status not in("已关闭","待付款")',$_REQUEST['id']);
+        $row['total_express'] = $totalExpress['total_express'];
         return $row;
     }
 

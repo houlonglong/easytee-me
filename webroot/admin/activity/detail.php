@@ -40,13 +40,8 @@
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row">
                             <div class="col-xs-12">
-
-
                                 <a class="btn btn-xs btn-info"
                                    href="/api?model=admin/activity&action=downloadExcel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
-
-
-
                             </div>
                             <!-- /.span -->
                         </div>
@@ -86,6 +81,10 @@
                                                         <th style="text-align: right">颜色数量</th>
                                                         <td style="text-align: left"><?php echo $row['colors']; ?></td>
                                                     </tr>
+                                                    <tr>
+                                                        <th style="text-align: right">快递总费用</th>
+                                                        <td style="text-align: left"><?php echo $row['total_express']; ?></td>
+                                                    </tr>
                                                 </table>
                                             </div>
                                         </div>
@@ -94,8 +93,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="row">
                             <div class="col-xs-12">
 
@@ -210,6 +207,15 @@
                     name: 'ship_mobile',
                     index: 'ship_mobile',
                     width: 80,
+                    sortable: false,
+                    editable: true,
+                    unformat: pickTimeDate
+                },
+                {
+                    title: "快递费",
+                    name: 'express_price',
+                    index: 'express_price',
+                    width: 20,
                     sortable: false,
                     editable: true,
                     unformat: pickTimeDate
