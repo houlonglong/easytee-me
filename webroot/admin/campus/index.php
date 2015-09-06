@@ -277,7 +277,6 @@
                 {title: "专业", name: 'major', index: 'major', editable: false, sortable: false},
                 {title: "申请时间", name: 'add_time', index: 'add_time', editable: false, sortable: false},
                 {title: "通过时间", name: 'up_time', index: 'up_time', editable: false, sortable: false},
-                {title: "邀请码", name: 'invite_code', index: 'invite_code', editable: false, sortable: false},
                 /*
                  {title:"Title",name:'title',index:'title',editable: false,
                  formatter:'showlink',

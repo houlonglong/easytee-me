@@ -3,8 +3,8 @@
     <div id="navigation">
         <div class="profile-picture">
             <?php
-            $uid = Model_User_Auth::get_uid();
-            $user = PtLib\db_select_row("select u.nick_name,n.photo from users as u left join new_users as n on n.id = u.app_uid where u.id = ?",$uid);
+            $uid = Model_User_Abstract::get_uid();
+            $user = PtLib\db_select_row("select u.id,u.app_uid,u.nick_name,n.photo from users as u left join new_users as n on n.id = u.app_uid where u.id = ?",$uid);
             ?>
             <a href="/user/index">
                 <img style="width: 50px;height:50px" src="<?=empty($user['photo'])?"/static/images/no-photo.png":$user['photo'] ?>" class="img-circle m-b" alt="logo">

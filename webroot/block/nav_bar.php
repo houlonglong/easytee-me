@@ -22,7 +22,7 @@
                 <!--<li><a href="/invite">邀请朋友</a></li>-->
             </ul>
             <?php if(Model_User_Auth::is_logined()){
-                    $uid = Model_User_Auth::get_uid();
+                    $uid = Model_User_Abstract::get_uid();
                 $user = \PtLib\db_select_row("select * from users where id = ?",$uid);
                 ?>
                 <ul class="nav navbar-nav navbar-right">

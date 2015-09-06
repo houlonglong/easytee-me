@@ -10,8 +10,8 @@ class Model_Design_Tool_Beta extends BaseModel {
     }
     static function get_uid(){
         if(Model_User_Auth::is_logined()){
-            $new_uid = PtApp::$auth['uid'];
-            $user = self::_db()->select_row("select * from users where app_uid = ?",$new_uid);
+            $uid = Model_User_Abstract::get_uid();
+            $user = self::_db()->select_row("select * from users where id = ?",$uid);
             $uid = $user['id'];
         }else{
             $uid = 0;
