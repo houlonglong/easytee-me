@@ -10,7 +10,6 @@ class Model_User_Activity extends Model_User_Abstract {
         $status = self::_request("status");
         if($status == "") $status = "进行中";
 
-
         $where = 'where 1=1 ';
         if($status != "全部"){
             $_status_array = array(
