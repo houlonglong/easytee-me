@@ -110,7 +110,12 @@ class Model_Admin_Campus extends BaseModel {
         if($id){
             $status = $this->_request('status');
             $row = PtLib\db()->update('user_campus',array('status'=>$status),array('id'=>$id));
-            echo $row;
+            self::_db()->run_sql('update users set money=money+'.$GLOBALS['setting']['campus']['add_money'].' where id = ?',$id);
+            $invite_id = self::_db()->select_row('select invite_id from users where id =?',$id);
+            if($invite_id){
+                self::_db()->run_sql('update users set money=money+'.$GLOBALS['setting']['campus']['invite_money'].' where id = ?',$invite_id);
+            }
+            echo $invite_id;
         }else{
             echo 0;
         }
