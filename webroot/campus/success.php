@@ -9,7 +9,7 @@
 <meta name="keywords" content="定制T恤,定制T恤,T恤,T恤丝网印刷,刺绣,数码印刷,设计,定制服装"/>
 <meta name="description" content="使用易衫网的T恤在线设计工具来创建您的作品.您可以上传自己的设计,或者使用我们丰富的素材库和众多的各种字体."/>
 <?php include(block("block/html_head"));?>
-	<link rel="stylesheet" type="text/css" href="/resources/theme/index/css/index.css">
+<link rel="stylesheet" type="text/css" href="/resources/theme/index/css/index.css">
 	<link rel="stylesheet" type="text/css" href="/resources/theme/index/css/succyss.css">
 
 <body>
@@ -45,34 +45,21 @@
 
 <?php include(block("block/page_footer"));
 $http_host = $_SERVER['HTTP_HOST']  ?>
-</body><script>window._bd_share_config = {
-	common: {
-		bdText: '易衫开学送好礼，学生注册即送20元现金，分享再获好礼',
-		bdDesc: '开学“易”，好礼“衫”重奏，快来体验易衫网的全新定制服务',
-		bdUrl: 'http://<?php echo $http_host ?>/campus',
-		bdPic: 'http://<?php echo $http_host ?>/resources/theme/index/image/fenxiang.jpg'
-	},
-	share: [{
-		"bdSize": 32
-	}],
-	slide: [{
-		bdImg: 0,
-		bdPos: "right",
-		bdTop: 100
-	}],
-	image: [{
-		viewType: 'list',
-		viewPos: 'top',
-		viewColor: 'black',
-		viewSize: '16',
-		viewList: ['qzone', 'tsina', 'weixin', 'renren']
-	}],
-	selectShare: [{
-		"bdselectMiniList": ['qzone', 'tsina', 'weixin', 'renren']
-	}]
-};
-with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)]
-			</script>
+</body>
+<script>
+window._bd_share_config = {
+        common: {
+            bdText: '易衫开学送好礼，学生注册即送20元现金，分享再获好礼',
+            bdDesc: '开学“易”，好礼“衫”重奏，快来体验易衫网的全新定制服务',
+            bdUrl: 'http://<?php echo $http_host ?>/campus',
+            bdPic: 'http://<?php echo $http_host ?>/resources/theme/index/image/fenxiang.jpg'
+        },
+        share: [{
+            "bdSize": 32
+        }]
+     
+    };
+    with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)]
 </script>
 </html>
 
