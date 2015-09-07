@@ -56,6 +56,8 @@
 </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <script src="/js/libs/fabric/fabric.js"></script>
+<script class="reload" src="main.js"></script>
+
 <script>
     function change_text(){
         var val = $("#c_text").val();

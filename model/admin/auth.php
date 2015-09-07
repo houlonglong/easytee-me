@@ -27,17 +27,15 @@ class Model_Admin_Auth{
     }
     /**
      * 登陆
+     *
      */
-    function action_login(){
-        //PtApp::session_start();
-        $request = PtLib\http_request("username","password","captcha","redirect");
-        Model_Tools_Captcha::check_captcha_code($request['captcha'],'admin_auth_login');
-        if(self::login($request['username'],$request['password'])){
-
-            if(empty($request['redirect'])){
+    function action_login($username,$password,$captcha,$redirect){
+        Model_Tools_Captcha::check_captcha_code($captcha,'admin_auth_login');
+        if(self::login($username,$password)){
+            if(!$redirect){
                 $url = "/admin/index";
             }else{
-                $url = $request['redirect'];
+                $url = $redirect;
             }
             Model_Tools_Captcha::delete_session_code("admin_auth_login");
             PtLib\json_response("登陆成功",0,"",$url);

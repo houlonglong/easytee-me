@@ -188,8 +188,6 @@ function route_model($model_file,$action,$method_prefix = "action",$return = fal
             $_r_args[$_k] = $val;
         }
         $model_return = $_reflector_func->invokeArgs(new $model_class_name(),$_r_args);
-
-        $model_return = $model_obj->$model_action_name();
         if($model_return !== null){ //有返回值
             //TODO array or object
             if($return){

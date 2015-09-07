@@ -29,14 +29,16 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12" id="query_area"></div>
+                            <div class="col-xs-12" id="query_area">
+                                <button class="btn btn-success">新加产品</button>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
                                 <table id="grid-table"></table>
                                 <div id="grid-pager"></div>
                                 <script type="text/javascript">
-                                    var $path_base = ".";/
+                                    var $path_base = ".";
                                 </script>
                             </div>
                         </div>
