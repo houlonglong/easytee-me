@@ -58,7 +58,6 @@ $http_host = $_SERVER['HTTP_HOST']  ?>
 	}else{
 		var bdUrl = 'http://<?php echo $http_host ?>/campus/index';
 	}
-	alert(bdUrl);
 window._bd_share_config = {
         common: {
             bdText: '易衫开学送好礼，学生注册即送20元现金，分享再获好礼',

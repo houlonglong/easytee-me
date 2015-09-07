@@ -138,7 +138,6 @@ $http_host = $_SERVER['HTTP_HOST']  ?>
     }else{
         var bdUrl = 'http://<?php echo $http_host ?>/campus/index';
     }
-    alert(bdUrl);
 
 
 	window._bd_share_config = {
