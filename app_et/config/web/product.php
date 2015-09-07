@@ -14,4 +14,4 @@ class WxPayConfig
     static function get_notify_url(){
     return "http://".$_SERVER['HTTP_HOST'].self::NOTIFY_URL;
 }
-
+}
