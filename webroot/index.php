@@ -58,7 +58,7 @@
     </div>
 
     <!-- 活动 -->
-    <div class="small-banner">
+    <div class="small-banner hide">
         <a href="/campus/index"><img src="/resources/public/image/small_banner.png" alt="开学有礼"></a>
     </div>
     <!-- ./活动 -->
