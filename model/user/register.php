@@ -19,19 +19,29 @@ class Model_User_Register extends BaseModel {
         //var_dump($mobile);exit;
         if($is_register) throw new Exception("当前号码已经注册过");
 
-        $password = md5(sha1(self::_request("password")));
+        $password = sha1(self::_request("password"));
         if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("验证码不正确");
         $data = array(
+            "nickname"=>$mobile,
             "mobile"=>$mobile,
             "password"=>$password,
             "create_time"=>date('Y-m-d H:i:s'),
             "login_time"=>date('Y-m-d H:i:s'),
         );
-        if(!empty($_POST['campus'])){
-            $data['campus'] = $_POST['campus'];
+        if(!empty(self::_request('campus'))){
+            $data['campus'] = self::_request('campus');
         }
 
+        $invite_id_cookie = \PtLib\get_cookie("invite_id_cookie");
+
+        if(empty($invite_id_cookie)){
+            $invite_id = 0;
+        }else{
+            $invite_id = $invite_id_cookie;
+        }
+        $data['invite_id'] = $invite_id;
         $id = self::_db()->insert("new_users",$data);
+
         self::_db()->insert("users",array(
             "nick_name"=>$data['mobile'],
             "app_id"=>1,
@@ -46,8 +56,8 @@ class Model_User_Register extends BaseModel {
             "uid"=>$id
         );
         Model_User_Auth::set_login($user_info);
-
         unset($_SESSION['reg_captcha']);
+        setcookie("invite_id_cookie","",time()-3600,"/");
         return array("redirect"=>$redirect);
     }
     function action_get_code(){

@@ -45,7 +45,7 @@ $redirect = empty($_REQUEST['redirect'])?"":$_REQUEST['redirect'];
                                         </form>
                                         <hr>
                                     </div>
-                                    <div>
+                                    <div class="hide">
                                         <h4>合作网站登录</h4>
                                         <div>
                                             <!-- <a class="btn-login btn-login-zhifubao hidden-xs" href="javascript:authLogin('alipay','http://11.dev.jzw.com/');"><em class="iconfont icon-alipay"></em></a>

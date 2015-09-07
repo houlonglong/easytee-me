@@ -164,15 +164,31 @@ function route_model($model_file,$action,$method_prefix = "action",$return = fal
         $model_obj = new $model_class_name();
         $model_action_name = PtLib\get_model_action_name($action,$method_prefix);
         PtApp::$model_class_name = $model_class_name;
+
+        $_reflector = new ReflectionClass($model_class_name);
         if($method_prefix == 'action'){
             PtApp::$model_action_name = $model_action_name;
         }else{
             PtApp::$model_view_name = $model_action_name;
         }
-
-        if(!method_exists($model_obj,$model_action_name)){
+        if(!$_reflector->hasMethod($model_action_name)){
             throw new ErrorException("$method_prefix: $model_class_name->$model_action_name 不存在",100404);
         }
+
+        $_reflector_func = $_reflector->getmethod($model_action_name);
+
+        $_r_params = array();
+        $_r_params_keys = $_reflector_func->getParameters();
+        foreach($_r_params_keys as $_k){
+            $_r_params[] =  $_k->getName();
+        }
+        $_r_args = array();
+        foreach($_r_params as $_k){
+            $val = isset($_REQUEST[$_k])?trim($_REQUEST[$_k]):null;
+            $_r_args[$_k] = $val;
+        }
+        $model_return = $_reflector_func->invokeArgs(new $model_class_name(),$_r_args);
+
         $model_return = $model_obj->$model_action_name();
         if($model_return !== null){ //有返回值
             //TODO array or object
@@ -263,9 +279,14 @@ function web_route(){
                 if(substr($REDIRECT_URL,-1) == "/"){
                     $REDIRECT_URL = $REDIRECT_URL."index";
                 }
-                PtApp::$control = $REDIRECT_URL;
-                $REDIRECT_URL = $REDIRECT_URL.".php";
-                $path =  PATH_WEBROOT.$REDIRECT_URL;
+
+                $control = parse_control($REDIRECT_URL);
+                $path =  PATH_WEBROOT.$control.".php";
+                PtApp::$control = $control;
+
+                //PtApp::$control = $REDIRECT_URL;
+                //$REDIRECT_URL = $REDIRECT_URL.".php";
+                //$path =  PATH_WEBROOT.$REDIRECT_URL;
 
             }
             if(is_file($path)) {

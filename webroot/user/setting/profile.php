@@ -48,11 +48,13 @@
                         <div class="panel-body">
                             <form method="get" onsubmit="return false;" class="form-horizontal">
                                 <div class="form-group"><label class="col-sm-2 control-label">昵称</label>
-
-                                    <div class="col-sm-10"><input type="text" id="nick_name" class="form-control" value="<?=empty($nick_name)?"":$nick_name;?>"></div>
+                                    <div class="col-sm-10"><input type="text" id="nick_name" class="form-control" value="<?=empty($nick_name) ? "" : $nick_name;?>"></div>
                                 </div>
                                 <div class="hr-line-dashed"></div>
-
+                                <div class="form-group"><label class="col-sm-2 control-label">手机号</label>
+                                    <div class="col-sm-10"><input type="text" id="mobile" class="form-control" value="<?=empty($mobile)? "" : $mobile;?>"></div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
                                 <div class="form-group">
                                     <div class="col-sm-8 col-sm-offset-2">
                                         <button class="btn btn-primary" type="button" onclick="change_profile()">修改</button>
@@ -92,10 +94,15 @@
 <script>
     function change_profile(){
         var nick_name = $("#nick_name").val();
+        if(!nick_name) return alert("呢称不能为空");
+        var mobile = $("#mobile").val();
+        if(!mobile) return alert("手机号不能为空");
+
         $.post("/api",{
             model:"user/setting",
             action:"profile_save",
-            nick_name:nick_name
+            nick_name:nick_name,
+            mobile:mobile
         },function(data){
             if(data.status == 0){
                 alert("修改成功");

@@ -77,7 +77,6 @@
                                         <tbody><?php foreach($rows as $row){ ?>
                                         <tr>
                                             <td><a href="/user/order/detail?id=<?=$row['id']?>">
-                                                <img style="width: 50px;height:50px;" src="http://cdn.open.easytee.me//products/2/front.png">
                                                 <b><?=$row['order_no']?>  </b></a>
                                             </td>
                                             <td>

@@ -15,7 +15,6 @@ class Model_User_Auth extends BaseModel{
     function view_login(){
         if(Model_User_Auth::is_logined()) $this->_location("/user/index");
     }
-
     /**
      * 登陆
      */

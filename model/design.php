@@ -309,8 +309,7 @@ class Model_Design extends BaseModel{
         xml_response($print);
     }
 
-    function action_init(){
-
+    function action_init($pro_id){
         $pro_id = self::_request("pro_id");
         //$design_init_config = self::_redis()->get("design_init_config");
         //if($design_init_config){

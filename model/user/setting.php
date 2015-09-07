@@ -9,13 +9,14 @@ class Model_User_Setting extends Model_User_Abstract {
     }
     function view_profile(){
         $uid = self::get_uid();
-        $user = self::_db()->select_row("select nick_name from users where id = ?",$uid);
+        $user = self::_db()->select_row("select * from users where id = ?",$uid);
         return $user;
     }
     function action_profile_save(){
         $nick_name = self::_request("nick_name");
+        $mobile = self::_request("mobile");
         $uid = self::get_uid();
-        self::_db()->update("users",array("nick_name"=>$nick_name),array("id"=>$uid));
+        self::_db()->update("users",array("mobile"=>$mobile,"nick_name"=>$nick_name),array("id"=>$uid));
         return array("ok");
     }
     function view_address(){
@@ -24,7 +25,6 @@ class Model_User_Setting extends Model_User_Abstract {
         return array("rows"=>$addresses);
     }
     function action_address_detail(){
-
         $id = self::_request("id");
         $uid = self::get_uid();
         $row = self::_db()->select_row("select * from user_addresses where id = ? and uid = ?",$id,$uid);
