@@ -12,15 +12,18 @@ class Model_User_Activity extends Model_User_Abstract {
 
         $where = 'where 1=1 ';
         if($status != "全部"){
-            $_status_array = array(
-                "进行中"=>"ongoing",
-                "成功"=>"success",
-                "编辑中"=>"create",
-                "已结束"=>"create",
-                "成功"=>"success",
-            );
-            $_status = $_status_array[$status];
-            $where .= " and status = '{$_status}'";
+            if($status == '已结束'){
+                $where .= " and real_end_time < now()";
+            }else{
+                $_status_array = array(
+                    "进行中"=>"ongoing",
+                    "成功"=>"success",
+                    "编辑中"=>"create",
+                );
+                $_status = $_status_array[$status];
+                $where .= " and status = '{$_status}'";
+            }
+
         }
 
         $uid = Model_Design_Tool_Beta::get_uid();

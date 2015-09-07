@@ -96,11 +96,7 @@
                                         }
                                         ?>
                                         <tr data-id="<?= $row['id'] ?>">
-                                            <td style="width: 70px;">
 
-                                                <img style="width: 50px;height:50px;display:none" src="http://cdn.open.easytee.me/products/2/front.png">
-                                                <img style="width: 50px;height:50px;" src="<?=$row['thumb']?>">
-                                            </td>
                                             <td>
                                                 <?php
                                                 if ($row['status'] == 'create') {
@@ -124,22 +120,22 @@
                                                 ?>
                                             </td>
                                             <td style="width: 150px;" class="tooltip-action">
-                                                <button type="button" class="btn btn-sm btn-default"
+                                                <button type="button" class="btn btn-sm btn-default hide"
                                                         data-id="<?php echo $row['id']; ?>" data-toggle="tooltip"
                                                         data-placement="top" title="" data-original-title="修改"><i
                                                         class="fa fa-edit"></i></button>
-                                                <button type="button" class="btn btn-sm btn-default close-activity"
+                                                <button type="button" class="btn btn-sm btn-default close-activity hide"
                                                         data-id="<?php echo $row['id']; ?>" data-toggle="modal"
                                                         data-target=".bs-example-modal-sm" data-placement="top" title=""
                                                         data-original-title="提前结束"><i class="fa fa-stop"></i></button>
-                                                <button type="button" class="btn btn-sm btn-default"
+                                                <button type="button" class="btn btn-sm btn-default hide"
                                                         data-id="<?php echo $row['id']; ?>" data-toggle="tooltip"
                                                         data-placement="top" title="" data-original-title="复制"><i
                                                         class="fa fa-copy"></i></button>
                                             </td>
                                             <td style="width: 80px;" class="tooltip-action">
                                                 <button style="outline: none" type="button"
-                                                        class="btn btn-sm btn-circle btn-warning" data-toggle="tooltip"
+                                                        class="hide btn btn-sm btn-circle btn-warning" data-toggle="tooltip"
                                                         data-placement="top" title="进行中"></button>
                                             </td>
                                         </tr>
