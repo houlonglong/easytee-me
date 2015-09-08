@@ -9,18 +9,16 @@ class Model_Tools_Db_Merge1 extends BaseModel {
     }
 
     function cli_run(){
-        if(PtApp::$ENV == 'product') return ;
-        self::merge_act();
-        self::merge_order();
+        //if(PtApp::$ENV == 'product') return ;
+        //self::merge_act();
+        //self::merge_order();
         self::merge_user();
-
     }
     static function merge_order(){
         $tables = array("et_order","et_order_goods","et_order_pay","et_order_ship","et_order_activity");
         foreach ($tables  as $table) {
             self::_db()->_truncate($table);
         }
-
         $orders = self::_db()->select_rows("select o.*,a.*,o.id as order_id from orders as o left join order_attributes as a on a.order_id = o.id");
         foreach($orders as $order){
             $order_id = $order['order_id'];
@@ -222,7 +220,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
         }
     }
     static function merge_user(){
-        $tables = array("et_user_info","et_user","et_user_addr","et_user_finance","et_user_finance_log","et_user_oauth","et_user_withdraw","et_user_withdraw_account");
+        $tables = array("et_user_campus","et_user_info","et_user","et_user_addr","et_user_finance","et_user_finance_log","et_user_oauth","et_user_withdraw","et_user_withdraw_account");
         foreach ($tables  as $table) {
             self::_db()->_truncate($table);
         }
@@ -231,8 +229,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                     a.pay_type,a.pay_account
                     from users as u
                     left join new_users as n on n.id = u.app_uid
-                    left join user_attributes as a on a.uid = n.id order by n.id asc
-                    ");
+                    left join user_attributes as a on a.uid = n.id order by n.id asc");
 
         foreach($users as $user){
             self::merge_user_info($user);
@@ -243,11 +240,22 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                     from new_users as n
                     left join users as u on n.id = u.app_uid
                     left join user_attributes as a on a.uid = n.id
-                     where u.id is null
+                    where u.id is null
                     ");
 
         foreach($users as $user){
-            $user_id = self::_db()->insert("et_user",array(
+
+            $user_id = self::_db()->insert("users",array(
+                'app_uid' => $user['app_uid'],
+                'mobile' => $user['email'],
+                'nick_name' => $user['nickname'],
+                'app_id' => 1,
+                'create_time' => $user['create_time'],
+                'token' => md5(time()),
+            ));
+            echo "uid==> ".$user_id.PHP_EOL;
+            self::_db()->insert("et_user",array(
+                "id"=>$user_id,
                 "new_uid"=>$user['app_uid'],
                 "nick_name"=>$user['nickname'],
                 "mobile"=>$user['mobile'],
@@ -287,6 +295,14 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                 "balance_block"=>$user["money_disabled"],
                 "balance_ntx"=>0,
                 "total_earn"=>$user["money_all"],
+            ));
+        }else{
+            self::_db()->insert("et_user_finance",array(
+                "uid"=>$user_id,
+                "balance_tx"=>0,
+                "balance_block"=>0,
+                "balance_ntx"=>0,
+                "total_earn"=>0,
             ));
         }
 
@@ -363,82 +379,4 @@ class Model_Tools_Db_Merge1 extends BaseModel {
             "wb_location"=>$user['location'],
         ));
     }
-
-    /**
-     * 详情视图
-     *
-    function view_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
-
-    /**
-     * 列表
-     *
-    function action_list(){
-        return self::table_list();
-    }
-     */
-
-    /**
-     * 详情
-     * @return array
-     *
-    function action_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
-
-    /*
-    * 列表
-    *
-    static function table_list(){
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $response = PtLib\get_table_list($table,$table_alias);
-        return $response;
-    }
-    */
-    /**
-     * 详情
-     * @param $id
-     * @return array
-     *
-    static function detail($id){
-        $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
-        return $row;
-    }
-     */
-
-    /**
-     * 修改
-     *
-    function action_edit(){
-        return self::table_edit();
-    }
-     */
-
-    /*
-    * 修改
-    *
-    static function table_edit(){
-        $table = self::$table;
-        return PtLib\table_edit($table);
-    }
-    */
-
-    /**
-     * @param
-     * @return
-     *
-    function action_test(){
-        $request = PtLib\http_request("id");
-        $data = array();
-        $data['id'] = $request;
-        return $data;
-    }
-     */
 }

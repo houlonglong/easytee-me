@@ -3,7 +3,7 @@
  * admin/campus
  */
 class Model_Admin_Campus extends BaseModel {
-    static $table = "user_campus";
+    static $table = "et_user_campus";
     function __construct(){
         //parent::__construct();
     }
@@ -45,7 +45,7 @@ class Model_Admin_Campus extends BaseModel {
         $page = $request['page'];
         $sort = $request['sidx'];
         $sort_type = $request['sord'];
-        $join = ' inner join users as u on u.app_uid = '.$table_alias.'.uid ';
+        $join = ' ';
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
         if(empty($sort)){
@@ -57,7 +57,7 @@ class Model_Admin_Campus extends BaseModel {
 
         //where
         $args = array();
-        $where  = " where 1=1 ";
+        $where  = " where real_name is not null ";
         if($request['student_no']){
             $where .=' and '.$table_alias.'.student_no = ?';
             $args[] = $request['student_no'];
@@ -106,20 +106,52 @@ class Model_Admin_Campus extends BaseModel {
 
     function action_audit($id,$status){
         try{
-            $userDatas = self::_db()->select_row('select uc.id,nu.id as new_id,nu.invite_id,u.id as uid
-            from user_campus as uc
-            inner join users as u on u.app_uid = uc.uid
-            left join  new_users as nu on uc.uid = nu.id  where uc.id =  ? ',$id);
-            self::_db()->bt();
-            self::_db()->update('user_campus',array('status'=>$status,"up_time"=>date_time_now()),array('id'=>$id));
-            $add_money = $GLOBALS['setting']['campus']['add_money'];
-            self::_db()->run_sql("update users set money_ntx = money_ntx + ".$add_money." where app_uid = ?",$userDatas['new_id']);
+            $userDatas = self::_db()->select_row(
+                'select c.uid,c.real_name,i.invite_id ,u.mobile
+                  from et_user_campus as c
+                  left join et_user_invite as i on i.uid = c.uid
+                  left join et_user as u on u.id = c.uid
+                  where c.id =  ? ',$id);
+            self::_db()->update('et_user_campus',array('status'=>$status,"up_time"=>date_time_now()),array('id'=>$id));
+            $mobile = $userDatas['mobile'];
+            $name = $userDatas['real_name'];
+            $mobile = '15618265151';
+            if($status == 1){//通过
+                self::_db()->bt();
+                $add_money = $GLOBALS['setting']['campus']['add_money'];
+                self::_db()->run_sql("update et_user_finance set balance_ntx = balance_ntx + ".$add_money." where uid = ?",$userDatas['uid']);
+                self::_db()->insert("et_user_finance_log",array(
+                    "uid"=>$userDatas['uid'],
+                    "amount"=>$add_money,
+                    "type"=>11,
+                    "note"=>"校园达人参与活动奖励",
+                    "add_time"=>date_time_now()
+                ));
 
-            if($userDatas['invite_id']){
-                $invite_money = $GLOBALS['setting']['campus']['invite_money'];
-                self::_db()->run_sql("update users set money_ntx = money_ntx + ".$invite_money." where id = ?",$userDatas['invite_id']);
+                $userDatas = self::_db()->select_row('select invite_id from et_user_invite  where uid =  ? ',$userDatas['uid']);
+                if(!empty($userDatas['invite_id'])){
+                    $invite_money = $GLOBALS['setting']['campus']['invite_money'];
+                    self::_db()->run_sql("update et_user_finance set balance_ntx = balance_ntx + ".$invite_money." where uid = ?",$userDatas['invite_id']);
+                    self::_db()->insert("et_user_finance_log",array(
+                        "uid"=>$userDatas['invite_id'],
+                        "amount"=>$invite_money,
+                        "type"=>12,
+                        "note"=>"校园达人邀请奖励",
+                        "add_time"=>date_time_now()
+                    ));
+                }
+                self::_db()->commit();
+                if($mobile){
+                    $res = Model_Tools_Sms::sendsms($mobile,"oV3NQ3",array("name"=>$name));
+                    //print_r($res);exit;
+                }
+            }else{//拒绝
+                if($mobile){
+                    $res = Model_Tools_Sms::sendsms($mobile,"flACZ1",array("name"=>$name));
+                    //print_r($res);exit;
+                }
             }
-            self::_db()->commit();
+
             return array("ok");
         }catch (Exception $e){
             self::_db()->rollback();

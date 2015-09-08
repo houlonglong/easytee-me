@@ -87,7 +87,7 @@
             </div>
             <div id="apply_back" class="tab-pane">
                 <div class="form-actions center">
-                    <button type="button" class="hide btn btn-sm btn-danger btn btn-sm apply-back" onclick="apply(this)" data-status="2" data-dismiss="modal" >
+                    <button type="button" class="btn btn-sm btn-danger btn btn-sm apply-back" onclick="apply(this)" data-status="2" data-dismiss="modal" >
                         拒绝
                         <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                     </button>
@@ -167,13 +167,13 @@
                     title: "状态", name: 'status', index: 'status', editable: false, sortable: "int",
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
-                            return '<lable class="label label-danger arrowed">等待审核</lable>';
+                            return '<lable class="label label-info arrowed">等待审核</lable>';
                         }
                         if (cellvalue == 1) {
-                            return '<lable class="label label-warning arrowed arrowed-right">通过</lable>';
+                            return '<lable class="label label-success arrowed arrowed-right">通过</lable>';
                         }
                         if (cellvalue == 2) {
-                            return '<lable class="label arrowed">拒绝</lable>';
+                            return '<lable class="label label-danger arrowed arrowed-right">拒绝</lable>';
                         }
                     }
                 },
