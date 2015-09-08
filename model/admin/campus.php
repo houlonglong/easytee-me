@@ -115,7 +115,7 @@ class Model_Admin_Campus extends BaseModel {
             self::_db()->update('et_user_campus',array('status'=>$status,"up_time"=>date_time_now()),array('id'=>$id));
             $mobile = $userDatas['mobile'];
             $name = $userDatas['real_name'];
-            $mobile = '15618265151';
+            //$mobile = '18601628937';
             if($status == 1){//通过
                 self::_db()->bt();
                 $add_money = $GLOBALS['setting']['campus']['add_money'];
