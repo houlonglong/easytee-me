@@ -21,15 +21,17 @@ class Model_Tools_Db_Merge1 extends BaseModel {
             self::_db()->_truncate($table);
         }
 
-        $orders = self::_db()->select_rows("select * from orders as o left join order_attributes as a on a.order_id = o.id");
-
+        $orders = self::_db()->select_rows("select o.*,a.*,o.id as order_id from orders as o left join order_attributes as a on a.order_id = o.id");
         foreach($orders as $order){
-            $order_id = self::_db()->insert("et_order",array(
-                "id"=>$order['id'],
+            $order_id = $order['order_id'];
+            echo "order_id: ".$order_id.PHP_EOL;
+            self::_db()->insert("et_order",array(
+                "id"=>$order_id,
                 "order_no"=>$order['order_no'],
                 "uid"=>$order['uid'],
                 "status"=>$order['status'] == '已关闭' ? 0 : 1,
                 "goods_price"=>$order['total_price'],
+                "exp_price"=>$order['express_price'],
                 "quantity"=>$order['quantity'],
                 "subject"=>$order['name'],
                 "body"=>$order['body'],
@@ -37,12 +39,12 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                 "add_time"=>$order['create_time'],
             ));
 
-            $goods = self::_db()->select_rows("select * from order_goods where order_id = ?",$order['id']);
+            $goods = self::_db()->select_rows("select * from order_goods where order_id = ?",$order_id);
 
             foreach($goods as $good){
                 self::_db()->insert("et_order_goods",array(
                     "id"=>$good['id'],
-                    "order_id"=>$order['id'],
+                    "order_id"=>$order_id,
                     "sell_price"=>$good['purchase_price'],
                     "style_id"=>$good['product_style_id'],
                     "unit_price"=>$good['unit_price'],
@@ -60,7 +62,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                     "pay_price"=>$order['pay_price'],
                     "pay_time"=>$order['pay_time'],
                     "pay_no"=>$order['pay_no'],
-                    "pay_status"=>$order['pay_no'] == '待付款' ? 0:1,
+                    "pay_status"=>$order['status'] == '待付款' ? 0:1,
                 ));
             }
             self::_db()->insert("et_order_ship",array(
@@ -95,6 +97,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
         }
         $activities = self::_db()->select_rows("select * from activities where uid > 0");
         foreach($activities as $activity){
+            echo "activity: ".$activity['id'].PHP_EOL;
             self::_db()->insert("et_activity_info",array(
                 'id'=>$activity['id'],
                 "uid"=>$activity['uid'],
@@ -228,7 +231,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                     a.pay_type,a.pay_account
                     from users as u
                     left join new_users as n on n.id = u.app_uid
-                    left join user_attributes as a on a.uid = n.id
+                    left join user_attributes as a on a.uid = n.id order by n.id asc
                     ");
 
         foreach($users as $user){
@@ -267,6 +270,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
     static function merge_user_info($user){
         //print_r($user);exit;
         $user_id = $user['id'];
+        echo "==>>USER: ".$user_id." , ".$user['app_uid'].PHP_EOL;
         self::_db()->insert("et_user",array(
             'id'=>$user_id,
             'new_uid'=>$user['app_uid'],
