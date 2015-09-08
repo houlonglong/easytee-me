@@ -18,7 +18,7 @@ class Model_Campus extends BaseModel {
     }
 
     function view_index(){
-        $is_logined = Model_User_Auth::is_logined();c
+        $is_logined = Model_User_Auth::is_logined();
         $is_authed = false;
         if($is_logined){
             $is_authed = self::check_auth();

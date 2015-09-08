@@ -87,11 +87,11 @@
             </div>
             <div id="apply_back" class="tab-pane">
                 <div class="form-actions center">
-                    <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back" onclick="apply(this)" data-status="2" data-dismiss="modal" >
+                    <button type="button" class="hide btn btn-sm btn-danger btn btn-sm apply-back" onclick="apply(this)" data-status="2" data-dismiss="modal" >
                         拒绝
                         <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                     </button>
-                    <button type="button" class="btn btn-sm btn-danger apply  " onclick="apply(this)" data-status="1" data-dismiss="modal" >
+                    <button type="button" class="btn btn-sm btn-success apply  " onclick="apply(this)" data-status="1" data-dismiss="modal" >
                         通过
                         <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110 " ></i>
                     </button>
@@ -101,91 +101,6 @@
     </div>
 </div>
 <!-- /.main-container -->
-<div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"
-                    style="margin-top: 5px;margin-right: 10px;">×
-            </button>
-
-            <div class="modal-header">
-                <h4>活动名称：<span id="modal_active"></span></h4>
-
-            </div>
-            <div class="tabbable">
-                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                    <li class="active">
-                        <a data-toggle="tab" href="#apply">批准</a>
-                    </li>
-                    <li>
-                        <a data-toggle="tab" href="#apply_back">驳回</a>
-                    </li>
-
-                </ul>
-
-                <div class="tab-content">
-                    <div id="apply" class="tab-pane in active">
-                        <div class="modal-body">
-                            <div>发起人：<span id="modal_username"></span></div>
-                            <div>开始时间：<span id="modal_start_time"></span></div>
-                            <div>结束时间：<span id="modal_end_time"></span></div>
-                            <div>销售目标：<span id="modal_sales_target"></span></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal"
-                                    data-action="批准"><i
-                                    class="ace-icon fa fa-trash-o"></i> 批准
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="apply_back" class="tab-pane">
-                        <form class="form-horizontal">
-                            <div class="form-group" style="margin-left: -120px;">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">拒绝理由 </label>
-
-                                <div class="col-sm-9">
-                                    <select name="reason" id="reason" class="col-xs-10 col-sm-5">
-                                        <option value="1">
-                                            是否涉及敏感字眼
-                                        </option>
-                                        <option value="2">
-                                            是否辱骂国家领导人
-                                        </option>
-                                        <option value="3">
-                                            是否传播邪教文化
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group" style="margin-left: -120px;">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1">备注</label>
-
-                                <div class="col-sm-9">
-                                    <textarea name="" id="notes" cols="30" rows="10" class="form-control"
-                                              style="width: 307px;height: 96px;"></textarea>
-                                </div>
-                            </div>
-
-
-                            <div class="form-actions center">
-                                <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back">
-                                    驳回
-                                    <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                </button>
-                            </div>
-                        </form>
-
-
-                    </div>
-
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
 <!-- /.main-container -->
 <?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
@@ -224,10 +139,8 @@
                 status: $(obj).data('status')
             },
             type: "POST",
-            success: function (status) {
-                if(status){
-//                    location.reload();
-                }
+            success: function (data) {
+                location.reload();
             }
 
         });
@@ -239,7 +152,6 @@
         var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
         var url_api_detail = "/" + url_api_base + "/detail";
 
-
         var grid_setting = {
             url: url_api_list,
             url_save: url_api_edit,
@@ -249,7 +161,7 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 30, sorttype: "int", editable: false},
+                {title: "Id", name: 'id', index: 'id', width: 60, sorttype: "int", editable: false},
                 {title: "用户ID", name: 'uid', index: 'uid', editable: false, sortable: "int"},
                 {
                     title: "状态", name: 'status', index: 'status', editable: false, sortable: "int",
@@ -268,7 +180,7 @@
                 {
                     title: "认证图片", name: 'img_url', index: 'img_url', editable: false, sortable: false,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="' + cellvalue + '" target="_black"><img style="width:100px;" src="' + cellvalue + '"></img></a>';
+                        return '<a href="' + cellvalue + '" target="_black"><img style="width:100px;height:100px;" src="' + cellvalue + '"></img></a>';
                     }
                 },
                 {title: "真实姓名", name: 'real_name', index: 'real_name', editable: false, sortable: false},

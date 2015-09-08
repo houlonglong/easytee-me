@@ -102,37 +102,28 @@ class Model_Admin_Campus extends BaseModel {
             );
         }
         return $response;
-
     }
 
-    function action_audit(){
-        $id = $this->_request('id');
-        if($id){
-            $userDatas = self::_db()->select_row('select nu.invite_id,nu.id,u.id as new_uid from new_users as nu
-inner join users as u on u.app_uid = nu.id
-inner join user_campus as uc on uc.uid = u.id  where uc.id =?
-',$id);
-            $status = $this->_request('status');
+    function action_audit($id,$status){
+        try{
+            $userDatas = self::_db()->select_row('select uc.id,nu.id as new_id,nu.invite_id,u.id as uid
+            from user_campus as uc
+            inner join users as u on u.app_uid = uc.uid
+            left join  new_users as nu on uc.uid = nu.id  where uc.id =  ? ',$id);
             self::_db()->bt();
-            $row = PtLib\db()->update('user_campus',array('status'=>$status),array('id'=>$id));
-            $add_money_rows = self::_db()->run_sql('update users set money=money+'.$GLOBALS['setting']['campus']['add_money'].' where id = ?',$userDatas['id']);
+            self::_db()->update('user_campus',array('status'=>$status,"up_time"=>date_time_now()),array('id'=>$id));
+            $add_money = $GLOBALS['setting']['campus']['add_money'];
+            self::_db()->run_sql("update users set money_ntx = money_ntx + ".$add_money." where app_uid = ?",$userDatas['new_id']);
 
-            $add_new_money_rows = self::_db()->run_sql('update new_users set money=money+'.$GLOBALS['setting']['campus']['add_money'].' where id = ?',$userDatas['new_uid']);
-            self::_db()->commit();
-            $invite_row = 1;
             if($userDatas['invite_id']){
-                $invite_row = self::_db()->run_sql('update new_users set invite_money=invite_money+'.$GLOBALS['setting']['campus']['invite_money'].' where id = ?',$userDatas['invite_id']);
+                $invite_money = $GLOBALS['setting']['campus']['invite_money'];
+                self::_db()->run_sql("update users set money_ntx = money_ntx + ".$invite_money." where id = ?",$userDatas['invite_id']);
             }
-            if(!$add_money_rows || !$row || !$invite_row || !$add_new_money_rows){
-                self::_db()->rollback();
-                self::_db()->commit();
-                echo 0;
-            }else{
-                self::_db()->commit();
-                echo 1;
-            }
-        }else{
-            echo 0;
+            self::_db()->commit();
+            return array("ok");
+        }catch (Exception $e){
+            self::_db()->rollback();
+            throw new Exception($e->getMessage());
         }
     }
     /**

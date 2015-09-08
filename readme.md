@@ -24,3 +24,4 @@
 
     ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
 
+    php bin/cli.php --model=tools/db/merge1 --action=run --env=develop 
