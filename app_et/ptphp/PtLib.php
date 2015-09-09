@@ -349,6 +349,7 @@ function json_response($return,$status = 0,$message = '',$redirect = '',$excepti
         "status"=>$status,
     );
     if(local_dev()){
+        $debug['debug']['app']['_SESSION'] = \PtApp::$session_started?$_SESSION:null;
         $data['exception'] = $exception;
         $data['debug_sql'] = $debug['debug']['sql'];
         $data['debug_app'] = $debug['debug']['app'];

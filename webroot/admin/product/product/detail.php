@@ -45,12 +45,15 @@
             <div class="page-content">
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="page-header">
-                    <h1>
+                    <h1 style="position: relative">
                         产品详情
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
 
                         </small>
+                        <button style="position: absolute;top:0px;right:0px;" onclick="history.go(-1)" class="btn btn-white btn-info btn-bold no-border">
+                            <i class="ace-icon fa fa-hand-o-left blue"></i>
+                        </button>
                     </h1>
                 </div><!-- /.page-header -->
                 <div class="row">
@@ -124,7 +127,7 @@
                                                                                 <p>
                                                                                     h: <input type="text" class="h" style="width: 50px;">
                                                                                 </p>
-                                                                                
+
                                                                             </div>
                                                                         </div>
                                                                         <div id="back" class="tab-pane">
@@ -234,6 +237,8 @@
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
+<script class="reload" src="main.js"></script>
+
 <script type="text/javascript">
     $(function(){
         $("#style_list").find("tr").eq(0).click();
@@ -259,7 +264,7 @@
             }
             for(var i in images){
                 var image = images[i];
-                console.log(image);
+                //console.log(image);
                 //console.log($("#"+image.side+" .canvas"));
                 $("#"+image.side+" .canvas").html('<img style="background-color:#'+$color+';width:500px;height:500px;" src="'+image.imgurl+'">');
                 $("#"+image.side).find(".x").val(image.x);

@@ -16,7 +16,6 @@
             <?php $i++;
         }
         ?>
-
     </ul>
     <select class="form-control visible-xs" onchange="showSizeChang(this)">
         <?php $i = 0;

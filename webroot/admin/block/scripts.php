@@ -24,3 +24,4 @@
 <script src="/ace/assets/js/ace-elements.min.js"></script>
 <script src="/ace/assets/js/ace.min.js"></script>
 <!-- inline scripts related to this page -->
+<script src="/admin/assets/js/main.js"></script>

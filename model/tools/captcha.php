@@ -5,12 +5,11 @@ use PtLib\Captcha as PtCaptcha;
  */
 class Model_Tools_Captcha{
     static $session_code_prefix = "session_code";
-    function action_img(){
-        $request = PtLib\http_request("type");
+    function action_img($type){
         PtApp::session_start();
         $captcha = new PtCaptcha();
-        $captcha->gen($request['type']);
-        self::set_session_code($captcha->get_code(),$request['type']);
+        $captcha->gen($type);
+        self::set_session_code($captcha->get_code(),$type);
     }
     static function set_session_code($code,$type ="reg"){
         $_SESSION[self::$session_code_prefix."_".$type] = $code;
@@ -27,9 +26,12 @@ class Model_Tools_Captcha{
         }
         PtApp::session_start();
         $_code = self::get_session_code($type);
-        //Pt\log("code:%s,_code:%s,type:%s",$code,$_code,$type);
         if($_code != $code){
             throw new Exception("验证码不正确");
         }
+    }
+    function action_session(){
+        PtApp::session_start();
+        if(!\PtLib\local_dev() && isset($_SESSION)) return $_SESSION;
     }
 }

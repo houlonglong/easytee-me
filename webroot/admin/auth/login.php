@@ -345,7 +345,7 @@ $redirect_url = empty($_GET['redirect'])?"":$_GET['redirect'];
                 if(data.redirect) location.href = data.redirect;
             }
         },"json");
-        console.log(username,password);
+        //console.log(username,password);
     }
     //you don't need this, just used for changing background
     jQuery(function($) {
