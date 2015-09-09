@@ -32,7 +32,6 @@
                                     累计利润
                                 </h3>
                                 <small></small>
-
                             </div>
                             <div class="col-md-6 text-center">
                                 <i class="pe-7s-credit fa-2x"></i>

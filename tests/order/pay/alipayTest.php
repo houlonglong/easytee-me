@@ -9,7 +9,7 @@ class AlipayTest extends UnitTest{
      *
      */
     function test_cli_test(){
-        $order_no = '1234556789496';
+        $order_no = '12345567894963';
         $subject = '测试alipay';
         $body = '222';
         $price = 0.01;
