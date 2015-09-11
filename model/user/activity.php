@@ -148,7 +148,11 @@ class Model_User_Activity extends Model_User_Abstract {
                 return array('msg'=>'msg2');
             }
             if($activity['sales_count']>10 &&  $activity['sales_count']< $activity['sales_target']){
-                $eachPrice = Model_Cost::calculate_cost($activity['colors'],$activity['sales_count']);
+                $salesCount = $activity['sales_count'];
+                if($salesCount>=$activity['sales_target']){
+                    $salesCount = $activity['sales_target'];
+                }
+                $eachPrice = Model_Cost::calculate_cost($activity['colors'],$salesCount);
                 $profie = Model_Cost::calculate_profie($id);
                 return array('msg'=>'msg3','eachPrice'=>$eachPrice,'profie'=>$profie);
             }

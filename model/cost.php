@@ -149,7 +149,7 @@ class Model_Cost
        $close =  PtLib\db_select_row('SELECT
                     sum(
                             good.purchase_price * good.quantity
-                        ) as closePrice,a.sales_count,a.total,d.colors
+                        ) as closePrice,a.sales_count,a.sales_target,a.total,d.colors
                     FROM
                         activities AS a
                     INNER JOIN orders AS O ON O.activity_id = a.id
@@ -159,7 +159,12 @@ class Model_Cost
         if(empty($close['sales_count'])){
             return 0;
         }
-        $eachProfie = self::calculate_cost($close['colors'],$close['sales_count']);
+        $salesCount = $close['sales_count'];
+        // 超过目标，用目标件数件数计算成本
+        if($salesCount>=$close['sales_target']){
+            $salesCount = $close['sales_target'];
+        }
+        $eachProfie = self::calculate_cost($close['colors'],$salesCount);
         $profie = $close['total'] - $eachProfie*$close['sales_count']-$close['closePrice'];
         return  $profie;
     }

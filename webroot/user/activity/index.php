@@ -32,7 +32,6 @@
                                     累计利润
                                 </h3>
                                 <small></small>
-
                             </div>
                             <div class="col-md-6 text-center">
                                 <i class="pe-7s-credit fa-2x"></i>
@@ -200,6 +199,32 @@
 <script>
     function real_close_activity(obj){
          obj = $(obj);
+        $.ajax({
+            url: "/api?model=user/activity&action=close_activity",
+            data: {
+                name: $("input[name='activity_name']").val(),
+                description: $("#description").val(),
+                id: aid
+            },
+            dataType: 'json',
+            type: 'POST',
+            success: function (data) {
+                var common_button =  "<button type='button' class='btn btn-sm btn-success btn btn-sm apply-back' >"+
+                    "取消<i class='ace-icon fa fa-arrow-right icon-on-right bigger-110'></i></button>"+
+                    "<button type='button' class='btn btn-sm btn-success btn btn-sm apply-back real_close_activity' onclick='real_close_activity(this)' data-id='"+aid+"'>"+
+                    "结束<i class='ace-icon fa fa-arrow-right icon-on-right bigger-110'></i></button>";
+                var message = msg[data.return.msg]+common_button;
+
+                if (data.return.msg == 'msg3') {
+                    message = msg['msg1']+"<button type='button' class='btn btn-sm btn-success btn btn-sm apply-back' >"+
+                        "取消<i class='ace-icon fa fa-arrow-right icon-on-right bigger-110'></i></button>"+
+                        "<button type='button' class='btn btn-sm btn-success btn btn-sm apply-back' data-id='"+aid+"'>"+
+                        "结束<i class='ace-icon fa fa-arrow-right icon-on-right bigger-110'></i></button>";
+                }
+                $('.bs-example-modal-sm').find('.modal-body').html(message);
+                $('.bs-example-modal-sm').modal('show');
+            }
+        })
         alert(obj.attr('data-id'));
     }
     $(function () {
@@ -248,33 +273,6 @@
                     $('.bs-example-modal-sm').modal('show');
                 }
             })
-//            var str=null;
-//            var status = $(this).attr('status');
-//            var profie = $(this).attr('profie');
-//            var eachprice = $(this).attr('each-price');
-//            var cancel = {show: true, className: 'btn-danger', callback: null};
-//            var ok = {show: true, callback: function () {
-//                closeActivity(aid);
-//            }, className: 'btn-success'};
-//            str = msg[status];
-//            if (status == "msg3") {
-//                str = msg[status].replace('{{price}}', eachprice).replace('{{profie}}', profie);
-//                cancel.text = '结束并退款';
-//                cancel.callback = function () {
-//                    closeActivity(aid, 'end');
-//                }
-//                ok.callback = function () {
-//                    closeActivity(aid, 'product');
-//                }
-//                ok.text = '结束活动 并 开始生产';
-//            }
-//            if (status == 'msg4') {
-//                ok.callback = function () {
-//                    closeActivity(aid, 'product');
-//                }
-//
-//            }
-//            popup('操作提示', str, {cancel: cancel, ok: ok}, {newmodal: false});
             return false;
         })
 
