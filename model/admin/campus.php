@@ -112,6 +112,7 @@ class Model_Admin_Campus extends BaseModel {
                   left join et_user_invite as i on i.uid = c.uid
                   left join et_user as u on u.id = c.uid
                   where c.id =  ? ',$id);
+
             self::_db()->update('et_user_campus',array('status'=>$status,"up_time"=>date_time_now()),array('id'=>$id));
             $mobile = $userDatas['mobile'];
             $name = $userDatas['real_name'];
@@ -129,16 +130,24 @@ class Model_Admin_Campus extends BaseModel {
                 ));
 
                 $userDatas = self::_db()->select_row('select invite_id from et_user_invite  where uid =  ? ',$userDatas['uid']);
+
                 if(!empty($userDatas['invite_id'])){
-                    $invite_money = $GLOBALS['setting']['campus']['invite_money'];
-                    self::_db()->run_sql("update et_user_finance set balance_ntx = balance_ntx + ".$invite_money." where uid = ?",$userDatas['invite_id']);
-                    self::_db()->insert("et_user_finance_log",array(
-                        "uid"=>$userDatas['invite_id'],
-                        "amount"=>$invite_money,
-                        "type"=>12,
-                        "note"=>"校园达人邀请奖励",
-                        "add_time"=>date_time_now()
-                    ));
+                    $userDatas = self::_db()->select_row(
+                        'select c.status from et_user_campus as c where c.uid =  ? ',$userDatas['invite_id']);
+
+                    if($userDatas && $userDatas['status'] == 1){
+                        $invite_money = $GLOBALS['setting']['campus']['invite_money'];
+                        self::_db()->run_sql("update et_user_finance set balance_ntx = balance_ntx + ".$invite_money." where uid = ?",$userDatas['invite_id']);
+                        self::_db()->insert("et_user_finance_log",array(
+                            "uid"=>$userDatas['invite_id'],
+                            "amount"=>$invite_money,
+                            "type"=>12,
+                            "note"=>"校园达人邀请奖励",
+                            "add_time"=>date_time_now()
+                        ));
+
+                    }
+
                 }
                 self::_db()->commit();
                 if($mobile){
@@ -151,7 +160,6 @@ class Model_Admin_Campus extends BaseModel {
                     //print_r($res);exit;
                 }
             }
-
             return array("ok");
         }catch (Exception $e){
             self::_db()->rollback();

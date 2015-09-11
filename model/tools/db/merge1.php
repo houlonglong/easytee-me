@@ -7,12 +7,14 @@ class Model_Tools_Db_Merge1 extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
-
+    function cli_run1(){
+        echo 11;exit;
+    }
     function cli_run(){
-        //if(PtApp::$ENV == 'product') return ;
-        //self::merge_act();
+        if(PtApp::$ENV == 'product') return ;
+        self::merge_act();
         //self::merge_order();
-        self::merge_user();
+        //self::merge_user();
     }
     static function merge_order(){
         $tables = array("et_order","et_order_goods","et_order_pay","et_order_ship","et_order_activity");
@@ -331,7 +333,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
             $type = 5;
             self::_db()->insert("et_user_finance_log",array(
                 "uid"=>$user_id,
-                "amount"=>$user_money_flow['money'],
+                "amount"=> $user_money_flow['type']*$user_money_flow['money'],
                 "note"=>$user_money_flow['content'],
                 "type"=>$type,
                 "add_time"=>$user_money_flow['create_time'],
