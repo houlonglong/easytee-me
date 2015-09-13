@@ -1,6 +1,4 @@
 <?php
-
-
 function domain_route($file){
     if(PtLib\is_cli()) return;
     $file = str_replace(PATH_WEBROOT,"",$file);
@@ -18,4 +16,9 @@ function domain_route($file){
             throw new Exception("not found",102404);
         }
     }
+
+    if(PtApp::$ENV == "product" && substr($file,0,strlen("test")) == "test"){
+        throw new Exception("not found",102404);
+    }
+
 }

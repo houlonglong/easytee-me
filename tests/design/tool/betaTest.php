@@ -7,11 +7,11 @@ use PtLib\UnitTest as UnitTest;
 class BetaTest extends UnitTest{
     /**
      *
-     *
-    function test_cli_test(){
-        $this->cli("deamon/task","run");
-    }
      */
+    function test_cli_test(){
+        $this->cli("design/tool/svg","upload");
+    }
+
 
     /**
      *

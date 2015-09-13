@@ -15,6 +15,7 @@ class UnitTest extends PHPUnit_Framework_TestCase{
 
     function cli($model,$method,$args = "",$env = "develop"){
         //echo PATH_CLI;
+        log(\PtApp::$ENV);
         $cmd = "php ".PATH_CLI." --model=$model --action=$method --env=$env $args";
         log($cmd);
         $res = shell_exec($cmd);

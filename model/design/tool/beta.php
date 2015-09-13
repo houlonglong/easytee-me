@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 设计工具
  */
@@ -767,7 +768,7 @@ class Model_Design_Tool_Beta extends BaseModel {
     function action_activity_activity_info(){
 
         if (!isset($_REQUEST['activityId']) || !$_REQUEST['activityId']) {
-                throw new Exception("activityId 不能为空");
+            throw new Exception("activityId 不能为空");
         }
         $activityId = $_REQUEST['activityId'];
         $activity = self::get_act_by_id($activityId);
@@ -891,7 +892,7 @@ class Model_Design_Tool_Beta extends BaseModel {
             $canvases = $canvas->attributes();
             //m_log($canvases);
             $canvaseId = $canvases->canvas_id . '';
-           // $canvaseArr['distress_id'] = isset($canvases->distress_id)? $canvases->distress_id. '':"";
+            // $canvaseArr['distress_id'] = isset($canvases->distress_id)? $canvases->distress_id. '':"";
             $canvaseArr['is_distressed'] = $canvases->is_distressed . '';
             $canvaseArr['region_name'] = $canvases->region . '';
             $canvaseArr['region'] = $canvases->region_id . '';
@@ -1701,8 +1702,8 @@ class Model_Design_Tool_Beta extends BaseModel {
      * 详情视图
      *
     function view_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
+    $request = PtLib\http_request("id");
+    return self::detail($request['id']);
     }
      */
 
@@ -1710,7 +1711,7 @@ class Model_Design_Tool_Beta extends BaseModel {
      * 列表
      *
     function action_list(){
-        return self::table_list();
+    return self::table_list();
     }
      */
 
@@ -1719,8 +1720,8 @@ class Model_Design_Tool_Beta extends BaseModel {
      * @return array
      *
     function action_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
+    $request = PtLib\http_request("id");
+    return self::detail($request['id']);
     }
      */
 
@@ -1740,9 +1741,9 @@ class Model_Design_Tool_Beta extends BaseModel {
      * @return array
      *
     static function detail($id){
-        $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
-        return $row;
+    $table = self::$table;
+    $row = PtLib\db_select_row("select * from $table where id = ?",$id);
+    return $row;
     }
      */
 
@@ -1750,7 +1751,7 @@ class Model_Design_Tool_Beta extends BaseModel {
      * 修改
      *
     function action_edit(){
-        return self::table_edit();
+    return self::table_edit();
     }
      */
 
@@ -1768,10 +1769,10 @@ class Model_Design_Tool_Beta extends BaseModel {
      * @return
      *
     function action_test(){
-        $request = PtLib\http_request("id");
-        $data = array();
-        $data['id'] = $request;
-        return $data;
+    $request = PtLib\http_request("id");
+    $data = array();
+    $data['id'] = $request;
+    return $data;
     }
      */
 }

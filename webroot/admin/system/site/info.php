@@ -24,10 +24,10 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="page-header">
                     <h1>
-                        Title
+                        系统信息
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            small
+
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
@@ -80,6 +80,62 @@
                                                 echo "<b>".$v."</b> => ".ini_get($v)."<br>";
                                             }
                                             ?>
+                                        </td>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            数据库
+                                        </td>
+                                        <td><pre><?php print_r(PtApp::$setting['db']);
+                                            ?></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            ssh config
+                                        </td>
+                                        <td>
+                                            <pre><?php
+                                                system("cat ~/.ssh/config");
+                                                ?></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            Apache Info
+                                        </td>
+                                        <td>
+                                            <pre style="width: 100%"><?php
+                                                system("apachectl -S");
+                                                ?></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            public key
+                                        </td>
+                                        <td>
+                                            <pre style="width: 500px"><?php
+                                                system("cat ~/.ssh/id_rsa.pub");
+                                                ?></pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            ssh 免密码登陆
+                                        </td>
+                                        <td>
+                                            <pre style="width: 500px">mkdir -p ~/.ssh;chmod 0700 ~/.ssh
+touch ~/.ssh/authorized_keys
+vim ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys</pre>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 120px;text-align: right">
+                                            rsync
+                                        </td>
+                                        <td>
+                                            <pre>rsync --exclude=\'www/app/tmp\' --exclude=\'.git\' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /opt/projects/easytee"</pre>
                                         </td>
                                     </tr>
                                     </tbody>
