@@ -13,11 +13,6 @@ class Model_Admin_User extends Model_Admin_Abstract
     {
         $request = PtLib\http_request("id");
         $id = $request['id'];
- /*       $user = self::_db()->select_row("select n.*,a.*,u.*
-        from users as u left join new_users as n on n.id = u.app_uid
-        left join user_attributes as a on a.uid = n.id where u.id = ?
-
-        ", $id);*/
 
         $user = self::_db()->select_row("SELECT u.id,u.nick_name, u.mobile,u.email,u.password,
 		                                f.balance_tx,f.balance_block,f.balance_ntx,f.total_earn,
@@ -30,6 +25,7 @@ class Model_Admin_User extends Model_Admin_Abstract
 
 
       // var_dump($user);exit;
+
         return array("user" => $user);
     }
 

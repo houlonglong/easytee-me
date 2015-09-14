@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <a class="btn btn-xs btn-info"
-                                   href="/api?model=admin/activity&action=downloadExcel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
+                                   href="/api?model=admin/activity&action=download_excel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
                             </div>
                             <!-- /.span -->
                         </div>
@@ -191,7 +191,8 @@
                     name: 'order_no',
                     index: 'order_no',
                     width: 90,
-                    editable: true,
+                    editable: false,
+                    sortable: false,
                     editoptions: {size: "20", maxlength: "30"},
                 },
                 {
@@ -200,6 +201,7 @@
                     index: 'ship_name',
                     width: 50,
                     editable: false,
+                    sortable: false,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
@@ -207,8 +209,8 @@
                     name: 'ship_mobile',
                     index: 'ship_mobile',
                     width: 80,
+                    editable: false,
                     sortable: false,
-                    editable: true,
                     unformat: pickTimeDate
                 },
                 {
@@ -216,19 +218,23 @@
                     name: 'express_price',
                     index: 'express_price',
                     width: 20,
+                    editable: false,
                     sortable: false,
-                    editable: true,
                     unformat: pickTimeDate
                 },
                 {
-                    title: "收货地址", name: 'ship_addr', index: 'ship_addr', width: 150, sortable: false, editable: true,
+                    title: "收货地址", name: 'ship_addr', index: 'ship_addr', width: 150,
+                    editable: false,
+                    sortable: false,
                     unformat: pickTimeDate,
                     formatter: function (cellvalue, options, rowObject) {
                         return rowObject['ship_province'] + rowObject['ship_city'] + rowObject['ship_area'] + cellvalue;
                     }
                 },
                 {
-                    title: "状态", name: 'status', index: 'status', width: 150, sortable: false, editable: true,
+                    title: "状态", name: 'status', index: 'status', width: 150,
+                    editable: false,
+                    sortable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         if(cellvalue == '待发货'){
                              return '<span class="label label-warning arrowed arrowed-right">'+cellvalue+'</span>';
