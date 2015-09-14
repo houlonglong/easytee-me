@@ -384,7 +384,9 @@ limit 1");
             $select_fields = " o.ship_name,o.ship_mobile,o.ship_province,o.ship_city,o.ship_area,o.ship_addr,
             p.name as product_name,style.color_name as product_style_name,
             o.express_price ,o.order_no,
-            goods.quantity,goods.size,man.name as manufacturer_name ";
+            goods.quantity,goods.size,man.name as manufacturer_name,
+            brand.name as brand_name
+            ";
 
             $join = " left join orders as o on o.id = goods.order_id
             left join et_product_style as style on style.id = goods.product_style_id
@@ -396,7 +398,7 @@ limit 1");
 
             $sql = "select $select_fields from order_goods as goods $join $where  ";
             $myval = array();
-            $myval[] = "活动ID,订单号,收件人,联系电话,收货地址,订购服装品类,订购服装款式,订购服装性别,订购服装颜色,订购服装尺码,订购服装数量";
+            $myval[] = "活动ID,订单号,收件人,联系电话,收货地址,厂家,品类,产品名,款式,尺码,数量";
             $myval[] = "\r\n";
             $rows = PtLib\db()->select_rows($sql, $_REQUEST['id']);
             foreach ($rows as $row) {
@@ -406,7 +408,7 @@ limit 1");
                 $myval[] = "\t" . $row['ship_mobile'] . ",";
                 $myval[] = $row['ship_province'] . $row['ship_city'] . $row['ship_area'] . $row['ship_addr'] . ",";
                 $myval[] = $row['manufacturer_name'] . ",";
-                $myval[] = $row['product_style_name'] . ",";
+                $myval[] = $row['brand_name'] . ",";
                 $myval[] = $row['product_name'] . ",";
                 $myval[] = $row['product_style_name'] . ",";
                 $myval[] = $row['size'] . ",";
