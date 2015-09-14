@@ -462,22 +462,18 @@ limit 1");
 
     }
 
-    function action_ordergoods_detail()
+    function action_ordergoods_detail($id)
     {
-        $id = $this->_request('id');
-        if ($id) {
-            $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name,pc.name as product_category_name from order_goods as og inner join orders as o on o.id = og.order_id
-                              inner join activities as a on a.id = o.activity_id' .
-                '    inner join product_styles as ps on ps.id = og.product_style_id ' .
-                ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ' .' inner join product_category_maps as map on map.product_id = p.id inner join product_categories as pc on pc.id = map.product_category_id '.
-                'where og.order_id = ?', $id);
-            foreach ($rows as $key => $row) {
-                $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
-                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
-            }
-            echo json_encode($rows);
+        $rows = self::_db()->select_rows(
+            'select * from order_goods as goods left join orders as o on o.id = goods.order_id
+            left join activities as a on a.id = o.
+            left join activit
+            ', $id);
+        foreach ($rows as $key => $row) {
+            $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
+            $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
         }
+        echo json_encode($rows);
     }
 
     static function success()

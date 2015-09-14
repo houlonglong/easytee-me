@@ -3,7 +3,7 @@
  * 提现申请
  */
 class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
-    static $table = "user_withdraw_applies";
+    static $table = "et_user_withdraw";
     function __construct(){
         //parent::__construct();
     }
@@ -39,10 +39,11 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
     */
     static function table_list(){
         $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $join = ' inner join users as u on u.id = '.$table_alias.'.uid';
+        $table_alias = 'w';
+
         //fields
-        $select_fields = " $table_alias.*,u.nick_name,u.id as uid ";
+        // select u.nick_name,u.mobile from user as u where id = 1;
+        $select_fields = " w.*,u.nick_name ";
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows","page","sidx","sord","username","mobile","startDate","endDate","status");
@@ -88,7 +89,10 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
         $order = "";
         if($sort)
             $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
-        $sql = "select count($table_alias.id) as total from $table as $table_alias $join $where ";
+
+        $join = ' left join  et_user as u on u.id = w.uid';
+        $sql = "select count(w.id) as total from $table as $table_alias $join $where ";
+        //echo $sql;exit;
         $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
         $response = new stdClass();
@@ -108,6 +112,7 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
         $skip = ($page - 1) * $limit;
 
         $sql = "select $select_fields from $table as $table_alias $join $where $order limit $skip,$limit ";
+        //echo $sql;exit;
 //        $rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){

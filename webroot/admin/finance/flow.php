@@ -34,11 +34,11 @@
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li >
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/withdraw'">申请提现</a>
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/withdraw'">提现记录</a>
                                         </li>
 
                                         <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/flow'">财务流水</a>
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/flow'">交易明细</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
@@ -139,18 +139,19 @@
                 },},
                 {title:"手机号",name:'mobile',index:'mobile',editable: false,sortable:false},
                 {title:"用户昵称",name:'nick_name',index:'nick_name',editable: false,sortable:false},
-                {title:"时间",name:'create_time',index:'create_time',editable: false,sortable:false},
-                {title:"金额",name:'money',index:'money',editable: false,sortable:false,
+                {title:"时间",name:'add_time',index:'add_time',editable: false,sortable:false},
+                {title:"金额",name:'amount',index:'amount',width:80,editable: false,sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        if(rowObject['type'] == 1){
-                            var img = '<label class="label-success">+'+cellvalue+'</label>';
+                        if(cellvalue >= 0 ){
+                            var img = '<label class="label-success">'+cellvalue+'</label>';
                         }else{
-                            var img = '<label class="label-danger">-'+cellvalue+'</label>';
+                            var img = '<label class="label-danger">'+cellvalue+'</label>';
                         }
 
                     return img;
-                },},
-                {title:"备注",name:'content',index:'content',editable: false,sortable:false},
+                    },
+                },
+                {title:"备注",name:'note',index:'content',width:400, editable: false,sortable:false},
                 /*
                  {title:"Title",name:'title',index:'title',editable: false,
                  formatter:'showlink',

@@ -36,11 +36,11 @@
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                                         <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/withdraw'">申请提现</a>
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/withdraw'">提现记录</a>
                                         </li>
 
                                         <li>
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/flow'">财务流水</a>
+                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/flow'">交易明细</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
@@ -181,31 +181,46 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 30, sorttype: "int", editable: false},
-                {title: "UID", name: 'uid', index: 'uid', width: 30, sorttype: "int", editable: false,
+                {title: "Id", name: 'id', index: 'id', width: 50, sorttype: "int", editable: false,sortable:true},
+                {title: "UID", name: 'uid', index: 'uid', width: 60, sorttype: "int", editable: false,sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        var img = '<a href="/admin/user/modify?id='+cellvalue+'">'+cellvalue+'</a>';
+                        var img = '<a target="_blank" href="/admin/user/modify?id='+cellvalue+'">'+cellvalue+'</a>';
                         return img;
                     }},
                 {title: "申请人", name: 'nick_name', index: 'nick_name', editable: false, sortable: false},
-                {title: "提现金额", name: 'money', index: 'money', editable: false, sortable: false},
-                {title: "申请账号", name: 'pay_account', index: 'pay_account', editable: false, sortable: false},
-                {title: "账户类型", name: 'pay_type', index: 'pay_type', editable: false, sortable: false},
+                {title: "提现金额", name: 'withdraw_amount', index: 'withdraw_amount', editable: false, sortable: false},
+                {title: "申请账号", name: 'withdraw_account', index: 'withdraw_account', editable: false, sortable: false},
+                {title: "申请时间", name: 'withdraw_add_time', index: 'withdraw_add_time',width: 210,  editable: false, sortable: false},
+                {title: "账户类型", name: 'withdraw_type', index: 'withdraw_type', editable: false, sortable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        var str = "";
+                        if (cellvalue == '0') {
+                            str = '支付宝';
+                        }
+                        if (cellvalue == '1') {
+                            str = '微信';
+                        }
+                        if (cellvalue == '2') {
+                            str = '银行帐户';
+                        }
+                        return str;
+                    }
+                },
                 {
-                    title: "状态", name: 'status', index: 'status', editable: true, sortable: false,
+                    title: "状态", name: 'withdraw_status', index: 'withdraw_status', editable: true, sortable: false,
                     editoptions: {custom_element: mystatuselem, custom_value: myvalue},
                     formatter: function (cellvalue, options, rowObject) {
-                        var img = "";
-                        if (cellvalue == 'unread') {
-                            img = '未处理';
+                        var str = "";
+                        if (cellvalue == '0') {
+                            str = '未审核';
                         }
-                        if (cellvalue == 'passed') {
-                            img = '通过';
+                        if (cellvalue == '1') {
+                            str = '已审核';
                         }
-                        if (cellvalue == 'fail') {
-                            img = '驳回';
+                        if (cellvalue == '2') {
+                            str = '已打款';
                         }
-                        return img;
+                        return str;
                     }
                 },
                 {title: "支付单号", name: 'pay_no', index: 'pay_no', editable: true, sortable: false},
@@ -217,8 +232,6 @@
                     sortable: false,
                     unformat: pickTimeDate
                 },
-                {title: "申请时间", name: 'create_time', index: 'create_time', editable: false, sortable: false},
-
 
                 /*
                  {title:"Title",name:'title',index:'title',editable: false,

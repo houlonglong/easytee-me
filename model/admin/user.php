@@ -136,7 +136,7 @@ class Model_Admin_User extends Model_Admin_Abstract
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " umf.*,u.mobile,u.nick_name";
+        $select_fields = " l.*,u.mobile,u.nick_name";
 
         if (empty($limit)) $limit = 20;
         if (empty($page)) $page = 1;
@@ -161,11 +161,11 @@ class Model_Admin_User extends Model_Admin_Abstract
             $args[] = $request['nick_name'];
         }
         if($request['startTime']){
-            $where .=' and umf.create_time >= ?';
+            $where .=' and l.create_time >= ?';
             $args[] = date('Y-m-d 00:00:00',strtotime($request['startTime']));
         }
         if($request['endTime']){
-            $where .=' and umf.create_time <= ?';
+            $where .=' and l.create_time <= ?';
             $args[] = date('Y-m-d 23:59:59',strtotime($request['endTime']));
         }
         if($request['mobile']){
@@ -175,8 +175,8 @@ class Model_Admin_User extends Model_Admin_Abstract
         //order
         $order = "";
         if ($sort)
-            $order = "order by umf." . addslashes($sort) . " " . $sort_type;
-        $sql = "select count(umf.id) as total from user_money_flows as umf inner join users as u on u.id = umf.uid $where ";
+            $order = "order by l." . addslashes($sort) . " " . $sort_type;
+        $sql = "select count(l.id) as total from et_user_finance_log as l left join et_user as u on u.id = l.uid $where ";
         //$count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql, $args);
         $records = $count_res['total'];
@@ -195,7 +195,7 @@ class Model_Admin_User extends Model_Admin_Abstract
 
         $skip = ($page - 1) * $limit;
 
-        $sql = "select $select_fields from user_money_flows as umf inner join users as u on u.id = umf.uid $where $order limit $skip,$limit ";
+        $sql = "select $select_fields from et_user_finance_log as l left join et_user as u on u.id = l.uid $where $order limit $skip,$limit ";
         $rows = PtLib\db()->select_rows($sql, $args);
         foreach ($rows as $row) {
             $response->rows[] = array(

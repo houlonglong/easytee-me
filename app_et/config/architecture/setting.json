@@ -224,7 +224,7 @@
                 "hide_menu":1
             },
             {
-                "title":"财务总结",
+                "title":"财务结算",
                 "url":"/admin/finance/withdraw",
                 "hide_menu":0
             },
