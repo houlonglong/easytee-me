@@ -14,6 +14,9 @@ class PtApp{
     static $breadcrumb = array();
     static $session_started = false;
     static $ob_flushed = false;
+    static function init(){
+        set_setting();
+    }
     static function print_setting(){
         PtLib\log(self::$setting);exit;
     }

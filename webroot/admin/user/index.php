@@ -65,7 +65,7 @@
             caption:"",
             cols:[
                 {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false,sortable:false},
-                {title:"nick_name",name:'nick_name',index:'nick_name',width:90,sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
+                {title:"呢称",name:'nick_name',index:'nick_name',width:90,sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:'/admin/user/modify',
@@ -73,7 +73,7 @@
                         idName:'id'
                     }
                 },
-                {title:"mobile",name:'mobile',index:'mobile',editable: false,sortable:false},
+                {title:"手机",name:'mobile',index:'mobile',editable: false,sortable:false},
                 {title:"create_time",name:'create_time',index:'create_time',sortable:false,editable: false},
                 {title:"操作",name:'操作',index:'操作',editable: false,sortable:false,width:80,
                     formatter:function(cellvalue, options, rowObject){

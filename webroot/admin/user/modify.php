@@ -37,8 +37,11 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <pre><?php print_r($user);?></pre>
-                        <form class="form-horizontal" style="display: none" id="form" role="form">
+                        <pre>
+                            <?php print_r($user);?>
+
+                        </pre>
+                        <form class="form-horizontal" style="display: " id="form" role="form">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label no-padding-right" for="name">姓名</label>
                                 <div class="col-sm-9">

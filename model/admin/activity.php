@@ -372,24 +372,29 @@ limit 1");
      * }
      */
 
-    static function action_downloadexcel()
+    static function action_download_excel()
     {
         if (isset($_REQUEST['id'])) {
             $id = $_REQUEST['id'];
             $table_alias = $table = self::$table;
             //$table_alias = '';
-            $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' .
-                ' inner join order_goods as og on og.order_id = o.id inner join product_styles as ps on ps.id = og.product_style_id ' .
-                ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ';
+
             if (empty($table_alias)) throw new ErrorException("table is not defined");
             //fields
-            $select_fields = " o.*,og.*,m.name as manufacturer_name ";
+            $select_fields = " o.ship_name,o.ship_mobile,o.ship_province,o.ship_city,o.ship_area,o.ship_addr,
+            p.name as product_name,style.color_name as product_style_name,
+            o.express_price ,o.order_no,
+            goods.quantity,goods.size,man.name as manufacturer_name ";
 
+            $join = " left join orders as o on o.id = goods.order_id
+            left join et_product_style as style on style.id = goods.product_style_id
+            left join et_product as p on p.id = style.product_id
+            left join et_product_brand as brand on brand.id = p.brand_id
+            left join et_product_manufacturer as man on man.id = brand.man_id
+            ";
+            $where = 'where o.activity_id = ? and o.status in ("待发货","已付款","已完成")';
 
-            $where = 'where ' . $table_alias . '.id = ? and o.status in ("待发货","已付款","已完成")';
-
-            $sql = "select $select_fields from $table $join $where  ";
+            $sql = "select $select_fields from order_goods as goods $join $where  ";
             $myval = array();
             $myval[] = "活动ID,订单号,收件人,联系电话,收货地址,订购服装品类,订购服装款式,订购服装性别,订购服装颜色,订购服装尺码,订购服装数量";
             $myval[] = "\r\n";
@@ -417,7 +422,7 @@ limit 1");
             header("Cache-Control: public");
             header("Content-type: application/octet-stream\n");
             header("Content-Description: File Transfer");
-            header('Content-Disposition: attachment; filename=' . $rows[0]['name'] . '.csv', $content);
+            header('Content-Disposition: attachment; filename=order.csv', $content);
             header("Content-Transfer-Encoding: binary");
             header('Content-Length: ' . strlen($content));
             echo $content;
