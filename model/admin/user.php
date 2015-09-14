@@ -13,12 +13,23 @@ class Model_Admin_User extends Model_Admin_Abstract
     {
         $request = PtLib\http_request("id");
         $id = $request['id'];
-        $user = self::_db()->select_row("select n.*,a.*,u.*
+ /*       $user = self::_db()->select_row("select n.*,a.*,u.*
         from users as u left join new_users as n on n.id = u.app_uid
         left join user_attributes as a on a.uid = n.id where u.id = ?
 
-        ", $id);
-        //var_dump($user);exit;
+        ", $id);*/
+
+        $user = self::_db()->select_row("SELECT u.id,u.nick_name, u.mobile,u.email,u.password,
+		                                f.balance_tx,f.balance_block,f.balance_ntx,f.total_earn,
+                                        i.avatar,i.des,i.des,
+                                        w.uid,w.withdraw_type,w.withdraw_account
+                                        FROM et_user AS u LEFT JOIN et_user_finance  AS f  ON f.uid = u.id
+                                        LEFT JOIN et_user_info AS i ON i.uid = u.id
+                                        LEFT  JOIN  et_user_withdraw_account AS w  ON w.uid = u.id
+                                        WHERE u.id = ?", $id);
+
+
+      // var_dump($user);exit;
         return array("user" => $user);
     }
 
@@ -60,9 +71,9 @@ class Model_Admin_User extends Model_Admin_Abstract
 
     static function table_list()
     {
-        $table_alias = $table = self::$table;
+        $table_alias = $table = self::$table = "et_user";
         $table_alias = 'u';
-        $join = 'left join new_users as n on n.id = u.app_uid';
+        $join = '';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows", "page", "sidx", "sord");
@@ -72,7 +83,7 @@ class Model_Admin_User extends Model_Admin_Abstract
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " u.*, n.create_time ";
+        $select_fields = " u.*";
 
         if (empty($limit)) $limit = 20;
         if (empty($page)) $page = 1;
