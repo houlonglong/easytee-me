@@ -222,8 +222,9 @@
                     title: "活动名称",
                     name: 'name',
                     index: 'name',
-                    sorttype: "int",
+                    sorttype: false,
                     editable: false,
+                    sortable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a href="http://' + frontend_domain + '/activity/' + rowObject['id'] + '" target = "_black">' + cellvalue + '</a';
                     }
@@ -234,6 +235,7 @@
                     index: 'nick_name',
                     width: 110,
                     editable: true,
+                    sortable:false,
                     editoptions: {size: "20", maxlength: "30"},
                     formatter: 'showlink',
                     formatoptions: {
@@ -247,16 +249,18 @@
                     name: 'sales_target',
                     index: 'sales_target',
                     width: 50,
-                    sorttype: "int",
+                    sorttype: false,
+                    sortable: false,
                     editable: false
                 },
                 {
                     title: "开始时间",
                     name: 'start_time',
                     index: 'start_time',
-                    sorttype: "date",
+                    sorttype: false,
                     width: 120,
                     editable: true,
+                    sortable: false,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
@@ -264,7 +268,8 @@
                     name: 'real_end_time',
                     index: 'real_end_time',
                     width: 120,
-                    sorttype: "date",
+                    sorttype: false,
+                    sortable: false,
                     editable: false
                 },
 

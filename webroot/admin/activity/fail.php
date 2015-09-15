@@ -247,7 +247,8 @@
                     title: "活动名称",
                     name: 'name',
                     index: 'name',
-                    sorttype: "int",
+                    sorttype: false,
+                    sortable:false,
                     editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a href="http://' + frontend_domain + '/activity/' + rowObject['id'] + '" target = "_black">' + cellvalue + '</a';
@@ -259,6 +260,7 @@
                     index: 'nick_name',
                     width: 110,
                     editable: true,
+                    sortable:false,
                     editoptions: {size: "20", maxlength: "30"},
 
                 },
@@ -267,7 +269,8 @@
                     name: 'sales_target',
                     index: 'sales_target',
                     width: 50,
-                    sorttype: "int",
+                    sorttype: false,
+                    sortable:false,
                     editable: false
                 },
                 {
@@ -275,7 +278,8 @@
                     name: 'sales_count',
                     index: 'sales_count',
                     width: 50,
-                    sorttype: "int",
+                    sorttype: false,
+                    sortable:false,
                     editable: false
                 },
                 {
@@ -283,6 +287,7 @@
                     name: 'start_time',
                     index: 'start_time',
                     editable: true,
+                    sortable:false,
                     width: 120,
                     editoptions: {size: "20", maxlength: "30"}
                 },
@@ -291,7 +296,8 @@
                     name: 'real_end_time',
                     index: 'real_end_time',
                     width: 120,
-                    sorttype: "date",
+                    sorttype: false,
+                    sortable:false,
                     editable: false
                 },
 

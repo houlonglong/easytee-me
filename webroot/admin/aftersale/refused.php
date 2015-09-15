@@ -82,7 +82,7 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
+                {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false,sortable:false},
                 {title:"Title",name:'title',index:'title',editable: false,sortable:false},
                 /*
                 {title:"Title",name:'title',index:'title',editable: false,

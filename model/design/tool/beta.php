@@ -1776,3 +1776,4 @@ class Model_Design_Tool_Beta extends BaseModel {
     }
      */
 }
+

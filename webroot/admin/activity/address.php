@@ -87,9 +87,9 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"地址编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"收货人",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"手机号码",name:'mobile',index:'mobile',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"地址编号",name:'id',index:'id', width:40, sorttype:false,  sortable: false,editable: false},
+                {title:"收货人",name:'name',index:'name',width:90,editable: true, sortable: false,editoptions:{size:"20",maxlength:"30"}},
+                {title:"手机号码",name:'mobile',index:'mobile',editable: true, sortable: false,editoptions:{size:"20",maxlength:"30"}},
                 {title:"收货地址",name:'provice',index:'provice',width:190,sortable:false,editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                     return rowObject.name+' ' + rowObject.mobile+' </br>' + rowObject.province + ' '+rowObject.city +' '+ rowObject.county+' '+rowObject.address+'';

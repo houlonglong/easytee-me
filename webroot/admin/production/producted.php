@@ -148,8 +148,8 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int",sortable:false, editable: false},
+                {title:"活动名称",name:'name',index:'name',editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
                     }

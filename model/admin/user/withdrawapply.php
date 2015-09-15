@@ -46,7 +46,7 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
         $select_fields = " w.*,u.nick_name ";
         if(empty($table_alias)) throw new ErrorException("table is not defined");
 //        $request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows","page","sidx","sord","username","mobile","startDate","endDate","status");
+        $request = PtLib\http_request("uid","rows","page","sidx","sord","username","mobile","startDate","endDate","status");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -60,8 +60,13 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
             $where = " and u.mobile = ? ";
             $args[] = $request['mobile'];
         }
+        if ($request['uid']) {
+            $where  .= " and u.id = ? ";
+            $args[] = $request['uid'];
+        }
+
         if ($request['username']) {
-            $where = " and u.nick_name = ? ";
+            $where .= " and u.nick_name = ? ";
             $args[] = $request['username'];
         }
         if ($request['startDate']) {

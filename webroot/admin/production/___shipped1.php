@@ -95,8 +95,8 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动编号",name:'id',index:'id', width:40, sorttype:"int",sortable:false, editable: false},
+                {title:"活动名称",name:'name',index:'name',sortable:false,width:90,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:url_api_detail,
@@ -104,7 +104,7 @@
                         idName:'id'
                     }
                 },
-                {title:"销售数量",name:'sales_count',index:'sales_count',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"销售数量",name:'sales_count',index:'sales_count',sortable:false,editable: true,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
 
                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,

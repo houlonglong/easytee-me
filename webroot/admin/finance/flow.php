@@ -131,8 +131,8 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false},
-                {title:"UID",name:'uid',index:'uid',editable: false,sortable:false,
+                {title:"Id",name:'id',index:'id', width:30, sorttype:"int", editable: false,sortable:false},
+                {title:"UID",name:'uid',index:'uid',editable: false,sortable:false,width:100,
                 formatter: function (cellvalue, options, rowObject) {
                     var img = '<a href="/admin/user/modify?id='+cellvalue+'">'+cellvalue+'</a>';
                     return img;
