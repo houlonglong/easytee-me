@@ -99,7 +99,7 @@
             ]
 
         };
-     alert(grid_setting)
+
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -130,7 +130,7 @@
                 var col = cols[i];
                 col_name.push(col.title);
             }
-            alert(col)
+
             return {
                 'name':col_name,
                 'model':cols
