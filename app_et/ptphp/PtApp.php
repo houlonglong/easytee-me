@@ -159,12 +159,11 @@ function route_model($model_file,$action,$method_prefix = "action",$return = fal
     if(is_dir(PATH_MODEL) &&
         is_file($model_file_path)){
 
-        //include_once(str_replace(DOCUMENT_ROOT,PATH_MODEL,SCRIPT_FILENAME));
         $model_class_name = PtLib\get_model_class_name(PtApp::$model);
         if(!class_exists($model_class_name)){
             throw new ErrorException("类: $model_class_name 不存在",100404);
         }
-        $model_obj = new $model_class_name();
+
         $model_action_name = PtLib\get_model_action_name($action,$method_prefix);
         PtApp::$model_class_name = $model_class_name;
 
@@ -218,14 +217,28 @@ function route_control($path){
 
     if(is_dir(PATH_MODEL) &&
         is_file($model_file_path)){
-        $model_class_name = PtLib\get_model_class_name(PtApp::$model);
         $model_action_name = "view_".strtolower($info['filename']);
+        $model_class_name = PtLib\get_model_class_name(PtApp::$model);
+        if(class_exists($model_class_name)){
+            PtApp::$model_class_name = $model_class_name;
+            $_reflector = new ReflectionClass($model_class_name);
+            PtApp::$model_view_name = $model_action_name;
+            if($_reflector->hasMethod($model_action_name)){
+                $_reflector_func = $_reflector->getmethod($model_action_name);
 
-        PtApp::$model_view_name = $model_action_name;
-        if(class_exists($model_class_name) && method_exists($model_class_name,$model_action_name)){
-            $model_obj = new $model_class_name();
-            $model_return = $model_obj->$model_action_name();
-            if($model_return) extract($model_return);
+                $_r_params = array();
+                $_r_params_keys = $_reflector_func->getParameters();
+                foreach($_r_params_keys as $_k){
+                    $_r_params[] =  $_k->getName();
+                }
+                $_r_args = array();
+                foreach($_r_params as $_k){
+                    $val = isset($_REQUEST[$_k])?trim($_REQUEST[$_k]):null;
+                    $_r_args[$_k] = $val;
+                }
+                $model_return = $_reflector_func->invokeArgs(new $model_class_name(),$_r_args);
+                if($model_return) extract($model_return);
+            }
         }
     }
     PtApp::$control_path = $path;
@@ -260,14 +273,7 @@ function web_route(){
             if(is_file($path)){
                 route_control($path);
             }else{//action
-                //pt_log(PtApp::$model);
-                $model_file = $REDIRECT_URL;
-                if(!empty($_REQUEST['action'])){
-                    PtApp::$action = $_REQUEST['action'];
-                    route_model($model_file,PtApp::$action,"action");
-                }else{
-                    throw new ErrorException("not found url",100404);
-                }
+                throw new ErrorException("not found url",100404);
             }
         }else{
             $info = parse_url(REQUEST_URI);
@@ -293,13 +299,7 @@ function web_route(){
             if(is_file($path)) {
                 route_control($path);
             }else{//action
-                $model_file = $REDIRECT_URL;
-                if(!empty($_REQUEST['action'])){
-                    PtApp::$action = $_REQUEST['action'];
-                    route_model($model_file,PtApp::$action,"action");
-                }else{
-                    throw new ErrorException("not found url",100404);
-                }
+                throw new ErrorException("not found url",100404);
             }
         }
     }
