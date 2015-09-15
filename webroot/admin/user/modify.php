@@ -51,7 +51,7 @@
                                 </li>
 
                                 <li>
-                                    <a data-toggle="tab" href="#dropdown14">体现记录</a>
+                                    <a data-toggle="tab" href="#dropdown14">提现记录</a>
                                 </li>
 
                                 <li>
@@ -146,11 +146,11 @@
                                             <label for="disabledSelect"  class="col-sm-2 control-label">提现账号类型：</label>
                                             <div class="col-sm-4">
                                                 <div class="col-sm-4">
-                                                    <select id="disabledSelect" class="form-control">
-
-                                                        <option <?php if($user['withdraw_type']==1) echo "selected" ?> value="1">微信</option>
-                                                        <option <?php if($user['withdraw_type']==0) echo "selected" ?> value="0">支付宝</option>
-                                                        <option <?php if($user['withdraw_type']==2) echo "selected" ?> value="2">银行账号</option>
+                                                    <select id="disabledSelect" class="form-control" data-field="withdraw_type" data-table = "et_user_withdraw_account">
+                                                        <option  >无</option>
+                                                        <option  <?php if($user['withdraw_type']==1) echo "selected" ?> value="1">微信</option>
+                                                        <option  <?php if($user['withdraw_type']==0) echo "selected" ?> value="0">支付宝</option>
+                                                        <option  <?php if($user['withdraw_type']==2) echo "selected" ?> value="2">银行账号</option>
 
 
                                                     </select>
@@ -175,11 +175,11 @@
                                 </div>
 
                                 <div id="profile4" class="tab-pane">
-                                    <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                                    <p>1111</p>
                                 </div>
 
                                 <div id="dropdown14" class="tab-pane">
-                                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                                    <p>222</p>
                                 </div>
                             </div>
                         </div>
@@ -212,6 +212,35 @@
 <script src="/ace/assets/js/bootstrap-tag.min.js"></script>
 <script>
     $(function(){
+        $('#disabledSelect').change(function(){
+               var val = $(this).val()
+               var table = $(this).data("table");
+               var field = $(this).data("field");
+               var uid = $("#uid").val();
+                //alert(typeof val)
+               if(val=="无"){
+                   alert("提现账号类型不得为空")
+               }else{
+                   $.post("/api",{
+                       model:"admin/user",
+                       action:"update",
+                       table:table,
+                       field:field,
+                       value:val,
+                       uid:uid
+                   },function(data){
+                       if(data.status == 0){
+
+                       }else{
+                           alert(data.message);
+                       }
+                   },"json");
+                   console.log(table,uid,this.value)
+            }
+        })
+
+
+
 
         $(".auto_change").change(function(){
             var table = $(this).data("table");
