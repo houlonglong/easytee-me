@@ -8,7 +8,24 @@ class Model_Admin_User extends Model_Admin_Abstract
     {
         parent::__construct();
     }
-
+    function action_update($table,$field,$value,$uid){
+        if($table == 'et_user') $key = "id";
+        else $key = "uid";
+        $row = self::_db()->select_row("select * from $table where $key = ?",$uid);
+        if($row){
+            self::_db()->update($table,array(
+                $field=>$value
+            ),array(
+                $key=>$uid
+            ));
+        }else{
+            self::_db()->insert($table,array(
+                $field=>$value,
+                $key=>$uid
+            ));
+        }
+        return array("ok");
+    }
     function view_modify()
     {
         $request = PtLib\http_request("id");
