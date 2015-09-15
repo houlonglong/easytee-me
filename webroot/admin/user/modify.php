@@ -179,29 +179,17 @@
                                 </div>
 
                                 <div id="dropdown14" class="tab-pane">
-                                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                                    <table id="grid-table"></table>
+
+                                    <div id="grid-pager"></div>
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
 
 
-                        <form class="form-horizontal" style="display: " id="form" role="form">
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="name">姓名</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="name" placeholder="姓名"/>
-                                </div>
-                            </div>
-                            <div>
-
-                            </div>
-
-
-                        </form>
                     </div>
                 </div>
             </div><!-- /.page-content -->

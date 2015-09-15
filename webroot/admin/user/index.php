@@ -99,6 +99,7 @@
             ]
 
         };
+     alert(grid_setting)
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -125,9 +126,11 @@
         function get_col(cols){
             var col_name = [];
             for(i in cols){
+
                 var col = cols[i];
                 col_name.push(col.title);
             }
+            alert(col)
             return {
                 'name':col_name,
                 'model':cols

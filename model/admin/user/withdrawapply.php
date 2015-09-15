@@ -229,4 +229,6 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
         }
     }
 
+    //收到列表
+
 }
