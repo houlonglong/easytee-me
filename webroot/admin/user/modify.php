@@ -51,7 +51,7 @@
                                 </li>
 
                                 <li>
-                                    <a data-toggle="tab" href="#dropdown14">提现记录</a>
+                                    <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
                                 </li>
 
                                 <li>

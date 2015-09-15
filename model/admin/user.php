@@ -40,7 +40,11 @@ class Model_Admin_User extends Model_Admin_Abstract
                                         LEFT  JOIN  et_user_withdraw_account AS w  ON w.uid = u.id
                                         WHERE u.id = ?", $id);
       // var_dump($user);exit;
-        return array("user" => $user);
+        return array("user" => $user,"uid"=>$id);
+    }
+    function view_withdraw_log(){
+        $uid = $_GET['uid'];
+        return array('uid'=>$uid);
     }
 
     /**
