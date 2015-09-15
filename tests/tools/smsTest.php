@@ -20,11 +20,7 @@ class SmsTest extends UnitTest{
      *
      */
     function test_cli_test(){
-<<<<<<< HEAD
-        $this->cli("tools/sms","send");
-=======
-        $this->cli("tools/sms","send_sms");
->>>>>>> c3e0f4209393ec64d5c99b6e825793961188198b
+        $this->cli("tools/sms","sendsms");
     }
 
 

@@ -10,7 +10,11 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
-
+    <style>
+        #deploy_cmd,#deploy_res{
+            display: none;
+        }
+    </style>
 </head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar"))?>
@@ -57,6 +61,11 @@
                             </div>
                             <div class="col-xs-12">
                                 <pre id="deploy_res"></pre>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+
                             </div>
                         </div>
                     </div>

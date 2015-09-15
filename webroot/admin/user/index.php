@@ -64,8 +64,10 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:40, sorttype:"int", editable: false,sortable:false},
-                {title:"nick_name",name:'nick_name',index:'nick_name',width:90,sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
+
+                {title:"用户ID",name:'id',index:'id', width:40, sorttype:"int", editable: false,sortable:false},
+                {title:"昵称",name:'nick_name',index:'nick_name',width:90,sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
+
                     formatter:'showlink',
                     formatoptions:{
                         baseLinkUrl:'/admin/user/modify',
@@ -73,8 +75,10 @@
                         idName:'id'
                     }
                 },
-                {title:"mobile",name:'mobile',index:'mobile',editable: false,sortable:false},
-                {title:"create_time",name:'create_time',index:'create_time',sortable:false,editable: false},
+                {title:"手机",name:'mobile',index:'mobile',editable: false,sortable:false},
+
+                {title:"注册时间",name:'create_time',index:'create_time',sortable:false,editable: false},
+
                 {title:"操作",name:'操作',index:'操作',editable: false,sortable:false,width:80,
                     formatter:function(cellvalue, options, rowObject){
                         return '<a href="/api?model=admin/auth&action=login_as&uid='+rowObject['id']+'" target = "_black">Login As</a';
@@ -95,6 +99,7 @@
             ]
 
         };
+     alert(grid_setting)
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
          /*
@@ -121,9 +126,11 @@
         function get_col(cols){
             var col_name = [];
             for(i in cols){
+
                 var col = cols[i];
                 col_name.push(col.title);
             }
+            alert(col)
             return {
                 'name':col_name,
                 'model':cols

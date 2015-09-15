@@ -8,18 +8,43 @@ class Model_Admin_User extends Model_Admin_Abstract
     {
         parent::__construct();
     }
-
+    function action_update($table,$field,$value,$uid){
+        if($table == 'et_user') $key = "id";
+        else $key = "uid";
+        $row = self::_db()->select_row("select * from $table where $key = ?",$uid);
+        if($row){
+            self::_db()->update($table,array(
+                $field=>$value
+            ),array(
+                $key=>$uid
+            ));
+        }else{
+            self::_db()->insert($table,array(
+                $field=>$value,
+                $key=>$uid
+            ));
+        }
+        return array("ok");
+    }
     function view_modify()
     {
         $request = PtLib\http_request("id");
         $id = $request['id'];
-        $user = self::_db()->select_row("select n.*,a.*,u.*
-        from users as u left join new_users as n on n.id = u.app_uid
-        left join user_attributes as a on a.uid = n.id where u.id = ?
 
-        ", $id);
-        //var_dump($user);exit;
-        return array("user" => $user);
+        $user = self::_db()->select_row("SELECT u.id,u.nick_name, u.mobile,u.email,u.password,
+		                                f.balance_tx,f.balance_block,f.balance_ntx,f.total_earn,
+                                        i.avatar,i.des,i.des,
+                                        w.uid,w.withdraw_type,w.withdraw_account
+                                        FROM et_user AS u LEFT JOIN et_user_finance  AS f  ON f.uid = u.id
+                                        LEFT JOIN et_user_info AS i ON i.uid = u.id
+                                        LEFT  JOIN  et_user_withdraw_account AS w  ON w.uid = u.id
+                                        WHERE u.id = ?", $id);
+      // var_dump($user);exit;
+        return array("user" => $user,"uid"=>$id);
+    }
+    function view_withdraw_log(){
+        $uid = $_GET['uid'];
+        return array('uid'=>$uid);
     }
 
     /**
@@ -60,9 +85,9 @@ class Model_Admin_User extends Model_Admin_Abstract
 
     static function table_list()
     {
-        $table_alias = $table = self::$table;
+        $table_alias = $table = self::$table = "et_user";
         $table_alias = 'u';
-        $join = 'left join new_users as n on n.id = u.app_uid';
+        $join = '';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows", "page", "sidx", "sord");
@@ -72,7 +97,7 @@ class Model_Admin_User extends Model_Admin_Abstract
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " u.*, n.create_time ";
+        $select_fields = " u.*";
 
         if (empty($limit)) $limit = 20;
         if (empty($page)) $page = 1;
@@ -137,7 +162,7 @@ class Model_Admin_User extends Model_Admin_Abstract
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " umf.*,u.mobile,u.nick_name";
+        $select_fields = " l.*,u.mobile,u.nick_name";
 
         if (empty($limit)) $limit = 20;
         if (empty($page)) $page = 1;
@@ -162,11 +187,11 @@ class Model_Admin_User extends Model_Admin_Abstract
             $args[] = $request['nick_name'];
         }
         if($request['startTime']){
-            $where .=' and umf.create_time >= ?';
+            $where .=' and l.create_time >= ?';
             $args[] = date('Y-m-d 00:00:00',strtotime($request['startTime']));
         }
         if($request['endTime']){
-            $where .=' and umf.create_time <= ?';
+            $where .=' and l.create_time <= ?';
             $args[] = date('Y-m-d 23:59:59',strtotime($request['endTime']));
         }
         if($request['mobile']){
@@ -176,8 +201,8 @@ class Model_Admin_User extends Model_Admin_Abstract
         //order
         $order = "";
         if ($sort)
-            $order = "order by umf." . addslashes($sort) . " " . $sort_type;
-        $sql = "select count(umf.id) as total from user_money_flows as umf inner join users as u on u.id = umf.uid $where ";
+            $order = "order by l." . addslashes($sort) . " " . $sort_type;
+        $sql = "select count(l.id) as total from et_user_finance_log as l left join et_user as u on u.id = l.uid $where ";
         //$count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql, $args);
         $records = $count_res['total'];
@@ -196,7 +221,7 @@ class Model_Admin_User extends Model_Admin_Abstract
 
         $skip = ($page - 1) * $limit;
 
-        $sql = "select $select_fields from user_money_flows as umf inner join users as u on u.id = umf.uid $where $order limit $skip,$limit ";
+        $sql = "select $select_fields from et_user_finance_log as l left join et_user as u on u.id = l.uid $where $order limit $skip,$limit ";
         $rows = PtLib\db()->select_rows($sql, $args);
         foreach ($rows as $row) {
             $response->rows[] = array(

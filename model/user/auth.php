@@ -96,6 +96,9 @@ class Model_User_Auth extends BaseModel{
         }
         $auth_info = PtLib\secure_cookie_decode($cookie_auth_key,$_COOKIE[$cookie_auth_key]);
         if($auth_info){
+            $auth_info = json_decode($auth_info,true);
+        }
+        if($auth_info && !empty($auth_info['uid'])){
             PtApp::$auth = json_decode($auth_info,1);
             $logined = True;
         }else{

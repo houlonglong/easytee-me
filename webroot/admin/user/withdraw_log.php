@@ -35,21 +35,45 @@
                             <div class="col-xs-12">
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/withdraw'">提现记录</a>
+                                        <li >
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/modify?id=<?=$uid?>'">基本信息</a>
                                         </li>
 
                                         <li>
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/finance/flow'">交易明细</a>
+                                            <a data-toggle="tab" href="#profile4">认证</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">收货地址</a>
+                                        </li>
+
+                                        <li class="active">
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">发起的活动</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">订单</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">财务流水</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
                                         </li>
                                     </ul>
+
                                     <div class="tab-content">
                                         <div id="home4" class="tab-pane in active">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <a class="btn btn-xs btn-info" href="/api?model=admin/user/withdrawapply&action=withdraw_download">下载Excel</a>
-                                                </div>
-                                            </div>
 
                                             <div class="row">
                                                 <div class="col-xs-12">
@@ -167,7 +191,7 @@
     jQuery(function ($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base = "<?php echo $__model_path;?>";
-        var url_api_list = "/api?model=" + url_api_base + "&action=list";
+        var url_api_list = "/api?model=" + url_api_base + "&action=list&uid=<?=$uid?>";
         var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
         var url_api_detail = "/" + url_api_base + "/detail";
 
@@ -181,9 +205,8 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-
-                {title: "Id", name: 'id', index: 'id', width: 50, sorttype: "int", editable: false,sortable:false},
-                {title: "UID", name: 'uid', index: 'uid', width: 50, sorttype: false,sortable:false, editable: false,
+                {title: "Id", name: 'id', index: 'id', width: 50, sorttype: "int", editable: false,sortable:true},
+                {title: "UID", name: 'uid', index: 'uid', width: 60, sorttype: "int", editable: false,sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
                         var img = '<a target="_blank" href="/admin/user/modify?id='+cellvalue+'">'+cellvalue+'</a>';
                         return img;

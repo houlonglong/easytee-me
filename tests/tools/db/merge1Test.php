@@ -11,6 +11,9 @@ class Merge1Test extends UnitTest{
     function test_cli_test(){
         $this->cli("tools/db/merge1","run","","local");
     }
+    function test_cli_test1(){
+        $this->cli("tools/db/merge1","run1","","local");
+    }
 
     /**
      *

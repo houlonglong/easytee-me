@@ -372,26 +372,33 @@ limit 1");
      * }
      */
 
-    static function action_downloadexcel()
+    static function action_download_excel()
     {
         if (isset($_REQUEST['id'])) {
             $id = $_REQUEST['id'];
             $table_alias = $table = self::$table;
             //$table_alias = '';
-            $join = ' inner join users as u on u.id = ' . $table_alias . '.uid  inner join orders as o on o.activity_id = ' . $table_alias . '.id' .
-                ' inner join order_goods as og on og.order_id = o.id inner join product_styles as ps on ps.id = og.product_style_id ' .
-                ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ';
+
             if (empty($table_alias)) throw new ErrorException("table is not defined");
             //fields
-            $select_fields = " o.*,og.*,m.name as manufacturer_name ";
+            $select_fields = " o.ship_name,o.ship_mobile,o.ship_province,o.ship_city,o.ship_area,o.ship_addr,
+            p.name as product_name,style.color_name as product_style_name,
+            o.express_price ,o.order_no,
+            goods.quantity,goods.size,man.name as manufacturer_name,
+            brand.name as brand_name
+            ";
 
+            $join = " left join orders as o on o.id = goods.order_id
+            left join et_product_style as style on style.id = goods.product_style_id
+            left join et_product as p on p.id = style.product_id
+            left join et_product_brand as brand on brand.id = p.brand_id
+            left join et_product_manufacturer as man on man.id = brand.man_id
+            ";
+            $where = 'where o.activity_id = ? and o.status in ("待发货","已付款","已完成")';
 
-            $where = 'where ' . $table_alias . '.id = ? and o.status in ("待发货","已付款","已完成")';
-
-            $sql = "select $select_fields from $table $join $where  ";
+            $sql = "select $select_fields from order_goods as goods $join $where  ";
             $myval = array();
-            $myval[] = "活动ID,订单号,收件人,联系电话,收货地址,订购服装品类,订购服装款式,订购服装性别,订购服装颜色,订购服装尺码,订购服装数量";
+            $myval[] = "活动ID,订单号,收件人,联系电话,收货地址,厂家,品类,产品名,款式,尺码,数量";
             $myval[] = "\r\n";
             $rows = PtLib\db()->select_rows($sql, $_REQUEST['id']);
             foreach ($rows as $row) {
@@ -401,7 +408,7 @@ limit 1");
                 $myval[] = "\t" . $row['ship_mobile'] . ",";
                 $myval[] = $row['ship_province'] . $row['ship_city'] . $row['ship_area'] . $row['ship_addr'] . ",";
                 $myval[] = $row['manufacturer_name'] . ",";
-                $myval[] = $row['product_style_name'] . ",";
+                $myval[] = $row['brand_name'] . ",";
                 $myval[] = $row['product_name'] . ",";
                 $myval[] = $row['product_style_name'] . ",";
                 $myval[] = $row['size'] . ",";
@@ -417,7 +424,7 @@ limit 1");
             header("Cache-Control: public");
             header("Content-type: application/octet-stream\n");
             header("Content-Description: File Transfer");
-            header('Content-Disposition: attachment; filename=' . $rows[0]['name'] . '.csv', $content);
+            header('Content-Disposition: attachment; filename=order.csv', $content);
             header("Content-Transfer-Encoding: binary");
             header('Content-Length: ' . strlen($content));
             echo $content;
@@ -455,22 +462,18 @@ limit 1");
 
     }
 
-    function action_ordergoods_detail()
+    function action_ordergoods_detail($id)
     {
-        $id = $this->_request('id');
-        if ($id) {
-            $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name,pc.name as product_category_name from order_goods as og inner join orders as o on o.id = og.order_id
-                              inner join activities as a on a.id = o.activity_id' .
-                '    inner join product_styles as ps on ps.id = og.product_style_id ' .
-                ' inner join products as p on p.id = ps.product_id inner join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ' .' inner join product_category_maps as map on map.product_id = p.id inner join product_categories as pc on pc.id = map.product_category_id '.
-                'where og.order_id = ?', $id);
-            foreach ($rows as $key => $row) {
-                $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
-                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
-            }
-            echo json_encode($rows);
+        $rows = self::_db()->select_rows(
+            'select * from order_goods as goods left join orders as o on o.id = goods.order_id
+            left join activities as a on a.id = o.
+            left join activit
+            ', $id);
+        foreach ($rows as $key => $row) {
+            $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
+            $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
         }
+        echo json_encode($rows);
     }
 
     static function success()

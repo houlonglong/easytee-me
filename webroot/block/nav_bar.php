@@ -21,7 +21,8 @@
                 <li><a href="/design" class="design">开始设计</a></li>
                 <!--<li><a href="/invite">邀请朋友</a></li>-->
             </ul>
-            <?php if(Model_User_Auth::is_logined()){
+            <?php
+            if(Model_User_Auth::is_logined()){
                     $uid = Model_User_Abstract::get_uid();
                 $user = \PtLib\db_select_row("select * from users where id = ?",$uid);
                 ?>

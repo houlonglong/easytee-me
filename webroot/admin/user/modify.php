@@ -35,29 +35,159 @@
                     </h1>
                 </div><!-- /.page-header -->
                 <div class="row">
+                    <div class="col-sm-12">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#home4">基本信息</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#profile4">认证</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#dropdown14">收货地址</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#dropdown14">发起的活动</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#dropdown14">订单</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#dropdown14">财务流水</a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="home4" class="tab-pane in active">
+
+                                    <form class="form-horizontal" role="form">
+
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="ds_host">UID：</label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control" id="uid" type="text" readonly value="<?php echo $user['id'] ?>"/>
+                                                </div>
+                                               <!-- <label class="col-sm-2 control-label" for="ds_name">密码：</label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control" id="ds_name" type="password" value="<?php /*echo $user['password'] */?>" />
+                                                </div>-->
+
+                                            </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ds_username">昵称：</label>
+                                            <div class="col-sm-4">
+                                                <input data-table="et_user" data-field="nick_name" class="auto_change form-control" id="ds_username" type="text" value="<?php echo $user['nick_name'] ?>">
+                                            </div>
+
+
+                                        </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label" for="ds_username">手机号：</label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control" id="ds_username" type="text" value="<?php echo $user['mobile'] ?>"/>
+                                                </div>
+                                                <label class="col-sm-2 control-label" for="ds_password">提现账号：</label>
+                                                <div class="col-sm-4">
+                                                    <input data-table="et_user_withdraw_account" data-field="withdraw_account" class="auto_change form-control" id="ds_password" type="text" value="<?php echo $user['withdraw_account'] ?>"/>
+                                                </div>
+                                            </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ds_username">可提现余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_username" type="text" value="<?php echo $user['balance_tx'] ?>"/>
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="ds_password">暂时冻结余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_password" type="text" value="<?php echo $user['balance_block'] ?>"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ds_username">不可提现余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_username" type="text" value="<?php echo $user['balance_ntx'] ?>"/>
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="ds_password">总赚取余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_password" type="text" value="<?php echo $user['total_earn'] ?>"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect"  class="col-sm-2 control-label">余额：</label>
+                                            <div class="col-sm-4">
+
+                                                <input class="form-control" id="ds_password" type="text" value="<?php echo $user['balance_tx']+$user['balance_ntx']+$user['balance_block'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect"  class="col-sm-2 control-label">Email：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_password" type="text" value="<?php $user['email'] ?>">
+                                            </div>
+                                            <label for="disabledSelect"  class="col-sm-2 control-label">提现账号类型：</label>
+                                            <div class="col-sm-4">
+                                                <div class="col-sm-4">
+                                                    <select id="disabledSelect" class="form-control" data-field="withdraw_type" data-table = "et_user_withdraw_account">
+                                                        <option  >无</option>
+                                                        <option  <?php if($user['withdraw_type']==1) echo "selected" ?> value="1">微信</option>
+                                                        <option  <?php if($user['withdraw_type']==0) echo "selected" ?> value="0">支付宝</option>
+                                                        <option  <?php if($user['withdraw_type']==2) echo "selected" ?> value="2">银行账号</option>
+
+
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+    `                     <!--              <div class="form-group">
+                                            <label for="disabledSelect"  class="col-sm-2 control-label">状态：</label>
+                                            <input name="switch-field-1" class="ace ace-switch ace-switch-4" type="checkbox">
+                                            <span class="lbl"></span>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="disabledSelect"  class="col-sm-2 control-label">认证：</label>
+                                            <input name="switch-field-1" class="ace ace-switch ace-switch-4" type="checkbox">
+                                            <span class="lbl"></span>
+                                        </div>-->
+
+                                    </form>
+
+                                </div>
+
+                                <div id="profile4" class="tab-pane">
+                                    <p>1111</p>
+                                </div>
+
+                                <div id="dropdown14" class="tab-pane">
+                                    <p>222</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <pre><?php print_r($user);?></pre>
-                        <form class="form-horizontal" style="display: none" id="form" role="form">
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="name">姓名</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="name" placeholder="姓名"/>
-                                </div>
-                            </div>
-                            <div>
 
-                            </div>
-
-                            <div class="clearfix form-actions">
-                                <div class="col-md-offset-3 col-md-9">
-                                    <button class="btn btn-info" type="button">
-                                        <i class="ace-icon fa fa-check bigger-110"></i>
-                                        提交
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div><!-- /.page-content -->
@@ -83,6 +213,58 @@
 <script src="/ace/assets/js/bootstrap-tag.min.js"></script>
 <script>
     $(function(){
+        $('#disabledSelect').change(function(){
+               var val = $(this).val()
+               var table = $(this).data("table");
+               var field = $(this).data("field");
+               var uid = $("#uid").val();
+                //alert(typeof val)
+               if(val=="无"){
+                   alert("提现账号类型不得为空")
+               }else{
+                   $.post("/api",{
+                       model:"admin/user",
+                       action:"update",
+                       table:table,
+                       field:field,
+                       value:val,
+                       uid:uid
+                   },function(data){
+                       if(data.status == 0){
+
+                       }else{
+                           alert(data.message);
+                       }
+                   },"json");
+                   console.log(table,uid,this.value)
+            }
+        })
+
+
+
+
+        $(".auto_change").change(function(){
+            var table = $(this).data("table");
+            var field = $(this).data("field");
+            var value = this.value;
+            var uid = $("#uid").val();
+            $.post("/api",{
+                model:"admin/user",
+                action:"update",
+                table:table,
+                field:field,
+                value:value,
+                uid:uid
+            },function(data){
+                if(data.status == 0){
+
+                }else{
+                    alert(data.message);
+                }
+            },"json");
+            console.log(table,uid,this.value)
+        });
+
         $('#pic_upload').ace_file_input({
             style:'well',
             btn_choose:'拖一张图片到这里或者点击选择图片',
