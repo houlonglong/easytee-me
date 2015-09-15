@@ -83,7 +83,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="ds_host">UID：</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" id="ds_host" type="text" value="<?php echo $user['id'] ?>"/>
+                                                    <input class="form-control" id="uid" type="text" readonly value="<?php echo $user['id'] ?>"/>
                                                 </div>
                                                <!-- <label class="col-sm-2 control-label" for="ds_name">密码：</label>
                                                 <div class="col-sm-4">
@@ -94,7 +94,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="ds_username">昵称：</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="ds_username" type="text" value="<?php echo $user['nick_name'] ?>">
+                                                <input data-table="et_user" data-field="nick_name" class="auto_change form-control" id="ds_username" type="text" value="<?php echo $user['nick_name'] ?>">
                                             </div>
 
 
@@ -106,7 +106,7 @@
                                                 </div>
                                                 <label class="col-sm-2 control-label" for="ds_password">提现账号：</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" id="ds_password" type="password" value="<?php echo $user['withdraw_account'] ?>"/>
+                                                    <input data-table="et_user_withdraw_account" data-field="withdraw_account" class="auto_change form-control" id="ds_password" type="text" value="<?php echo $user['withdraw_account'] ?>"/>
                                                 </div>
                                             </div>
 
@@ -187,21 +187,6 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
 
-
-                        <form class="form-horizontal" style="display: " id="form" role="form">
-
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label no-padding-right" for="name">姓名</label>
-                                <div class="col-sm-9">
-                                    <input type="text"  class="col-xs-12 col-sm-6 auto_change" id="name" placeholder="姓名"/>
-                                </div>
-                            </div>
-                            <div>
-
-                            </div>
-
-
-                        </form>
                     </div>
                 </div>
             </div><!-- /.page-content -->
@@ -227,6 +212,29 @@
 <script src="/ace/assets/js/bootstrap-tag.min.js"></script>
 <script>
     $(function(){
+
+        $(".auto_change").change(function(){
+            var table = $(this).data("table");
+            var field = $(this).data("field");
+            var value = this.value;
+            var uid = $("#uid").val();
+            $.post("/api",{
+                model:"admin/user",
+                action:"update",
+                table:table,
+                field:field,
+                value:value,
+                uid:uid
+            },function(data){
+                if(data.status == 0){
+
+                }else{
+                    alert(data.message);
+                }
+            },"json");
+            console.log(table,uid,this.value)
+        });
+
         $('#pic_upload').ace_file_input({
             style:'well',
             btn_choose:'拖一张图片到这里或者点击选择图片',
