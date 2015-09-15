@@ -184,7 +184,7 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "活动ID", name: 'activity_id', index: 'activity_id', width: 40, sorttype: "int", editable: false},
+                {title: "活动ID", name: 'activity_id', index: 'activity_id', width: 40, sorttype: false, sortable:false, editable: false},
 
                 {
                     title: "订单号",
@@ -192,6 +192,7 @@
                     index: 'order_no',
                     width: 90,
                     editable: true,
+                    sortable:false,
                     editoptions: {size: "20", maxlength: "30"},
                 },
                 {
@@ -200,6 +201,7 @@
                     index: 'ship_name',
                     width: 50,
                     editable: false,
+                    sortable:false,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
@@ -215,7 +217,7 @@
                     title: "快递费",
                     name: 'express_price',
                     index: 'express_price',
-                    width: 20,
+                    width: 50,
                     sortable: false,
                     editable: true,
                     unformat: pickTimeDate
@@ -409,17 +411,17 @@
                             data: obj,
                             colNames: ['订购服装品类', '订购服装款式', '订购服装性别', '订购服装颜色', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
-                                {name: 'product_category_name', width: 150},
-                                {name: 'manufacturer_name', width: 150},
-                                {name: 'product_name', width: 150},
+                                {name: 'product_category_name', width: 150, sortable:false,},
+                                {name: 'manufacturer_name', width: 150, sortable:false,},
+                                {name: 'product_name', width: 150, sortable:false,},
 
-                                {name: 'product_style_name', width: 150},
-                                {name: 'size', width: 150},
-                                {name: 'quantity', width: 150},
+                                {name: 'product_style_name', width: 150, sortable:false,},
+                                {name: 'size', width: 150, sortable:false,},
+                                {name: 'quantity', width: 150, sortable:false,},
 
-                                {name: 'unit_price', width: 150},
-                                {name: 'total', width: 150},
-                                {name: 'real_end_time', width: 180}
+                                {name: 'unit_price', width: 150, sortable:false,},
+                                {name: 'total', width: 150 ,sortable:false,},
+                                {name: 'real_end_time',  sortable:false,width: 180}
                             ]
                         });
                     }

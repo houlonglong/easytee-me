@@ -147,8 +147,8 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false,sortable:false},
+                {title:"活动名称",name:'name',index:'name',editable: true,sortable:false,editoptions:{size:"20",maxlength:"30"}},
                 {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
                 {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
                 {title:"预计交货时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: false},

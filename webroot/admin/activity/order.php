@@ -135,7 +135,7 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: "int", editable: false},
+                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: false, editable: false},
                 {
                     title: "订单号",
                     name: 'order_no',

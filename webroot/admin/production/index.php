@@ -146,15 +146,15 @@
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"活动ID",name:'id',index:'id', width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动ID",name:'id',index:'id',sortable:false, width:40, sorttype:"int", editable: false},
+                {title:"活动名称",name:'name',index:'name',sortable:false,editable: true,editoptions:{size:"20",maxlength:"30"},
                     formatter:function(cellvalue, options, rowObject){
                         return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
                     }
                 },
-                {title:"发起人",name:'nick_name',index:'nick_name',width:100,sortable:false,editable: false},
+                {title:"发起人",name:'nick_name',index:'nick_name',sortable:false,width:100,sortable:false,editable: false},
                 {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
-                {title:"预计交货时间",name:'real_end_time',index:'real_end_time',width:100,sortable:false,editable: false},
+                {title:"预计交货时间",name:'real_end_time',index:'real_end_time',sortable:false,width:100,sortable:false,editable: false},
                 {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
                     formatter:function(cellvalue, options, rowObject){
                         // 当前时间
