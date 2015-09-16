@@ -344,10 +344,13 @@
                     },
                     type: 'POST',
                     dataType: 'json',
-                    success: function (obj) {
+                    success: function (data) {
+                        if(data.status>0){
+                            alert(data.message);
+                        }
                         $("#" + subgridTableId).jqGrid({
                             datatype: 'local',
-                            data: obj,
+                            data: data.return,
                             colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
                                 {name: 'product_category_name', width: 150, color: "#3c763d",sortable:false},

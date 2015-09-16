@@ -124,7 +124,6 @@ class Model_Cost
                     //echo $pre_sale_num." : ".$sale_num." : ".$_sale_num.PHP_EOL;
                     $pre_colors = $costs[$pre_sale_num];
                     //var_dump($pre_colors[$color_num]);
-                    var_dump($_sale_num , $pre_sale_num);exit;
                     $price = $pre_colors[$color_num] + ($colors[$color_num] - $pre_colors[$color_num]) * ($sale_num - $pre_sale_num) / ($_sale_num - $pre_sale_num);
                     break;
                 }

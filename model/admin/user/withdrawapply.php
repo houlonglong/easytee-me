@@ -129,6 +129,13 @@ class Model_Admin_User_Withdrawapply extends Model_Admin_Abstract {
         return $response;
     }
 
+
+
+
+    /*
+* 收到地址
+*/
+
     /**
      * 详情
      * @param $id

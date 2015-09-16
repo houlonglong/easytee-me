@@ -3,14 +3,11 @@
 <head>
     <?php
     /**
-     * 活动详情
+     * 提现申请
      *
      */
-
-    include(block("admin/block/html_head"));
-    $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
-    ?>
-
+    $__model_path = "admin/user";
+    include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
@@ -19,8 +16,6 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
-
-</head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
@@ -36,316 +31,225 @@
                 <?php include(block("admin/block/ace-settings-container")) ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
-                        <!-- PAGE CONTENT BEGINS -->
                         <div class="row">
                             <div class="col-xs-12">
-                                <a class="btn btn-xs btn-info"
-                                   href="/api?model=admin/activity&action=download_excel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
-                            </div>
-                            <!-- /.span -->
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div>
-                                    <a class="btn btn-primary"
-                                       href="/admin/activity/detail_design?id=<?php echo $_GET['id'] ?>"
-                                       target="_blank">设计详情</a>
-                                </div>
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                        <li >
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/modify?id=<?=$uid?>'">基本信息</a>
+                                        </li>
 
-                                <div class="widget-box">
-                                    <div class="widget-header">
-                                        <h4 class="widget-title">众筹详情</h4>
-                                    </div>
+                                        <li>
+                                            <a data-toggle="tab" href="#profile4">认证</a>
+                                        </li>
 
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <div>
-                                                <h3>
-                                                    活动名称: <?php echo $row['name']; ?>
-                                                </h3>
+                                        <li >
+                                            <a data-toggle="tab" href="#dropdown14">收货地址</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">发起的活动</a>
+                                        </li>
+
+                                        <li   class="active">
+                                            <a data-toggle="tab"  href="#dropdown14">订单</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
+                                        </li>
+
+                                        <li   class="active">
+                                            <a data-toggle="tab" href="#dropdown14">交易明细</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="home4" class="tab-pane in active">
+
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="widget-box">
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <form class="form-inline">
+
+                                                                    <input type="text" class="input-small" placeholder="开始时间" id="start-date" style="width: 200px">
+                                                                    <input type="text" class="input-small" placeholder="结束时间" id="end-date" style="width: 200px;margin-left: 20px">
+                                                                    <select id="status" style="margin-left: 20px">
+                                                                        <option value="">状态</option>
+                                                                        <option value="unread">待付款</option>
+                                                                        <option value="passed">待发货</option>
+                                                                        <option value="paid">已发货</option>
+                                                                    </select></br></br>
+                                                                    <input type="text"  class="input-small" placeholder="订单号" id="username"  style="width: 200px">
+                                                                    <input type="text"  class="input-small" placeholder="快递号" style="width: 200px;margin-left: 20px " id="mobile" >
+                                                                    <button type="button" class="btn btn-success btn-sm"  style="margin-left: 20px" onclick="search()">
+                                                                        <i class="ace-icon fa fa-search bigger-110"></i>查询
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <table class="table">
-                                                    <tr>
-                                                        <th style="text-align: right">发起人</th>
-                                                        <td style="text-align: left"><?php echo $row['nick_name']; ?></td>
-                                                        <th style="text-align: right">开始时间</th>
-                                                        <td style="text-align: left"><?php echo $row['start_time']; ?></td>
-                                                        <th style="text-align: right">结束时间</th>
-                                                        <td style="text-align: left"><?php echo $row['real_end_time']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="text-align: right">销售目标</th>
-                                                        <td style="text-align: left"><?php echo $row['sales_target']; ?></td>
-                                                        <th style="text-align: right">实际销售</th>
-                                                        <td style="text-align: left"><?php echo $row['sales_count']; ?></td>
-                                                        <th style="text-align: right">颜色数量</th>
-                                                        <td style="text-align: left"><?php echo $row['colors']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="text-align: right">快递总费用</th>
-                                                        <td style="text-align: left"><?php echo empty($row['total_express']) ? 0 : $row['total_express']; ?></td>
-                                                    </tr>
-                                                    <?php
-                                                    $count = count($row['category']);
-                                                    $culoum = 0;
-                                                    $culoum = ceil($count / 3);
-                                                    $str = '';
-                                                    for ($i = 0; $i <= $culoum; $i++) {
-                                                        $str .= '<tr>';
-                                                        $j = 0;
-                                                        foreach ($row['category'] as $key => $data) {
-                                                            if ($j >= 3) {
-                                                                break;
-                                                            }
-                                                            if (isset($row['category'][$i * 3 + $j])) {
-                                                                $str .= '<th style="text-align: right">' . $row['category'][$i * 3 + $j][0] . ' 销售成本</th><td>' . $row['category'][$i * 3 + $j][1] . '</td>';
-                                                            }
-                                                            $j++;
-                                                        }
-                                                        $str .= '</tr>';
-                                                    }
-                                                    echo $str;
-                                                    ?>
-                                                </table>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="grid-table"></table>
+                                                    <div id="grid-pager"></div>
+                                                    <script type="text/javascript">
+                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                                    </script>
+                                                </div>
+                                                <!-- /.span -->
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-
-                                <table id="grid-table"></table>
-
-                                <div id="grid-pager"></div>
-
-                                <script type="text/javascript">
-                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                </script>
-                            </div>
-                            <!-- /.span -->
-                        </div>
                         <!-- PAGE CONTENT ENDS -->
-                    </div>
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div>
-            <!-- /.page-content -->
         </div>
     </div>
-    <!-- /.main-content -->
     <?php include(block("admin/block/footer")) ?>
 </div>
-
-<!-- /.main-container -->
 <?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
-<script type="text/javascript" src="/js/libs/canvg/canvg.js"></script>
 <script src="/ace/assets/js/moment.min.js"></script>
 <script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
-
-
 <script type="text/javascript">
+
+
 
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function gen_product_svg(obj) {
-        var $svg = $(obj).parents("tr").find(".product_svg").html();
-        //console.log($svg);
-        canvg('canvas', $svg, {
-            log: true,
-            useCORS: true,
-            ignoreDimensions: true,
-            ignoreClear: true,
-            ignoreMouse: true, ignoreAnimation: true,
-            renderCallback: function (dom) {
-                var imageDataUri = canvas.toDataURL("image/png");
-                console.log(imageDataUri);
+    function search() {
 
-            }
-        });
+
+        var $query = {
+            activity_id: $('#activity-id').val(),
+            activity_name: $('#activity-name').val(),
+            username: $('#username').val(),
+            startDate: $('#start-date').val(),
+            endDate: $('#end-date').val(),
+            status:$('#status').val()
+
+        };
+        $(grid_selector).jqGrid('setGridParam', {
+            datatype: 'json',
+            postData: $query, //发送数据
+            page: 1
+        }).trigger("reloadGrid"); //重新载入
     }
-    function gen_design_svg(obj) {
 
-        var id = $(obj).parents("tr").data("id");
-        var side = $(obj).parents("tr").data("side");
-        var $svg_url = $(obj).parents("tr").find(".svg_url").attr("src");
-
-        canvg('canvas', $svg_url, {
-            renderCallback: function (dom) {
-                var imageDataUri = canvas.toDataURL("image/png");
-                $(obj).parents("tr").find(".img_url").html('<img src="' + imageDataUri + '">');
-                $.post("/api", {
-                    model: "admin/site/design",
-                    action: "save_svg_png",
-                    side: side,
-                    design_id: id,
-                    img_content: imageDataUri,
-                }, function (data) {
-
-                });
-            }
-        });
-
-    }
 
     jQuery(function ($) {
+        //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        var url_api_base = "<?php echo $__model_path;?>";
+        var url_api_list = "/api?model=" + url_api_base + "&action=order&uid=<?=$uid?>";
+        var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
+        var url_api_detail = "/" + url_api_base + "/detail";
+
+        $('#end-date,#start-date').datepicker({ dateFormat: 'yy-mm-dd' });
         var grid_setting = {
-            url: "/api?model=admin/activity&action=detail_list&id=" +<?php echo $_REQUEST['id'];?>,
-            url_save: "/api?model=admin/activity&action=edit",
+            url: url_api_list,
+            url_save: url_api_edit,
             method: "POST",
-            height: 390,
+            height: 550,
             rowNum: 15,
             rowList: [15, 30, 50, 100],
             caption: "",
-            cols: [
-                {
-                    title: "活动ID",
-                    name: 'activity_id',
-                    index: 'activity_id',
-                    width: 40,
-                    sorttype: false,
-                    sortable: false,
-                    editable: false
-                },
+            cols:[
+                {title:"订单号",name:'order_no',index:'order_no', width:80, sorttype:"int", editable: false,sortable:false},
+                {title:"金额",name:'goods_price',index:'goods_price',editable: false,sortable:false,width:70},
+                {title:"状态",name:'ship_status',index:'ship_status',editable: false,sortable:false,width:50,
+                    formatter: function (cellvalue, options, rowObject) {
+                        console.log(rowObject)
+                        //支付状态
+                        var pay_status = rowObject.pay_status
+                        //物流状态
+                        var ship_status = cellvalue;
 
-                {
-                    title: "订单号",
-                    name: 'order_no',
-                    index: 'order_no',
-                    width: 90,
-                    editable: true,
-                    sortable: false,
-                    editoptions: {size: "20", maxlength: "30"},
-                },
-                {
-                    title: "收件人",
-                    name: 'ship_name',
-                    index: 'ship_name',
-                    width: 50,
-                    editable: false,
-                    sortable: false,
-                    editoptions: {size: "20", maxlength: "30"}
-                },
-                {
-                    title: "联系电话",
-                    name: 'ship_mobile',
-                    index: 'ship_mobile',
-                    width: 80,
-                    editable: false,
-                    sortable: false,
-                    unformat: pickTimeDate
-                },
-                {
-                    title: "快递费",
-                    name: 'express_price',
-                    index: 'express_price',
-                    width: 50,
-                    editable: false,
-                    sortable: false,
-                    unformat: pickTimeDate
-                },
-                {
-                    title: "收货地址", name: 'ship_addr', index: 'ship_addr', width: 150,
-                    editable: false,
-                    sortable: false,
-                    unformat: pickTimeDate,
-                    formatter: function (cellvalue, options, rowObject) {
-                        return rowObject['ship_province'] + rowObject['ship_city'] + rowObject['ship_area'] + cellvalue;
-                    }
-                },
-                {
-                    title: "状态", name: 'status', index: 'status', width: 150,
-                    editable: false,
-                    sortable: false,
-                    formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue == '待发货') {
-                            return '<span class="label label-warning arrowed arrowed-right">' + cellvalue + '</span>';
-                        }
-                        if (cellvalue == '待付款') {
-                            return '<span class="label arrowed"><s>' + cellvalue + '</s></span>';
-                        }
-                        if (cellvalue == '已发货') {
-                            return '<span class="label label-success arrowed-in arrowed-in-right">' + cellvalue + '</span>';
-                        }
-                        if (cellvalue == '已完成') {
-                            return '<span class="label label-danger arrowed">' + cellvalue + '</span>';
+                        if(pay_status==0){
+                            var ship_status = '<label class="label label-danger arrowed">'+待付款+'</label>';
+                        }else{
+                            if(ship_status==0){
+                                var ship_status = '<label class="label label-warning arrowed arrowed-right">'+'待发货'+'</label>';
+                            }else{
+                                var ship_status = '<label class="label arrowed">'+"已发货"+'</label>';
+                            }
                         }
 
-                        return cellvalue;
-                    }
+                        return ship_status;
+                    },
                 },
-//                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装款式",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装性别",name:'product_name',index:'product_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装颜色",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装尺码",name:'size',index:'size',width:50,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装数量",name:'quantity',index:'quantity',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
+                {title:"支付类型",name:'pay_type',index:'pay_type',editable: false,sortable:false,width:50,
+                    formatter: function (cellvalue, options, rowObject) {
+                        console.log(cellvalue)
+                        //支付状态
+                        var pay_type = rowObject.pay_type
+
+
+                        if(pay_type == "alipay"){
+                            var pay_type = '<label class="label label-warning arrowed arrowed-right">'+"支付宝"+'</label>';
+                        }
+
+                        if(pay_type=="wechat"){
+                            var pay_type = '<label class="label label-danger arrowed">'+微信+'</label>';
+                        }
+                        return  pay_type
+                    }
+
+
+
+
+                },
+                {title:"支付时间",name:'pay_time',index:'pay_time',editable: false,sortable:false,width:50},
+                {title:"交易时间",name:'add_time',index:'add_time',editable: false,sortable:false, width: 100},
+                {title:"快递单号",name:'exp_no',index:'exp_no',editable: false,sortable:false,width:50},
+                {title:"快递公司",name:'exp_com',index:'exp_com',editable: false,sortable:false,width:50}
+                /*
+                 {title:"Title",name:'title',index:'title',editable: false,
+                 formatter:'showlink',
+                 formatoptions:{
+                 baseLinkUrl:url_api_detail,
+                 addParam: '',//&t=1
+                 idName:'id'
+                 }
+                 },*/
+                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
+                //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
+                /*
+                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
+                 formatter:'actions',
+                 formatoptions:{
+                 keys:true,
+                 //delbutton: false,//disable delete button
+                 baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
+                 delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
+                 //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                 }
+                 },*/
             ]
 
         };
-        //enable datepicker
-        function pickTimeDate(cellvalue, options, cell) {
-            setTimeout(function () {
-                $(cell).find('input[type=text]')
-                    .datetimepicker({dateFormat: 'dd-mm-yy'});
-            }, 0);
-        }
 
-        function showudate(tmpob) {
-            $(function () {
-                tmpob.datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
-            });
-        }
 
-        jQuery("#list2").jqGrid('navGrid', '#pager2',
-            {edit: true, add: true, del: true},
-            {
-                width: 400, height: 400, afterShowForm: function () {
-                showudate($(".editable"));
-            }
-            },
-            {width: 400, height: 400}, {}, {multipleSearch: true}, {});
 
-        function myelem(value, options) {
-            value = $(value).data("status");
-            console.log(value, options);
-            var el = document.createElement("select");
-            $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
-            return el;
-        }
-
-        function mystatuselem(value, options) {
-            value = $(value).data("status");
-            console.log(value, options);
-            var el = document.createElement("select");
-            $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
-            return el;
-        }
-
-        //获取值
-        function myvalue(elem) {
-            return $(elem).val();
-        }
 
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
@@ -369,6 +273,27 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
+
+        function mystatuselem(value, options) {
+            value = $(value).data("status");
+            var el = document.createElement("select");
+            $(el).append('<option role="option" value="unread">未处理</option><option role="option" value="passed">处理</option><option role="option" value="fail">驳回</option>').val(value);
+            return el;
+        }
+
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
+
+        //enable datepicker
+        function pickTimeDate(cellvalue, options, cell) {
+            setTimeout(function () {
+                $(cell).find('input[type=text]')
+                    .datetimepicker({dateFormat: 'dd-mm-yy'});
+            }, 0);
+        }
+
 
         function get_col(cols) {
             var col_name = [];
@@ -419,7 +344,7 @@
             //direction: "rtl",
 
             //subgrid options
-            subGrid: true,
+            subGrid: false,
             //subGridModel: [{ name : ['No','Item Name','Qty'], width : [55,200,80] }],
             //datatype: "xml",
             subGridOptions: {
@@ -431,37 +356,16 @@
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
-                $.ajax({
-                    url: '/api?model=admin/activity&action=ordergoods_detail',
-                    data: {
-                        id: rowId,
-                    },
-                    type: 'POST',
-                    dataType: 'json',
-                    success: function (data) {
-                        if(data.status>0){
-                            alert(data.message);
-                        }
-                        $("#" + subgridTableId).jqGrid({
-                            datatype: 'local',
-                            data: data.return,
-                            colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
-                            colModel: [
-                                {name: 'product_category_name', width: 150, sortable: false,},
-                                {name: 'manufacturer_name', width: 150, sortable: false,},
-                                {name: 'product_name', width: 150, sortable: false,},
-
-                                {name: 'product_style_name', width: 150, sortable: false,},
-                                {name: 'size', width: 150, sortable: false,},
-                                {name: 'quantity', width: 150, sortable: false,},
-
-                                {name: 'unit_price', width: 150, sortable: false,},
-                                {name: 'total', width: 150, sortable: false,},
-                                {name: 'real_end_time', sortable: false, width: 180}
-                            ]
-                        });
-                    }
-                })
+                $("#" + subgridTableId).jqGrid({
+                    datatype: 'local',
+                    data: subgrid_data,
+                    colNames: ['No', 'Item Name', 'Qty'],
+                    colModel: [
+                        {name: 'id', width: 50},
+                        {name: 'name', width: 150},
+                        {name: 'qty', width: 50}
+                    ]
+                });
             },
             jsonReader: {
                 root: function (obj) {
@@ -778,4 +682,5 @@
     });
 </script>
 </body>
+</html>
 </html>
