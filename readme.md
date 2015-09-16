@@ -1,3 +1,26 @@
+#网站
+
+##首页
+
+- url: [http://2.dev.jzw.com/](http://2.dev.jzw.com/)
+- src: /webroot/index.php
+
+##注册
+
+- url: [http://2.dev.jzw.com/user/register](http://2.dev.jzw.com/user/register)
+- src: /webroot/user/register.php
+
+
+
+- 注册
+- 登陆
+- 忘记密码
+- 设计工具
+    * 1
+    
+- 活动预购
+
+
 
 #PHPSTORM 单步调试
 

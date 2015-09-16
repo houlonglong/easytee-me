@@ -468,7 +468,7 @@ limit 1");
         $id = $this->_request('id');
         if ($id) {
             $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name,pc.name as product_category_name from order_goods as og inner join orders as o on o.id = og.order_id
-                              left join activities as a on a.id = o.activity_id' .
+                left join activities as a on a.id = o.activity_id' .
                 '    left join product_styles as ps on ps.id = og.product_style_id ' .
                 ' left join products as p on p.id = ps.product_id left join manufacturer_brands as m on m.id = p.manufacturer_brand_id
                    ' .' left join product_category_maps as map on map.product_id = p.id left join product_categories as pc on pc.id = map.product_category_id '.
