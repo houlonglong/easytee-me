@@ -515,7 +515,7 @@ LEFT JOIN et_product_cat as cat on cat.id = pmap.cat_id where og.order_id = ?', 
                 $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
                 $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
             }
-            echo json_encode($rows);
+            return $rows;
         }
     }
 
@@ -652,9 +652,9 @@ LEFT JOIN et_product_cat as cat on cat.id = pmap.cat_id where og.order_id = ?', 
                         throw new Exception('发货失败');
                     }
                 }
-                echo 1;
+                return array(1);
             } catch (Exception $e) {
-                echo 0;
+                return array(0);
             }
         }
     }
