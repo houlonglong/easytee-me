@@ -1,4 +1,4 @@
-网站
+网站架构
 ======
 
 首页
@@ -11,7 +11,9 @@
 ------
 - url: [http://2.dev.jzw.com/user/register](http://2.dev.jzw.com/user/register)
 - src: /webroot/user/register.php
-
+- api:
+    - 获取验证码 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
+    - 保存注册信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
 
 登陆
 ------
@@ -51,8 +53,8 @@
 
 
 
-#PHPSTORM 单步调试
-
+PHPSTORM 单步调试
+======
 配置 php.ini
 
     [xdebug]
