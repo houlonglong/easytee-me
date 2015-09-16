@@ -56,7 +56,7 @@
                                         </li>
 
                                         <li>
-                                            <a data-toggle="tab" href="#dropdown14">订单</a>
+                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/order?uid=<?=$uid?>'">订单</a>
                                         </li>
 
                                         <li>

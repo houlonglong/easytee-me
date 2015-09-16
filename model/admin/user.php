@@ -42,7 +42,181 @@ class Model_Admin_User extends Model_Admin_Abstract
       // var_dump($user);exit;
         return array("user" => $user,"uid"=>$id);
     }
+
+
+
+
     function view_withdraw_log(){
+        $uid = $_GET['uid'];
+        return array('uid'=>$uid);
+    }
+
+    /*
+     * 收货地址页面
+     */
+    function view_addr(){
+        $uid = $_GET['uid'];
+        return array('uid'=>$uid);
+    }
+    /*
+     * 收货地址接口
+     */
+    function action_addr(){
+
+    $table_alias = $table = "et_user_addr";
+    $table_alias = 'a';
+
+    //fields
+    // select u.nick_name,u.mobile from user as u where id = 1;
+    $select_fields = " a.* ";
+    if(empty($table_alias)) throw new ErrorException("table is not defined");
+//        $request = http_request("rows","page","sidx","sord");
+    $request = PtLib\http_request("uid","rows","page","sidx","sord");
+    $limit = $request['rows'];
+    $page = $request['page'];
+    $sort = $request['sidx'];
+    $sort_type = $request['sord'];
+
+    //where
+    $args = array();
+    $where  = " where 1 =1 ";
+
+    if ($request['uid']) {
+        $where  .= " and u.id = ? ";
+        $args[] = $request['uid'];
+    }
+
+    if(empty($limit)) $limit = 20;
+    if(empty($page)) $page = 1;
+    if(empty($sort)){
+        $sort = "id";
+        $sort_type = "desc";
+    }else{
+        if(empty($sort_type)) $sort_type = "desc";
+    }
+    //order
+    $order = "";
+    if($sort)
+        $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
+
+    $join = ' left join  et_user as u on u.id = a.uid';
+    $sql = "select count(a.id) as total from $table as $table_alias $join $where ";
+    //echo $sql;exit;
+    $count_res = PtLib\db()->select_row($sql,$args);
+    $records = $count_res['total'];
+    $response = new stdClass();
+    $response->page    = $page;  //cur page
+
+    if( $records > 0 ) {
+        $total_pages = ceil($records/$limit);
+    }
+    else {
+        $total_pages = 1;
+    }
+    if ($page > $total_pages) $page=$total_pages;
+
+    $response->total   = $total_pages;      //total pages
+    $response->records = $records; //count
+
+    $skip = ($page - 1) * $limit;
+
+    $sql = "select $select_fields from $table as $table_alias $join $where $order limit $skip,$limit ";
+    //echo $sql;exit;
+//        $rows = db()->select_rows($sql,$args);
+    $rows = PtLib\db()->select_rows($sql,$args);
+    foreach($rows as $row){
+        $response->rows[] = array(
+            'id'=>$row['id'],
+            "cell"=>$row
+        );
+    }
+    return $response;
+}
+
+
+
+   /*
+    * 个人订单查询
+    */
+    function action_order(){
+
+        $table_alias = $table = "et_order";
+        $table_alias = 'o';
+
+        //fields
+        // select u.nick_name,u.mobile from user as u where id = 1;
+        $select_fields = " o.id,o.order_no,o.goods_price,s.ship_status,p.pay_status,p.pay_type,p.pay_time,o.add_time,s.exp_no,s.exp_com ";
+        if(empty($table_alias)) throw new ErrorException("table is not defined");
+//        $request = http_request("rows","page","sidx","sord");
+        $request = PtLib\http_request("uid","rows","page","sidx","sord");
+        $limit = $request['rows'];
+        $page = $request['page'];
+        $sort = $request['sidx'];
+        $sort_type = $request['sord'];
+
+        //where
+        $args = array();
+        $where  = " where 1 =1 ";
+
+        if ($request['uid']) {
+            $where  .= " and o.uid = ? ";
+            $args[] = $request['uid'];
+        }
+
+        if(empty($limit)) $limit = 20;
+        if(empty($page)) $page = 1;
+        if(empty($sort)){
+            $sort = "id";
+            $sort_type = "desc";
+        }else{
+            if(empty($sort_type)) $sort_type = "desc";
+        }
+        //order
+        $order = "";
+        if($sort)
+            $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
+
+        $join = ' left join  et_order_pay as p on o.id = p.order_id left join et_order_ship as s on o.id=s.order_id';
+        $sql = "select count(o.id) as total from $table as $table_alias $join $where ";
+        //echo $sql;exit;
+        $count_res = PtLib\db()->select_row($sql,$args);
+        $records = $count_res['total'];
+        $response = new stdClass();
+        $response->page    = $page;  //cur page
+
+        if( $records > 0 ) {
+            $total_pages = ceil($records/$limit);
+        }
+        else {
+            $total_pages = 1;
+        }
+        if ($page > $total_pages) $page=$total_pages;
+
+        $response->total   = $total_pages;      //total pages
+        $response->records = $records; //count
+
+        $skip = ($page - 1) * $limit;
+
+        $sql = "select $select_fields from $table as $table_alias $join $where $order limit $skip,$limit ";
+        //echo $sql;exit;
+//        $rows = db()->select_rows($sql,$args);
+        $rows = PtLib\db()->select_rows($sql,$args);
+        foreach($rows as $row){
+            $response->rows[] = array(
+                'id'=>$row['id'],
+                "cell"=>$row
+            );
+        }
+        return $response;
+    }
+    function view_order(){
+        $uid = $_GET['uid'];
+        return array('uid'=>$uid);
+    }
+
+
+    function view_finance_flow(){
+
         $uid = $_GET['uid'];
         return array('uid'=>$uid);
     }

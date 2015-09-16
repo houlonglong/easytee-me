@@ -3,19 +3,19 @@
 <head>
     <?php
     /**
-     * 学生管理
+     * 提现申请
      *
      */
-    $__model_path = "admin/campus";
+    $__model_path = "admin/user";
     include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
-    <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/ui.jqgrid.min.css"/>
+
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
-</head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
@@ -31,93 +31,123 @@
                 <?php include(block("admin/block/ace-settings-container")) ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12" id="query_area"></div>
-                        </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="widget-box">
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <form class="form-inline">
-                                                <input type="text" class="input-small" placeholder="用户ID"
-                                                       id="uid">
-                                                <input type="text" class="input-small" placeholder="用户名" id="username">
-                                                <input type="text" class="input-small" placeholder="手机号码" id="mobile">
-                                                <input type="text" class="input-small" placeholder="真实姓名"
-                                                       id="real_name">
-                                                <input type="text" class="input-small" placeholder="学校"
-                                                       id="school">
-                                                <input type="text" class="input-small" placeholder="学号" id="student_no">
-                                                <button type="button" class="btn btn-success btn-sm" onclick="search()">
-                                                    <i class="ace-icon fa fa-search bigger-110"></i>搜索
-                                                </button>
-                                            </form>
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                                        <li >
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/modify?id=<?=$uid?>'">基本信息</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#profile4">认证</a>
+                                        </li>
+
+                                        <li >
+                                            <a data-toggle="tab" href="#dropdown14">收货地址</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">发起的活动</a>
+                                        </li>
+
+                                        <li   class="active">
+                                            <a data-toggle="tab"  href="#dropdown14">订单</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
+                                        </li>
+
+                                        <li   class="active">
+                                            <a data-toggle="tab" href="#dropdown14">交易明细</a>
+                                        </li>
+
+                                        <li>
+                                            <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="home4" class="tab-pane in active">
+
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <div class="widget-box">
+                                                        <div class="widget-body">
+                                                            <div class="widget-main">
+                                                                <form class="form-inline">
+
+                                                                    <input type="text" class="input-small" placeholder="开始时间" id="start-date" style="width: 200px">
+                                                                    <input type="text" class="input-small" placeholder="结束时间" id="end-date" style="width: 200px;margin-left: 20px">
+                                                                    <select id="status" style="margin-left: 20px">
+                                                                        <option value="">状态</option>
+                                                                        <option value="unread">待付款</option>
+                                                                        <option value="passed">待发货</option>
+                                                                        <option value="paid">已发货</option>
+                                                                    </select></br></br>
+                                                                    <input type="text"  class="input-small" placeholder="订单号" id="username"  style="width: 200px">
+                                                                    <input type="text"  class="input-small" placeholder="快递号" style="width: 200px;margin-left: 20px " id="mobile" >
+                                                                    <button type="button" class="btn btn-success btn-sm"  style="margin-left: 20px" onclick="search()">
+                                                                        <i class="ace-icon fa fa-search bigger-110"></i>查询
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <table id="grid-table"></table>
+                                                    <div id="grid-pager"></div>
+                                                    <script type="text/javascript">
+                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                                    </script>
+                                                </div>
+                                                <!-- /.span -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <table id="grid-table"></table>
-                                <div id="grid-pager"></div>
-                                <script type="text/javascript">
-                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                </script>
-                            </div>
-                            <!-- /.span -->
-                        </div>
-                    </div>
-                </div>
+                        <!-- PAGE CONTENT ENDS -->
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
             </div>
         </div>
     </div>
     <?php include(block("admin/block/footer")) ?>
 </div>
-
-<div class="modal fade bs-example-modal-sm-1" id="modal_test" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"
-                    style="margin-top: 5px;margin-right: 10px;">×
-            </button>
-            <div class="modal-header">
-                <h4>审核</h4>
-            </div>
-            <div id="apply_back" class="tab-pane">
-                <div class="form-actions center">
-                    <button type="button" class="btn btn-sm btn-danger btn btn-sm apply-back" onclick="apply(this)" data-status="2" data-dismiss="modal" >
-                        拒绝
-                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                    </button>
-                    <button type="button" class="btn btn-sm btn-success apply  " onclick="apply(this)" data-status="1" data-dismiss="modal" >
-                        通过
-                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110 " ></i>
-                    </button>
-                </div>
-            </div
-        </div>
-    </div>
-</div>
-<!-- /.main-container -->
-<!-- /.main-container -->
 <?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
-<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
+<script src="/ace/assets/js/moment.min.js"></script>
+<script src="/ace/assets/js/bootstrap-datetimepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
+<script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
+
+
+
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search() {
+
+
         var $query = {
-            uid: $('#uid').val(),
+            activity_id: $('#activity-id').val(),
+            activity_name: $('#activity-name').val(),
             username: $('#username').val(),
-            mobile: $('#mobile').val(),
-            real_name: $('#real_name').val(),
-            school: $('#school').val(),
-            student_no: $('#student_no').val()
+            startDate: $('#start-date').val(),
+            endDate: $('#end-date').val(),
+            status:$('#status').val()
+
         };
         $(grid_selector).jqGrid('setGridParam', {
             datatype: 'json',
@@ -126,32 +156,15 @@
         }).trigger("reloadGrid"); //重新载入
     }
 
-    function audit(obj) {
-        $('.apply').attr('data-id',$(obj).data('id'));
-        $('.apply-back').attr('data-id',$(obj).data('id'));
-    }
 
-    function apply(obj){
-        $.ajax({
-            url: "/api?model=admin/campus&action=audit",
-            data: {
-                id: $(obj).data('id'),
-                status: $(obj).data('status')
-            },
-            type: "POST",
-            success: function (data) {
-                location.reload();
-            }
-
-        });
-    }
     jQuery(function ($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base = "<?php echo $__model_path;?>";
-        var url_api_list = "/api?model=" + url_api_base + "&action=list";
+        var url_api_list = "/api?model=" + url_api_base + "&action=order&uid=<?=$uid?>";
         var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
         var url_api_detail = "/" + url_api_base + "/detail";
 
+        $('#end-date,#start-date').datepicker({ dateFormat: 'yy-mm-dd' });
         var grid_setting = {
             url: url_api_list,
             url_save: url_api_edit,
@@ -160,35 +173,55 @@
             rowNum: 15,
             rowList: [15, 30, 50, 100],
             caption: "",
-            cols: [
-                {title: "Id", name: 'id', index: 'id', width: 60, sorttype: "int", editable: false},
-                {title: "用户ID", name: 'uid', index: 'uid', editable: false, sortable: "int"},
-                {
-                    title: "状态", name: 'status', index: 'status', editable: false, sortable: "int",
+            cols:[
+                {title:"订单号",name:'order_no',index:'order_no', width:80, sorttype:"int", editable: false,sortable:false},
+                {title:"金额",name:'goods_price',index:'goods_price',editable: false,sortable:false,width:70},
+                {title:"状态",name:'ship_status',index:'ship_status',editable: false,sortable:false,width:50,
                     formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue == 0) {
-                            return '<lable class="label label-info arrowed">等待审核</lable>';
+                        console.log(rowObject)
+                        //支付状态
+                        var pay_status = rowObject.pay_status
+                        //物流状态
+                        var ship_status = cellvalue;
+
+                        if(pay_status==0){
+                            var ship_status = '<label class="label label-danger arrowed">'+待付款+'</label>';
+                        }else{
+                            if(ship_status==0){
+                                var ship_status = '<label class="label label-warning arrowed arrowed-right">'+'待发货'+'</label>';
+                            }else{
+                                var ship_status = '<label class="label arrowed">'+"已发货"+'</label>';
+                            }
                         }
-                        if (cellvalue == 1) {
-                            return '<lable class="label label-success arrowed arrowed-right">通过</lable>';
-                        }
-                        if (cellvalue == 2) {
-                            return '<lable class="label label-danger arrowed arrowed-right">拒绝</lable>';
-                        }
-                    }
+
+                        return ship_status;
+                    },
                 },
-                {
-                    title: "认证图片", name: 'img_url', index: 'img_url', editable: false, sortable: false,
+                {title:"支付类型",name:'pay_type',index:'pay_type',editable: false,sortable:false,width:50,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="' + cellvalue + '" target="_black"><img style="width:100px;height:100px;" src="' + cellvalue + '"></img></a>';
+                        console.log(cellvalue)
+                        //支付状态
+                        var pay_type = rowObject.pay_type
+
+
+                        if(pay_type == "alipay"){
+                            var pay_type = '<label class="label label-warning arrowed arrowed-right">'+"支付宝"+'</label>';
+                        }
+
+                        if(pay_type=="wechat"){
+                            var pay_type = '<label class="label label-danger arrowed">'+微信+'</label>';
+                        }
+                        return  pay_type
                     }
+
+
+
+
                 },
-                {title: "真实姓名", name: 'real_name', index: 'real_name', editable: false, sortable: false},
-                {title: "学号", name: 'student_no', index: 'student_no', editable: false, sortable: false},
-                {title: "学校名", name: 'school_name', index: 'school_name', editable: false, sortable: false},
-                {title: "专业", name: 'major', index: 'major', editable: false, sortable: false},
-                {title: "申请时间", name: 'add_time', index: 'add_time', editable: false, sortable: false},
-                {title: "通过时间", name: 'up_time', index: 'up_time', editable: false, sortable: false},
+                {title:"支付时间",name:'pay_time',index:'pay_time',editable: false,sortable:false,width:50},
+                {title:"交易时间",name:'add_time',index:'add_time',editable: false,sortable:false, width: 100},
+                {title:"快递单号",name:'exp_no',index:'exp_no',editable: false,sortable:false,width:50},
+                {title:"快递公司",name:'exp_com',index:'exp_com',editable: false,sortable:false,width:50}
                 /*
                  {title:"Title",name:'title',index:'title',editable: false,
                  formatter:'showlink',
@@ -200,26 +233,23 @@
                  },*/
                 //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
                 //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
-                {
-                    title: "操作",
-                    name: 'status',
-                    index: 'status',
-                ,      width: 80,
-                    fixed: true,
-                    sortable: false,
-                    resize: false,
-                    formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue == 0) {
-                            return '<a class="btn btn-xs btn-success audit" href="#" onclick="audit(this)" ' +
-                                'data-toggle="modal" data-target=".bs-example-modal-sm-1" data-id="' + rowObject['id'] + '">审核</a>';
-                        }else{
-                            return '';
-                        }
-                    }
-                }
+                /*
+                 {title:"操作",name:'options',index:'', width:80, fixed:true, sortable:false, resize:false,
+                 formatter:'actions',
+                 formatoptions:{
+                 keys:true,
+                 //delbutton: false,//disable delete button
+                 baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
+                 delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
+                 //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
+                 }
+                 },*/
             ]
 
         };
+
+
+
 
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
@@ -243,6 +273,27 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
+
+        function mystatuselem(value, options) {
+            value = $(value).data("status");
+            var el = document.createElement("select");
+            $(el).append('<option role="option" value="unread">未处理</option><option role="option" value="passed">处理</option><option role="option" value="fail">驳回</option>').val(value);
+            return el;
+        }
+
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
+
+        //enable datepicker
+        function pickTimeDate(cellvalue, options, cell) {
+            setTimeout(function () {
+                $(cell).find('input[type=text]')
+                    .datetimepicker({dateFormat: 'dd-mm-yy'});
+            }, 0);
+        }
+
 
         function get_col(cols) {
             var col_name = [];
@@ -631,4 +682,5 @@
     });
 </script>
 </body>
+</html>
 </html>
