@@ -55,19 +55,18 @@
                                             <a data-toggle="tab" href="#dropdown14">发起的活动</a>
                                         </li>
 
-                                        <li   class="active">
+                                        <li>
                                             <a data-toggle="tab"  href="#dropdown14">订单</a>
                                         </li>
 
                                         <li>
                                             <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
                                         </li>
-
-                                        <li   class="active">
+                                        <li>
                                             <a data-toggle="tab" href="#dropdown14">交易明细</a>
                                         </li>
 
-                                        <li>
+                                        <li   class="active">
                                             <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
                                         </li>
                                     </ul>
@@ -77,28 +76,7 @@
 
                                             <div class="row">
                                                 <div class="col-xs-12">
-                                                    <div class="widget-box">
-                                                        <div class="widget-body">
-                                                            <div class="widget-main">
-                                                                <form class="form-inline">
 
-                                                                    <input type="text" class="input-small" placeholder="开始时间" id="start-date" style="width: 200px">
-                                                                    <input type="text" class="input-small" placeholder="结束时间" id="end-date" style="width: 200px;margin-left: 20px">
-                                                                    <select id="status" style="margin-left: 20px">
-                                                                        <option value="">状态</option>
-                                                                        <option value="unread">待付款</option>
-                                                                        <option value="passed">待发货</option>
-                                                                        <option value="paid">已发货</option>
-                                                                    </select></br></br>
-                                                                    <input type="text"  class="input-small" placeholder="订单号" id="username"  style="width: 200px">
-                                                                    <input type="text"  class="input-small" placeholder="快递号" style="width: 200px;margin-left: 20px " id="mobile" >
-                                                                    <button type="button" class="btn btn-success btn-sm"  style="margin-left: 20px" onclick="search()">
-                                                                        <i class="ace-icon fa fa-search bigger-110"></i>查询
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -160,7 +138,7 @@
     jQuery(function ($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base = "<?php echo $__model_path;?>";
-        var url_api_list = "/api?model=" + url_api_base + "&action=order&uid=<?=$uid?>";
+        var url_api_list = "/api?model=" + url_api_base + "&action=oauth&uid=<?=$uid?>";
         var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
         var url_api_detail = "/" + url_api_base + "/detail";
 
@@ -174,54 +152,11 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols:[
-                {title:"订单号",name:'order_no',index:'order_no', width:80, sorttype:"int", editable: false,sortable:false},
-                {title:"金额",name:'goods_price',index:'goods_price',editable: false,sortable:false,width:70},
-                {title:"状态",name:'ship_status',index:'ship_status',editable: false,sortable:false,width:50,
-                    formatter: function (cellvalue, options, rowObject) {
-                        console.log(rowObject)
-                        //支付状态
-                        var pay_status = rowObject.pay_status
-                        //物流状态
-                        var ship_status = cellvalue;
-
-                        if(pay_status==0){
-                            var ship_status = '<label class="label label-danger arrowed">'+待付款+'</label>';
-                        }else{
-                            if(ship_status==0){
-                                var ship_status = '<label class="label label-warning arrowed arrowed-right">'+'待发货'+'</label>';
-                            }else{
-                                var ship_status = '<label class="label arrowed">'+"已发货"+'</label>';
-                            }
-                        }
-
-                        return ship_status;
-                    },
-                },
-                {title:"支付类型",name:'pay_type',index:'pay_type',editable: false,sortable:false,width:50,
-                    formatter: function (cellvalue, options, rowObject) {
-                        console.log(cellvalue)
-                        //支付状态
-                        var pay_type = rowObject.pay_type
-
-
-                        if(pay_type == "alipay"){
-                            var pay_type = '<label class="label label-warning arrowed arrowed-right">'+"支付宝"+'</label>';
-                        }
-
-                        if(pay_type=="wechat"){
-                            var pay_type = '<label class="label label-danger arrowed">'+微信+'</label>';
-                        }
-                        return  pay_type
-                    }
-
-
-
-
-                },
-                {title:"支付时间",name:'pay_time',index:'pay_time',editable: false,sortable:false,width:50},
-                {title:"交易时间",name:'add_time',index:'add_time',editable: false,sortable:false, width: 100},
-                {title:"快递单号",name:'exp_no',index:'exp_no',editable: false,sortable:false,width:50},
-                {title:"快递公司",name:'exp_com',index:'exp_com',editable: false,sortable:false,width:50}
+                {title:"平台",name:'platform',index:'platform', width:80, sorttype:"int", editable: false,sortable:false},
+                {title:"openid",name:'openid',index:'openid',editable: false,sortable:false,width:70},
+                {title:"绑定时间",name:'add_time',index:'add_time',editable: false,sortable:false,width:50,},
+                {title:"access_token",name:'access_token',index:'access_token',editable: false,sortable:false,width:50},
+               
                 /*
                  {title:"Title",name:'title',index:'title',editable: false,
                  formatter:'showlink',
