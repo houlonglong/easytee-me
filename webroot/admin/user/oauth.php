@@ -35,7 +35,7 @@
                             <div class="col-xs-12">
                                 <div class="tabbable">
                                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li >
+                                        <li>
                                             <a data-toggle="tab" onclick="location.href='/admin/user/modify?id=<?=$uid?>'">基本信息</a>
                                         </li>
 
@@ -43,8 +43,8 @@
                                             <a data-toggle="tab" href="#profile4">认证</a>
                                         </li>
 
-                                        <li >
-                                            <a data-toggle="tab" href="#dropdown14">收货地址</a>
+                                        <li>
+                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/addr?uid=<?=$uid?>'">收货地址</a>
                                         </li>
 
                                         <li>
@@ -56,18 +56,19 @@
                                         </li>
 
                                         <li>
-                                            <a data-toggle="tab"  href="#dropdown14">订单</a>
+                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/order?uid=<?=$uid?>'">订单详情</a>
                                         </li>
 
                                         <li>
                                             <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
                                         </li>
+
                                         <li>
-                                            <a data-toggle="tab" href="#dropdown14">交易明细</a>
+                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/finance_flow?uid=<?=$uid?>'">交易明细</a>
                                         </li>
 
-                                        <li   class="active">
-                                            <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
+                                        <li  class="active">
+                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/oauth?uid=<?=$uid?>'">第三方绑定</a>
                                         </li>
                                     </ul>
 
@@ -80,7 +81,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-xs-12">
+                                                <div class="col-xs-12"  style="padding-left: 0px;">
                                                     <table id="grid-table"></table>
                                                     <div id="grid-pager"></div>
                                                     <script type="text/javascript">
@@ -156,7 +157,7 @@
                 {title:"openid",name:'openid',index:'openid',editable: false,sortable:false,width:70},
                 {title:"绑定时间",name:'add_time',index:'add_time',editable: false,sortable:false,width:50,},
                 {title:"access_token",name:'access_token',index:'access_token',editable: false,sortable:false,width:50},
-               
+
                 /*
                  {title:"Title",name:'title',index:'title',editable: false,
                  formatter:'showlink',
