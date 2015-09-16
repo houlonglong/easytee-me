@@ -112,7 +112,7 @@ class Model_Cost
             $sale_num = 1000;
         }
         $costs = self::get_print_cost();
-        //var_dump($costs);
+//        var_dump($costs);
         $price = null;
         $pre_sale_num = 10;
         foreach ($costs as $_sale_num => $colors) {
@@ -124,7 +124,6 @@ class Model_Cost
                     //echo $pre_sale_num." : ".$sale_num." : ".$_sale_num.PHP_EOL;
                     $pre_colors = $costs[$pre_sale_num];
                     //var_dump($pre_colors[$color_num]);
-                    //var_dump($colors[$color_num]);
                     $price = $pre_colors[$color_num] + ($colors[$color_num] - $pre_colors[$color_num]) * ($sale_num - $pre_sale_num) / ($_sale_num - $pre_sale_num);
                     break;
                 }

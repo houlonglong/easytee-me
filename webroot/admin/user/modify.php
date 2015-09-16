@@ -77,10 +77,7 @@
 
                             <div class="tab-content">
                                 <div id="home4" class="tab-pane in active">
-
                                     <form class="form-horizontal" role="form">
-
-
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="ds_host">UID：</label>
                                                 <div class="col-sm-4">

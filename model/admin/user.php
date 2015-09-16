@@ -26,10 +26,8 @@ class Model_Admin_User extends Model_Admin_Abstract
         }
         return array("ok");
     }
-    function view_modify()
+    function view_modify($id)
     {
-        $request = PtLib\http_request("id");
-        $id = $request['id'];
 
         $user = self::_db()->select_row("SELECT u.id,u.nick_name, u.mobile,u.email,u.password,
 		                                f.balance_tx,f.balance_block,f.balance_ntx,f.total_earn,
@@ -46,8 +44,9 @@ class Model_Admin_User extends Model_Admin_Abstract
 
 
 
-    function view_withdraw_log(){
-        $uid = $_GET['uid'];
+
+    function view_withdraw_log($uid){
+
         return array('uid'=>$uid);
     }
 

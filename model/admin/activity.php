@@ -37,11 +37,40 @@ limit 1");
     static function activity_detail()
     {
         $request = PtLib\http_request("id");
-        $row = PtLib\db_select_row("select a.*,u.nick_name,d.colors from " . self::$table . " as a inner join users as u on u.id = a.uid
-         inner join designs as d on d.id = a.design_id  where a.id = ?", $_REQUEST['id']);
+        $rows = PtLib\db_select_rows("SELECT
+ DISTINCT
+	a.*,
+  ps.selling_price,
+  u.nick_name,
+	d.colors,
+  pbrand.`name` as manufacturer_name,
+  pc.`name` as category_name
+FROM
+	activities AS a
+LEFT JOIN users AS u ON u.id = a.uid
+LEFT JOIN designs AS d ON d.id = a.design_id
+LEFT JOIN activity_product_styles as aps on aps.activity_id = a.id
+LEFT JOIN et_product as p on p.id = aps.product_id
+LEFT JOIN et_product_brand as pbrand on pbrand.id = p.brand_id
+LEFT JOIN et_product_style as ps on ps.id = aps.product_style_id
+LEFT JOIN et_product_cat_map as pmap on pmap.product_id = p.id
+LEFT JOIN et_product_cat as pc on pc.id = pmap.cat_id
+WHERE
+	a.id= ?", $_REQUEST['id']);
+        $result = array();
+        if(is_array($rows) && $rows){
+            $result = $rows[0];
+            $cost = Model_Cost::calculate_cost($result['colors'],$result['sales_target']);
+            foreach($rows as $row){
+                $result['category'][] = array(
+                    $row['category_name'].'/'.$row['manufacturer_name'],
+                    round($row['selling_price']+$cost,2),
+                );
+            }
+        }
         $totalExpress = self::_db()->select_row('select sum(express_price) as total_express from orders where activity_id=? AND status not in("已关闭","待付款")',$_REQUEST['id']);
-        $row['total_express'] = $totalExpress['total_express'];
-        return $row;
+        $result['total_express'] = $totalExpress['total_express'];
+        return $result;
     }
 
     /**
@@ -122,6 +151,7 @@ limit 1");
                 "cell" => $row
             );
         }
+//        var_dump($sql);exit;
         return $response;
     }
 
@@ -464,16 +494,29 @@ limit 1");
 
     function action_ordergoods_detail($id)
     {
-        $rows = self::_db()->select_rows(
-            'select * from order_goods as goods left join orders as o on o.id = goods.order_id
-            left join activities as a on a.id = o.
-            left join activit
-            ', $id);
-        foreach ($rows as $key => $row) {
-            $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
-            $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
+        $id = $this->_request('id');
+        if ($id) {
+            $rows = PtLib\db()->select_rows('SELECT
+	og.*,
+  pbrand.name as manufacturer_name,
+  cat.name as product_category_name,
+  a.real_end_time
+FROM
+	order_goods AS og
+LEFT JOIN orders AS o ON o.id = og.order_id
+LEFT JOIN activities AS a ON a.id = o.activity_id
+LEFT JOIN et_product_style AS ps ON ps.id = og.product_style_id
+LEFT JOIN et_product AS p on p.id = ps.product_id
+LEFT JOIN et_product_brand AS pbrand ON pbrand.id = p.brand_id
+LEFT JOIN et_product_cat_map as pmap on pmap.product_id = p.id
+LEFT JOIN et_product_cat as cat on cat.id = pmap.cat_id where og.order_id = ?', $id);
+
+            foreach ($rows as $key => $row) {
+                $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
+                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
+            }
+            return $rows;
         }
-        echo json_encode($rows);
     }
 
     static function success()
@@ -609,9 +652,9 @@ limit 1");
                         throw new Exception('发货失败');
                     }
                 }
-                echo 1;
+                return array(1);
             } catch (Exception $e) {
-                echo 0;
+                return array(0);
             }
         }
     }

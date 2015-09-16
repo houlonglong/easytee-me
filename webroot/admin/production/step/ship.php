@@ -260,7 +260,11 @@
                     ids:ids.join(',')
                 },
                 success:function(data){
-                    window.location.reload();
+                    if(data.status>0){
+                        alert(data.message);
+                    }else{
+                        window.location.reload();
+                    }
                 }
             })
         })

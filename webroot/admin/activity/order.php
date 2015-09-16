@@ -135,7 +135,7 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: false, editable: false},
+                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: false, editable: false,sortable:false},
                 {
                     title: "订单号",
                     name: 'order_no',
@@ -144,6 +144,7 @@
                     editable: false,
                     editoptions: {size: "20", maxlength: "30"},
                     formatter: 'showlink',
+                    sortable:false,
                     formatoptions: {
                         baseLinkUrl: '/admin/activity/order_detail',
                         addParam: '',//&t=1
@@ -156,6 +157,7 @@
                     index: 'username',
                     width: 90,
                     editable: false,
+                    sortable:false,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
@@ -163,6 +165,7 @@
                     name: 'name',
                     index: 'name',
                     editable: false,
+                    sortable:false,
                     editoptions: {size: "20", maxlength: "30"},
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
@@ -341,23 +344,26 @@
                     },
                     type: 'POST',
                     dataType: 'json',
-                    success: function (obj) {
+                    success: function (data) {
+                        if(data.status>0){
+                            alert(data.message);
+                        }
                         $("#" + subgridTableId).jqGrid({
                             datatype: 'local',
-                            data: obj,
-                            colNames: ['订购服装品类', '订购服装款式', '订购服装性别', '订购服装颜色', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
+                            data: data.return,
+                            colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
-                                {name: 'manufacturer_name', width: 150, color: "#3c763d"},
-                                {name: 'product_style_name', width: 150},
-                                {name: 'product_name', width: 150},
+                                {name: 'product_category_name', width: 150, color: "#3c763d",sortable:false},
+                                {name: 'manufacturer_name', width: 150,sortable:false},
+                                {name: 'product_name', width: 150,sortable:false},
 
-                                {name: 'product_style_name', width: 150},
-                                {name: 'size', width: 150},
-                                {name: 'quantity', width: 150},
+                                {name: 'product_style_name', width: 150,sortable:false},
+                                {name: 'size', width: 150,sortable:false},
+                                {name: 'quantity', width: 150,sortable:false},
 
-                                {name: 'unit_price', width: 150},
-                                {name: 'total', width: 150},
-                                {name: 'real_end_time', width: 180}
+                                {name: 'unit_price', width: 150,sortable:false},
+                                {name: 'total', width: 150,sortable:false},
+                                {name: 'real_end_time', width: 180,sortable:false}
                             ]
                         });
                     }
