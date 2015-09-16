@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <?php
-    /**
-     * 学生管理
-     *
-     */
-    $__model_path = "admin/campus";
-    include(block("admin/block/html_head")) ?>
+    <?php include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
@@ -101,7 +95,6 @@
     </div>
 </div>
 <!-- /.main-container -->
-<!-- /.main-container -->
 <?php include(block("admin/block/scripts")) ?>
 <!-- page specific plugin scripts -->
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
@@ -147,6 +140,7 @@
     }
     jQuery(function ($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
+        <?php $__model_path = "admin/campus"; ?>
         var url_api_base = "<?php echo $__model_path;?>";
         var url_api_list = "/api?model=" + url_api_base + "&action=list";
         var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
@@ -189,17 +183,6 @@
                 {title: "专业", name: 'major', index: 'major', editable: false, sortable: false},
                 {title: "申请时间", name: 'add_time', index: 'add_time', editable: false, sortable: false},
                 {title: "通过时间", name: 'up_time', index: 'up_time', editable: false, sortable: false},
-                /*
-                 {title:"Title",name:'title',index:'title',editable: false,
-                 formatter:'showlink',
-                 formatoptions:{
-                 baseLinkUrl:url_api_detail,
-                 addParam: '',//&t=1
-                 idName:'id'
-                 }
-                 },*/
-                //{title:"Email",name:'email',index:'email',editable: true,editoptions:{size:"20",maxlength:"30"}},
-                //{title:"最后登陆",name:'last_login_time',index:'last_login_time',width:190,sortable:false,editable: false},
                 {
                     title: "操作",
                     name: 'status',
@@ -220,29 +203,6 @@
             ]
 
         };
-
-        /**
-         //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
-         /*
-         colModel:[
-         {title:"",name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
-             formatter:'actions',
-             formatoptions:{
-                 keys:true,
-                 //delbutton: false,//disable delete button
-
-                 delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback},
-                 //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-             }
-         },
-         {title:"",name:'id',index:'id', width:60, sorttype:"int", editable: true},
-         {title:"",name:'sdate',index:'sdate',width:90, editable:true, sorttype:"date",unformat: pickDate},
-         {title:"",name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
-         {title:"",name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"},unformat: aceSwitch},
-         {title:"",name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
-         {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
-         ],
-         */
 
         function get_col(cols) {
             var col_name = [];

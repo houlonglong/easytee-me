@@ -1,6 +1,60 @@
+网站架构
+======
 
-#PHPSTORM 单步调试
+首页
+------
 
+- url: [http://2.dev.jzw.com/](http://2.dev.jzw.com/)
+- src: /webroot/index.php
+
+注册
+------
+- url: [http://2.dev.jzw.com/user/register](http://2.dev.jzw.com/user/register)
+- src: /webroot/user/register.php
+- api:
+    - 获取验证码 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
+    - 保存注册信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
+
+登陆
+------
+- url: [http://2.dev.jzw.com/user/auth/login](http://2.dev.jzw.com/user/auth/login)
+- src: /webroot/user/auth/login.php
+
+
+忘记密码
+------
+- url: [http://2.dev.jzw.com/user/forget_pass](http://2.dev.jzw.com/user/forget_pass)
+- src: /webroot/user/forget_pass.php
+
+
+
+设计工具
+------
+- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/design)
+- src: /webroot/design.php
+
+
+活动预购
+------
+- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/activity)
+- src: /webroot/activity.php
+
+
+订单确认页
+------
+- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/order/confirm)
+- src: /webroot/order/confirm.php
+
+订单支付成功
+------
+- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/order/complete)
+- src: /webroot/order/confirm.php
+
+
+
+
+PHPSTORM 单步调试
+======
 配置 php.ini
 
     [xdebug]

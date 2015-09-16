@@ -229,7 +229,7 @@
                 "hide_menu":0
             },
             {
-                "title":"学生列表",
+                "title":"校园达审核",
                 "url":"/admin/campus/index",
                 "hide_menu":0
             }

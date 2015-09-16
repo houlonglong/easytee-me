@@ -48,7 +48,9 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div>
-                                    <a class="btn btn-primary" href="/admin/activity/detail_design?id=<?php echo $_GET['id'] ?>" target="_blank">设计详情</a>
+                                    <a class="btn btn-primary"
+                                       href="/admin/activity/detail_design?id=<?php echo $_GET['id'] ?>"
+                                       target="_blank">设计详情</a>
                                 </div>
 
                                 <div class="widget-box">
@@ -83,12 +85,32 @@
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: right">快递总费用</th>
-                                                        <td style="text-align: left"><?php echo empty($row['total_express'])?0:$row['total_express']; ?></td>
+                                                        <td style="text-align: left"><?php echo empty($row['total_express']) ? 0 : $row['total_express']; ?></td>
                                                     </tr>
+                                                    <?php
+                                                    $count = count($row['category']);
+                                                    $culoum = 0;
+                                                    $culoum = ceil($count / 3);
+                                                    $str = '';
+                                                    for ($i = 0; $i <= $culoum; $i++) {
+                                                        $str .= '<tr>';
+                                                        $j = 0;
+                                                        foreach ($row['category'] as $key => $data) {
+                                                            if ($j >= 3) {
+                                                                break;
+                                                            }
+                                                            if (isset($row['category'][$i * 3 + $j])) {
+                                                                $str .= '<th style="text-align: right">' . $row['category'][$i * 3 + $j][0] . ' 销售成本</th><td>' . $row['category'][$i * 3 + $j][1] . '</td>';
+                                                            }
+                                                            $j++;
+                                                        }
+                                                        $str .= '</tr>';
+                                                    }
+                                                    echo $str;
+                                                    ?>
                                                 </table>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -134,15 +156,15 @@
 
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function gen_product_svg(obj){
+    function gen_product_svg(obj) {
         var $svg = $(obj).parents("tr").find(".product_svg").html();
         //console.log($svg);
-        canvg('canvas', $svg,{
-            log:true,
+        canvg('canvas', $svg, {
+            log: true,
             useCORS: true,
             ignoreDimensions: true,
             ignoreClear: true,
-            ignoreMouse: true, ignoreAnimation: true ,
+            ignoreMouse: true, ignoreAnimation: true,
             renderCallback: function (dom) {
                 var imageDataUri = canvas.toDataURL("image/png");
                 console.log(imageDataUri);
@@ -150,23 +172,23 @@
             }
         });
     }
-    function gen_design_svg(obj){
+    function gen_design_svg(obj) {
 
         var id = $(obj).parents("tr").data("id");
         var side = $(obj).parents("tr").data("side");
         var $svg_url = $(obj).parents("tr").find(".svg_url").attr("src");
 
-        canvg('canvas', $svg_url,{
+        canvg('canvas', $svg_url, {
             renderCallback: function (dom) {
                 var imageDataUri = canvas.toDataURL("image/png");
-                $(obj).parents("tr").find(".img_url").html('<img src="'+imageDataUri+'">');
-                $.post("/api",{
-                    model:"admin/site/design",
-                    action:"save_svg_png",
-                    side:side,
-                    design_id:id,
-                    img_content:imageDataUri,
-                },function(data){
+                $(obj).parents("tr").find(".img_url").html('<img src="' + imageDataUri + '">');
+                $.post("/api", {
+                    model: "admin/site/design",
+                    action: "save_svg_png",
+                    side: side,
+                    design_id: id,
+                    img_content: imageDataUri,
+                }, function (data) {
 
                 });
             }
@@ -184,7 +206,15 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "活动ID", name: 'activity_id', index: 'activity_id', width: 40, sorttype: false, sortable:false, editable: false},
+                {
+                    title: "活动ID",
+                    name: 'activity_id',
+                    index: 'activity_id',
+                    width: 40,
+                    sorttype: false,
+                    sortable: false,
+                    editable: false
+                },
 
                 {
                     title: "订单号",
@@ -192,7 +222,7 @@
                     index: 'order_no',
                     width: 90,
                     editable: true,
-                    sortable:false,
+                    sortable: false,
                     editoptions: {size: "20", maxlength: "30"},
                 },
                 {
@@ -201,7 +231,7 @@
                     index: 'ship_name',
                     width: 50,
                     editable: false,
-                    sortable:false,
+                    sortable: false,
                     editoptions: {size: "20", maxlength: "30"}
                 },
                 {
@@ -236,17 +266,17 @@
                     editable: false,
                     sortable: false,
                     formatter: function (cellvalue, options, rowObject) {
-                        if(cellvalue == '待发货'){
-                             return '<span class="label label-warning arrowed arrowed-right">'+cellvalue+'</span>';
+                        if (cellvalue == '待发货') {
+                            return '<span class="label label-warning arrowed arrowed-right">' + cellvalue + '</span>';
                         }
-                        if(cellvalue == '待付款'){
-                            return '<span class="label arrowed"><s>'+cellvalue+'</s></span>';
+                        if (cellvalue == '待付款') {
+                            return '<span class="label arrowed"><s>' + cellvalue + '</s></span>';
                         }
-                        if(cellvalue == '已发货'){
-                            return '<span class="label label-success arrowed-in arrowed-in-right">'+cellvalue+'</span>';
+                        if (cellvalue == '已发货') {
+                            return '<span class="label label-success arrowed-in arrowed-in-right">' + cellvalue + '</span>';
                         }
-                        if(cellvalue == '已完成'){
-                            return '<span class="label label-danger arrowed">'+cellvalue+'</span>';
+                        if (cellvalue == '已完成') {
+                            return '<span class="label label-danger arrowed">' + cellvalue + '</span>';
                         }
 
                         return cellvalue;
@@ -415,17 +445,17 @@
                             data: obj,
                             colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
-                                {name: 'product_category_name', width: 150, sortable:false,},
-                                {name: 'manufacturer_name', width: 150, sortable:false,},
-                                {name: 'product_name', width: 150, sortable:false,},
+                                {name: 'product_category_name', width: 150, sortable: false,},
+                                {name: 'manufacturer_name', width: 150, sortable: false,},
+                                {name: 'product_name', width: 150, sortable: false,},
 
-                                {name: 'product_style_name', width: 150, sortable:false,},
-                                {name: 'size', width: 150, sortable:false,},
-                                {name: 'quantity', width: 150, sortable:false,},
+                                {name: 'product_style_name', width: 150, sortable: false,},
+                                {name: 'size', width: 150, sortable: false,},
+                                {name: 'quantity', width: 150, sortable: false,},
 
-                                {name: 'unit_price', width: 150, sortable:false,},
-                                {name: 'total', width: 150 ,sortable:false,},
-                                {name: 'real_end_time',  sortable:false,width: 180}
+                                {name: 'unit_price', width: 150, sortable: false,},
+                                {name: 'total', width: 150, sortable: false,},
+                                {name: 'real_end_time', sortable: false, width: 180}
                             ]
                         });
                     }
