@@ -39,7 +39,7 @@
 
 活动预购
 ------
-- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/activity)
+- url: [http://2.dev.jzw.com/activity](http://2.dev.jzw.com/activity)
 - src: /webroot/activity.php
 - api:
     - QQ分享
