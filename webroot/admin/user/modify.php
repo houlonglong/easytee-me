@@ -71,7 +71,7 @@
                                 </li>
 
                                 <li>
-                                    <a data-toggle="tab" href="#dropdown14">第三方绑定</a>
+                                    <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/oauth?uid=<?=$uid?>'">第三方绑定</a>
                                 </li>
                             </ul>
 
