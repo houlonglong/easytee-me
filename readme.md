@@ -12,21 +12,29 @@
 - url: [http://2.dev.jzw.com/user/register](http://2.dev.jzw.com/user/register)
 - src: /webroot/user/register.php
 - api:
-    - 获取验证码 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
+    - 获取手机验证码 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
     - 保存注册信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
 
 登陆
 ------
 - url: [http://2.dev.jzw.com/user/auth/login](http://2.dev.jzw.com/user/auth/login)
 - src: /webroot/user/auth/login.php
+- api:
+    - 提交登陆信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/auth/login.md)
 
+第三方登陆
+------
+- QQ
+- 新浪微博
+- 微信
 
 忘记密码
 ------
 - url: [http://2.dev.jzw.com/user/forget_pass](http://2.dev.jzw.com/user/forget_pass)
 - src: /webroot/user/forget_pass.php
-
-
+- api:
+    - 获取手机验证码 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
+    - 提交重置信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
 
 设计工具
 ------
@@ -49,8 +57,6 @@
 ------
 - url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/order/complete)
 - src: /webroot/order/confirm.php
-
-
 
 
 PHPSTORM 单步调试
