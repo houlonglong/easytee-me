@@ -413,7 +413,7 @@
                         $("#" + subgridTableId).jqGrid({
                             datatype: 'local',
                             data: obj,
-                            colNames: ['订购服装品类', '订购服装款式', '订购服装性别', '订购服装颜色', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
+                            colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
                                 {name: 'product_category_name', width: 150, sortable:false,},
                                 {name: 'manufacturer_name', width: 150, sortable:false,},

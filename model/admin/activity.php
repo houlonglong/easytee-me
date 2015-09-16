@@ -467,12 +467,20 @@ limit 1");
     {
         $id = $this->_request('id');
         if ($id) {
-            $rows = PtLib\db()->select_rows('select a.real_end_time,og.*,m.name as manufacturer_name,pc.name as product_category_name from order_goods as og inner join orders as o on o.id = og.order_id
-                              left join activities as a on a.id = o.activity_id' .
-                '    left join product_styles as ps on ps.id = og.product_style_id ' .
-                ' left join products as p on p.id = ps.product_id left join manufacturer_brands as m on m.id = p.manufacturer_brand_id
-                   ' .' left join product_category_maps as map on map.product_id = p.id left join product_categories as pc on pc.id = map.product_category_id '.
-                'where og.order_id = ?', $id);
+            $rows = PtLib\db()->select_rows('SELECT
+	og.*,
+  pbrand.name as manufacturer_name,
+  cat.name as product_category_name,
+  a.real_end_time
+FROM
+	order_goods AS og
+LEFT JOIN orders AS o ON o.id = og.order_id
+LEFT JOIN activities AS a ON a.id = o.activity_id
+LEFT JOIN et_product_style AS ps ON ps.id = og.product_style_id
+LEFT JOIN et_product AS p on p.id = ps.product_id
+LEFT JOIN et_product_brand AS pbrand ON pbrand.id = p.brand_id
+LEFT JOIN et_product_cat_map as pmap on pmap.product_id = p.id
+LEFT JOIN et_product_cat as cat on cat.id = pmap.cat_id where og.order_id = ?', $id);
             foreach ($rows as $key => $row) {
                 $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
                 $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
