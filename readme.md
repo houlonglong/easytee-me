@@ -33,31 +33,47 @@
 - url: [http://2.dev.jzw.com/user/forget_pass](http://2.dev.jzw.com/user/forget_pass)
 - src: /webroot/user/forget_pass.php
 - api:
-    - 获取手机验证码 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
-    - 提交重置信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/register.md)
-
-设计工具
-------
-- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/design)
-- src: /webroot/design.php
+    - 获取手机验证码
+    - 提交重置信息 [
 
 
 活动预购
 ------
 - url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/activity)
 - src: /webroot/activity.php
+- api:
+    - QQ分享
+    - 微博分享
+    - 豆瓣分享
+    - 微信分享
+    - 人人分享
 
 
 订单确认页
 ------
 - url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/order/confirm)
 - src: /webroot/order/confirm.php
+- api:
+    - 保存收货地址
+    - 修改收货地址
+    - 提交订单信息
 
 订单支付成功
 ------
 - url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/order/complete)
 - src: /webroot/order/confirm.php
 
+设计工具
+------
+- url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/design)
+- src: /webroot/design.php
+- api:
+    - 获取产品分类
+    - 获取设计信息
+    - 保存设计信息
+    - 获取活动信息
+    - 保存活动信息
+    
 
 PHPSTORM 单步调试
 ======
