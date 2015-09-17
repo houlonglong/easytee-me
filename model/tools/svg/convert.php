@@ -76,7 +76,8 @@ class Model_Tools_Svg_Convert extends BaseModel {
         $tpl_content = '<svg height="500" width="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"><image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_content . '" transform="matrix(1,0,0,1,0,0)"></image>'.$svg_content.'</svg>';
 
         file_put_contents("/tmp/test.svg",$tpl_content);
-        return shell_exec("ping -c 4 www.baidu.com");
+        $path_pro = PATH_PRO;
+        return shell_exec("python $path_pro/bin/svg/convert.py");
         return Model_Aliyun_Oss::upload_content($tpl_content,"test/test/test.svg");
 
         //print_r($styles);exit;
