@@ -72,7 +72,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         $img_url = $design_info['img_url'];
         $img_content = file_get_contents($img_url);
         $img_content = "data:image/png;base64,".base64_encode($img_content);
-        $svg_content = "<svg x='$x/2' y='$y/2'".substr($svg_content,4);
+        $svg_content = "<svg x='".($x/2)."' y='".($y/2)."'".substr($svg_content,4);
         $tpl_content = '<svg height="500" width="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"><image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_content . '" transform="matrix(1,0,0,1,0,0)"></image>'.$svg_content.'</svg>';
 
         return Model_Aliyun_Oss::upload_content($tpl_content,"test/test/test.svg");
