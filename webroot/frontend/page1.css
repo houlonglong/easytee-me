@@ -1,0 +1,65 @@
+/* 
+* @Author: liwenjuan
+* @Date:   2015-8-31
+* @Last Modified by:   liwenjuan
+* @Last Modified time: 2015-8-31
+*/
+@charset "utf-8";
+.page1 {
+	background-image: url(../img/bg1.png);
+}
+.page1 h2 {
+	background-image: url(../img/page1-1.png);
+}
+.page1-test h3 {
+	position: absolute;
+	top: 6.90rem;
+	left: 50%;
+	margin-left: -3.33rem;
+	width: 6.67rem;
+	height: 2.24rem;
+	background: url(../img/page1-2.png) no-repeat;
+	text-indent: -999rem;
+	background-size: contain;
+}
+.page1-test p {
+	position: absolute;
+	top: 10.10rem;
+	left: 50%;
+	width: 90%;
+	margin-left: -45%;
+	font-size: 0.48rem;
+	color: #fff;
+	text-align: center;
+}
+.page1-img {
+	position: absolute;
+	top: 12.50rem;
+	left: 50%;
+	width: 8.31rem;
+	height: 1.71rem;
+	margin-left: -3.32rem;
+	background: url(../img/page1-3.png) no-repeat;
+	background-size: contain;
+}
+.page1:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 3.14rem;
+	background: url(../img/dotted.png) no-repeat;
+	background-size: contain;
+}
+/*============== page1-1 ==============*/
+.page1-test-error{
+	position: absolute;
+	top:6.62rem;
+	left:50%;
+	margin-left: -4.82rem;
+	width:10.29rem;
+	height: 6.78rem;
+	background:  url(../img/page1-4.png) no-repeat;
+	background-size: contain;
+}
