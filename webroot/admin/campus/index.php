@@ -187,7 +187,7 @@
                     title: "操作",
                     name: 'status',
                     index: 'status',
-                ,      width: 80,
+                    width: 80,
                     fixed: true,
                     sortable: false,
                     resize: false,
