@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/active.css">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/active.js"></script>
+    <script type="text/javascript" src="js/TouchSlide.1.1.js"></script>
+    <style type="text/css">
+            * {
+                box-sizing: border-box;
+            }
+            @media (max-width:768px){
+                body,html{width:100%;}
+                .color{display:none;}
+                .banner{
+                    /* width:100%;
+                    height:auto; */
+                    display:none;
+                    
+                }
+                .bannerM {display: block; margin-top:1.887rem;}
+                .bannerM img{
+                    width:100%;
+                    left:0;
+                    top:0;
+                    background:#000;
+                    margin-left: 0;
+                }
+                .main{
+                    width:100%;
+                    height:auto;
+                    background-size:cover;
+                    position: relative;
+                    display:none;
+                    
+                }
+                .main .con{
+                    width:100%;
+                    height:auto;
+                    background-size:cover;
+                }
+                .anniu{
+                   width:12.95rem;
+                   transform: translate(-50%,0);
+                   margin-left:0;
+                }
+                .anniu .left,.anniu .right{
+                   width:5.624rem;
+                    height:1.628rem;
+                    font-size: 0.666rem;
+                    line-height:1.628rem;
+                }
+                .anniu a.left{
+                        margin-right:1.11rem;
+                    }
+                .mainM{
+                    display:block;
+                    width:100%;
+                    height:auto;
+                    padding:5px;
+                    margin-bottom:3.5rem;
+        
+                }
+                .mainM img{
+                    width:100%;
+                    height:auto;
+                }
+                .act-hd{
+                    width:100%;
+                    height:auto;
+                    background-size:cover;
+                    margin:-0.962rem auto 0;
+                }
+                .act{padding:0 5px; margin-top:30px;}
+                .act-con .left,.act-con .right{
+                    width:0.74rem;
+                    height:1.443rem;
+                    transform: translate(0, -50%);
+                    top:50%;
+        
+                    
+                }
+                .act-con .left{background:url(img/m-right.png) no-repeat;background-size:100% 100%;}
+                .act-con .right{background:url(img/m-left.png) no-repeat;background-size:100% 100%;}
+                .acts{
+                    /* width:28.712rem;
+                    margin-left: 3.257rem; */
+                    display:none;
+                }
+                .act-con{
+                    width:100%;
+                    height:auto;
+                }
+                
+                .actM{
+                    display: block;
+                    height: 16.65rem;
+                    background: #fff;
+                    margin: 0 auto ;
+                    position: relative;
+                    overflow: hidden;
+                    width: 19.345rem;
+                }
+                .actM1{
+                    list-style: none;
+                    width:1000px;
+                    height:100%;position: absolute;
+                  
+                }
+                .actM1 li img{
+                    width:10.619rem;
+                    height:10.138rem;
+                    margin:0 auto;
+                }
+                .actM1 li{
+                    float: left;width:19.345rem;position: relative;background:#fff;padding:5px;
+                    /* margin-right:10px; */
+                   height:16.65rem;/* height:230px; */
+                   overflow:hidden;
+                }
+                .tiao{
+                    width:100%;
+                    height:0.296rem;
+                    background-size:100% 100%;
+                }
+                .num{padding-left:0; width:97%; padding-top:0;}
+                .num .zuo,.num .you{
+                    position: absolute;
+                   /*  bottom:0px; */
+                    font-size:0.518rem ;
+                }
+                .num .zuo{left:5px;margin-right:0;}
+                .num .you{right:5px;}
+                .actM1 li p.explain{
+                    font-size: 12px;
+                    text-indent: 18px;
+                    width: 7.4rem;
+                    text-overflow:ellipsis;
+                    overflow:hidden;
+                    white-space:nowrap;
+                    font-weight: bold;
+        
+                }
+            }
+        </style>
+        <!-- <script type="text/javascript">
+        window.onload =function(){
+            var html1 = document.documentElement;
+            function autoPlay(){
+                var screenW = html1.clientWidth;
+                html1.style.fontSize = 0.05*screenW+'px'
+            }
+            autoPlay();
+            window.onresize =function(){
+                autoPlay();
+            }
+        }
+            </script> -->
+</head>
+<body>
+    <div class="banner">
+        <div class="color"></div>
+        <img src="img/banner-act.jpg" alt="开学有礼"></div>
+
+    <div class="bannerM">
+        <img src="img/banner-act.jpg" alt="开学有礼"></div>
+    
+
+    <div class="anniu">
+        <a href="#" class="left">注册</a>
+        <a href="#" class="right">分享</a>
+        <div class="shar">
+            <a href="http//:www.baidu.com" target="blank"></a>
+            <a href="#" target="blank"></a>
+            <a href="#" target="blank"></a>
+            <a href="#" target="blank"></a>
+        </div>
+    </div>
+     <div class="main">
+        <div class="con"></div>
+    </div>
+    <!--<div class="mainM">
+        <img src="img/act-con.png"></div>
+     -->
+
+    <!-- 文档格式页面 -->
+    <div class="artic">
+        <h3>开学“易”   好礼“衫”重奏</h3>
+        <p class="yi">
+            <div class="yi-hd">一重好礼：礼金直送！</div>
+            <div class="cons">
+                <p class="yi-con">注册易衫网，完成简单的校园达人身份认证，即可获得易衫网送出的20元礼金</p>
+                <span class="clearfix">
+                    <i class="yi-huo">活动流程：</i>
+                    <i class="huotu"></i>
+                </span>
+            </div>
+        </p>
+        <p class="yi">
+            <div class="yi-hd">二重好礼：邀请有奖！</div>
+            <div class="cons">
+                <p class="yi-con">通过身份认证后，只要您邀请的朋友也完成校园达人的认证，除了他也可以获得易衫送出的20元礼金，每位成功您还可以获得邀请谢礼5元！上不封顶！</p>
+                <span class="clearfix">
+                    <i class="yi-huo er-huo">活动流程：</i> <!-- <br> -->
+                   <i class="huotu huotu3"></i>
+                   <img src="img/huodong2.png" width="80%" class="huotu2">
+                </span>
+            </div>
+        </p>
+        <p class="yi">
+            <div class="yi-hd">三重好礼：带你装逼带你飞！</div>
+            <div class="cons">
+                <p class="yi-con">易衫营销专家与您面对面分享成功经验，让您的创意，您的态度，您的故事更加响亮！</p>
+            </div>
+        </p>
+        <dl class="er">
+            <dt>活动时间：2015年9月7日 - 2015年10月7日</dt>
+            <dd>奖励规则及明细</dd>
+            <dd>1. 本次活动奖励的礼金将存入注册用户的易衫网账户；</dd>
+            <dd>2. 礼金只能用于在易衫网的消费，不可提现；</dd>
+            <dd>3. 邀请奖励的礼金只有在邀请发出人认证为校园达人成功后方生效，如果认证失败，将不可获得邀请奖励；</dd>
+            <dd>4. 易衫网对本次活动有最终解释权;</dd>
+            <dd>5. 如有任何意见和建议，可直接发送邮件至service@easytee.me或加入QQ群112142514与管理员进行沟通。</dd>
+        </dl>
+    </div>
+    <!-- 文档格式页面 -->
+
+
+    <div class="act">
+        <h3 class="act-hd">热销.推荐</h3>
+        <div class="act-con">
+            <sapn class="left"></sapn>
+            <sapn class="right"></sapn>
+            <div class="acts">
+                <ul class="act1 clearfix">
+                    <li>
+                        <div class="hides">
+                            <p>纪念反法西斯胜利70周年</p>
+                            <p class="mar20">
+                                我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为  您呈现
+                            </p>
+                            <p>一起用实际行动支持反法吧！</p>
+                        </div>
+                        <div>
+                            <img src="img/yifu.jpg"></div>
+                        <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div> <strong>发起人：田中一天</strong>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li class="mar12">
+                        <div class="hides">
+                            <p>纪念反法西斯胜利70周年</p>
+                            <p class="mar20">
+                                我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为  您呈现
+                            </p>
+                            <p>一起用实际行动支持反法吧！</p>
+                        </div>
+                        <div>
+                            <img src="img/yifu.jpg"></div>
+                        <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div> <strong>发起人：田中一天</strong>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hides">
+                            <p>纪念反法西斯胜利70周年</p>
+                            <p class="mar20">
+                                我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为  您呈现
+                            </p>
+                            <p>一起用实际行动支持反法吧！</p>
+                        </div>
+                        <div>
+                            <img src="img/yifu.jpg"></div>
+                        <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <strong>发起人：田中一天</strong>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="hides">
+                            <p>纪念反法西斯胜利70周年</p>
+                            <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
+                            <p>一起用实际行动支持反法吧！</p>
+                        </div>
+                        <div>
+                            <img src="img/yifu.jpg"></div>
+                        <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <strong>发起人：田中一天</strong>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li class="mar12">
+                        <div class="hides">
+                            <p>纪念反法西斯胜利70周年</p>
+                            <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
+                            <p>一起用实际行动支持反法吧！</p>
+                        </div>
+                        <div>
+                            <img src="img/yifu.jpg"></div>
+                        <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <strong>发起人：田中一天</strong>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="actM" id="actM">
+                <ul class="actM1 clearfix">
+                    <li>
+                        <span>发起人：田中一光</span>
+                        <img src="img/yifu.jpg">
+                        <p>手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <div class="num clearfix">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span>发起人：田中一光</span>
+                        <img src="img/yifu.jpg">
+                        <p>手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span>发起人：田中一光</span>
+                        <img src="img/yifu.jpg">
+                        <p>手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span>发起人：田中一光</span>
+                        <img src="img/yifu.jpg">
+                        <p>手撕鬼子掏心脏——70周年纪念日</p>
+                        <div class="tiao"></div>
+                        <div class="num">
+                            <span class="zuo">已售出 29 件</span>
+                            <span class="you">剩余010天</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
