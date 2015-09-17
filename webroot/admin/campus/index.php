@@ -30,6 +30,12 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
+                                <a class="btn btn-xs btn-info" href="/api?model=admin/campus&action=download_campus">下载EXCEL</a>
+                            </div>
+                            <!-- /.span -->
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
                                 <div class="widget-box">
                                     <div class="widget-body">
                                         <div class="widget-main">
@@ -187,7 +193,7 @@
                     title: "操作",
                     name: 'status',
                     index: 'status',
-                ,      width: 80,
+                    width: 80,
                     fixed: true,
                     sortable: false,
                     resize: false,

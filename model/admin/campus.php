@@ -206,4 +206,41 @@ class Model_Admin_Campus extends BaseModel {
         return $data;
     }
      */
+
+     public function action_download_campus(){
+        $rows = self::_db()->select_rows('SELECT c.*,u.mobile FROM et_user_campus as c LEFT JOIN et_user as u ON c.uid = u.id ');
+        if(is_array($rows) && $rows){
+            $myval = array();
+            $myval[] = "编号,真实姓名,手机号码,学号,学校,学生证图片,专业,认证时间,更新时间,状态,邀请人ID";
+            $myval[] = "\r\n";
+            foreach($rows as $row){
+                $myval[] = "\t" . $row['id'] . ",";
+                $myval[] =  $row['real_name'] . ",";
+                $myval[] = "\t" . $row['mobile'] . ",";
+                $myval[] = "\t" . $row['student_no'] . ",";
+                $myval[] =  $row['school_name'] . ",";
+                $myval[] =  $row['img_url'] . ",";
+                $myval[] =  $row['major'] . ",";
+                $myval[] = "\t" .$row['add_time'] . ",";
+                $myval[] = "\t" . $row['up_time'] . ",";
+                $myval[] =  $row['status'] . ",";
+                $myval[] = "\t" . $row['invite_id'] . ",";
+                $myval[] = "\r\n";
+            }
+            $content = iconv("UTF-8", "GBK", implode($myval));
+            header("Content-Type: text/html; charset=GBK");
+            header("Pragma: public");
+            header("Expires: 0");
+            header('Content-Encoding: none');
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header("Cache-Control: public");
+            header("Content-type: application/octet-stream\n");
+            header("Content-Description: File Transfer");
+            header('Content-Disposition: attachment; filename=campus_list.csv', $content);
+            header("Content-Transfer-Encoding: binary");
+            header('Content-Length: ' . strlen($content));
+            echo $content;
+            exit;
+        }
+    }
 }
