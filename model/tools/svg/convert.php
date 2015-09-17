@@ -18,7 +18,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($_act_designs as $_act_design){
             $__act_designs[$_act_design['side']] = array(
                 "svg_url"=>$_act_design['svg_url'],
-                "svg"=>file_get_contents($_act_design['svg_url']),
+                //"svg"=>file_get_contents($_act_design['svg_url']),
             );
         }
         foreach($_sides as $_side){
