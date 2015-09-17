@@ -8,7 +8,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         //parent::__construct();
     }
     function action_png(){
-        echo 11;
+        var_dump($_SERVER);
     }
     /**
      * 详情视图
