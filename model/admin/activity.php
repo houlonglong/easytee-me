@@ -494,7 +494,6 @@ WHERE
 
     function action_ordergoods_detail($id)
     {
-        $id = $this->_request('id');
         if ($id) {
             $rows = PtLib\db()->select_rows('SELECT
 	og.*,
