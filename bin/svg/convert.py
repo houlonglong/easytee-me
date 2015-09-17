@@ -1,6 +1,6 @@
 import cairo
 import rsvg
-img = cairo.ImageSurface(cairo.FORMAT_ARGB32, 202,270)
+img = cairo.ImageSurface(cairo.FORMAT_ARGB32, 500,500)
 ctx = cairo.Context(img)
 handle = rsvg.Handle("/tmp/test.svg")
 # or, for in memory SVG data:
