@@ -64,6 +64,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
             $sizes[$inventory['product_id']][$inventory['style_id']][] = $inventory;
         }
         $svg_url =  $act_designs['front']['svg_url'];
+        return file_get_contents($svg_url);
         $design_info =  $product_designs[2]["front"];
 
         $img_url = $design_info['img_url'];
@@ -75,8 +76,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
 
 
         return Model_Aliyun_Oss::upload_content($tpl_content,"test/test/test.svg");
-        return $tpl_content;
-        return $design_info;
 
 
         //print_r($styles);exit;
