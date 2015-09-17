@@ -12,6 +12,6 @@ class WxPayConfig
     const REPORT_LEVENL = 1;
     const NOTIFY_URL = '/api?model=order/pay/wechat&action=notify';
     static function get_notify_url(){
-    return "http://".$_SERVER['HTTP_HOST'].self::NOTIFY_URL;
-}
+        return "http://".$_SERVER['HTTP_HOST'].self::NOTIFY_URL;
+    }
 }

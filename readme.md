@@ -103,4 +103,6 @@ PHPSTORM 单步调试
     php bin/cli.php --model=tools/db/merge1 --action=run --env=develop 
 
 ssh e_www "cd /opt/projects/easytee/easytee_v2 && git pull origin master"
-git add .  && git commit -m "deploy" && git push origin master && ssh e_www "cd /opt/projects/easytee/easytee_v2 && git pull origin master"
+ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
+
+git add .  && git commit -m "deploy" && git push origin master && ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
