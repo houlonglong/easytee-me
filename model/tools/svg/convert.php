@@ -24,7 +24,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($_sides as $_side){
             $act_designs[$_side] = isset($__act_designs[$_side])?$__act_designs[$_side]:null;
         }
-        return $act_designs;
+
         $default_product_style_id = $act['default_product_style_id'];
         $_styles = self::_db()->select_rows("select aps.sell_price,aps.product_id,aps.product_style_id,
                 s.color_name,s.color,s.is_default
