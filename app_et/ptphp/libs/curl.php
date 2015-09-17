@@ -130,7 +130,7 @@ class Curl{
         $content = curl_exec($ch);
         if(!$content)
         {
-            throw new Exception(curl_error($ch));
+            throw new \Exception(curl_error($ch));
             //$res['error'] = curl_error($ch);
         }
         //\Console::log($content);
