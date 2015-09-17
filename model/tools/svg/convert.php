@@ -77,8 +77,8 @@ class Model_Tools_Svg_Convert extends BaseModel {
 
         file_put_contents("/tmp/test.svg",$tpl_content);
         $path_pro = PATH_PRO;
-        return shell_exec("python $path_pro/bin/svg/convert.py");
-        return Model_Aliyun_Oss::upload_content($tpl_content,"test/test/test.svg");
+        shell_exec("python $path_pro/bin/svg/convert.py");
+        return Model_Aliyun_Oss::upload_file("/tmp/test.png","test/test/test.svg");
 
         //print_r($styles);exit;
         return array(
