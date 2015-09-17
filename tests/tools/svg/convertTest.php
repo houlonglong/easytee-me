@@ -24,7 +24,7 @@ class ConvertTest extends UnitTest{
             "model"=>"tools/svg/convert",
             "action"=>"png",
         ));
-        print_r($res);
+        //print_r($res);
     }
 
 }

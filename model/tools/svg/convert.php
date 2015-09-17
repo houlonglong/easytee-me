@@ -63,6 +63,8 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($inventorys as $inventory){
             $sizes[$inventory['product_id']][$inventory['style_id']][] = $inventory;
         }
+
+        return $product_designs[2]["front"];
         //print_r($styles);exit;
         return array(
             "products"=>$products,
