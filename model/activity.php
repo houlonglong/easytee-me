@@ -29,7 +29,7 @@ class Model_Activity extends BaseModel{
         $_products = self::_db()->select_rows("select content,name,id from et_product where id in (".implode(",",$product_ids).")");
         $_product_designs = self::_db()->select_rows("select * from et_product_design where product_id in (".implode(",",$product_ids).")");
         foreach($_products as $_product){
-            $_product['content'] = $this->cdnReplace($_product['content']);
+            $_product['content'] = replace_cdn($_product['content']);
             $products[$_product['id']] = $_product;
         }
         $product_designs = array();
