@@ -8,12 +8,20 @@ class Model_Tools_Svg_Convert extends BaseModel {
         //parent::__construct();
     }
     function action_png($svg_url){
-        $local_path = "/tmp/".md5($svg_url).".svg";
+        $path_pro = PATH_PRO;
+        $local_svg = "/tmp/".md5($svg_url).".svg";
+        $local_png = "/tmp/".md5($svg_url).".png";
         $url_info = parse_url($svg_url);
-        $remote_path = substr($url_info['path'],1,-4);
-        print_r($remote_path);exit;
-        //file_put_contents("",file_get_contents($svg_url));
-        echo 11;exit;
+        $remote_png = substr($url_info['path'],1,-4).".png";
+        //print_r($remote_path);exit;
+        file_put_contents($local_svg,file_get_contents($svg_url));
+        $cmd = "python $path_pro/bin/svg/convert.py $local_svg $local_png";
+        pt_debug($cmd);
+        shell_exec($cmd);
+        //continue;
+        Model_Aliyun_Oss::upload_file($local_png,$remote_png);
+        $url = "http://cdn.open.easytee.me/".$remote_png;
+        echo $url;exit;
 
     }
     function action_png1(){
