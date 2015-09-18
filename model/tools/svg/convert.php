@@ -43,6 +43,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
             "front","back","third","fourth"
         );
         $__act_designs = array();
+        $__act_designs_insert = array();
         if(!$_act_product_designs){
             $_act_designs = self::_db()->select_rows("select svg_url,side from design_svg_side where design_id = ?",$act['design_id']);
             //print_r($_act_designs);exit;
@@ -60,7 +61,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     $img_url = $design_info['img_url'];
                     $img_content = file_get_contents($img_url);
                     //echo $img_content;
-
                     $img_content = "data:image/png;base64,".base64_encode($img_content);
                     $svg_content = "<svg x='".($x/2)."' y='".($y/2)."'".substr($_svg_content,4);
                     $tpl_content = '<svg height="500" width="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"><image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_content . '" transform="matrix(1,0,0,1,0,0)"></image>'.$svg_content.'</svg>';
@@ -69,7 +69,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     $local_png = "/tmp/activity_pic_test_{$name}.png";
                     $remote_png = "$env/activity/pic/$name.png";
                     file_put_contents($local_svg,$tpl_content);
-
                     $path_pro = PATH_PRO;
                     $cmd = "python $path_pro/bin/svg/convert.py $local_svg $local_png";
                     //pt_debug($cmd);
@@ -80,12 +79,20 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     pt_debug($url);
                     @unlink($local_png);
                     @unlink($local_svg);
+                    $__act_designs_insert[] = array(
+                        "activity_id"=>$id,
+                        "product_id"=>$product_id,
+                        "side"=>$side,
+                        "img_url"=>$url,
+                        "add_time"=>date_time_now(),
+                    );
                     //echo $url.PHP_EOL;
                 }
             }
-
+            if($__act_designs_insert){
+                self::_db()->insert("et_activity_product",$__act_designs_insert);
+            }
         }
-
         return;
 
 
