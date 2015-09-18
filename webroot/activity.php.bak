@@ -8,24 +8,6 @@
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
-    <script>
-        $(function(){
-            $.get("/api",{
-                model:'activity',
-                action:'detail',
-                id:2192
-            },function(data){
-                if(data.status == 0){//成功返回
-                    console.log(data)
-                    var activity_detail = data.return;
-                    console.log(activity_detail)
-                }else{//异常
-                    alert(data.message)
-                }
-            },"json");
-        })
-        console.log('detail')
-    </script>
 </head>
 <body>
 <div class="try"></div>
@@ -167,11 +149,30 @@
                     <option value="">基础圆领T恤</option>
                     <option value="">基础圆领T恤</option>
                 </select>
-                <div class="yanse-info current">
+                <div class="yanse-info">
+                    <i class='bor10'></i>
                     <span></span>
+                    <div class="palette">
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                    </div>
                 </div>
                 <div class="money-info">
-                    ￥<i>99</i>元
+                    ￥<i>99</i>
                 </div>
             </li>
         </ul>
