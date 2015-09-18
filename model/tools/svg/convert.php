@@ -9,6 +9,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
     }
     function action_png(){
         $id = 3281;
+        $env =  PtApp::$ENV;
         $act = self::_db()->select_row("select default_product_style_id,design_id from activities where id = ?",$id);
 
         $_styles = self::_db()->select_rows("select aps.sell_price,aps.product_id,aps.product_style_id,
@@ -63,18 +64,19 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     $img_content = "data:image/png;base64,".base64_encode($img_content);
                     $svg_content = "<svg x='".($x/2)."' y='".($y/2)."'".substr($_svg_content,4);
                     $tpl_content = '<svg height="500" width="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"><image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_content . '" transform="matrix(1,0,0,1,0,0)"></image>'.$svg_content.'</svg>';
-                    $name = "{$id}_{$product_id}_{$side}";
-                    $local_svg = "/tmp/svg/test_{$name}.svg";
-                    $local_png = "/tmp/svg/test_{$name}.png";
+                    $name = "{$env}_{$id}_{$product_id}_{$side}";
+                    $local_svg = "/tmp/activity_pic_{$name}.svg";
+                    $local_png = "/tmp/activity_pic_test_{$name}.png";
+                    $remote_png = "activity/pic/$name.png";
                     file_put_contents($local_svg,$tpl_content);
 
                     $path_pro = PATH_PRO;
                     $cmd = "python $path_pro/bin/svg/convert.py $local_svg $local_png";
                     //pt_debug($cmd);
                     shell_exec($cmd);
-
                     //continue;
-                    $url = Model_Aliyun_Oss::upload_file($local_png,"test/test/$name.png");
+                    Model_Aliyun_Oss::upload_file($local_png,$env."/".$remote_png);
+                    $url = "http://cdn.open.easytee.me/".$remote_png;
                     pt_debug($url);
                     @unlink($local_png);
                     @unlink($local_svg);
