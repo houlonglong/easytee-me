@@ -19,7 +19,7 @@ function domain_route($file){
         }
     }else{
         if(!in_array($_SERVER['HTTP_HOST'],
-            array("product.jzw.la","www.easytee.me","demo.jzw.la","lxm.jzw.la","2.dev.jzw.la","2.dev.jzw.com"))){
+            array("service.jzw.la","product.jzw.la","www.easytee.me","demo.jzw.la","lxm.jzw.la","2.dev.jzw.la","2.dev.jzw.com"))){
             throw new Exception("not found",102404);
         }
     }

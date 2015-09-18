@@ -16,7 +16,8 @@ class ConvertTest extends UnitTest{
             "cookie"=>0,
         ));
 
-        $this->test_host = "2.dev.jzw.la";
+        #$this->test_host = "2.dev.jzw.la";
+        $this->test_host = "service.jzw.la";
         //$this->set_local_test_proxy();
         $res = $this->post_action("/api",array(
             "model"=>"tools/svg/convert",
