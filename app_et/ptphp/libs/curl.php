@@ -97,7 +97,7 @@ class Curl{
             CURLOPT_VERBOSE         => 0,
             CURLOPT_URL 			=> $url,
             CURLOPT_RETURNTRANSFER 	=> 1,
-            CURLOPT_TIMEOUT 		=> 30,
+            CURLOPT_TIMEOUT 		=> 50,
             CURLOPT_ENCODING 		=> "gzip",
             CURLOPT_SSL_VERIFYPEER	=> 0,
             CURLOPT_SSL_VERIFYHOST	=> 0,
