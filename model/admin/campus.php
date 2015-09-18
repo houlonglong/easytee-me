@@ -107,7 +107,7 @@ class Model_Admin_Campus extends BaseModel {
     function action_audit($id,$status){
         try{
             $userDatas = self::_db()->select_row(
-                'select c.uid,c.real_name,i.invite_id ,u.mobile
+                'select c.id,c.uid,c.real_name,i.invite_id ,u.mobile
                   from et_user_campus as c
                   left join et_user_invite as i on i.uid = c.uid
                   left join et_user as u on u.id = c.uid
@@ -129,23 +129,22 @@ class Model_Admin_Campus extends BaseModel {
                     "add_time"=>date_time_now()
                 ));
 
-                $userDatas = self::_db()->select_row('select invite_id from et_user_invite  where uid =  ? ',$userDatas['uid']);
+                $invite_user = self::_db()->select_row('select invite_id from et_user_invite  where uid =  ? ',$userDatas['uid']);
 
-                if(!empty($userDatas['invite_id'])){
-                    $userDatas = self::_db()->select_row(
-                        'select c.status from et_user_campus as c where c.uid =  ? ',$userDatas['invite_id']);
+                if(!empty($invite_user['invite_id'])){
+                    $_invite_campus = self::_db()->select_row(
+                        'select c.status from et_user_campus as c where c.uid =  ? ',$invite_user['invite_id']);
 
-                    if($userDatas && $userDatas['status'] == 1){
+                    if($_invite_campus && $_invite_campus['status'] == 1){
                         $invite_money = $GLOBALS['setting']['campus']['invite_money'];
-                        self::_db()->run_sql("update et_user_finance set balance_ntx = balance_ntx + ".$invite_money." where uid = ?",$userDatas['invite_id']);
+                        self::_db()->run_sql("update et_user_finance set balance_ntx = balance_ntx + ".$invite_money." where uid = ?",$invite_user['invite_id']);
                         self::_db()->insert("et_user_finance_log",array(
-                            "uid"=>$userDatas['invite_id'],
+                            "uid"=>$invite_user['invite_id'],
                             "amount"=>$invite_money,
                             "type"=>12,
                             "note"=>"校园达人邀请奖励",
                             "add_time"=>date_time_now()
                         ));
-
                     }
 
                 }
@@ -157,6 +156,7 @@ class Model_Admin_Campus extends BaseModel {
             }else{//拒绝
                 if($mobile){
                     $res = Model_Tools_Sms::sendsms($mobile,"flACZ1",array("name"=>$name));
+                    self::_db()->delete("et_user_campus",array("id"=>$userDatas['id']));
                     //print_r($res);exit;
                 }
             }

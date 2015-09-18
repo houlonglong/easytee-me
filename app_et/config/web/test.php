@@ -15,4 +15,4 @@ class WxPayConfig
         return "http://".$_SERVER['HTTP_HOST'].self::NOTIFY_URL;
     }
 }
-define("LOCAL_DEV",true);
+define("LOCAL_DEV",false);

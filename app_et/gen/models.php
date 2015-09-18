@@ -64,6 +64,7 @@ admin/design/tool|设计工具
 aliyun/oss|阿里云上传
 tools/sms|短信发送
 tools/email|发送邮件
+tools/svg/convert|svg转PNG
 
 tools/db/merge1|数据库迁移
 order/pay/wechat|微信支付

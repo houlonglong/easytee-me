@@ -97,7 +97,7 @@ class Curl{
             CURLOPT_VERBOSE         => 0,
             CURLOPT_URL 			=> $url,
             CURLOPT_RETURNTRANSFER 	=> 1,
-            CURLOPT_TIMEOUT 		=> 30,
+            CURLOPT_TIMEOUT 		=> 50,
             CURLOPT_ENCODING 		=> "gzip",
             CURLOPT_SSL_VERIFYPEER	=> 0,
             CURLOPT_SSL_VERIFYHOST	=> 0,
@@ -130,7 +130,7 @@ class Curl{
         $content = curl_exec($ch);
         if(!$content)
         {
-            throw new Exception(curl_error($ch));
+            throw new \Exception(curl_error($ch));
             //$res['error'] = curl_error($ch);
         }
         //\Console::log($content);

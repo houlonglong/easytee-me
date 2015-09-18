@@ -8,6 +8,23 @@
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
+    <script>
+        $(function(){
+            $.get("/api",{
+                model:'activity',
+                action:'detail',
+                id:2192
+            },function(data){
+                if(data.status == 0){//成功返回
+                    console.log(data)
+                    var activity_detail = data.return;
+                    console.log(activity_detail)
+                }else{//异常
+                    alert(data.message)
+                }
+            },"json");
+        })
+    </script>
 </head>
 <body>
 <div class="try"></div>
