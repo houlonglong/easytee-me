@@ -50,6 +50,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
                 $svg_url = $_act_design['svg_url'];
                 $svg_content = file_get_contents($svg_url);
                 $side = $_act_design['side'];
+                return $product_ids;
                 foreach($product_ids as $product_id){
                     $design_info =  $product_designs[$product_id][$side];
                     //return $design_info;
