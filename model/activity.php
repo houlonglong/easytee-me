@@ -224,11 +224,8 @@ class Model_Activity extends BaseModel{
           left join pro_cat as c on c.id = rel.cat_id
           where p.id in (".implode(",",$pro_ids).")");
             $product_sizes = self::_db(NEW_DB)->select_rows("select * from product_sizes where product_id in (".implode(",",$pro_ids).")");
-
         }
-
         //print_pre($products);
-
         return array(
             "styles"=>$styles,
             "sizes"=>$sizes,
