@@ -7,11 +7,15 @@ class Model_Tools_Svg_Convert extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
-    function action_png(){
+    function action_png($svg_url){
+        echo $svg_url;exit;
+
+    }
+    function action_png1(){
         $id = 3281;
         $env =  PtApp::$ENV;
+        $path_pro = PATH_PRO;
         $act = self::_db()->select_row("select default_product_style_id,design_id from activities where id = ?",$id);
-
         $_styles = self::_db()->select_rows("select aps.sell_price,aps.product_id,aps.product_style_id,
                 s.color_name,s.color,s.is_default
                 from activity_product_styles as aps
@@ -36,7 +40,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($_product_designs as $_product_design){
             $product_designs[$_product_design['product_id']][$_product_design['side']] = $_product_design;
         }
-
 
         $_act_product_designs = self::_db()->select_rows("select * from et_activity_product where activity_id = ?",$id);
         $_sides = array(
@@ -68,7 +71,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     $local_png = "/tmp/activity_pic_test_{$name}.png";
                     $remote_png = "$env/activity/pic/$name.png";
                     file_put_contents($local_svg,$tpl_content);
-                    $path_pro = PATH_PRO;
+
                     $cmd = "python $path_pro/bin/svg/convert.py $local_svg $local_png";
                     //pt_debug($cmd);
                     shell_exec($cmd);
@@ -92,15 +95,8 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($_act_product_designs as $_act_product_design){
             $act_designs[$_act_product_design['product_id']][$_act_product_design['side']] = $_act_product_design['img_url'];
         }
-
-
-
-
         $default_product_style_id = $act['default_product_style_id'];
-
-
         $styles = array();
-
         foreach($_styles as $style){
             if($style["product_style_id"] == $default_product_style_id) $default_style = $style;
             $styles[$style['product_id']]["style_".$style["product_style_id"]] = $style;
@@ -110,7 +106,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($inventorys as $inventory){
             $sizes[$inventory['product_id']][$inventory['style_id']][] = $inventory;
         }
-
         return array(
             "products"=>$products,
             "product_designs"=>$product_designs,

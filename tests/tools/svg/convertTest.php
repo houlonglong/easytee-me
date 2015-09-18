@@ -6,8 +6,6 @@ use PtLib\UnitTest as UnitTest;
  */
 class ConvertTest extends UnitTest{
 
-
-
     /**
      *
      */
