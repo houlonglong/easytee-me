@@ -180,3 +180,74 @@ header{
     cursor: pointer;
     display: none;
 }
+
+.denglu{
+    width: 826px;
+    height: 434px;
+    background: #f5f5f5;
+    position: absolute;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.denglu img{float: left;}
+.denglu-con{
+    /* width: 100%; */
+    height: 433px;
+    /* background:#eee; */
+    /* float: left; */
+    margin-left: 351px;
+    padding:20px 25px 0 25px;
+    box-sizing:border-box;
+}
+.denglu-con h3{
+    font-size: 18px;
+    text-align: center;
+    font-family:黑体;
+}
+.denglu-con input{
+    width: 80%;
+    height: 30px;
+    text-indent: 1em;
+    font-size: 14px;
+    color: #666;
+    border-radius: 5px;
+    border:none;
+    border:1px solid #ccc;
+}
+.denglu-con label{
+    line-height: 30px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.forget{
+    width: 50px;
+    border-bottom: 1px solid #2f86b2;
+    margin:10px auto;
+}
+.forget a{
+    color: #2f86b2;
+}
+.forget a:hover{
+
+}
+.anniu{
+    display: block;
+    width: 125px;
+    height: 34px;
+    background:#ccc;
+    line-height: 34px;
+    margin:0 auto;
+    text-align: center;
+    border-radius: 3px;
+    color: #000;}
+
+.anniu:hover{
+    text-decoration: none;
+}
+.wrong input{
+	border-color: red;
+}
+.wrong span{color: red;}

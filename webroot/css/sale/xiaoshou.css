@@ -409,7 +409,7 @@ a:hover{text-decoration:none; cursor: pointer;}
     left: 0;
     background: rgba(0,0,0,.5);
     z-index: 20;
-    /* display: none; */
+    display: none;
 }
 .tanchuang-con{
     padding:0 10px 34px;
@@ -515,9 +515,18 @@ a:hover{text-decoration:none; cursor: pointer;}
    width: 35px;
    height: 35px;
    border:1px solid #231815;
-   /* position: relative; */
+   position: relative;
+    cursor: pointer;
 
-
+}
+.yanse-info.current{background: #fff important!;}
+.yanse-info.current .bor10{
+    position: absolute;
+    top:0;
+    left: 0;
+    border:7px solid #fff;
+    width: 21px;
+    height: 21px;
 }
 .yanse-info.current span{
     display: block;
@@ -538,6 +547,52 @@ a:hover{text-decoration:none; cursor: pointer;}
     border-right-color: #717071;
     transform: rotate(-135deg);
 
+}
+
+.yanse-info.current .palette{
+    position: absolute;
+    right:-266px;
+    top:-2px;
+    width: 247px;
+    border:1px solid #b2b2b2;
+    z-index: 10;
+    background-color: #fff;
+    box-shadow: 1px 1px 3px #ccc;
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    font-size: 0;
+    /* display: none; */
+}
+.yanse-info.current .palette:after{
+   content: "";
+    position: absolute;
+    left: -9px;
+    top:10px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-right:1px solid #b2b2b2;
+    border-bottom:1px solid #b2b2b2;
+    transform: rotate(137deg);
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 0 #ccc;
+}
+.yanse-info.current .palette a{
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border:1px solid #d7dcde;
+    padding:2px;
+    background-color: #fff;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+.yanse-info.current .palette a i{
+    display: block;
+    width: 18px;
+    height: 18px;
+    background-color: yellow;
 }
 .money-info{
     float: left;

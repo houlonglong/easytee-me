@@ -47,24 +47,55 @@ $(function() {
         $('.tanchuang').show();
     });
   
-  //清浮动
+    //清浮动
     $('.style-info li').addClass('clearfix');
 
     $('.add').click(function(event) {
-        $('.style-info li:first').clone().appendTo('.style-info');
+        $('.style-info li:first').clone(true).appendTo('.style-info');
     });
 
-    var number=1;
+    var number = 1;
     $('.number-info .left').click(function(event) {
+        var parent = $(this).parents('li');
         number--;
-       if($('.number-info input').val()<=1){
-        number=1;
-        
-        }else{$('.number-info input').val(number);}
-    
+        if($('.number-info input', parent).val()<=1){
+            number=1;
+        }else{
+            $('.number-info input', parent).val(number);
+        }
+
     });
     $('.number-info .right').click(function(event) {
+        var parent = $(this).parents('li');
         number++;
-        $('.number-info input').val(number);
+        $('.number-info input', parent).val(number);
     });
+
+    //颜色部分的内容
+    $('.yanse-info').click(function(event) {
+        event.stopPropagation();
+        $(this).toggleClass('current');
+    });;
+    
+    $('.palette').click(function(event) {
+       event.stopPropagation();
+    });
+    $('.yanse-info span').click(function(event) {
+       event.stopPropagation();
+    });
+
+    $('.palette a').click(function(event) {
+        var colorNum=$(this).children('i').css('background');
+        //alert(colorNum)
+        var paren=$(this).parents('.yanse-info')
+        var brother=$(this).parent().siblings('span');
+        paren.css('background',colorNum);
+        brother.css('background',colorNum);
+    });
+
+    $(window).click(function(event) {
+        $('.yanse-info').removeClass('current')
+    });
+
+    //尺码信息ajax
 });
