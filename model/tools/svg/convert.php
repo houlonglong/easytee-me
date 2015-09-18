@@ -43,7 +43,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
             "front","back","third","fourth"
         );
         $__act_designs = array();
-        $__act_designs_insert = array();
         if(!$_act_product_designs){
             $_act_designs = self::_db()->select_rows("select svg_url,side from design_svg_side where design_id = ?",$act['design_id']);
             //print_r($_act_designs);exit;
@@ -79,7 +78,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     pt_debug($url);
                     @unlink($local_png);
                     @unlink($local_svg);
-                    $__act_designs_insert[] = array(
+                    $_act_product_designs[] = array(
                         "activity_id"=>$id,
                         "product_id"=>$product_id,
                         "side"=>$side,
@@ -89,11 +88,8 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     //echo $url.PHP_EOL;
                 }
             }
-            if($__act_designs_insert){
-                self::_db()->insert("et_activity_product",$__act_designs_insert);
-            }
         }
-        return;
+        return $_act_product_designs;
 
 
 
