@@ -44,6 +44,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         $__act_designs = array();
         if(!$_act_product_designs){
             $_act_designs = self::_db()->select_rows("select svg_url,side from design_svg_side where design_id = ?",$act['design_id']);
+            print_r($_act_designs);exit;
             return $_act_designs;
             foreach($_act_designs as $_act_design){
                 $svg_url = $_act_design['svg_url'];
