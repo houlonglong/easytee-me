@@ -16,6 +16,7 @@ class Api{
      */
     static function oss_upload_file($bucket,$org_path,$remote_path){
         //echo($org_path);exit;
+        pt_debug($org_path);
         if(!file_exists($org_path)){
             throw new Exception("上传文件不存在");
         }
