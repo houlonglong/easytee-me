@@ -16,13 +16,21 @@ class Model_Tools_Svg_Convert extends BaseModel {
         //print_r($remote_path);exit;
         file_put_contents($local_svg,file_get_contents($svg_url));
         $cmd = "python $path_pro/bin/svg/convert.py $local_svg $local_png";
-        pt_debug($cmd);
+        //pt_debug($cmd);
         shell_exec($cmd);
-        //continue;
-        Model_Aliyun_Oss::upload_file($local_png,$remote_png);
-        $url = "http://cdn.open.easytee.me/".$remote_png;
+        if(file_exists($local_png)){
+            try{
+                Model_Aliyun_Oss::upload_file($local_png,$remote_png);
+                $url = "http://cdn.open.easytee.me/".$remote_png;
+                @unlink($local_png);
+                @unlink($local_svg);
+            }catch (Exception $e){
+                $url = "";
+            }
+        }else{
+            $url = '';
+        }
         echo $url;exit;
-
     }
     function action_png1(){
         $id = 3281;
