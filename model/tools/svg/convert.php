@@ -8,6 +8,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         //parent::__construct();
     }
     function action_png($svg_url){
+        if(!$svg_url) throw new Exception("svg_url 不能为空");
         $path_pro = PATH_PRO;
         $local_svg = "/tmp/".md5($svg_url).".svg";
         $local_png = "/tmp/".md5($svg_url).".png";
