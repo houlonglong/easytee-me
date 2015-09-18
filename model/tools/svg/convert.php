@@ -67,7 +67,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     $name = "{$env}_{$id}_{$product_id}_{$side}";
                     $local_svg = "/tmp/activity_pic_{$name}.svg";
                     $local_png = "/tmp/activity_pic_test_{$name}.png";
-                    $remote_png = "activity/pic/$name.png";
+                    $remote_png = "$env/activity/pic/$name.png";
                     file_put_contents($local_svg,$tpl_content);
 
                     $path_pro = PATH_PRO;
@@ -75,7 +75,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     //pt_debug($cmd);
                     shell_exec($cmd);
                     //continue;
-                    Model_Aliyun_Oss::upload_file($local_png,$env."/".$remote_png);
+                    Model_Aliyun_Oss::upload_file($local_png,$remote_png);
                     $url = "http://cdn.open.easytee.me/".$remote_png;
                     pt_debug($url);
                     @unlink($local_png);
