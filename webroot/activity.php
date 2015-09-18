@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+    $activity = PtLib\db()->select_row("select * from activities where id = ?",2595);
+    print_pre($activity);exit;
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -9,11 +12,13 @@
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script>
+        var start_time = "<?=$activity['start_time']?>";
+        var deadline = <?=$activity['deadline']?>;
         $(function(){
             $.get("/api",{
                 model:'activity',
                 action:'detail',
-                id:2192
+                id:2595
             },function(data){
                 if(data.status == 0){//成功返回
                     console.log(data)
