@@ -1,0 +1,15 @@
+/* 
+* @Author: sky
+* @Date:   2015-09-18 17:39:19
+* @Last Modified by:   sky
+* @Last Modified time: 2015-09-18 17:48:07
+*/
+.denglu-bg{
+	width: 975px;
+	height: 526px;
+	background: #f5f5f5;
+	position: absolute;
+	left: 50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+}
