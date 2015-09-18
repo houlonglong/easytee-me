@@ -90,7 +90,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
             }
         }
         foreach($_act_product_designs as $_act_product_design){
-            $act_designs[$_act_product_design['product_id']][] = $_act_product_design;
+            $act_designs[$_act_product_design['product_id']][$_act_product_design['side']] = $_act_product_design['img_url'];
         }
 
         return $act_designs;
