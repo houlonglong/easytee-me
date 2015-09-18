@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+    $activity = PtLib\db()->select_row("select * from activities where id = ?",2595);
+    var_dump($activity);exit;
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,7 +16,7 @@
             $.get("/api",{
                 model:'activity',
                 action:'detail',
-                id:2192
+                id:2595
             },function(data){
                 if(data.status == 0){//成功返回
                     console.log(data)

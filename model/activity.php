@@ -8,6 +8,7 @@ class Model_Activity extends BaseModel{
         //parent::__construct();
     }
     function action_detail($id){
+        echo file_get_contents("http://11.dev.jzw.la/activity/get_detail?id=2595");exit;
         $act = self::_db()->select_row("select default_product_style_id,design_id from activities where id = ?",$id);
 
         $default_product_style_id = $act['default_product_style_id'];
