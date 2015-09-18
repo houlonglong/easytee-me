@@ -10,7 +10,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
     function action_png(){
         $id = 3281;
         $act = self::_db()->select_row("select default_product_style_id,design_id from activities where id = ?",$id);
-
+        return self::_db()->select_rows("select * from et_activity_product where activity_id = ?",$id);
         $_act_designs = self::_db()->select_rows("select svg_url,side from design_svg_side where design_id = ?",$act['design_id']);
 
         $_sides = array(

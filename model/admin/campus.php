@@ -145,7 +145,6 @@ class Model_Admin_Campus extends BaseModel {
                             "note"=>"校园达人邀请奖励",
                             "add_time"=>date_time_now()
                         ));
-
                     }
 
                 }
