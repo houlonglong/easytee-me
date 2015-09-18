@@ -58,6 +58,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
                     $y =$design_info['y'];
                     $img_url = $design_info['img_url'];
                     $img_content = file_get_contents($img_url);
+                    echo $img_content;
                     continue;
                     $img_content = "data:image/png;base64,".base64_encode($img_content);
                     $svg_content = "<svg x='".($x/2)."' y='".($y/2)."'".substr($svg_content,4);
