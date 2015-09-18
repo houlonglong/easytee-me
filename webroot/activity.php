@@ -12,6 +12,8 @@
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script>
+        var start_time = "<?=$activity['start_time']?>";
+        var deadline = <?=$activity['deadline']?>;
         $(function(){
             $.get("/api",{
                 model:'activity',
