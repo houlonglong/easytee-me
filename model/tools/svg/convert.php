@@ -93,13 +93,8 @@ class Model_Tools_Svg_Convert extends BaseModel {
             $act_designs[$_act_product_design['product_id']][$_act_product_design['side']] = $_act_product_design['img_url'];
         }
 
-        return $act_designs;
 
 
-
-        foreach($_sides as $_side){
-            $act_designs[$_side] = isset($__act_designs[$_side])?$__act_designs[$_side]:null;
-        }
 
         $default_product_style_id = $act['default_product_style_id'];
 
@@ -115,23 +110,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         foreach($inventorys as $inventory){
             $sizes[$inventory['product_id']][$inventory['style_id']][] = $inventory;
         }
-        $svg_url =  $act_designs['front']['svg_url'];
-        $svg_content = file_get_contents($svg_url);
-        $design_info =  $product_designs[2]["front"];
 
-        $x =$design_info['x'];
-        $y =$design_info['y'];
-        $img_url = $design_info['img_url'];
-        $img_content = file_get_contents($img_url);
-        $img_content = "data:image/png;base64,".base64_encode($img_content);
-        $svg_content = "<svg x='".($x/2)."' y='".($y/2)."'".substr($svg_content,4);
-        $tpl_content = '<svg height="500" width="500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  style="overflow: hidden; position: relative;" viewBox="0 0 500 500" preserveAspectRatio="xMidYMid meet"><image x="0" y="0" width="500" height="500" preserveAspectRatio="none" xlink:href="' . $img_content . '" transform="matrix(1,0,0,1,0,0)"></image>'.$svg_content.'</svg>';
-
-        file_put_contents("/tmp/test.svg",$tpl_content);
-        $path_pro = PATH_PRO;
-        shell_exec("python $path_pro/bin/svg/convert.py");
-        return Model_Aliyun_Oss::upload_file("/tmp/test.png","test/test/test.svg");
-        //print_r($styles);exit;
         return array(
             "products"=>$products,
             "product_designs"=>$product_designs,
