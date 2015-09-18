@@ -10,7 +10,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
     function action_png($svg_url){
         $local_path = "/tmp/".md5($svg_url).".svg";
         $path_info = parse_url($svg_url);
-        print_r($path_info);exit;
+        print_r($path_info['path']);exit;
         //file_put_contents("",file_get_contents($svg_url));
         echo 11;exit;
 
