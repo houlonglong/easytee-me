@@ -1,6 +1,6 @@
 <?php
     $activity = PtLib\db()->select_row("select * from activities where id = ?",2595);
-    var_dump($activity);exit;
+    print_pre($activity);exit;
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
