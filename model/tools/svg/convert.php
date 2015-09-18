@@ -8,7 +8,9 @@ class Model_Tools_Svg_Convert extends BaseModel {
         //parent::__construct();
     }
     function action_png($svg_url){
-        echo $svg_url;exit;
+
+
+        echo 11;exit;
 
     }
     function action_png1(){
