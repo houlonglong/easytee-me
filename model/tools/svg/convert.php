@@ -75,6 +75,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
 
                     //continue;
                     $url = Model_Aliyun_Oss::upload_file($local_png,"test/test/$name.png");
+                    pt_debug($url);
                     @unlink($local_png);
                     @unlink($local_svg);
                     //echo $url.PHP_EOL;
