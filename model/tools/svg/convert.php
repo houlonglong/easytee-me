@@ -10,10 +10,13 @@ class Model_Tools_Svg_Convert extends BaseModel {
     function action_png(){
         $id = 3281;
         $act = self::_db()->select_row("select default_product_style_id,design_id from activities where id = ?",$id);
+
         $_act_designs = self::_db()->select_rows("select svg_url,side from design_svg_side where design_id = ?",$act['design_id']);
+
         $_sides = array(
             "front","back","third","fourth"
         );
+
         $__act_designs = array();
         foreach($_act_designs as $_act_design){
             $__act_designs[$_act_design['side']] = array(
@@ -79,7 +82,6 @@ class Model_Tools_Svg_Convert extends BaseModel {
         $path_pro = PATH_PRO;
         shell_exec("python $path_pro/bin/svg/convert.py");
         return Model_Aliyun_Oss::upload_file("/tmp/test.png","test/test/test.svg");
-
         //print_r($styles);exit;
         return array(
             "products"=>$products,

@@ -107,7 +107,7 @@ class Model_Admin_Campus extends BaseModel {
     function action_audit($id,$status){
         try{
             $userDatas = self::_db()->select_row(
-                'select c.uid,c.real_name,i.invite_id ,u.mobile
+                'select c.id,c.uid,c.real_name,i.invite_id ,u.mobile
                   from et_user_campus as c
                   left join et_user_invite as i on i.uid = c.uid
                   left join et_user as u on u.id = c.uid
@@ -157,6 +157,7 @@ class Model_Admin_Campus extends BaseModel {
             }else{//拒绝
                 if($mobile){
                     $res = Model_Tools_Sms::sendsms($mobile,"flACZ1",array("name"=>$name));
+                    self::_db()->delete("et_user_campus",array("id"=>$userDatas['id']));
                     //print_r($res);exit;
                 }
             }
