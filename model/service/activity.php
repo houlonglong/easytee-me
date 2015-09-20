@@ -38,15 +38,17 @@ class Model_Service_Activity extends BaseModel{
         //单件印花成本
         if($sale_count > $sale_target) $_sale_count = $sale_target;
         else $_sale_count = $sale_count;
-        PtLib\log("[印刷成本] 活动:%s 销量:%s 目标:%s 成本销量:%s 颜色:%s",$id,$sale_count,$sale_target,$_sale_count,$colors);
+        PtLib\log("[印花成本] 活动:%s 销量:%s 目标:%s 成本销量:%s 颜色:%s",$id,$sale_count,$sale_target,$_sale_count,$colors);
         $cost_print_one = Model_Cost::calculate_cost($colors,$_sale_count);
-        PtLib\log("[印刷成本] 活动:%s 单件成本:%s",$id,$cost_print_one);
+
         //印花成本
         $cost_print = $cost_print_one * $sale_count;
-        $res = self::_db()->select_row("select sum(quantity*unit_price - sell_price) as cost_print_all from et_order_goods  where activity_id = ? ",$id);
-
-        $cost_print_all = $res['cost_print_all'] ? $res['cost_print_all']:"0";
-        return round($cost_print_all - $cost_print,2);
+        PtLib\log("[印花成本] 活动:%s 单件:%s 总:%s",$id,$cost_print_one,$cost_print);
+        $total = self::_db()->select_row("select sum(quantity*unit_price - sell_price) as profit_all from et_order_goods  where activity_id = ? ",$id);
+        $profit_all = $total['profit_all'] ? $total['profit_all']:"0";
+        $profit = round($profit_all - $cost_print,2);
+        PtLib\log("[印刷成本] 活动:%s 不含印花利润:%s - 印花成本:%s = 利润:%s",$id,$profit_all,$cost_print,$profit);
+        return $profit;
     }
 
     /**
@@ -55,7 +57,7 @@ class Model_Service_Activity extends BaseModel{
      * @param $profit
      */
     static function clearing_profit($act_id,$uid,$profit){
-        PtLib\log("[利润结算] 用户:%s 利润:%s 活动:%s",$uid,$profit,$act_id);
+        PtLib\log("[利润结算] 活动:%s 用户:%s 利润:%s ",$act_id,$uid,$profit);
         $profit = floatval($profit);
         $prenent_40 = $profit * 0.4;
         $prenent_60 = $profit * 0.6;
@@ -143,9 +145,13 @@ class Model_Service_Activity extends BaseModel{
                     from et_activity_info as i
                     left join activities as a on a.id = i.id
                     left join et_user as u on u.id = i.uid
-                    where i.status = 1 and i.production_status = 0 and i.end_time < now() and i.sale_count >= i.sale_target limit 5");
+                    where i.status = 1 and i.production_status = 0 and i.end_time < now()");
 
         PtLib\log("=======");
+        if(!$activities){
+            PtLib\log("没有活动要结束");
+        }
+
         foreach($activities as $activity){
             PtLib\log("------");
             //print_r($activity);exit;
@@ -168,7 +174,7 @@ class Model_Service_Activity extends BaseModel{
 
                 //销售数量小于10 直接结束,并处理订单退款
                 if($sale_count < 10){
-                    PtLib\log("[活动] id:%s 销售数量:%s 小于 10 直接结束,处理订单退款",$act_id,$sale_count);
+                    PtLib\log("[活动] id:%s 销售数量:%s 小于 10 结束活动,处理订单退款",$act_id,$sale_count);
                     self::close_activity($act_id);
                     self::do_refund($act_id,$act_name,$sale_count,$nick_name);
                     //给卖家发送活动失败短信
@@ -201,7 +207,7 @@ class Model_Service_Activity extends BaseModel{
                             'salesNum' => $sale_count,
                             'money' => $sale_profit,
                         ));
-                        PtLib\log("[活动短信] id:%s 失败,给卖家:%s 发送短信,project:%s,option:%s",$act_id,$mobile,"fyiCw2",$option);
+                        PtLib\log("[活动短信] id:%s 成功,给卖家:%s 发送短信,project:%s,option:%s",$act_id,$mobile,"fyiCw2",$option);
                         self::_db()->insert("et_sms_activity",array(
                             "project"=>"fyiCw2",
                             "activity_id"=>$act_id,
@@ -214,7 +220,7 @@ class Model_Service_Activity extends BaseModel{
                             'activityId' => $act_id,
                             'activityTitle' => $act_name,
                         ));
-                        PtLib\log("[活动短信] id:%s 失败,给卖家:%s 发送短信,project:%s,option:%s",$act_id,PRODUCTION_NOTICE,"4NOd3",$option);
+                        PtLib\log("[活动短信] id:%s 成功,给生产负责人:%s 发送短信,project:%s,option:%s",$act_id,PRODUCTION_NOTICE,"4NOd3",$option);
                         self::_db()->insert("et_sms_activity",array(
                             "project"=>"4NOd3",
                             "activity_id"=>$act_id,
@@ -254,7 +260,7 @@ class Model_Service_Activity extends BaseModel{
                         'salesNum' => $sale_count,
                         'money' => $sale_profit,
                     ));
-                    PtLib\log("[活动短信] id:%s 失败,给卖家:%s 发送短信,project:%s,option:%s",$act_id,$mobile,"fyiCw2",$option);
+                    PtLib\log("[活动短信] id:%s 成功,给卖家:%s 发送短信,project:%s,option:%s",$act_id,$mobile,"fyiCw2",$option);
                     self::_db()->insert("et_sms_activity",array(
                         "project"=>"fyiCw2",
                         "activity_id"=>$act_id,
@@ -267,7 +273,7 @@ class Model_Service_Activity extends BaseModel{
                         'activityId' => $act_id,
                         'activityTitle' => $act_name,
                     ));
-                    PtLib\log("[活动短信] id:%s 失败,给卖家:%s 发送短信,project:%s,option:%s",$act_id,PRODUCTION_NOTICE,"4NOd3",$option);
+                    PtLib\log("[活动短信] id:%s 成功,给生产负责人:%s 发送短信,project:%s,option:%s",$act_id,PRODUCTION_NOTICE,"4NOd3",$option);
                     self::_db()->insert("et_sms_activity",array(
                         "project"=>"4NOd3",
                         "activity_id"=>$act_id,

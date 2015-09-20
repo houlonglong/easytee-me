@@ -11,6 +11,5 @@ function pt_autoload_test($classname)
 {
 
 }
-echo 11;exit;
 spl_autoload_register('pt_autoload_test');
 pt_init();
