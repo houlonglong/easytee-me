@@ -7,9 +7,7 @@ class Model_Tools_Db_Merge1 extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
-    function cli_run1(){
-        echo 11;exit;
-    }
+
     function cli_run(){
         if(PtApp::$ENV == 'product') return ;
         self::merge_act();
@@ -95,8 +93,9 @@ class Model_Tools_Db_Merge1 extends BaseModel {
         foreach ($tables  as $table) {
             self::_db()->_truncate($table);
         }
-        $activities = self::_db()->select_rows("select * from activities where uid > 0");
+        $activities = self::_db()->select_rows("select * from activities where uid <> 421 and uid <> 436 and uid <> 437 and uid <> 438 and start_time <> '0000-00-00 00:00:00' and uid > 0 and start_time is not null and uid <> 202");
         foreach($activities as $activity){
+            //print_r($activity);exit;
             echo "activity: ".$activity['id'].PHP_EOL;
             self::_db()->insert("et_activity_info",array(
                 'id'=>$activity['id'],
@@ -110,6 +109,10 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                 'sale_total'=>$activity['total'],
                 'sale_target'=>$activity['sales_target'],
                 'sale_count'=>$activity['sales_count'],
+                'default_style_id'=>$activity['default_product_style_id'],
+                'design_id'=>$activity['design_id'],
+                'thumb_img_url'=>$activity['thumb_img_url'],
+                'thumb_svg_url'=>$activity['thumb_svg_url'],
                 'production_status'=> $activity['status'] == "fabrication" ? 1:0,
             ));
         }

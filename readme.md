@@ -122,3 +122,8 @@ PHPSTORM 单步调试
     ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
     
     git add .  && git commit -m "deploy" && git push origin master && ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
+    
+    
+    
+    
+    php bin/cli.php --model=service/activity --action=run --env=develop --commit=0
