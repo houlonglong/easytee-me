@@ -55,6 +55,9 @@ class Database {
     function print_setting(){
         print_r(self::$db_config);exit;
     }
+    function get_run_stack(){
+        return self::$run_stack;
+    }
     public static function init($key = 'default')
     {
         if(empty(self::$config)){

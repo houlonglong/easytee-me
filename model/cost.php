@@ -107,7 +107,7 @@ class Model_Cost
      * @param $sale_num   销售数量
      */
     static function calculate_cost($color_num, $sale_num) {
-
+        if($color_num == 0) return 0;
         if ($sale_num > 1000) {
             $sale_num = 1000;
         }

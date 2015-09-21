@@ -7,13 +7,11 @@ class Model_Tools_Db_Merge1 extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
-    function cli_run1(){
-        echo 11;exit;
-    }
+
     function cli_run(){
         if(PtApp::$ENV == 'product') return ;
         self::merge_act();
-        //self::merge_order();
+        self::merge_order();
         //self::merge_user();
     }
     static function merge_order(){
@@ -21,7 +19,9 @@ class Model_Tools_Db_Merge1 extends BaseModel {
         foreach ($tables  as $table) {
             self::_db()->_truncate($table);
         }
-        $orders = self::_db()->select_rows("select o.*,a.*,o.id as order_id from orders as o left join order_attributes as a on a.order_id = o.id");
+        $orders = self::_db()->select_rows("select o.*,a.*,o.id as order_id from orders as o
+            left join order_attributes as a on a.order_id = o.id
+        ");
         foreach($orders as $order){
             $order_id = $order['order_id'];
             echo "order_id: ".$order_id.PHP_EOL;
@@ -51,7 +51,6 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                     "quantity"=>$good['quantity'],
                     "pro_size"=>$good['size'],
                     "activity_id"=>$good['activity_id'],
-                    "activity_style_id"=>$good['activity_product_style_id'],
                 ));
             }
 
@@ -62,6 +61,8 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                     "pay_price"=>$order['pay_price'],
                     "pay_time"=>$order['pay_time'],
                     "pay_no"=>$order['pay_no'],
+                    "balance_tx"=>$order['balance_tx'],
+                    "balance_ntx"=>$order['balance_ntx'],
                     "pay_status"=>$order['status'] == '待付款' ? 0:1,
                 ));
             }
@@ -95,8 +96,12 @@ class Model_Tools_Db_Merge1 extends BaseModel {
         foreach ($tables  as $table) {
             self::_db()->_truncate($table);
         }
-        $activities = self::_db()->select_rows("select * from activities where uid > 0");
+        $activities = self::_db()->select_rows("select a.* ,d.colors
+                from activities as a
+                left join designs as d on d.id = a.design_id
+                where a.uid <> 421 and a.uid <> 202 and a.uid <> 436 and a.uid <> 437 and a.uid <> 438 and a.start_time <> '0000-00-00 00:00:00' and a.uid > 0 and a.start_time is not null ");
         foreach($activities as $activity){
+            //print_r($activity);exit;
             echo "activity: ".$activity['id'].PHP_EOL;
             self::_db()->insert("et_activity_info",array(
                 'id'=>$activity['id'],
@@ -110,6 +115,11 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                 'sale_total'=>$activity['total'],
                 'sale_target'=>$activity['sales_target'],
                 'sale_count'=>$activity['sales_count'],
+                'default_style_id'=>$activity['default_product_style_id'],
+                'design_id'=>$activity['design_id'],
+                'colors'=>$activity['colors'],
+                'thumb_img_url'=>$activity['thumb_img_url'],
+                'thumb_svg_url'=>$activity['thumb_svg_url'],
                 'production_status'=> $activity['status'] == "fabrication" ? 1:0,
             ));
         }
