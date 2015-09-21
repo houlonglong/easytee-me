@@ -1,0 +1,373 @@
+* {
+    box-sizing: border-box;
+}
+
+a:link {
+    color:inherit;
+}
+a:visited {
+    color: inherit;
+}
+a:hover {
+    color: inherit;
+}
+a:active {
+    color: inherit;
+}
+a {
+    text-decoration: none;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #383838;
+    background-color: #fff;
+}
+
+/***temp***************/
+.header {
+    height: 68px;
+    background: #231815;
+}
+
+/*********************/
+
+.design-main {
+    min-width: 1280px;
+}
+
+.design-main .design-top {
+    position: relative;
+    overflow: hidden;
+    height: 68px;
+    background: url(images/design-top-dotted.png) no-repeat #231815 0 5px;
+}
+
+.design-main .design-top .design-top-leaf {
+    background: url(images/design-top-leaf.png) no-repeat #231815 0 7px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96px;
+    height: 68px;
+    z-index: 4;
+}
+
+.design-main .design-top .design-top-center {
+    position: relative;
+    width: 1080px;
+    margin: 0 auto;
+}
+
+.design-main .design-top .design-top-nav{
+    height: 68px;
+    padding: 30px 0 0 0;
+}
+
+.design-main .design-top .design-top-nav a.step {
+    font-size: 18px;
+    width: 154px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    float: left;
+    vertical-align: middle;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
+    margin-left: 10px;
+}
+
+.design-main .design-top .design-top-nav a.step:first-child {
+    margin-left: 0;
+}
+
+.design-main .design-top .design-top-nav a.step.active{
+    color: #AA2425;
+    background: #fff;
+    display: block;
+}
+
+.design-main .design-top .design-top-nav a.step .scissors {
+    position: absolute;
+    top: -29px;
+    width: 1000px;
+    height: 20px;
+    background: url(images/design-top-scissors.png) no-repeat;
+    z-index: 0;
+    display: none;
+}
+.design-main .design-top .design-top-nav a.step-1.active .scissors {
+    right: 68px;
+    display: block;
+}
+.design-main .design-top .design-top-nav a.step-2.active .scissors {
+    right: 85px;
+    display: block;
+}
+.design-main .design-top .design-top-nav a.step-3.active .scissors {
+    right: 87px;
+    display: block;
+}
+
+.design-main .design-top .btn-group {
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+}
+
+.design-main .design-top .btn-group .btn {
+    width: 86px;
+    height: 32px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    display: block;
+    line-height: 30px;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.design-main .design-top .btn-group .btn-default {
+    color: #fff;
+}
+
+.design-main .design-center {
+    width: 1080px;
+    margin: 0 auto;
+}
+
+.design-main .design-center .design-tools {
+    position: relative;
+    float: left;
+    margin-top: 30px;
+    z-index: 3;
+    height: 48px;
+    line-height: 48px;
+}
+
+.design-main .design-center .design-tools .tabs {
+    width: 250px;
+    height: 50px;
+}
+
+.design-main .design-center .design-tools .tabs .tab {
+    width: 50%;
+    text-align: center;
+    position: absolute;
+    top: 2px;
+    right: 0;
+}
+
+.design-main .design-center .design-tools .tabs .tab:first-child {
+    left: 0;
+}
+
+.design-main .design-center .design-tools .tabs .tab.active {
+    z-index: 4;
+    top: 2px;
+}
+
+.design-main .design-center .design-tools .tabs .tab>a {
+    font-size: 16px;
+    display: block;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid #fff;
+    background: #e5e5e5;
+    font-weight: bold;
+}
+
+.design-main .design-center .design-tools .tabs .tab.active>a {
+    color: #aa2425;
+    background: #ffffff;
+    border: 1px solid #c2c2c2;
+    border-bottom: 0;
+}
+
+.design-main .design-center .design-tools .tab-content {
+    width: 250px;
+    height: 260px;
+    border: 1px solid #c2c2c2;
+    position: relative;
+    display: none;
+    z-index: 1;
+}
+
+.design-main .design-center .design-tools .tab-content.active {
+    display: block;
+}
+
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout {
+    border-top: 1px solid #c5bbbc;
+    height: 130px;
+    position: relative;
+}
+
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-location-btn{
+    position: absolute;
+    width: 168px;
+    height: 40px;
+    border-radius: 3px;
+    background: #aa2425;
+    color: #fff;
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    top: 58px;
+    left: 50%;
+    margin-left: -84px;
+}
+
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-vendor-btn{
+    position: absolute;
+    width: 168px;
+    height: 40px;
+    border-radius: 3px;
+    background: #aa2425;
+    color: #fff;
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    top: 32px;
+    left: 50%;
+    margin-left: -84px;
+}
+
+
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout:first-child {
+    border: 0;
+}
+
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout-or {
+    font-size: 14px;
+    position: absolute;
+    top: 122px;
+    left: 92px;
+    width: 60px;
+    height: 18px;
+    line-height: 18px;
+    background: #fff;
+    z-index: 1;
+    text-align: center;
+    color: #808080;
+}
+
+.design-main .design-center .product-preview {
+    width: 530px;
+    display: inline-block;
+    height: 630px;
+    margin-left: 40px;
+    margin-top: 30px;
+}
+.design-main .design-center .product-choices {
+    position: relative;
+    background: #f1f1f1;
+    border-radius: 5px;
+    border: 1px solid #cacaca;
+    padding: 10px;
+    float: right;
+    width: 224px;
+    margin-top: 30px;
+    z-index: 3;
+}
+
+.design-main .design-center .product-choices .label{
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    height: 32px;
+    line-height: 32px;
+    font-weight: bold;
+}
+
+.design-main .design-center .product-choices select {
+    display: block;
+    width: 100%;
+    height: 38px;
+    margin: 10px 0;
+    background-color: #fff;
+    background-image: url("/css/common/images/double_caret.png");
+    background-repeat: no-repeat;
+    background-position: right .3rem top 50%;
+    background-size: 14px 1pc;
+    border: 1px solid #e8eced;
+    border-radius: 5px;
+    color: #293033;
+    line-height: 1.4;
+    outline: 0;
+    max-width: 100%;
+    padding: .5rem 2rem .5rem .86667rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.design-main .design-center .product-choices .product-list {
+    background: #fff;
+    border: 1px solid #e8eced;
+}
+.design-main .design-center .product-choices .product-item {
+    display: block;
+    overflow: hidden;
+    margin: 0 0 5px 0;
+    padding: 5px;
+    cursor: pointer;
+}
+.design-main .design-center .product-choices .product-item.active {
+    border: 1px solid #AA2425;
+    border-radius: 3px;
+    background: #ffe5e5;
+}
+.design-main .design-center .product-choices .product-item.active .name {
+    color: #AA2425;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.design-main .design-center .product-choices .product-item img {
+    float: left;
+    margin-right: 15px;
+}
+.design-main .design-center .product-choices .product-item div .name {
+    font-size: 16px;
+    display: block;
+    line-height: 1.8;
+}
+.design-main .design-center .product-choices .product-item div .desc {
+    font-size: 14px;
+    display: block;
+}
+.design-main .design-center .product-choices .product-item div .info {
+    font-size: 14px;
+    display: block;
+    color: #AA2425;
+}
+
+.design-main .design-center .product-choices .pre-cost {
+    text-align: center;
+    line-height: 48px;
+}
+
+.design-main .design-center .product-choices .pre-cost i {
+    font-size: 21px;
+}
+.design-main .design-center .product-choices .pre-cost i:first-child {
+    font-size: 14px;
+}
+.design-main .design-center .product-choices .btn {
+    width: 86px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #cacaca;
+    margin: 5px auto;
+    display: block;
+    border-radius: 3px;
+}
