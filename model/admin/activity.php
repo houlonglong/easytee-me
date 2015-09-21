@@ -261,7 +261,7 @@ WHERE
     {
         $table_alias = $table = self::$table;
         //$table_alias = '';
-        $join = ' inner join users as u on u.id = ' . $table_alias . '.uid ';
+        $join = ' inner join et_user as u on u.id = ' . $table_alias . '.uid ';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
         $request = PtLib\http_request("rows", "page", "sidx", "sord", "activity_id", "activity_name", "username", "mobile", 'startDate', 'endDate', 'pass', 'status', 'success');
