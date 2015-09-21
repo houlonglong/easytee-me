@@ -5,12 +5,8 @@ use PtLib\UnitTest as UnitTest;
  *
  */
 class ActivityTest extends UnitTest{
-    /**
-     *
-     *
-     */
+
     function test_cli_test(){
         $this->cli("service/activity","run","develop");
     }
-
 }
