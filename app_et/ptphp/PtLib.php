@@ -499,6 +499,7 @@ function log(){
     }
     //ob_clean();
     //echo json_encode($_args) ;exit;
+    if(defined("PATH_PRO")) $file = str_replace(PATH_PRO,"",$file);
     $content =  sprintf("[$date] [$log_type] [$code] $file:$line\n%s",call_user_func_array('sprintf', $_args)).PHP_EOL;
 
     if(is_cli()){

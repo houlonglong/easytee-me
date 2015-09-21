@@ -92,6 +92,19 @@ PHPSTORM 单步调试
     PHP >> Debug >> xdebug port : 9009
     PHP >> Debug >> DBGp Proxy >> Port : 9009
 
+#APACHE 
+
+    apachectl -M | grep expires_module
+    apachectl -M | grep headers_module
+    apachectl -M | grep rewrite_module
+    apachectl -M | grep mime_module
+    
+    a2enmod rewrite
+    a2enmod headers
+    a2enmod expires
+    a2enmod  mime
+    
+
 #PHPUnit
 
     PHP >> PHPUnit >> local >> PHPUnit library >> User custom autoloader >> path to script >> phpunit/verder/autoload.php
@@ -109,3 +122,16 @@ PHPSTORM 单步调试
     ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
     
     git add .  && git commit -m "deploy" && git push origin master && ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
+    
+    
+    
+结束活动
+-------
+
+    php bin/cli.php --model=service/activity --action=run --env=develop --commit=0
+
+
+合并数据库
+-------
+
+    php bin/cli.php --model=tools/db/merge1 --action=run --env=develop

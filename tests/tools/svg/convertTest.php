@@ -22,6 +22,7 @@ class ConvertTest extends UnitTest{
         $res = $this->post_action("/api",array(
             "model"=>"tools/svg/convert",
             "action"=>"png",
+            "svg_url"=>"http://cdn.open.easytee.me/dev1/activity/pic/2595/4/front.svg"
         ));
         print_r($res);
     }

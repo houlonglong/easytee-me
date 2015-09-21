@@ -9,6 +9,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
     }
     function action_png($svg_url){
         if(!$svg_url) throw new Exception("svg_url 不能为空");
+        pt_debug($svg_url);
         $path_pro = PATH_PRO;
         $local_svg = "/tmp/".md5($svg_url).".svg";
         $local_png = "/tmp/".md5($svg_url).".png";
@@ -17,6 +18,7 @@ class Model_Tools_Svg_Convert extends BaseModel {
         //print_r($remote_path);exit;
         file_put_contents($local_svg,file_get_contents($svg_url));
         $cmd = "python $path_pro/bin/svg/convert.py $local_svg $local_png";
+        pt_debug($cmd);
         //pt_debug($cmd);
         shell_exec($cmd);
         if(file_exists($local_png)){
@@ -26,11 +28,13 @@ class Model_Tools_Svg_Convert extends BaseModel {
                 @unlink($local_png);
                 @unlink($local_svg);
             }catch (Exception $e){
+                pt_debug($e->getMessage());
                 $url = "";
             }
         }else{
             $url = '';
         }
+        pt_debug($url);
         echo $url;exit;
     }
     function action_png1(){

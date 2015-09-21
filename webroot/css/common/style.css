@@ -6,11 +6,12 @@ img{display:block; border:0;}
 ul,ol{list-style:none; }
 textarea{resize:none; }
 table{border-collapse:collapse; }
-body{color:#333; font-size:12px; font-family:ºÚÌå;}
+body{color:#333; font-size:12px; font-family:黑体;}
 .clearfix:after{content:""; display:block;clear:both;}
 .clearfix{zoom:1;}
 a{ font-size:12px;color:#666; text-decoration:none;}
 a:hover{text-decoration:none; cursor: pointer;}
+.hidden{display: none;}
 
 .banxin{width: 1060px;margin:0 auto;}
 
@@ -32,6 +33,11 @@ header{
     height: 128px;
     background: url(images/header-bg.png) no-repeat;
     margin-top: -1px;
+}
+.inHead{
+    width: 100%;
+    height: 72px;
+    background: #221714;
 }
 .nav{
     position: relative;
@@ -180,35 +186,35 @@ header{
     cursor: pointer;
     display: none;
 }
-
+/* 正文开始 */
 .denglu{
     width: 826px;
     height: 434px;
     background: #f5f5f5;
     position: absolute;
     left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,0);
     border-radius: 10px;
     overflow: hidden;
+    margin-top: 30px;
 }
 .denglu img{float: left;}
 .denglu-con{
-    /* width: 100%; */
     height: 433px;
-    /* background:#eee; */
-    /* float: left; */
     margin-left: 351px;
     padding:20px 25px 0 25px;
     box-sizing:border-box;
+    text-align: left;
+   /*  display: none; */
 }
+.denglu-con>div{margin:0 auto; width: 277px; position: relative;}
 .denglu-con h3{
     font-size: 18px;
     text-align: center;
     font-family:黑体;
 }
 .denglu-con input{
-    width: 80%;
+    width: 275px;
     height: 30px;
     text-indent: 1em;
     font-size: 14px;
@@ -217,18 +223,23 @@ header{
     border:none;
     border:1px solid #ccc;
 }
+.mar-center{margin:0 auto;}
 .denglu-con label{
     line-height: 30px;
     font-size: 12px;
     cursor: pointer;
+    padding-left: 10px;
+
 }
 .forget{
     width: 50px;
-    border-bottom: 1px solid #2f86b2;
-    margin:10px auto;
+    text-align: center;
+   
 }
 .forget a{
-    color: #2f86b2;
+    color: #2f86b2;border-bottom: 1px solid #2f86b2;
+    display: inline-block;
+     margin-top:30px;
 }
 .forget a:hover{
 
@@ -237,17 +248,408 @@ header{
     display: block;
     width: 125px;
     height: 34px;
-    background:#ccc;
+    background:#a12625;
     line-height: 34px;
-    margin:0 auto;
+    margin:40px auto 18px;
     text-align: center;
     border-radius: 3px;
-    color: #000;}
+    color: #fff;}
 
 .anniu:hover{
     text-decoration: none;
+    background:#da3335;
 }
 .wrong input{
 	border-color: red;
 }
-.wrong span{color: red;}
+.wrong span{
+    color: red;
+    position: absolute;
+    width: 90px;
+    left:288px;
+    top:37px;
+}
+
+.other-login>a{
+	float: left;
+	width: 26px;
+    height: 25px;
+    margin-left: 15px;
+}
+.qq{
+	background: url(images/share-qq1.png) no-repeat;
+}
+.wb{
+	background: url(images/share-weibo1.png) no-repeat;
+}
+.wx{
+	background: url(images/share-weixin1.png) no-repeat;
+}
+.qq:hover{
+    background: url(images/share-qq2.png) no-repeat;
+}
+.wb:hover{
+    background: url(images/share-weibo2.png) no-repeat;
+}
+.wx:hover{
+    background: url(images/share-weixin2.png) no-repeat;
+}
+.other-login span{
+	float: left;
+    /* margin-left: 83px; */
+    padding-top: 5px;
+    
+}
+.zc-link a{
+    display:inline-block;
+    width: 277px;
+    height: 35px;
+    text-align: center;
+    line-height: 35px;
+    background: #ddd;
+    border-radius: 3px;
+    margin-top: 20px;
+    color: #000;
+}
+.zc-link{
+    margin-top: 40px;
+    text-align: center;
+}
+
+
+/* 重置密码样式 */
+.reset-con h3{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 黑体;
+}
+.reset-con h4{
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+.reset-con{
+    margin-left: 351px;
+    text-align: center;
+    /* display: none; */
+}
+.reset-con>div{
+    display: inline-block;
+     width: 278px;
+     margin-bottom: 20px;
+
+}
+.reset-con>div>input{
+    height: 35px;
+    width: 274px;
+    border:none;
+    border:1px solid #b3b2b3;
+    border-radius: 5px;
+    text-indent: 5px;
+}
+
+.reset-con .sj input{
+    width: 190px;
+    border-radius: 5px 0 0 5px;
+    float: left;
+    
+}
+.reset-con>div>input::-webkit-input-placeholder { text-align: center; }
+.reset-con>div>input::-moz-input-placeholder { text-align: center; }
+.reset-con>div>input::-ms-input-placeholder { text-align: center; }
+.reset-con>div>input.current{border-color: red;}
+.reset-con>div>input.current::-webkit-input-placeholder{
+        color:red;
+    }
+
+.reset-con>div>input.current::-moz-input-placeholder{
+        color:red;
+    }
+.reset-con>div>input.current::-ms-input-placeholder{
+        color:red;
+    }
+.sj span{
+    float: left;
+    width: 83px;
+    height: 35px;
+    border:1px solid #ccc;
+    border-left: none;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+    line-height: 35px;
+}
+.dui{position: relative;}
+.dui:after{
+    content: "";
+    position: absolute;
+    right:10px;
+    top:8px;
+    width: 31px;
+    height: 21px;
+    background: url(images/dui.png) no-repeat;
+}
+div.err{position: relative;}
+div.err span{
+    display: none;
+}
+.reset-con div.err input{
+    width: 274px;
+    border-radius: 5px;
+}
+.reset-con div.err:after{
+    content: "抱歉无此账号";
+    position: absolute;
+    right:-76px;
+    top:10px;
+    color: red;
+
+}
+.reset-con .sj span.current{
+    color: red;
+}
+.reset-con button{
+    display: block;
+    margin:0 auto;
+    width: 278px;
+    height: 39px;
+    background: #a12625;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 5px;
+}
+.reset-con button.current{
+    background: #da3335;
+}
+
+/* 注册页面样式 */
+.register{
+  margin-left: 351px;
+    text-align: center;  
+    /* display: none; */
+}
+.register>div{
+    display: inline-block;
+     width: 278px;
+     margin-bottom: 30px;
+     height: 35px;
+     text-indent: 15px;
+}
+
+.register .sj input{
+    width: 190px;
+    border-radius: 5px 0 0 5px;
+    float: left;
+}
+.register>div>input{
+    width: 100%;
+    height: 100%;
+    border:none;
+    border:1px solid #b3b2b3;
+    border-radius: 5px;
+    text-indent: 5px;
+}
+.register label{
+    display: block;
+    text-align:left;
+    line-height: 24px;
+}
+
+.register h3{
+    margin-top: 25px;
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: 黑体;
+}
+
+.reg-anniu{
+    margin:0 auto;
+}
+
+.register .other-login{
+    margin-bottom:0;
+}
+.register .other-login span{
+  margin-left: 0;  
+}
+.register .zc-link{
+    margin-top:0;
+    margin-bottom: 0;
+}
+.register .zc-link a{margin-top: 0;}
+.register .zc-btn{
+    margin-bottom: 20px;
+    margin-top: 10px;
+    text-indent: 0;
+}
+
+.register .err input{
+    width: 274px;
+    border-radius: 5px;
+    border-color: red;
+}
+/* .register .err:after{
+    content: "无效号码";
+    position: absolute;
+    right:-60px;
+    top:32px;
+    color: red;
+} */
+.sj i{
+    position: absolute;
+    right:-60px;
+    top:32px;
+    color: red;
+}
+ .register .yzm-err{
+   
+    position: relative;
+ }
+  .register .yzm-err input{ border-color: red;}
+ .yzm-err i{
+   
+    position: absolute;
+    right:-76px;
+    top:32px;
+    color: red;
+  }
+
+  .register .mm-err{
+   
+    position: relative;
+ }
+  .register .mm-err input{ border-color: red;}
+   .register .mm-err input::-webkit-input-placeholder{
+    color: red;
+   }
+
+
+/* 注册成功样式 */
+.zc-success{
+    margin-left: 351px;
+    text-align: center;
+    /* display: none; */
+}
+.zc-success h3{
+    font-size: 32px;
+    color: #a12625;
+    line-height: 88px;
+    margin-top: 110px;
+}
+.zc-success p{
+    color: #000;
+    font-size: 14px;
+}
+.link-btn{
+    margin-top: 20px;
+}
+.link-btn a{
+    display: inline-block;
+    width: 110px;
+    height: 35px;
+    background: #dddddd;
+    text-align: center;
+    line-height: 35px;
+    font-size: 16px;
+    color: #000;
+    margin:0 5px;
+    border-radius: 3px;
+}
+.link-btn a:hover{
+    background: #da3335;
+    color: #fff;
+}
+
+/* 关联成功类名 */
+.guanlian-success{
+    display: block;
+}
+
+/* 关联手机样式 */
+.guanlian-sj{
+    margin-left: 351px;
+    text-align: center;
+    /* display: none; */
+}
+.guanlian-sj h3{
+    font-size: 18px;
+    line-height: 66px;
+}
+.guanlian-sj p{
+    width: 275px;
+    height: 34px;
+    margin:0 auto;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+.guanlian-sj p{text-align: left;}
+.guanlian-sj div input{
+    width: 275px;
+    height: 34px;
+    border:none;
+    border:1px solid #717071;
+    border-radius: 5px;
+}
+.guanlian-sj div label{
+    display: block;
+    text-align:left;
+    width: 275px;
+    margin:0 auto;
+    line-height: 35px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.guanlian-sj button{
+    width: 277px;
+    height: 34px;
+    background: #a12625;
+    margin-bottom: 15px;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.guanlian-sj button.zc-link{
+    margin-top:10px;
+    background: #ddd;
+    color: #000;
+}
+button.agree:hover{
+    background: #da3335;
+}
+.xieyi{
+    padding:15px 0;
+}
+.xieyi a{
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+
+.guanlian-sj .err{position: relative;}
+.guanlian-sj .err input{
+    border-color: red;
+}
+.guanlian-sj .err:after{
+    content: "此号码已注册";
+    position: absolute;
+    right:19px;
+    top:44px;
+    color: red;
+
+}
+
+.guanlian-account .err:after{
+    content: "未注册号码";
+    position: absolute;
+    right:19px;
+    top:44px;
+    color: red;
+}
+.guanlian-account .agree{
+    margin-top: 20px;
+}
+
+.denglu>div>div{display: none;}
+.denglu .xianshi{display: block;}
