@@ -1,7 +1,4 @@
-<?php
-    $activity = PtLib\db()->select_row("select * from activities where id = ?",2595);
-    print_pre($activity);exit;
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -11,26 +8,6 @@
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
-    <script>
-        var start_time = "<?=$activity['start_time']?>";
-        var deadline = <?=$activity['deadline']?>;
-        $(function(){
-            $.get("/api",{
-                model:'activity',
-                action:'detail',
-                id:2595
-            },function(data){
-                if(data.status == 0){//成功返回
-                    console.log(data)
-                    var activity_detail = data.return;
-                    console.log(activity_detail)
-                }else{//异常
-                    alert(data.message)
-                }
-            },"json");
-        })
-        console.log('detail')
-    </script>
 </head>
 <body>
 <div class="try"></div>
@@ -41,8 +18,10 @@
             <a href="index.html">易衫网</a>
         </h1>
         <span class="how">如何开始</span>
+
         <div class="login">
             <a href="#" class="begin">发起活动</a>
+
             <div>
                 <a href="#">消息</a>
                 <a href="#">登录</a>
@@ -69,6 +48,7 @@
     </div>
     <div class="dingdan-info">
         <h3>简易—中式文化新浪潮</h3>
+
         <div class="jiage clearfix">
             <div class="jiage-num">99</div>
             <div class="ren">发起人：<span>巴黎汇呵呵呵呵呵</span></div>
@@ -109,6 +89,7 @@
         </div>
         <div class="time-down">
             <strong>距离结束还有</strong>
+
             <div class="clock">
                 <span class="clock-o">1</span>
                 <span class="clock-o">1</span><i class="space">天</i>
@@ -132,12 +113,12 @@
 </div>
 <div class="tab-lan">
     <div class="tab-nav banxin clearfix">
-       <span class="tab-logo"></span>
-       <ul class="tab-con clearfix">
-           <li class="current"><a href="#introduce">活动介绍</a></li>
-           <li><a href="#details">商品详情</a></li>
-           <li><a href="#rule">活动规则</a></li>
-       </ul>
+        <span class="tab-logo"></span>
+        <ul class="tab-con clearfix">
+            <li class="current"><a href="#introduce">活动介绍</a></li>
+            <li><a href="#details">商品详情</a></li>
+            <li><a href="#rule">活动规则</a></li>
+        </ul>
     </div>
 </div>
 <div id="introduce" class="banxin">介绍</div>
@@ -146,12 +127,14 @@
 <div class="tanchuang">
     <div class="tanchuang-con">
         <span class="cha"></span>
+
         <h3>我的订单</h3>
+
         <div class="bt-list">
             <span class="number">数量</span>
-            <span class="chima">尺码</span>
             <span class="product">产品</span>
             <span class="yanse">颜色</span>
+            <span class="chima">尺码</span>
             <span class="money">价格</span>
         </div>
         <ul class="style-info">
@@ -172,11 +155,30 @@
                     <option value="">基础圆领T恤</option>
                     <option value="">基础圆领T恤</option>
                 </select>
-                <div class="yanse-info current">
+                <div class="yanse-info">
+                    <i class='bor10'></i>
                     <span></span>
+                    <div class="palette">
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                        <a href="#"><i></i></a>
+                    </div>
                 </div>
                 <div class="money-info">
-                    ￥<i>99</i>元
+                    ￥<i>99</i>
                 </div>
             </li>
         </ul>
@@ -190,7 +192,6 @@
     </div>
 </div>
 
-    
 
 <br>
 <br>
@@ -209,6 +210,7 @@
 <br>
 <br>
 <br>
+
 <div class="go-top"></div>
 <div class="foot">
     <div class="infooter clearfix">
@@ -246,6 +248,7 @@
             <dd class="weixin">微信</dd>
         </dl>
         <span class="ewm"></span>
+
         <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
     </div>
 </div>

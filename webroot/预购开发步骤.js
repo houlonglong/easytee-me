@@ -2,7 +2,7 @@
 * @Author: sky
 * @Date:   2015-09-18 11:04:40
 * @Last Modified by:   sky
-* @Last Modified time: 2015-09-18 15:54:16
+* @Last Modified time: 2015-09-18 21:16:41
 */
 
 'use strict';
@@ -24,31 +24,25 @@ $(function(){
 	var price;//产品售价
 
 	//初始化数据模型
-	$.ajax({
-		url: 'getInitialData.url',
-		success: function(responseData){
-			//1、初始化数据
+	$.get("/api",{
+        model:'activity',
+        action:'detail',
+        id:2595
+    },function(data){
+        if(data.status == 0){//成功返回
+            console.log(data)
+            var activity_detail = data.return;
+            console.log(activity_detail)
+
+            //1、初始化数据
 			productImage = responseData.productImage;
-			/**
-			 * [sizeList description]
-			 * @type {[type]}
-			 * sizeList = [{
-			 *     id: 0,
-			 *     name: 'S'
-			 * },{
-			 *     id: 1,
-			 *     name: 'M'
-			 * },{
-			 *     id: 2,
-			 *     name: 'L'
-			 * }]
-			 */
 			sizeList = responseData.sizeList;
 			styleList = responseData.styleList;
 			//已选中的颜色
 			selectedColor = responseData.selectedColor;// {id: '222', value: '#998877'}
 			colorList = responseData.colorList;
 			price = responseData.price;
+
 			//2、组装第一条数据(data)
 			data.arr[0] = {
 				pruductImage: productImage,//产品图片
@@ -60,8 +54,32 @@ $(function(){
 			};
 			//3、生成列表
 			buildList();
-		}
-	});
+
+        }else{//异常
+            alert(data.message)
+        }
+    },"json");
+
+	function buildSizeList(list){
+		for(var j=0; j<sizeList.length; j++){
+        	var size = sizeList[j];
+        	htmlStr += '<option value="'+size.id+'">'+size.name+'</option>';	
+        }
+	}
+
+	function buildStyleList(list){
+		for(var j=0; j<styleList.length; j++){
+        	var style = styleList[j];
+        	htmlStr += '<option value="'+style.id+'">'+style.name+'</option>';	
+        }
+	}
+
+	function buildColorList(list){
+		for(var j=0; j<colorList.length; j++){
+        	var color = colorList[j];
+        	htmlStr += '<a href="#" data-id="'+color.id+'"><i style="background-color: '+color.value+'"></i></a>';	
+        }
+	}
 
     //生成列表
 	function buildList(){
@@ -78,35 +96,21 @@ $(function(){
             htmlStr += '<span class="right">+</span>';
             htmlStr += '</div>';
             htmlStr += '<select name="" id="" class="chima-info">';
-            /* sizeList = [{
-			 *     id: 0,
-			 *     name: 'S'
-			 * },{
-			 *     id: 1,
-			 *     name: 'M'
-			 * },{
-			 *     id: 2,
-			 *     name: 'L'
-			 * }]
-			 */
-            for(var j=0; j<sizeList.length; j++){
-            	var size = sizeList[j];
-            	htmlStr += '<option value="'+size.id+'">'+size.name+'</option>';	
-            }
+
+			htmlStr += buildSizeList(sizeList);
+
             htmlStr += '</select>';
             htmlStr += '<select name="" id="" class="product-info">';
-            for(var j=0; j<styleList.length; j++){
-            	var style = styleList[j];
-            	htmlStr += '<option value="'+style.id+'">'+style.name+'</option>';	
-            }
+
+            htmlStr +=  buildStyleList(styleList);
+            
             htmlStr += '</select>';
             htmlStr += '<div data-id="'+selectedColor.id+'" class="yanse-info current">';
             htmlStr += '<span style="'+selectedColor.value+'"></span>';
             htmlStr += '<div class="palette">';
-            for(var j=0; j<colorList.length; j++){
-            	var color = colorList[j];
-            	htmlStr += '<a href="#" data-id="'+color.id+'"><i style="background-color: '+color.value+'"></i></a>';	
-            }
+
+            htmlStr += buildColorList(colorList);
+
             htmlStr += '</div>';
             htmlStr += '</div>';
             htmlStr += '<div class="money-info">';
