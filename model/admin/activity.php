@@ -34,43 +34,10 @@ limit 1");
      * 详情
      * @return array
      */
-    static function activity_detail()
+    static function activity_detail($id)
     {
-        $request = PtLib\http_request("id");
-        $rows = PtLib\db_select_rows("SELECT
- DISTINCT
-	a.*,
-  ps.selling_price,
-  u.nick_name,
-	d.colors,
-  pbrand.`name` as manufacturer_name,
-  pc.`name` as category_name
-FROM
-	activities AS a
-LEFT JOIN users AS u ON u.id = a.uid
-LEFT JOIN designs AS d ON d.id = a.design_id
-LEFT JOIN activity_product_styles as aps on aps.activity_id = a.id
-LEFT JOIN et_product as p on p.id = aps.product_id
-LEFT JOIN et_product_brand as pbrand on pbrand.id = p.brand_id
-LEFT JOIN et_product_style as ps on ps.id = aps.product_style_id
-LEFT JOIN et_product_cat_map as pmap on pmap.product_id = p.id
-LEFT JOIN et_product_cat as pc on pc.id = pmap.cat_id
-WHERE
-	a.id= ?", $_REQUEST['id']);
-        $result = array();
-        if(is_array($rows) && $rows){
-            $result = $rows[0];
-            $cost = Model_Cost::calculate_cost($result['colors'],$result['sales_target']);
-            foreach($rows as $row){
-                $result['category'][] = array(
-                    $row['category_name'].'/'.$row['manufacturer_name'],
-                    round($row['selling_price']+$cost,2),
-                );
-            }
-        }
-        $totalExpress = self::_db()->select_row('select sum(express_price) as total_express from orders where activity_id=? AND status not in("已关闭","待付款")',$_REQUEST['id']);
-        $result['total_express'] = $totalExpress['total_express'];
-        return $result;
+        $activity_info = Model_Activity::detail_info($id);
+        return $activity_info;
     }
 
     /**
@@ -402,64 +369,47 @@ WHERE
      * }
      */
 
-    static function action_download_excel()
+    static function action_download_excel($id)
     {
-        if (isset($_REQUEST['id'])) {
-            $id = $_REQUEST['id'];
-            $table_alias = $table = self::$table;
-            //$table_alias = '';
+        if(!$id) throw new Exception("ID 不能为空");
+        $table = self::$table;
+        //fields
+        $select_fields = "ship.name,ship.tel,ship.province,ship.city,ship.county,ship.addr,
+                p.name as product_name,style.color_name as style_name,
+                o.exp_price ,o.order_no,
+                goods.quantity,goods.pro_size,man.short_name,
+                brand.name as brand_name";
 
-            if (empty($table_alias)) throw new ErrorException("table is not defined");
-            //fields
-            $select_fields = " o.ship_name,o.ship_mobile,o.ship_province,o.ship_city,o.ship_area,o.ship_addr,
-            p.name as product_name,style.color_name as product_style_name,
-            o.express_price ,o.order_no,
-            goods.quantity,goods.size,man.name as manufacturer_name,
-            brand.name as brand_name
-            ";
+        $join = " left join et_order as o on o.id = goods.order_id
+                    left join et_order_activity as act on act.order_id = o.id
+                    left join et_order_pay as pay on pay.order_id = o.id
+                    left join et_order_ship as ship on ship.order_id = o.id
+                    left join et_product_style as style on style.id = goods.style_id
+                    left join et_product as p on p.id = style.product_id
+                    left join et_product_brand as brand on brand.id = p.brand_id
+                    left join et_product_manufacturer as man on man.id = brand.man_id";
+        $where = 'where act.activity_id = ? and pay.pay_status = 1';
 
-            $join = " left join orders as o on o.id = goods.order_id
-            left join et_product_style as style on style.id = goods.product_style_id
-            left join et_product as p on p.id = style.product_id
-            left join et_product_brand as brand on brand.id = p.brand_id
-            left join et_product_manufacturer as man on man.id = brand.man_id
-            ";
-            $where = 'where o.activity_id = ? and o.status in ("待发货","已付款","已完成")';
+        $sql = "select $select_fields from et_order_goods as goods $join $where";
 
-            $sql = "select $select_fields from order_goods as goods $join $where  ";
-            $myval = array();
-            $myval[] = "活动ID,订单号,收件人,联系电话,收货地址,厂家,品类,产品名,款式,尺码,数量";
-            $myval[] = "\r\n";
-            $rows = PtLib\db()->select_rows($sql, $_REQUEST['id']);
-            foreach ($rows as $row) {
-                $myval[] = "\t" . $_REQUEST['id'] . ",";
-                $myval[] = "\t" . $row['order_no'] . ",";
-                $myval[] = "\t" . $row['ship_name'] . ",";
-                $myval[] = "\t" . $row['ship_mobile'] . ",";
-                $myval[] = $row['ship_province'] . $row['ship_city'] . $row['ship_area'] . $row['ship_addr'] . ",";
-                $myval[] = $row['manufacturer_name'] . ",";
-                $myval[] = $row['brand_name'] . ",";
-                $myval[] = $row['product_name'] . ",";
-                $myval[] = $row['product_style_name'] . ",";
-                $myval[] = $row['size'] . ",";
-                $myval[] = $row['quantity'] . ",";
-                $myval[] = "\r\n";
-            }
-            $content = iconv("UTF-8", "GBK", implode($myval));
-            header("Content-Type: text/html; charset=GBK");
-            header("Pragma: public");
-            header("Expires: 0");
-            header('Content-Encoding: none');
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Cache-Control: public");
-            header("Content-type: application/octet-stream\n");
-            header("Content-Description: File Transfer");
-            header('Content-Disposition: attachment; filename=order.csv', $content);
-            header("Content-Transfer-Encoding: binary");
-            header('Content-Length: ' . strlen($content));
-            echo $content;
-            exit;
+        $csv = "活动ID,订单号,付款状态,收件人,联系电话,收货地址,厂家,品类,产品名,款式,尺码,数量\r\n";
+        $rows = self::_db()->select_rows($sql, $_REQUEST['id']);
+        foreach ($rows as $row) {
+            $csv .= $_REQUEST['id'] . ",";
+            $csv .= $row['order_no'] . ",";
+            $csv .= "已付款,";
+            $csv .= $row['name'] . ",";
+            $csv .= $row['tel'] . ",";
+            $csv .= $row['province'] . $row['city'] . $row['county'] . $row['addr'] . ",";
+            $csv .= $row['short_name'] . ",";
+            $csv .= $row['brand_name'] . ",";
+            $csv .= $row['product_name'] . ",";
+            $csv .= $row['style_name'] . ",";
+            $csv .= $row['pro_size'] . ",";
+            $csv .= $row['quantity'];
+            $csv .= "\r\n";
         }
+        response_csv($csv,"order_".date("Y-m-d-H-i-s").".csv");
 
     }
 
@@ -490,32 +440,6 @@ WHERE
             PtLib\db()->update('activities', array('pass' => 2), array('id' => $id));
         }
 
-    }
-
-    function action_ordergoods_detail($id)
-    {
-        if ($id) {
-            $rows = PtLib\db()->select_rows('SELECT
-	og.*,
-  pbrand.name as manufacturer_name,
-  cat.name as product_category_name,
-  a.real_end_time
-FROM
-	order_goods AS og
-LEFT JOIN orders AS o ON o.id = og.order_id
-LEFT JOIN activities AS a ON a.id = o.activity_id
-LEFT JOIN et_product_style AS ps ON ps.id = og.product_style_id
-LEFT JOIN et_product AS p on p.id = ps.product_id
-LEFT JOIN et_product_brand AS pbrand ON pbrand.id = p.brand_id
-LEFT JOIN et_product_cat_map as pmap on pmap.product_id = p.id
-LEFT JOIN et_product_cat as cat on cat.id = pmap.cat_id where og.order_id = ?', $id);
-
-            foreach ($rows as $key => $row) {
-                $rows[$key]['total'] = $row['quantity'] * $row['unit_price'];
-                $rows[$key]['real_end_time'] = date('Y-m-d H:i:s', strtotime($row['real_end_time'] . '+7 day'));
-            }
-            return $rows;
-        }
     }
 
     static function success()

@@ -6,9 +6,9 @@
      * 活动详情
      *
      */
-
     include(block("admin/block/html_head"));
     $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
+    //var_dump($row);exit;
     ?>
 
     <!-- page specific plugin styles -->
@@ -38,21 +38,9 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a class="btn btn-xs btn-info"
-                                   href="/api?model=admin/activity&action=download_excel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
-                            </div>
-                            <!-- /.span -->
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div>
-                                    <a class="btn btn-primary"
-                                       href="/admin/activity/detail_design?id=<?php echo $_GET['id'] ?>"
-                                       target="_blank">设计详情</a>
-                                </div>
 
+                        <div class="row">
+                            <div class="col-xs-12">
                                 <div class="widget-box">
                                     <div class="widget-header">
                                         <h4 class="widget-title">众筹详情</h4>
@@ -62,51 +50,34 @@
                                         <div class="widget-main">
                                             <div>
                                                 <h3>
-                                                    活动名称: <?php echo $row['name']; ?>
+                                                    活动名称: <?php
+                                                    echo $row['activity']['name']; ?>
                                                 </h3>
                                             </div>
                                             <div>
                                                 <table class="table">
                                                     <tr>
-                                                        <th style="text-align: right">发起人</th>
-                                                        <td style="text-align: left"><?php echo $row['nick_name']; ?></td>
+                                                        <th style="text-align: right">发起人UID</th>
+                                                        <td style="text-align: left"><a target='_blank' href='/admin/user/modify?id=<?php echo $row['activity']['uid']; ?>'><?php echo $row['activity']['uid']; ?></a></td>
                                                         <th style="text-align: right">开始时间</th>
-                                                        <td style="text-align: left"><?php echo $row['start_time']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['start_time']; ?></td>
                                                         <th style="text-align: right">结束时间</th>
-                                                        <td style="text-align: left"><?php echo $row['real_end_time']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['end_time']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: right">销售目标</th>
-                                                        <td style="text-align: left"><?php echo $row['sales_target']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['sale_target']; ?></td>
                                                         <th style="text-align: right">实际销售</th>
-                                                        <td style="text-align: left"><?php echo $row['sales_count']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['sale_count']; ?></td>
                                                         <th style="text-align: right">颜色数量</th>
-                                                        <td style="text-align: left"><?php echo $row['colors']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['colors']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: right">快递总费用</th>
-                                                        <td style="text-align: left"><?php echo empty($row['total_express']) ? 0 : $row['total_express']; ?></td>
+                                                        <td style="text-align: left"></td>
                                                     </tr>
-                                                    <?php
-                                                    $count = count($row['category']);
-                                                    $culoum = 0;
-                                                    $culoum = ceil($count / 3);
-                                                    $str = '';
-                                                    for ($i = 0; $i <= $culoum; $i++) {
-                                                        $str .= '<tr>';
-                                                        $j = 0;
-                                                        foreach ($row['category'] as $key => $data) {
-                                                            if ($j >= 3) {
-                                                                break;
-                                                            }
-                                                            if (isset($row['category'][$i * 3 + $j])) {
-                                                                $str .= '<th style="text-align: right">' . $row['category'][$i * 3 + $j][0] . ' 销售成本</th><td>' . $row['category'][$i * 3 + $j][1] . '</td>';
-                                                            }
-                                                            $j++;
-                                                        }
-                                                        $str .= '</tr>';
-                                                    }
-                                                    echo $str;
+                                                    <?php //销售成本
+
                                                     ?>
                                                 </table>
                                             </div>
@@ -114,6 +85,15 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row" style="margin:10px 0">
+                            <div class="col-xs-12">
+                                <a class="btn btn-xs btn-info" target="_blank"
+                                   href="/api?model=admin/activity&action=download_excel&id=<?php echo $_REQUEST['id']; ?>">
+                                    导出订单
+                                </a>
+                            </div>
+                            <!-- /.span -->
                         </div>
                         <div class="row">
                             <div class="col-xs-12">

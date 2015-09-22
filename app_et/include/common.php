@@ -8,6 +8,27 @@ function parse_control($control){
     }
     return $control;
 }
+function response_csv($content,$name){
+    if(strpos($_SERVER['HTTP_USER_AGENT'],"Macintosh") !== false) {
+        header("Content-Type: text/html; charset=UTF-8");
+    }else{
+        $content = iconv("UTF-8", "GBK", $content);
+        header("Content-Type: text/html; charset=GBK");
+    }
+
+    header("Pragma: public");
+    header("Expires: 0");
+    header('Content-Encoding: none');
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: public");
+    header("Content-type: application/octet-stream\n");
+    header("Content-Description: File Transfer");
+    header('Content-Disposition: attachment; filename='.$name, $content);
+    header("Content-Transfer-Encoding: binary");
+    header('Content-Length: ' . strlen($content));
+    echo $content;
+    exit;
+}
 /**
  * 判断是不是微信浏览器
  * @return bool

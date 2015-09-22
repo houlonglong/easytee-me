@@ -42,20 +42,21 @@
                                     <div class="widget-body">
                                         <div class="widget-main">
                                             <form class="form-inline">
-                                                <input type="text" class="input-small" placeholder="订单号" id="order-no">
+                                                <input type="text" class="input-small" placeholder="订单号" id="order_no">
                                                 <input type="text" class="input-small" placeholder="活动名称"
-                                                       id="activity-name">
+                                                       id="activity_name">
                                                 <input type="text" class="input-small" placeholder="活动ID"
-                                                       id="activity-id">
-                                                <input type="text" class="input-small" placeholder="用户名" id="username">
+                                                       id="activity_id">
                                                 <input type="text" class="input-small" placeholder="手机号码" id="mobile">
-                                                <select id="order-status">
-                                                    <option value="">状态</option>
-                                                    <option value="待付款">待付款</option>
-                                                    <option value="待发货">待发货</option>
-                                                    <option value="已发货">已发货</option>
-                                                    <option value="已完成">已完成</option>
-                                                    <option value="已关闭">已关闭</option>
+                                                <select id="pay_status">
+                                                    <option value="">全部</option>
+                                                    <option value="0">待付款</option>
+                                                    <option value="1">已付款</option>
+                                                </select>
+                                                <select id="ship_status">
+                                                    <option value="">全部</option>
+                                                    <option value="0">待发货</option>
+                                                    <option value="1">已发货</option>
                                                 </select>
                                                 <button type="button" class="btn btn-success btn-sm" onclick="search()">
                                                     <i class="ace-icon fa fa-search bigger-110"></i>搜索
@@ -105,13 +106,12 @@
     var pager_selector = "#grid-pager";
     function search() {
         var $query = {
-            order_no: $('#order-no').val(),
-            activity_name: $('#activity-name').val(),
-            status: $('#order-status').val(),
-            username: $('#username').val(),
+            order_no: $('#order_no').val(),
+            pay_status: $('#pay_status').val(),
+            ship_status: $('#ship_status').val(),
             mobile: $('#mobile').val(),
-            activity_id:$('#activity-id').val()
-
+            activity_id:$('#activity_id').val(),
+            activity_name:$('#activity_name').val()
         };
         $(grid_selector).jqGrid('setGridParam', {
             datatype: 'json',
@@ -119,12 +119,7 @@
             page: 1
         }).trigger("reloadGrid"); //重新载入
     }
-    var status = {
-        "待发货": "label label-sm label-success arrowed-in",
-        "已关闭": "label label-sm label-warning",
-        '已发货': "label label-sm label-info arrowed arrowed-righ",
-        '已完成': "label label-sm label-inverse arrowed-in",
-    };
+
     jQuery(function ($) {
         var grid_setting = {
             url: "/api?model=admin/order&action=list",
@@ -135,16 +130,14 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: false, editable: false,sortable:false},
+                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: true, editable: false},
                 {
                     title: "订单号",
                     name: 'order_no',
                     index: 'order_no',
-                    width: 110,
+                    width: 150,
                     editable: false,
-                    editoptions: {size: "20", maxlength: "30"},
                     formatter: 'showlink',
-                    sortable:false,
                     formatoptions: {
                         baseLinkUrl: '/admin/activity/order_detail',
                         addParam: '',//&t=1
@@ -152,31 +145,33 @@
                     }
                 },
                 {
-                    title: "用户名",
-                    name: 'username',
-                    index: 'username',
-                    width: 90,
+                    title: "UID",
+                    name: 'uid',
+                    index: 'uid',
+                    width: 50,
                     editable: false,
                     sortable:false,
-                    editoptions: {size: "20", maxlength: "30"}
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a target="_blank" href="/admin/user/modify?id=' + cellvalue + '">' + cellvalue + '</a>';
+                    }
                 },
                 {
                     title: "活动名称",
-                    name: 'name',
-                    index: 'name',
+                    width: 300,
+                    name: 'activity_name',
+                    index: 'activity_name',
                     editable: false,
                     sortable:false,
-                    editoptions: {size: "20", maxlength: "30"},
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
+                        return '<a target="_blank" href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
                     }
                 },
-                {title: "数量", name: 'quantity', index: 'quantity', width: 90, sortable: false, editable: false},
-                {title: "订单金额", name: 'total_price', index: 'total_price', width: 90, sortable: false, editable: false},
+                {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false},
+                {title: "订单金额", name: 'goods_price', index: 'goods_price', width: 90, sortable: false, editable: false},
                 {
                     title: "运费",
-                    name: 'express_price',
-                    index: 'express_price',
+                    name: 'exp_price',
+                    index: 'exp_price',
                     width: 90,
                     sortable: false,
                     editable: false
@@ -187,54 +182,32 @@
                     index: 'status',
                     width: 90,
                     sortable: false,
-                    editable: true,
-                    edittype: "custom",
-//                    editoptions:{value:"待付款:待付款;已发货:已发货;已收货:已收货;已完成:已完成;已关闭:已关闭"},
-                    editoptions: {custom_element: mystatuselem, custom_value: myvalue},
+                    editable: false,
                     formatter: function (cellvalue, options, rowObject) {
-                        var img = "";
-                        if (cellvalue == '待付款') {
-                            img = '<span class="label label-sm label-default arrowed-in">' + cellvalue + '</span>';
+                        var cell = '';
+                        if(rowObject.pay_status){
+                            if(rowObject.ship_status){
+                                cell = "已发货"
+                            }else{
+                                cell = "未发货"
+                            }
+                        }else{
+                            cell = "未付款"
                         }
-                        if (cellvalue == '待发货') {
-                            img = '<span class="label label-sm label-success arrowed-in">' + cellvalue + '</span>';
-                        }
-                        if (cellvalue == '已关闭') {
-                            img = '<span class="label label-sm label-warning">订单已取消</span>';
-                        }
-                        if (cellvalue == '已发货') {
-                            img = '<span class="label label-sm label-info arrowed arrowed-righ">' + cellvalue + '</span>';
-                        }
-                        if (cellvalue == '已完成') {
-                            img = '<span class="label label-sm label-danger arrowed-in">' + cellvalue + '</span>';
-                        }
-                        if (cellvalue == '已收货') {
-                            img = '<span class="label label-sm label-primary arrowed-in">' + cellvalue + '</span>';
-                        }
-                        return img;
+                        return cell;
                     }
                 },
                 {title: "快递信息", name: 'express_no', index: 'express_no', width: 90, sortable: false, editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         if(cellvalue!=null){
-                            return '<span>快递单号：'+cellvalue+'</span></br><span>快递公司:'+rowObject['express_name']+'</span>';
+                            return '<span>快递单号：{exp_no}</span></br><span>快递公司:{exp_com}</span>'.format(rowObject);
                         }else{
-                            return '';
+                            return '未发货';
                         }
 
                     }
                 },
-                {
-                    title: "操作", name: 'options', index: '', width: 80, fixed: true, sortable: false, resize: false,
-                    formatter: 'actions',
-                    formatoptions: {
-                        keys: true,
-                        //delbutton: false,//disable delete button
-                        baseLinkUrl: 'someurl.php', addParam: '&action=edit', idName: 'id',
-                        delOptions: {recreateForm: true, beforeShowForm: beforeDeleteCallback}
-                        //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                    }
-                },
+
             ]
 
         };
@@ -261,15 +234,6 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
-
-        function mystatuselem(value, options) {
-            value = $(value).data("status");
-            var el = document.createElement("select");
-            $(el).append('<option role="option" value="待付款">待付款</option><option role="option" value="待付款">待付款</option><option role="option" value="待发货">待发货' +
-                '</option><option role="option" value="已发货">已发货</option><option role="option" value="已收货">已收货</option><option role="option" value="已发货">已发货</option>' +
-                '<option role="option" value="已收货">已完成</option>').val(value);
-            return el;
-        }
 
         //获取值
         function myvalue(elem) {
@@ -338,7 +302,7 @@
                 var subgridTableId = subgridDivId + "_t";
                 $("#" + subgridDivId).html("<table  style='background-color:#C7D3A9;' id='" + subgridTableId + "'></table>");
                 $.ajax({
-                    url: '/api?model=admin/activity&action=ordergoods_detail',
+                    url: '/api?model=admin/order&action=goods_list',
                     data: {
                         id: rowId,
                     },
@@ -351,19 +315,17 @@
                         $("#" + subgridTableId).jqGrid({
                             datatype: 'local',
                             data: data.return,
-                            colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
+                            colNames: ['分类', '品牌', '产品名称', '款式', '尺码', '数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
-                                {name: 'product_category_name', width: 150, color: "#3c763d",sortable:false},
-                                {name: 'manufacturer_name', width: 150,sortable:false},
-                                {name: 'product_name', width: 150,sortable:false},
-
-                                {name: 'product_style_name', width: 150,sortable:false},
-                                {name: 'size', width: 150,sortable:false},
-                                {name: 'quantity', width: 150,sortable:false},
-
-                                {name: 'unit_price', width: 150,sortable:false},
-                                {name: 'total', width: 150,sortable:false},
-                                {name: 'real_end_time', width: 180,sortable:false}
+                                {name: 'cat_name', width: 80, color: "#3c763d",sortable:false},
+                                {name: 'brand_name', width: 80,sortable:false},
+                                {name: 'product_name', width: 120,sortable:false},
+                                {name: 'style_name', width: 50,sortable:false},
+                                {name: 'pro_size', width: 50,sortable:false},
+                                {name: 'quantity', width: 50,sortable:false},
+                                {name: 'sell_price', width: 100,sortable:false},
+                                {name: 'total_price', width: 100,sortable:false},
+                                {name: 'end_time', width: 180,sortable:false}
                             ]
                         });
                     }
