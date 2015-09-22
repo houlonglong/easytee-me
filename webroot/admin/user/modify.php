@@ -17,7 +17,10 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
+  <style>
 
+
+  </style>
 </head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar"))?>
@@ -67,6 +70,7 @@
                                 </li>
 
                                 <li>
+
                                     <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/finance_flow?uid=<?=$uid?>'">交易明细</a>
                                 </li>
 
@@ -77,74 +81,39 @@
 
                             <div class="tab-content">
                                 <div id="home4" class="tab-pane in active">
-                                    <form class="form-horizontal" role="form">
+                                    <form class="form-horizontal" role="form"style="margin-top: 25px">
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label" for="ds_host">UID：</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" id="uid" type="text" readonly value="<?php echo $user['id'] ?>"/>
+                                                    <input class="form-control" id="uid" type="text" readonly value="<?php echo $user['id'] ?> " style="width: 10%;"/>
                                                 </div>
-                                               <!-- <label class="col-sm-2 control-label" for="ds_name">密码：</label>
+                                               <label class="col-sm-2 control-label" for="ds_name">密码：</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" id="ds_name" type="password" value="<?php /*echo $user['password'] */?>" />
-                                                </div>-->
+                                                    <input class="form-control"  style="width: 200px" id="ds_name" type="password" value="<?php /*echo $user['password'] */?>" />
+                                                </div>
 
                                             </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="ds_username">昵称：</label>
+                                            <label class="col-sm-2 control-label" for="ds_username" >手机号：</label>
                                             <div class="col-sm-4">
-                                                <input data-table="et_user" data-field="nick_name" class="auto_change form-control" id="ds_username" type="text" value="<?php echo $user['nick_name'] ?>">
+                                                <input data-table="et_user" data-field="nick_name" style="width: 120px" class="auto_change form-control" id="ds_username" type="text" value="<?php echo $user['nick_name'] ?>">
                                             </div>
-
+                                            <label class="col-sm-2 control-label" for="ds_password">提现账号：</label>
+                                            <div class="col-sm-4">
+                                                <input data-table="et_user_withdraw_account" style="width: 150px"    data-field="withdraw_account" class="auto_change form-control" id="ds_password" type="text" value="<?php echo $user['withdraw_account'] ?>"/>
+                                            </div>
 
                                         </div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label" for="ds_username">手机号：</label>
+
+                                                <label class="col-sm-2 control-label" for="ds_username">昵称：</label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control" id="ds_username" type="text" value="<?php echo $user['mobile'] ?>"/>
+                                                    <input class="form-control" id="ds_username"style="width: 120px"  type="text" value="<?php echo $user['nick_name'] ?>"/>
                                                 </div>
-                                                <label class="col-sm-2 control-label" for="ds_password">提现账号：</label>
+                                                <label for="disabledSelect"  class="col-sm-2 control-label">提现账号类型：</label>
                                                 <div class="col-sm-4">
-                                                    <input data-table="et_user_withdraw_account" data-field="withdraw_account" class="auto_change form-control" id="ds_password" type="text" value="<?php echo $user['withdraw_account'] ?>"/>
-                                                </div>
-                                            </div>
 
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="ds_username">可提现余额：</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="ds_username" type="text" value="<?php echo $user['balance_tx'] ?>"/>
-                                            </div>
-                                            <label class="col-sm-2 control-label" for="ds_password">暂时冻结余额：</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="ds_password" type="text" value="<?php echo $user['balance_block'] ?>"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="ds_username">不可提现余额：</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="ds_username" type="text" value="<?php echo $user['balance_ntx'] ?>"/>
-                                            </div>
-                                            <label class="col-sm-2 control-label" for="ds_password">总赚取余额：</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="ds_password" type="text" value="<?php echo $user['total_earn'] ?>"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="disabledSelect"  class="col-sm-2 control-label">余额：</label>
-                                            <div class="col-sm-4">
-
-                                                <input class="form-control" id="ds_password" type="text" value="<?php echo $user['balance_tx']+$user['balance_ntx']+$user['balance_block'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="disabledSelect"  class="col-sm-2 control-label">Email：</label>
-                                            <div class="col-sm-4">
-                                                <input class="form-control" id="ds_password" type="text" value="<?php $user['email'] ?>">
-                                            </div>
-                                            <label for="disabledSelect"  class="col-sm-2 control-label">提现账号类型：</label>
-                                            <div class="col-sm-4">
-                                                <div class="col-sm-4">
-                                                    <select id="disabledSelect" class="form-control" data-field="withdraw_type" data-table = "et_user_withdraw_account">
+                                                    <select id="disabledSelect" style="width: 120px"   class="form-control" data-field="withdraw_type" data-table = "et_user_withdraw_account">
                                                         <option  >无</option>
                                                         <option  <?php if($user['withdraw_type']==1) echo "selected" ?> value="1">微信</option>
                                                         <option  <?php if($user['withdraw_type']==0) echo "selected" ?> value="0">支付宝</option>
@@ -152,8 +121,45 @@
 
 
                                                     </select>
+
                                                 </div>
+
                                             </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ds_username">可提现余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_username"  style="width: 10%;"  type="text" value="<?php echo $user['balance_tx'] ?>"/>
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="ds_password">暂时冻结余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_password"  style="width: 10%;" type="text" value="<?php echo $user['balance_block'] ?>"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label" for="ds_username">不可提现余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_username" style="width: 10%;" type="text" value="<?php echo $user['balance_ntx'] ?>"/>
+                                            </div>
+                                            <label class="col-sm-2 control-label" for="ds_password">总赚取余额：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" id="ds_password"  style="width: 10%;"  type="text" value="<?php echo $user['total_earn'] ?>"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect"   class="col-sm-2 control-label">余额：</label>
+                                            <div class="col-sm-4">
+
+                                                <input class="form-control"  id="ds_password"  style="width: 10%;" type="text" value="<?php echo $user['balance_tx']+$user['balance_ntx']+$user['balance_block'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="disabledSelect"  class="col-sm-2 control-label">Email：</label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" style="width: 200px"  id="ds_email" type="text" value="<?php $user['email'] ?>">
+                                            </div>
+
                                         </div>
     `                     <!--              <div class="form-group">
                                             <label for="disabledSelect"  class="col-sm-2 control-label">状态：</label>
