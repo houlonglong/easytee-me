@@ -21,27 +21,35 @@ class Model_Admin_Order extends Model_Admin_Abstract{
      * @param $id
      * @return array
      */
-    static function detail($id){
-        $order = self::_db()->select_row('SELECT act.activity_id,a.real_end_time,a.thumb_img_url,a.`status` AS activity_status,pay.*,ship.*,o.*
-                                             FROM et_order AS o
-
-                                             LEFT JOIN et_order_activity as act on act.order_id = o.id
-                                             LEFT JOIN et_order_pay as pay on pay.order_id = o.id
-                                             LEFT JOIN et_order_ship as ship on ship.order_id = o.id
-                                             LEFT JOIN activities AS a ON a.id = act.activity_id  where  o.id = ? ',$id);
-
-        $order['order_goods'] = self::_db()->select_rows('SELECT g.*,brand.name as brand_name,style.color,style.color_name,p.name as product_name,ap.img_url FROM et_order_goods as g
-                                            left join et_product_style as style on style.id = g.style_id
-                                            left join et_activity_product as ap on ap.activity_id = g.activity_id and style.product_id=ap.product_id
-                                            left join et_product as p on p.id = style.product_id
-                                            left join et_product_brand as brand on brand.id = p.brand_id WHERE g.order_id = ?',$id);
-
+    static function order_detail($id){
+        $order = self::_db()->select_row('SELECT
+                          act.activity_id,a.end_time,a.thumb_img_url,pay.*,ship.*,o.*
+                         FROM et_order AS o
+                         LEFT JOIN et_order_activity as act on act.order_id = o.id
+                         LEFT JOIN et_order_pay as pay on pay.order_id = o.id
+                         LEFT JOIN et_order_ship as ship on ship.order_id = o.id
+                         LEFT JOIN et_activity_info AS a ON a.id = act.activity_id
+                         where o.id = ? ',$id);
 
         return $order;
+    }
+    /**
+     * 详情
+     * @param $id
+     * @return array
+     */
+    static function goods_list($id){
+        return self::_db()->select_rows('SELECT g.*,brand.name as brand_name,style.color,style.color_name,p.name as product_name,ap.img_url FROM et_order_goods as g
+                        left join et_product_style as style on style.id = g.style_id
+                        left join et_activity_product as ap on ap.activity_id = g.activity_id and style.product_id=ap.product_id
+                        left join et_product as p on p.id = style.product_id
+                        left join et_product_brand as brand on brand.id = p.brand_id WHERE g.order_id = ?',$id);
+
     }
 
     function action_goods_list($id)
     {
+
         $rows = self::_db()->select_rows('SELECT
                 goods.*, brand.name as brand_name,
                 p.name as product_name,
@@ -79,7 +87,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         $sort_type = $sord;
 
         //fields
-        $select_fields = "o.*,a.name as activity_name,u.nick_name,act.activity_id,pay.*,ship.*";
+        $select_fields = "a.name as activity_name,u.nick_name,act.activity_id,pay.*,ship.*,o.*";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;

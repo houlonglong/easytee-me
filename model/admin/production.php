@@ -3,7 +3,7 @@
  * 生产管理
  */
 class Model_Admin_Production extends Model_Admin_Abstract{
-    static $table = "activities";
+    static $table = "et_activity_produce";
     function __construct(){
         parent::__construct();
     }
@@ -42,8 +42,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
      **/
     function action_list(){
 
-        $status = $this->_request("status");
-        return self::table_list_product();
+        return self::table_list();
 
     }
 
@@ -62,11 +61,8 @@ class Model_Admin_Production extends Model_Admin_Abstract{
     * 列表
     **/
     static function table_list(){
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $join = ' inner join users as u on u.id = activities.uid';
-        if(empty($table_alias)) throw new ErrorException("table is not defined");
-//        $request = http_request("rows","page","sidx","sord");
+        $table = self::$table;
+        $join = ' inner join et_activity_info as a on a.id = p.id';
         $request = PtLib\http_request("rows","page","sidx","sord","status");
         $limit = $request['rows'];
         $page = $request['page'];
@@ -74,7 +70,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name ";
+        $select_fields = " p.*,a.*,date_add(a.end_time, interval 7 day) as end_time";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
@@ -86,9 +82,19 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         }
         //where
         $args = array();
-        $where  = " where 1=1 ";
+        $where  = " where 1=1 and (a.sale_count >= 10 or a.status = 3)";
+
+        if(!empty($request['activity_name'])){
+            $where .=' and a.name= ? ';
+            $args[] = $request['activity_name'];
+        }
+        if(!empty($request['activity_id'])){
+            $where .=' and a.id= ? ';
+            $args[] = $request['activity_id'];
+        }
+
         $status = $request['status'];
-        if($status == 'index'){
+        if($status == 'index1'){
             $where .='and activities.sales_count>=10 and activities.real_end_time >? ';
             $args[] = date('Y-m-d H:i:s');
         }
@@ -101,8 +107,8 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         //order
         $order = "";
         if($sort)
-            $order = "order by $table_alias." .addslashes($sort) ." ".$sort_type;
-        $sql = "select count($table_alias.id) as total from $table $join $where ";
+            $order = "order by p." .addslashes($sort) ." ".$sort_type;
+        $sql = "select count(a.id) as total from $table as p $join $where ";
 //        $count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
@@ -122,7 +128,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
 
         $skip = ($page - 1) * $limit;
 
-        $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
+        $sql = "select $select_fields from $table as p $join $where $order limit $skip,$limit ";
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
             $profie = Model_Cost::calculate_profie($row['id']);

@@ -287,7 +287,7 @@ class Database {
             if($args){
                 //if(function_exists("pt_local_dev")){
                     //if(pt_local_dev()){
-                        $stack['real_sql'] = $this->get_real_sql($sql,$args);
+                        //$stack['real_sql'] = $this->get_real_sql($sql,$args);
                 $stack['args'] = $args;
                     //}
                 //}

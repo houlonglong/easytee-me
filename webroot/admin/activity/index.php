@@ -280,7 +280,6 @@
                 },
                 {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        console.log(rowObject);
                         var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
                         rowObject["act_url"] = act_url;
                         var cell = "<a target='_blank' href='{act_url}'>{name}</a><br><br>发起人:<a target='_blank' href='/admin/user/modify?id={uid}'>{nick_name}</a>".format(rowObject);

@@ -52,7 +52,8 @@
             },
             {
                 "title":"售后管理",
-                "url":"/admin/aftersale/index"
+                "url":"/admin/aftersale/index",
+                "hide_menu":1
             }
 
         ]
