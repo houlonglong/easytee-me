@@ -22,17 +22,18 @@ a:hover{text-decoration:none; cursor: pointer;}
 }
 
 header{
-    height: 110px;
     width: 100%;
-    background: url(images/nav-bg.png) repeat-x;
-    margin-bottom: 45px
+}
+.head-foot{
+    height: 25px;
+    background: url(images/head-foot.png) repeat-x;
 }
 .header-bg{
     float: left;
     width: 100px;
-    height: 128px;
+    height: 91px;
     background: url(images/header-bg.png) no-repeat;
-    margin-top: -1px;
+    margin-top:23px;
 }
 .inHead{
     width: 100%;
@@ -168,7 +169,7 @@ header{
 }
 
 .infooter p{
-    width: 960px;
+    /* width: 960px; */
     position: absolute;
     bottom:30px;
     left: 350px;
@@ -631,8 +632,8 @@ button.agree:hover{
 .guanlian-sj .err input{
     border-color: red;
 }
-.guanlian-sj .err:after{
-    content: "此号码已注册";
+.guanlian-sj .err i{
+    /* content: "此号码已注册"; */
     position: absolute;
     right:19px;
     top:44px;
@@ -640,8 +641,8 @@ button.agree:hover{
 
 }
 
-.guanlian-account .err:after{
-    content: "未注册号码";
+.guanlian-account .err i{
+   /*  content: "未注册号码"; */
     position: absolute;
     right:19px;
     top:44px;
