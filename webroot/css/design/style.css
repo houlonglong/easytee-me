@@ -61,6 +61,7 @@ a {
     line-height: 1.4;
     outline: 0;
     max-width: 100%;
+    font-size: 14px;
     padding: .5rem 2rem .5rem .86667rem;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -82,6 +83,7 @@ a {
     line-height: 1.4;
     outline: 0;
     max-width: 100%;
+    font-size: 14px;
     padding: .5rem 2rem .5rem .86667rem;
     -webkit-appearance: none;
     -moz-appearance: none;

@@ -211,3 +211,61 @@
     border-radius: 3px;
 }
 
+.design-main .design-center .upload-location {
+    margin: 38px 15px;
+    display: none;
+}
+
+.design-main .design-center .upload-location p {
+    margin: 0 0 20px 0;
+}
+
+.design-main .design-center .upload-location .font-color-red {
+    color: #AA2425;
+}
+
+.design-main .design-center .upload-location-btn {
+    width: 168px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #aa2425;
+    color: #fff;
+    margin: 0 auto;
+    font-size: 18px;
+    display: block;
+    border-radius: 3px;
+}
+
+.design-main .design-center .image-store {
+    display: none;
+}
+
+.design-main .design-center .image-store .image-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.design-main .design-center .image-store .image-list .image-list-item {
+    width: 70px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.design-main .design-center .image-store .image-list .image-list-item.active .img-wrap {
+    border: 1px solid #AA2425;
+    border-radius: 3px;
+    background: #ffe5e5;
+}
+
+.design-main .design-center .image-store .image-list .image-list-item img {
+    display: block;
+    width: 100%;
+}
+
+.design-main .design-center .image-store .image-list .image-list-item span {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+}

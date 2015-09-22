@@ -98,14 +98,158 @@
             </div>
             <div class="tab-content">
                 <div class="tab-content-image-layout">
-                    <a class="upload-location-btn" href="#">上传你的设计</a>
+                    <a id="upload_location_btn" class="upload-location-btn" href="javascript:;">上传你的设计</a>
                 </div>
                 <div class="tab-content-image-layout-or">
                     或
                 </div>
                 <div class="tab-content-image-layout">
-                    <a class="upload-vendor-btn" href="#">浏览模板库</a>
+                    <a id="image_store_btn" class="upload-vendor-btn" href="javascript:;">浏览模板库</a>
                 </div>
+                <div class="upload-location">
+                    <p>
+                        <span>支持的文件类型 ：</span>
+                        <br>
+                        <span class="font-color-red">.png  /  .jpg  /  .jpeg  /  .svg</span>
+                    </p>
+                    <p>
+                        <span>图片像素 ：</span>
+                        <br>
+                        <span class="font-color-red">不低于200×200像素</span>
+                        <br>
+                        <span class="font-color-red">不高于3000×3000像素</span>
+                        <br>
+                        <span class="font-color-red">最大不超过5M</span>
+                    </p>
+                    <p>
+                        <span>图片上传条款 ：</span>
+                        <br/>
+                        <span>您提交的任何设计必须是您设计或者拥有合法使用权。你不得使用他人拥有的内容，除非你得到他们的许可。如果有人因为你的设计向我们索赔，您同意支付我们受到损失，包括律师费等任何损失。</span>
+                    </p>
+                    <div>
+                        <a class="upload-location-btn" href="javascript:;">选择本地图片</a>
+                    </div>
+                </div>
+                <div class="image-store">
+                    <div class="form-row">
+                        <select class="form-control" name="" id="">
+                            <option value="">热门模版</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="image-list">
+                            <div class="image-list-item active">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>99.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>99.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>免费</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                            <div class="image-list-item">
+                                <div class="img-wrap">
+                                    <img src="/css/design/image-list-item.png" alt=""/>
+                                </div>
+                                <span>999.00元/件</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="product-preview">
