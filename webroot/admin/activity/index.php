@@ -260,6 +260,7 @@
         $('#username').val();
         $('#activity-status').val('');
     }
+
     jQuery(function($) {
         var grid_setting = {
             url:"/api?model=admin/activity&action=list&success=index",
@@ -280,8 +281,7 @@
                 {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
                         var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
-                        var cell = cellvalue+'<br>' +
-                            '发起人:' +rowObject.nick_name+"<br>";
+                        var cell = "<a target='_blank' href='{0}'>{1}</a><br><br>发起人:{2}<br>".format(act_url,cellvalue,rowObject.nick_name);
                         return cell;
                     }
                 },
