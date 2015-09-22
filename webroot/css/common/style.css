@@ -169,7 +169,7 @@ header{
 }
 
 .infooter p{
-    width: 960px;
+    /* width: 960px; */
     position: absolute;
     bottom:30px;
     left: 350px;
