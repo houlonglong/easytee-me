@@ -150,6 +150,7 @@
 .design-main .design-center .product-choices .product-list {
     background: #fff;
     border: 1px solid #e8eced;
+    margin-top: 10px;
 }
 .design-main .design-center .product-choices .product-item {
     display: block;
