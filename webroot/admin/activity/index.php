@@ -64,7 +64,7 @@
                                                     </select>
 
                                                 </span>
-                                                <span class="mr-20 production_status" >
+                                                <span class="mr-20 production_status" style="display: none;">
                                                     生产:
                                                     <select id="production_status" onchange="search()">
                                                         <option value="">全部</option>    *
@@ -73,7 +73,7 @@
                                                         <option value="2">生产完成</option>   *
                                                     </select>
                                                 </span>
-                                                <span class="mr-20 ship_status">
+                                                    <span class="mr-20 ship_status" style="display: none;">
                                                     发货:
                                                     <select id="ship_status" onchange="search()">
                                                         <option value="">全部</option>
@@ -82,8 +82,8 @@
                                                     </select>
                                                 </span>
                                                 <br><br>
-                                                <input type="text"  class="input-small" placeholder="活动ID" id="activity-id">
-                                                <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
+                                                <input type="text"  class="input-small" placeholder="活动ID" id="activity_id">
+                                                <input type="text"  class="input-small" placeholder="活动名称" id="activity_name">
 
 <!--                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">-->
 <!--                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">-->
@@ -226,51 +226,30 @@
 
     function search(){
 //        debugger;
-        var status = parseInt($('#status').val());
-        var $query;
-        if(status == 0 || status == 10 || status == 2){
-          $('.production_status').hide();
+        var status = $('#status').val();
+        $query = {
+            verify:$('#verify').val(),
+            status:status,
+            activity_id:$('#activity_id').val(),
+            activity_name:$('#activity_name').val(),
+        };
+        if(status == '0' || status == '10' || status == '2' || status == '1'){
+            $('.production_status').hide();
             $('.ship_status').hide();
-            $query = {
-                verify:$('#verify').val(),
-                status:$('#status').val(),
-            };
         }else{
             $('.production_status').show();
             $('.ship_status').show();
-            $query = {
-                verify:$('#verify').val(),
-                status:$('#status').val(),
-                production_status:$('#production_status').val(),
-                ship_status:$('#ship_status').val(),
-                activity_id:$('#activity-id').val(),
-                activity_name:$('#activity-name').val(),
+            $query["production_status"] = $('#production_status').val();
+            $query["ship_status"] = $('#ship_status').val();
 
-            };
         }
 
         if(parseInt($('#production_status').val())==0 ||parseInt($('#production_status').val())==1){
             $('.ship_status').hide();
-            $query = {
-                verify:$('#verify').val(),
-                status:$('#status').val(),
-                production_status:$('#production_status').val()
-            };
+
         }else{
-            $query = {
-                verify:$('#verify').val(),
-                status:$('#status').val(),
-                production_status:$('#production_status').val(),
-                ship_status:$('#ship_status').val(),
-                activity_id:$('#activity-id').val(),
-                activity_name:$('#activity-name').val(),
-
-            };
+            $query["production_status"] = $('#production_status').val();
         }
-
-
-
-
 
 
         $(grid_selector).jqGrid('setGridParam',{
