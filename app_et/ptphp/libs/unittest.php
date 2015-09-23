@@ -67,12 +67,21 @@ class UnitTest extends PHPUnit_Framework_TestCase{
         $this->local_proxy = array();
         $body = $res['body'];
         $this->response_info = $res['info'];
+        //echo $body;exit;
         if(substr($body,0,1) == "{"){
             $body = json_decode($body,1);
             log(unicodeString(json_encode($body,JSON_PRETTY_PRINT)));
         }else{
             $body = trim(substr($body,strpos($body,"\r\n\r\n")));
-            //log("return:",$body);
+            if(substr($body,0,1) == "{"){
+                $body = json_decode($body,1);
+                log(unicodeString(json_encode($body,JSON_PRETTY_PRINT)));
+            }else{
+
+                //log("return:",$body);
+            }
+
+
         }
         return $body;
     }
