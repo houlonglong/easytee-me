@@ -24,7 +24,7 @@
 
 退出登陆
 ------
-- url: http://2.dev.jzw.com/api?model=user/auth&action=logout
+- url: /api?model=user/auth&action=logout
 
 第三方登陆
 ------
