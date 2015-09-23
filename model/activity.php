@@ -7,6 +7,91 @@ class Model_Activity extends BaseModel{
     function __construct(){
         //parent::__construct();
     }
+
+    static function detail_info($id){
+        $act = self::_db()->select_row("select
+                  uid,
+                  name,content,sale_target,sale_count,sale_total,sale_profit,
+                  period,start_time,end_time,verify,status,production_status,ship_status,
+                  colors,default_side,default_style_id,design_id,
+                  thumb_img_url,thumb_svg_url
+                  from et_activity_info where id = ?",$id);
+
+        //var_dump($act);exit;
+        $default_style['thumb_img_url'] =  $act['thumb_img_url'];
+        $default_style['thumb_svg_url'] =  $act['thumb_svg_url'];
+        $default_style['side']  =  "front";
+        $default_style['product_style_id']  =  $act['default_style_id'];
+
+        $default_style_id = $act['default_style_id'];
+
+        $_styles = self::_db()->select_rows("select
+                aps.sell_price,aps.product_id,aps.product_style_id,
+                s.color_name,s.color
+                from activity_product_styles as aps
+                left join et_product_style as s on s.id = aps.product_style_id
+                where activity_id = ? order by aps.id asc",$id);
+        //return $_styles;
+        $product_ids = array();
+        $product_style_ids = array();
+        foreach($_styles as $style){
+            $product_ids[] = $style['product_id'];
+            $product_style_ids[] = $style['product_style_id'];
+        }
+        //var_dump($product_ids);exit;
+        $product_ids = array_unique($product_ids);
+        $product_style_ids = array_unique($product_style_ids);
+        $_products = self::_db()->select_rows("select content,name,id from et_product where id in (".implode(",",$product_ids).")");
+        $_product_designs = self::_db()->select_rows("select * from et_product_design where product_id in (".implode(",",$product_ids).")");
+        foreach($_products as $_product){
+            $_product['content'] = replace_cdn($_product['content']);
+            $products[$_product['id']] = $_product;
+        }
+        $product_designs = array();
+        foreach($_product_designs as $_product_design){
+            $product_designs[$_product_design['product_id']][$_product_design['side']] = $_product_design;
+        }
+
+        $styles = array();
+
+        foreach($_styles as $style){
+            if($style["product_style_id"] == $default_style_id){
+                $default_style['color'] = $style['color'];
+                $default_style['color_name'] = $style['color_name'];
+                $default_style['sell_price'] = $style['sell_price'];
+                $default_style['product_style_id'] = $style['product_style_id'];
+                $default_style['product_id'] = $style['product_id'];
+            }
+            $styles[$style['product_id']]["style_".$style["product_style_id"]] = $style;
+        }
+        $inventorys = self::_db()->select_rows("select * from et_product_inventory where style_id in (".implode(",",$product_style_ids).")");
+        $sizes = array();
+        foreach($inventorys as $inventory){
+            $sizes[$inventory['product_id']][$inventory['style_id']][] = $inventory;
+        }
+        $_act_product_designs = self::_db()->select_rows("select * from et_activity_product where activity_id = ?",$id);
+        $act_designs = array();
+        foreach($_act_product_designs as $_act_product_design){
+            $act_designs[$_act_product_design['product_id']][$_act_product_design['side']] = array(
+                "img_url"=>$_act_product_design['img_url'],
+                "svg_url"=>$_act_product_design['svg_url'],
+            );
+        }
+
+        return array(
+            "activity"=>$act,
+            "products"=>$products,
+            "product_designs"=>$product_designs,
+            "act_designs"=>$act_designs,
+            "styles"=>$styles,
+            "sizes"=>$sizes,
+            "sides"=>array(
+                "front","back","third","fourth"
+            ),
+            "default_style"=>$default_style
+        );
+    }
+
     function action_detail($id){
         echo file_get_contents("http://11.dev.jzw.la/activity/get_detail?id=2595");exit;
         $act = self::_db()->select_row("select default_product_style_id,design_id from activities where id = ?",$id);

@@ -17,6 +17,12 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
+    <style>
+        .mr-20{
+            display: inline-block;
+            margin-right:20px;
+        }
+    </style>
 </head>
 <body class="no-skin">
 <?php include(block("admin/block/navbar"))?>
@@ -30,78 +36,78 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
+
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="tabbable">
-                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/index'">全部</a>
-                                        </li>
+                                <div class="widget-box">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <form class="form-inline">
+                                                <span class="mr-20">
+                                                    审核:
+                                                    <select name="" id="verify">
+                                                        <option value="">全部</option>
+                                                        <option value="1">未审核</option>
+                                                        <option value="0">审核通过</option>
+                                                        <option value="2">审核不通过</option>
+                                                    </select>
+                                                </span>
+                                                <span class="mr-20">
+                                                    状态:
+                                                    <select name="" id="status">
+                                                        <option value="1">进行中</option>
+                                                        <option value="">全部</option>
+                                                        <option value="0">草稿</option>
+                                                        <option value="2">失败的</option>
+                                                        <option value="3">成功的</option>
+                                                    </select>
 
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/pending_audit'">待审核</a>
-                                        </li>
+                                                </span>
+                                                <span class="mr-20">
+                                                    生产:
+                                                    <select name="" id="status">
+                                                        <option value="">全部</option>
+                                                        <option value="0">待生产</option>
+                                                        <option value="1">生产中</option>
+                                                        <option value="2">生产完成</option>
+                                                    </select>
+                                                </span>
+                                                <span class="mr-20">
+                                                    发货:
+                                                    <select name="" id="status">
+                                                        <option value="">全部</option>
+                                                        <option value="0">未发货</option>
+                                                        <option value="1">已发货</option>
+                                                    </select>
+                                                </span>
+                                                <br><br>
+                                                <input type="text"  class="input-small" placeholder="活动ID" id="activity-id">
+                                                <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
+                                                <input type="text"  class="input-small" placeholder="手机号码" id="mobile">
 
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="location.href='/admin/activity/audit'">已审核</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#"
-                                               onclick="location.href='/admin/activity/audit_unpass'">审核未通过</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#"
-                                               onclick="location.href='/admin/activity/audit_ongoing'">审核通过进行中</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#"
-                                               onclick="location.href='/admin/activity/success'">成功的众筹</a>
-                                        </li>
-                                        <li >
-                                            <a data-toggle="tab" href="#"
-                                               onclick="location.href='/admin/activity/fail'">失败的众筹</a>
-                                        </li>
-                                    </ul>
 
-                                    <div class="tab-content">
-                                        <div id="home4" class="tab-pane in active">
-
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="widget-box">
-                                                        <div class="widget-body">
-                                                            <div class="widget-main">
-                                                                <form class="form-inline">
-                                                                    <input type="text"  class="input-small" placeholder="活动ID" id="activity-id">
-                                                                    <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
-                                                                    <input type="text"  class="input-small" placeholder="用户名" id="username">
-                                                                    <input type="text"  class="input-small" placeholder="手机号码" id="mobile">
-                                                                    <input type="text"  class="input-small" placeholder="开始时间" id="start-date">
-                                                                    <input type="text"  class="input-small" placeholder="结束时间" id="end-date">
-                                                                    <button type="button" class="btn btn-success btn-sm" onclick="search()">
-                                                                        <i class="ace-icon fa fa-search bigger-110"></i>搜索
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <table id="grid-table"></table>
-                                                    <div id="grid-pager"></div>
-                                                    <script type="text/javascript">
-                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                                    </script>
-                                                </div>
-                                                <!-- /.span -->
-                                            </div>
+                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">
+                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">
+                                                <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                    <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <table id="grid-table"></table>
+                                <div id="grid-pager"></div>
+                                <script type="text/javascript">
+                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                </script>
+                            </div>
+                            <!-- /.span -->
+                        </div>
+
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -254,58 +260,54 @@
         $('#username').val();
         $('#activity-status').val('');
     }
+
     jQuery(function($) {
         var grid_setting = {
             url:"/api?model=admin/activity&action=list&success=index",
             url_save:"/api?model=admin/activity&action=edit",
             method:"POST",
             height:500,
-            rowNum:15,
+            rowNum:5,
             rowList:[15,30,50,100],
             caption:"",
             cols:[
-                {title:"Id",name:'id',index:'id', width:40, sortable:false, editable: false},
-                {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,editoptions:{size:"20",maxlength:"30"},
+                {title:"Id",name:'id',index:'id', width:80, fixed:true,sortable:false, editable: false},
+                {title:"缩略图",name:'thumb_img_url',width:110, fixed:true,index:'thumb_img_url',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
+                        var cell = '<img style="width:100px;height:100px;" src="'+cellvalue+'">';
+                        return cell;
                     }
                 },
-                {title:"发起人",name:'nick_name',index:'nick_name',width:80,sortable:false,editable: true,editoptions:{size:"20",maxlength:"30"}},
-                {title:"目标/实售",name:'sales_target',index:'sales_target',sortable:false,width:70,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                         return cellvalue+'/'+rowObject['sales_count'];
+                        var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
+                        rowObject["act_url"] = act_url;
+                        var cell = "<a target='_blank' href='{act_url}'>{name}</a><br><br>发起人:<a target='_blank' href='/admin/user/modify?id={uid}'>{nick_name}</a>".format(rowObject);
+                        return cell;
                     }
                 },
-                {title:"开始时间",name:'start_time',index:'start_time',width:120,sortable:false,editable: true,
-                    unformat: pickTimeDate
+                {title:"销售",name:'sales_target',index:'sales_target',width:200,fixed:true,sortable:false,editable: true,
+                    formatter:function(cellvalue, options, rowObject){
+                        var cell = rowObject.sales_count + "/" + cellvalue ;
+                        cell += "<br>总额: "+rowObject.total ;
+                        return cell;
+                    }
                 },
-                {title:"预计结束时间",name:'end_time',index:'end_time',width:120,sortable:false,editable: true,
-                    unformat: pickTimeDate
+                {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
+                    formatter:function(cellvalue, options, rowObject){
+                        var cell = "期限:"+rowObject.deadline +
+                            '<br>开始:'+cellvalue+ '<br>结束:'+rowObject.end_time+
+                            '<br>实际'+rowObject.real_end_time
+                            ;
+                        return cell;
+                    }
                 },
-                {title:"实际结束时间",name:'real_end_time',index:'real_end_time',width:120,sortable:false,editable: true,
-                    unformat: pickTimeDate
+                {title:"状态",name:'activity_status',index:'activity_status',width:100,sortable:false,fixed:true,
+                    formatter:function(cellvalue, options, rowObject){
+                        var cell = "";
+                        return cell;
+                    }
                 },
-
-                {title:"众筹状态",name:'activity_status',index:'activity_status',width:100,sortable:false,editable: true,edittype:"custom",
-                    editoptions:{custom_element: mystatuselem, custom_value:myvalue},
-//                    formatter:function(cellvalue, options, rowObject){
-//                        var img = "";
-//                        if(cellvalue == 'fabrication'){
-//                            img = '<span  data-status="fabrication" class="label label-sm label-success arrowed-in">生产中</span>';
-//                        }
-//                        if(cellvalue == 'ongoing'){
-//                            img = '<span data-status="ongoing" class="label label-sm label-warning">进行中</span>';
-//                        }
-//                        if(cellvalue == 'success'){
-//                            img = '<span data-status="success" class="label label-sm label-info arrowed arrowed-righ">成功</span>';
-//                        }
-//                        if(cellvalue == 'failure'){
-//                            img = '<span data-status="failure" class="label label-sm label-inverse arrowed-in">失败</span>';
-//                        }
-//                        return img;
-//                    }
-                },
-
                 {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
                     formatter:'actions',
                     formatoptions:{

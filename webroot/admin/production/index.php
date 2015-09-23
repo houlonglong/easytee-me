@@ -40,56 +40,54 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="tabbable">
-                                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                                        <li class="active">
-                                            <a data-toggle="tab" href="#" onclick="return do_product('index');">待生产</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="return do_product('producting');">生产中</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="return do_product('producted');">已完成侍发货</a>
-                                        </li>
-                                        <li>
-                                            <a data-toggle="tab" href="#" onclick="return do_product('shipped');">已发货</a>
-                                        </li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div class="tab-pane in active">
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <div class="widget-box">
-                                                        <div class="widget-body">
-                                                            <div class="widget-main">
-                                                                <form class="form-inline">
-                                                                    <input type="text" class="input-small" placeholder="活动名称" id="activity-name">
-                                                                    <input type="text" class="input-small" placeholder="活动ID" id="activity-id">
-                                                                    <input type="text" class="input-small" placeholder="用户名" id="username">
-                                                                    <input type="text" class="input-small" placeholder="手机号码" id="mobile">
-                                                                    <button type="button" class="btn btn-success btn-sm" onclick="search()">
-                                                                        <i class="ace-icon fa fa-search bigger-110"></i>搜索
-                                                                    </button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="widget-box">
+                                            <div class="widget-body">
+                                                <div class="widget-main">
+                                                    <form class="form-inline">
+                                                        <input type="text" class="input-small" placeholder="活动名称" id="activity-name">
+                                                        <input type="text" class="input-small" placeholder="活动ID" id="activity-id">
+                                                        <span class="mr-20">
+                                                            <select name="" id="verify">
+                                                                <option value="">全部</option>
+                                                                <option value="1">目标完成,预生产</option>
+                                                                <option value="0">已结束,待生产</option>
+                                                            </select>
+                                                        </span>
+                                                        <span class="mr-20">
+                                                            <select name="" id="verify">
+                                                                <option value="">全部</option>
+                                                                <option value="1">生产中</option>
+                                                                <option value="0">生产完成</option>
+                                                            </select>
+                                                        </span>
+                                                        <span class="mr-20">
+                                                            <select name="" id="verify">
+                                                                <option value="">全部</option>
+                                                                <option value="1">待发货</option>
+                                                                <option value="0">已发货</option>
+                                                            </select>
+                                                        </span>
+                                                        <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                            <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <table id="grid-table"></table>
-                                                    <div id="grid-pager"></div>
-                                                    <script type="text/javascript">
-                                                        var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                                    </script>
-                                                </div>
-
-                                            </div>
-
                                         </div>
-
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table id="grid-table"></table>
+                                        <div id="grid-pager"></div>
+                                        <script type="text/javascript">
+                                            var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                        </script>
+                                    </div>
+
                                 </div>
                             </div>
                             <!-- /.span -->
@@ -147,28 +145,47 @@
             caption:"",
             cols:[
                 {title:"活动ID",name:'id',index:'id',sortable:false, width:40, sorttype:"int", editable: false},
-                {title:"活动名称",name:'name',index:'name',sortable:false,editable: true,editoptions:{size:"20",maxlength:"30"},
+                {title:"缩略图",name:'thumb_img_url',width:110, fixed:true,index:'thumb_img_url',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        return '<a href="http://'+frontend_domain+'/activity/'+rowObject['id']+'" target = "_black">'+cellvalue+'</a';
+                        var cell = '<img style="width:100px;height:100px;" src="'+cellvalue+'">';
+                        return cell;
                     }
                 },
-                {title:"发起人",name:'nick_name',index:'nick_name',sortable:false,width:100,sortable:false,editable: false},
-                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
-                {title:"预计交货时间",name:'real_end_time',index:'real_end_time',sortable:false,width:100,sortable:false,editable: false},
-                {title:"操作",name:'id',index:'id', width:80, fixed:true, sortable:false, resize:false,
+                {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        // 当前时间
-                        var timestamp = (new Date()).valueOf();
-                        // 活动结束时间
-                        var date = new Date(rowObject['real_end_time']);
-                        var time = date.getTime();
-                        console.log(time,timestamp);
-                        if(timestamp>=time){
-                            return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+cellvalue+'">安排生产</a>';
+                        var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
+                        rowObject["act_url"] = act_url;
+                        var cell = "<a target='_blank' href='{act_url}'>{name}</a>".format(rowObject);
+                        return cell;
+                    }
+                },
+                {title:"发起人UID",name:'uid',index:'uid',sortable:false,width:50,sortable:false,editable: false,
+                    formatter:function(cellvalue, options, rowObject){
+                        var cell = "<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
+                        return cell;
+                    }
+                },
+                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
+                {title:"预计交货时间",name:'end_time',index:'end_time',sortable:false,width:100,sortable:false,editable: false},
+                {title:"生产",name:'status',index:'status', width:200, fixed:true, sortable:false,
+                    formatter:function(cellvalue, options, rowObject){
+                        if(rowObject['status'] == 3){
+                            if( rowObject['production_status'] == 0){
+                                return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+cellvalue+'">安排生产</a>';
+                            }
+                            if( rowObject['production_status'] == 1){
+                                return "生产中";
+                            }
+                            if( rowObject['production_status'] == 2){
+                                if( rowObject['ship_status'] == 0){
+                                    return "待发货";
+                                }else{
+                                    return "发货完成";
+                                }
+                            }
                         }else{
-                            return '';
+                            return "目标完成,待生产";
                         }
-
 
                     },
                 },
@@ -321,7 +338,6 @@
             //multikey: "ctrlKey",
             multiboxonly: false,
             loadComplete : function(xhr) {
-                console.log(xhr);
                 var table = this;
                 setTimeout(function(){
                     styleCheckbox(table);

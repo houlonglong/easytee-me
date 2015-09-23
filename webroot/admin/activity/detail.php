@@ -6,9 +6,9 @@
      * 活动详情
      *
      */
-
     include(block("admin/block/html_head"));
     $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
+    //var_dump($row);exit;
     ?>
 
     <!-- page specific plugin styles -->
@@ -38,21 +38,9 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a class="btn btn-xs btn-info"
-                                   href="/api?model=admin/activity&action=download_excel&id=<?php echo $_REQUEST['id']; ?>">下载详情EXCEL</a>
-                            </div>
-                            <!-- /.span -->
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div>
-                                    <a class="btn btn-primary"
-                                       href="/admin/activity/detail_design?id=<?php echo $_GET['id'] ?>"
-                                       target="_blank">设计详情</a>
-                                </div>
 
+                        <div class="row">
+                            <div class="col-xs-12">
                                 <div class="widget-box">
                                     <div class="widget-header">
                                         <h4 class="widget-title">众筹详情</h4>
@@ -62,51 +50,34 @@
                                         <div class="widget-main">
                                             <div>
                                                 <h3>
-                                                    活动名称: <?php echo $row['name']; ?>
+                                                    活动名称: <?php
+                                                    echo $row['activity']['name']; ?>
                                                 </h3>
                                             </div>
                                             <div>
                                                 <table class="table">
                                                     <tr>
-                                                        <th style="text-align: right">发起人</th>
-                                                        <td style="text-align: left"><?php echo $row['nick_name']; ?></td>
+                                                        <th style="text-align: right">发起人UID</th>
+                                                        <td style="text-align: left"><a target='_blank' href='/admin/user/modify?id=<?php echo $row['activity']['uid']; ?>'><?php echo $row['activity']['uid']; ?></a></td>
                                                         <th style="text-align: right">开始时间</th>
-                                                        <td style="text-align: left"><?php echo $row['start_time']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['start_time']; ?></td>
                                                         <th style="text-align: right">结束时间</th>
-                                                        <td style="text-align: left"><?php echo $row['real_end_time']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['end_time']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: right">销售目标</th>
-                                                        <td style="text-align: left"><?php echo $row['sales_target']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['sale_target']; ?></td>
                                                         <th style="text-align: right">实际销售</th>
-                                                        <td style="text-align: left"><?php echo $row['sales_count']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['sale_count']; ?></td>
                                                         <th style="text-align: right">颜色数量</th>
-                                                        <td style="text-align: left"><?php echo $row['colors']; ?></td>
+                                                        <td style="text-align: left"><?php echo $row['activity']['colors']; ?></td>
                                                     </tr>
                                                     <tr>
                                                         <th style="text-align: right">快递总费用</th>
-                                                        <td style="text-align: left"><?php echo empty($row['total_express']) ? 0 : $row['total_express']; ?></td>
+                                                        <td style="text-align: left"></td>
                                                     </tr>
-                                                    <?php
-                                                    $count = count($row['category']);
-                                                    $culoum = 0;
-                                                    $culoum = ceil($count / 3);
-                                                    $str = '';
-                                                    for ($i = 0; $i <= $culoum; $i++) {
-                                                        $str .= '<tr>';
-                                                        $j = 0;
-                                                        foreach ($row['category'] as $key => $data) {
-                                                            if ($j >= 3) {
-                                                                break;
-                                                            }
-                                                            if (isset($row['category'][$i * 3 + $j])) {
-                                                                $str .= '<th style="text-align: right">' . $row['category'][$i * 3 + $j][0] . ' 销售成本</th><td>' . $row['category'][$i * 3 + $j][1] . '</td>';
-                                                            }
-                                                            $j++;
-                                                        }
-                                                        $str .= '</tr>';
-                                                    }
-                                                    echo $str;
+                                                    <?php //销售成本
+
                                                     ?>
                                                 </table>
                                             </div>
@@ -114,6 +85,15 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="row" style="margin:10px 0">
+                            <div class="col-xs-12">
+                                <a class="btn btn-xs btn-info" target="_blank"
+                                   href="/api?model=admin/activity&action=download_excel&id=<?php echo $_REQUEST['id']; ?>">
+                                    导出订单
+                                </a>
+                            </div>
+                            <!-- /.span -->
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
@@ -125,6 +105,7 @@
                                 <script type="text/javascript">
                                     var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                 </script>
+
                             </div>
                             <!-- /.span -->
                         </div>
@@ -156,196 +137,114 @@
 
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    function gen_product_svg(obj) {
-        var $svg = $(obj).parents("tr").find(".product_svg").html();
-        //console.log($svg);
-        canvg('canvas', $svg, {
-            log: true,
-            useCORS: true,
-            ignoreDimensions: true,
-            ignoreClear: true,
-            ignoreMouse: true, ignoreAnimation: true,
-            renderCallback: function (dom) {
-                var imageDataUri = canvas.toDataURL("image/png");
-                console.log(imageDataUri);
-
-            }
-        });
-    }
-    function gen_design_svg(obj) {
-
-        var id = $(obj).parents("tr").data("id");
-        var side = $(obj).parents("tr").data("side");
-        var $svg_url = $(obj).parents("tr").find(".svg_url").attr("src");
-
-        canvg('canvas', $svg_url, {
-            renderCallback: function (dom) {
-                var imageDataUri = canvas.toDataURL("image/png");
-                $(obj).parents("tr").find(".img_url").html('<img src="' + imageDataUri + '">');
-                $.post("/api", {
-                    model: "admin/site/design",
-                    action: "save_svg_png",
-                    side: side,
-                    design_id: id,
-                    img_content: imageDataUri,
-                }, function (data) {
-
-                });
-            }
-        });
-
+    var activity_id = <?=$_REQUEST['id']?>;
+    function search() {
+        var $query = {
+            order_no: $('#order_no').val(),
+            pay_status: $('#pay_status').val(),
+            ship_status: $('#ship_status').val(),
+            mobile: $('#mobile').val(),
+            activity_id:$('#activity_id').val(),
+            activity_name:$('#activity_name').val()
+        };
+        $(grid_selector).jqGrid('setGridParam', {
+            datatype: 'json',
+            postData: $query, //发送数据
+            page: 1
+        }).trigger("reloadGrid"); //重新载入
     }
 
     jQuery(function ($) {
         var grid_setting = {
-            url: "/api?model=admin/activity&action=detail_list&id=" +<?php echo $_REQUEST['id'];?>,
-            url_save: "/api?model=admin/activity&action=edit",
+            url: "/api?model=admin/order&action=list&activity_id="+activity_id,
+            url_save: "/api?model=admin/order&action=edit",
             method: "POST",
-            height: 390,
+            height: 500,
             rowNum: 15,
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {
-                    title: "活动ID",
-                    name: 'activity_id',
-                    index: 'activity_id',
-                    width: 40,
-                    sorttype: false,
-                    sortable: false,
-                    editable: false
-                },
-
+                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: true, editable: false},
                 {
                     title: "订单号",
                     name: 'order_no',
                     index: 'order_no',
-                    width: 90,
-                    editable: true,
-                    sortable: false,
-                    editoptions: {size: "20", maxlength: "30"},
-                },
-                {
-                    title: "收件人",
-                    name: 'ship_name',
-                    index: 'ship_name',
-                    width: 50,
+                    width: 150,
                     editable: false,
-                    sortable: false,
-                    editoptions: {size: "20", maxlength: "30"}
-                },
-                {
-                    title: "联系电话",
-                    name: 'ship_mobile',
-                    index: 'ship_mobile',
-                    width: 80,
-                    editable: false,
-                    sortable: false,
-                    unformat: pickTimeDate
-                },
-                {
-                    title: "快递费",
-                    name: 'express_price',
-                    index: 'express_price',
-                    width: 50,
-                    editable: false,
-                    sortable: false,
-                    unformat: pickTimeDate
-                },
-                {
-                    title: "收货地址", name: 'ship_addr', index: 'ship_addr', width: 150,
-                    editable: false,
-                    sortable: false,
-                    unformat: pickTimeDate,
-                    formatter: function (cellvalue, options, rowObject) {
-                        return rowObject['ship_province'] + rowObject['ship_city'] + rowObject['ship_area'] + cellvalue;
+                    formatter: 'showlink',
+                    formatoptions: {
+                        baseLinkUrl: '/admin/activity/order_detail',
+                        addParam: '',//&t=1
+                        idName: 'id'
                     }
                 },
                 {
-                    title: "状态", name: 'status', index: 'status', width: 150,
+                    title: "UID",
+                    name: 'uid',
+                    index: 'uid',
+                    width: 50,
                     editable: false,
-                    sortable: false,
+                    sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue == '待发货') {
-                            return '<span class="label label-warning arrowed arrowed-right">' + cellvalue + '</span>';
+                        return '<a target="_blank" href="/admin/user/modify?id=' + cellvalue + '">' + cellvalue + '</a>';
+                    }
+                },
+                {
+                    title: "活动名称",
+                    width: 300,
+                    name: 'activity_name',
+                    index: 'activity_name',
+                    editable: false,
+                    sortable:false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a target="_blank" href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
+                    }
+                },
+                {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false},
+                {title: "订单金额", name: 'goods_price', index: 'goods_price', width: 90, sortable: false, editable: false},
+                {
+                    title: "运费",
+                    name: 'exp_price',
+                    index: 'exp_price',
+                    width: 90,
+                    sortable: false,
+                    editable: false
+                },
+                {
+                    title: "状态",
+                    name: 'status',
+                    index: 'status',
+                    width: 90,
+                    sortable: false,
+                    editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        var cell = '';
+                        if(rowObject.pay_status){
+                            if(rowObject.ship_status){
+                                cell = "已发货"
+                            }else{
+                                cell = "未发货"
+                            }
+                        }else{
+                            cell = "未付款"
                         }
-                        if (cellvalue == '待付款') {
-                            return '<span class="label arrowed"><s>' + cellvalue + '</s></span>';
-                        }
-                        if (cellvalue == '已发货') {
-                            return '<span class="label label-success arrowed-in arrowed-in-right">' + cellvalue + '</span>';
-                        }
-                        if (cellvalue == '已完成') {
-                            return '<span class="label label-danger arrowed">' + cellvalue + '</span>';
+                        return cell;
+                    }
+                },
+                {title: "快递信息", name: 'express_no', index: 'express_no', width: 90, sortable: false, editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        if(cellvalue!=null){
+                            return '<span>快递单号：{exp_no}</span></br><span>快递公司:{exp_com}</span>'.format(rowObject);
+                        }else{
+                            return '未发货';
                         }
 
-                        return cellvalue;
                     }
                 },
-//                {title:"订购服装品类",name:'manufacturer_name',index:'manufacturer_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装款式",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装性别",name:'product_name',index:'product_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装颜色",name:'product_style_name',index:'product_style_name',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装尺码",name:'size',index:'size',width:50,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
-//                {title:"订购服装数量",name:'quantity',index:'quantity',width:100,sortable:false,editable: true,
-//                    unformat: pickTimeDate
-//                },
+
             ]
 
         };
-        //enable datepicker
-        function pickTimeDate(cellvalue, options, cell) {
-            setTimeout(function () {
-                $(cell).find('input[type=text]')
-                    .datetimepicker({dateFormat: 'dd-mm-yy'});
-            }, 0);
-        }
-
-        function showudate(tmpob) {
-            $(function () {
-                tmpob.datepicker({changeMonth: true, changeYear: true, dateFormat: "yy-mm-dd"});
-            });
-        }
-
-        jQuery("#list2").jqGrid('navGrid', '#pager2',
-            {edit: true, add: true, del: true},
-            {
-                width: 400, height: 400, afterShowForm: function () {
-                showudate($(".editable"));
-            }
-            },
-            {width: 400, height: 400}, {}, {multipleSearch: true}, {});
-
-        function myelem(value, options) {
-            value = $(value).data("status");
-            console.log(value, options);
-            var el = document.createElement("select");
-            $(el).append('<option value="0">未审核</option><option value="1">审核</option>').val(value);
-            return el;
-        }
-
-        function mystatuselem(value, options) {
-            value = $(value).data("status");
-            console.log(value, options);
-            var el = document.createElement("select");
-            $(el).append('<option role="option" value="failure">失败</option><option role="option" value="ongoing">进行中</option><option role="option" value="fabrication">生产中</option><option role="option" value="success">成功</option>').val(value);
-            return el;
-        }
-
-        //获取值
-        function myvalue(elem) {
-            return $(elem).val();
-        }
 
         /**
          //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
@@ -369,6 +268,11 @@
          {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
          ],
          */
+
+        //获取值
+        function myvalue(elem) {
+            return $(elem).val();
+        }
 
         function get_col(cols) {
             var col_name = [];
@@ -430,9 +334,9 @@
             //for this example we are using local data
             subGridRowExpanded: function (subgridDivId, rowId) {
                 var subgridTableId = subgridDivId + "_t";
-                $("#" + subgridDivId).html("<table id='" + subgridTableId + "'></table>");
+                $("#" + subgridDivId).html("<table  style='background-color:#C7D3A9;' id='" + subgridTableId + "'></table>");
                 $.ajax({
-                    url: '/api?model=admin/activity&action=ordergoods_detail',
+                    url: '/api?model=admin/order&action=goods_list',
                     data: {
                         id: rowId,
                     },
@@ -445,19 +349,17 @@
                         $("#" + subgridTableId).jqGrid({
                             datatype: 'local',
                             data: data.return,
-                            colNames: ['订购服装品类', '订购服装品牌', '产品名称', '订购服装款式', '订购服装尺码', '订购服装数量', '采购单价', '采购总价', '预计交期'],
+                            colNames: ['分类', '品牌', '产品名称', '款式', '尺码', '数量', '采购单价', '采购总价', '预计交期'],
                             colModel: [
-                                {name: 'product_category_name', width: 150, sortable: false,},
-                                {name: 'manufacturer_name', width: 150, sortable: false,},
-                                {name: 'product_name', width: 150, sortable: false,},
-
-                                {name: 'product_style_name', width: 150, sortable: false,},
-                                {name: 'size', width: 150, sortable: false,},
-                                {name: 'quantity', width: 150, sortable: false,},
-
-                                {name: 'unit_price', width: 150, sortable: false,},
-                                {name: 'total', width: 150, sortable: false,},
-                                {name: 'real_end_time', sortable: false, width: 180}
+                                {name: 'cat_name', width: 80, color: "#3c763d",sortable:false},
+                                {name: 'brand_name', width: 80,sortable:false},
+                                {name: 'product_name', width: 120,sortable:false},
+                                {name: 'style_name', width: 50,sortable:false},
+                                {name: 'pro_size', width: 50,sortable:false},
+                                {name: 'quantity', width: 50,sortable:false},
+                                {name: 'sell_price', width: 100,sortable:false},
+                                {name: 'total_price', width: 100,sortable:false},
+                                {name: 'end_time', width: 180,sortable:false}
                             ]
                         });
                     }
