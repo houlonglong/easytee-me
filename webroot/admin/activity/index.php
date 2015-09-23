@@ -45,27 +45,28 @@
                                             <form class="form-inline">
                                                 <span class="mr-20">
                                                     审核:
-                                                    <select name="" id="verify">
+                                                    <select name="" id="verify" onchange="search()">
                                                         <option value="">全部</option>
-                                                        <option value="1">未审核</option>
-                                                        <option value="0">审核通过</option>
+                                                        <option value="0">未审核</option>
+                                                        <option value="1">审核通过</option>
                                                         <option value="2">审核不通过</option>
                                                     </select>
                                                 </span>
                                                 <span class="mr-20">
                                                     状态:
-                                                    <select name="" id="status">
+                                                    <select id="status" onchange="search()">
                                                         <option value="1">进行中</option>
-                                                        <option value="">全部</option>
+                                                        <option value="10">已结束</option>
                                                         <option value="0">草稿</option>
                                                         <option value="2">失败的</option>
                                                         <option value="3">成功的</option>
+                                                        <option value="">全部</option>
                                                     </select>
 
                                                 </span>
                                                 <span class="mr-20">
                                                     生产:
-                                                    <select name="" id="status">
+                                                    <select id="production_status" onchange="search()">
                                                         <option value="">全部</option>
                                                         <option value="0">待生产</option>
                                                         <option value="1">生产中</option>
@@ -74,7 +75,7 @@
                                                 </span>
                                                 <span class="mr-20">
                                                     发货:
-                                                    <select name="" id="status">
+                                                    <select id="ship_status" onchange="search()">
                                                         <option value="">全部</option>
                                                         <option value="0">未发货</option>
                                                         <option value="1">已发货</option>
@@ -83,11 +84,9 @@
                                                 <br><br>
                                                 <input type="text"  class="input-small" placeholder="活动ID" id="activity-id">
                                                 <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
-                                                <input type="text"  class="input-small" placeholder="手机号码" id="mobile">
 
-
-                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">
-                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">
+<!--                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">-->
+<!--                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">-->
                                                 <button type="button" class="btn btn-success btn-sm" onclick="search()">
                                                     <i class="ace-icon fa fa-search bigger-110"></i>搜索
                                                 </button>
@@ -223,12 +222,14 @@
     }
     function search(){
         var $query = {
+            verify:$('#verify').val(),
+            status:$('#status').val(),
+            production_status:$('#production_status').val(),
+            ship_status:$('#ship_status').val(),
             activity_id:$('#activity-id').val(),
             activity_name:$('#activity-name').val(),
-            username:$('#username').val(),
-            mobile:$('#mobile').val(),
-            startDate:$('#start-date').val(),
-            endDate:$('#end-date').val()
+//            startDate:$('#start-date').val(),
+//            endDate:$('#end-date').val()
         };
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
@@ -282,29 +283,47 @@
                     formatter:function(cellvalue, options, rowObject){
                         var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
                         rowObject["act_url"] = act_url;
-                        var cell = "<a target='_blank' href='{act_url}'>{name}</a><br><br>发起人:<a target='_blank' href='/admin/user/modify?id={uid}'>{nick_name}</a>".format(rowObject);
+                        rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
+                        var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>".format(rowObject) +
+                            "{verify}<br>".format(rowObject) +
+                            "UID:<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
                         return cell;
                     }
                 },
-                {title:"销售",name:'sales_target',index:'sales_target',width:200,fixed:true,sortable:false,editable: true,
+                {title:"销售",name:'sale_target',index:'sale_target',width:200,fixed:true,sortable:false,editable: true,
                     formatter:function(cellvalue, options, rowObject){
-                        var cell = rowObject.sales_count + "/" + cellvalue ;
-                        cell += "<br>总额: "+rowObject.total ;
+                        var cell = rowObject.sale_count + "/" + cellvalue ;
+                        cell += "<br>总额: "+rowObject.sale_total ;
+                        if(rowObject.sale_count > 10){
+                            cell += "<br>可进入预生产 " ;
+                        }else{
+                            cell += "<br>未达10件" ;
+                        }
                         return cell;
                     }
                 },
                 {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
                     formatter:function(cellvalue, options, rowObject){
-                        var cell = "期限:"+rowObject.deadline +
-                            '<br>开始:'+cellvalue+ '<br>结束:'+rowObject.end_time+
-                            '<br>实际'+rowObject.real_end_time
-                            ;
+                        var cell = "期限:"+rowObject.period +
+                            '<br>开始:'+cellvalue+
+                            '<br>结束:'+rowObject.end_time;
+
+
                         return cell;
                     }
                 },
                 {title:"状态",name:'activity_status',index:'activity_status',width:100,sortable:false,fixed:true,
                     formatter:function(cellvalue, options, rowObject){
                         var cell = "";
+                        if(rowObject.production_status == 1){
+                            cell += "生产中<br>";
+                        }
+                        if(rowObject.production_status == 2){
+                            cell += "生产完成<br>";
+                        }
+                        if(rowObject.production_status == 0){
+                            cell += "未生产<br>";
+                        }
                         return cell;
                     }
                 },

@@ -6,7 +6,7 @@ use PtLib as PtLib;
  */
 class Model_Admin_Activity extends Model_Admin_Abstract
 {
-    static $table = "activities";
+    static $table = "et_activity_info";
 
     function __construct()
     {
@@ -128,9 +128,6 @@ limit 1");
      */
     function action_list()
     {
-        if ($this->_request('success') == 1) {
-            return self::success();
-        }
         return self::table_list();
     }
 
@@ -226,12 +223,12 @@ limit 1");
     */
     static function table_list()
     {
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $join = ' inner join et_user as u on u.id = ' . $table_alias . '.uid ';
+        $table = self::$table;
+        $table_alias = 'a';
+        $join = ' inner join et_user as u on u.id = a.uid ';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows", "page", "sidx", "sord", "activity_id", "activity_name", "username", "mobile", 'startDate', 'endDate', 'pass', 'status', 'success');
+        $request = PtLib\http_request("verify","production_status","ship_status","rows", "page", "sidx", "sord", "activity_id", "activity_name", "username", "mobile", 'startDate', 'endDate', 'pass', 'status', 'success');
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -239,7 +236,7 @@ limit 1");
         $username = $request['username'];
 
         //fields
-        $select_fields = " $table_alias.*,u.nick_name ";
+        $select_fields = " a.*";
         //where
         $args = array();
         if (empty($limit)) $limit = 20;
@@ -250,48 +247,76 @@ limit 1");
         } else {
             if (empty($sort_type)) $sort_type = "desc";
         }
-        if ($request['status']) {
-            $where = 'where ' . $table_alias . '.status =? ';
-            $args[] = $request['status'];
 
-        } else {
-            $where = 'where ' . $table_alias . '.status !="create" ';
+        $where = " where 1=1 ";
+        $args =array();
+
+        if ($request['verify'] === "0" || $request['verify'] > 0) {
+            $where .= 'and a.verify = ? ';
+            $args[] = $request['verify'];
         }
 
-
-        if ($request['mobile']) {
-            $where .= " and u.mobile = ? ";
-            $args[] = $request['mobile'];
+        if ($request['status'] === "0" || $request['status'] > 0) {
+            if($request['status'] == 1){//进行中
+                $where .= 'and a.start_time < now() and now() < a.end_time ';
+            }
+            if($request['status'] == 10){//结束
+                $where .= 'and now() > a.end_time ';
+            }
+            if($request['status'] == 0){//草稿
+                $where = 'and a.status = 0 ';
+            }
+            if($request['status'] == 2){//失败的
+                $where = 'and a.status = 2 ';
+            }
+            if($request['status'] == 3){//成功的
+                $where = 'and a.status = 3 ';
+            }
         }
-        if ($username) {
-            $where .= " and u.nick_name = ? ";
-            $args[] = $username;
+
+        if ($request['production_status'] >= 0 ) {
+            if($request['production_status'] == 0){//
+                $where .= 'and a.production_status = 0 ';
+            }
+            if($request['production_status'] == 1){//
+                $where .= 'and a.production_status = 1 ';
+            }
+            if($request['production_status'] == 2){//
+                $where .= 'and a.production_status = 2 ';
+            }
+        }
+        if ($request['ship_status'] >= 0 ) {
+            if($request['ship_status'] == 0){//
+                $where .= 'and a.ship_status = 0 ';
+            }
+            if($request['ship_status'] == 1){//
+                $where .= 'and a.ship_status = 1 ';
+            }
+            if($request['ship_status'] == 2){//
+                $where .= 'and a.ship_status = 2 ';
+            }
         }
         if ($request['activity_id']) {
-            $where .= " and ".$table_alias.".id = ? ";
+            $where .= " and a.id = ? ";
             $args[] = $request['activity_id'];
         }
         if ($request['activity_name']) {
-            $where .= " and " . $table_alias . ".name like '%" . mysql_escape($request['activity_name']) . "%' ";
+            $where .= " and a.name like '%" . mysql_escape($request['activity_name']) . "%' ";
         }
-        if ($request['startDate']) {
-            $where .= ' and ' . $table_alias . '.start_time >="' . date('Y-m-d 00:00:00', strtotime($request['startDate'])) . '"';
-        }
+//        if ($request['startDate']) {
+//            $where .= ' and ' . $table_alias . '.start_time >="' . date('Y-m-d 00:00:00', strtotime($request['startDate'])) . '"';
+//        }
+//
+//        if ($request['endDate']) {
+//            $where .= ' and ' . $table_alias . '.real_end_time <="' . date('Y-m-d 23:59:59', strtotime($request['endDate'])) . '"';
+//        }
 
-        if ($request['endDate']) {
-            $where .= ' and ' . $table_alias . '.real_end_time <="' . date('Y-m-d 23:59:59', strtotime($request['endDate'])) . '"';
-        }
-
-        if ($request['pass'] !== null) {
-            $where .= ' and ' . $table_alias . '.pass =?';
-            $args[] = $_REQUEST['pass'];
-        }
 
         //order
         $order = "";
         if ($sort)
-            $order = "order by $table_alias." . addslashes($sort) . " " . $sort_type;
-        $sql = "select count($table_alias.id) as total from $table $join $where ";
+            $order = "order by a." . addslashes($sort) . " " . $sort_type;
+        $sql = "select count(a.id) as total from $table as a $join $where ";
         //$count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql, $args);
         $records = $count_res['total'];
@@ -310,45 +335,10 @@ limit 1");
 
         $skip = ($page - 1) * $limit;
 
-        $sql = "select $select_fields from $table $join $where $order limit $skip,$limit ";
+        $sql = "select $select_fields from $table as a $join $where $order limit $skip,$limit ";
         //$rows = db()->select_rows($sql,$args);
         $rows = PtLib\db()->select_rows($sql, $args);
         foreach ($rows as $row) {
-
-            //筛选出成功的众筹
-            if ($request['success'] == 1) {
-                $profie = Model_Cost::calculate_profie($row['id']);
-                //echo $profie;
-                //echo $row['id'];
-                if ($row['id'] == 21) {
-                    return $row;
-                }
-                if ($profie <= 0) {
-                    continue;
-                }
-            }
-            // 当显示全部的时候，需要众筹状态
-            if ($request['success'] == 'index') {
-                $profie = Model_Cost::calculate_profie($row['id']);
-                if ($profie > 0 || $row['status'] =='fabrication') {
-                    $row['activity_status'] = '成功的众筹';
-                } else {
-                    if ($row['real_end_time'] <= date('Y-m-d H:i:s') && $row['status'] !='fabrication') {
-                        $row['activity_status'] = '失败的众筹';
-                    } else {
-                        if ($row['pass'] == 0) {
-                            $row['activity_status'] = '审核未通过';
-                        } else {
-                            if ($row['status'] == 'ongoing') {
-                                $row['activity_status'] = '审核通过进行中';
-                            } else {
-                                $row['activity_status'] = '已审核';
-                            }
-                        }
-                    }
-                }
-            }
-
             $response->rows[] = array(
                 'id' => $row['id'],
                 "cell" => $row
@@ -441,7 +431,6 @@ limit 1");
         }
 
     }
-
     static function success()
     {
         $table_alias = $table = self::$table;
