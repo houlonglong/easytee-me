@@ -70,10 +70,52 @@
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
-                            <div class="design-dropdown-color"></div>
+                            <div class="design-dropdown-color">
+                                <span style="background: #efefef;"></span>
+                            </div>
                         </div>
                         <div class="design-dropdown-menu">
-
+                            <div class="color-picket-list">
+                                <a class="color-picket-item">
+                                   <span style="background: #efefef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                   <span style="background: #ef1fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef2fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef3fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef4fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef5fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef5fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef6fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef7fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #efefef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef8fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef9fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef10ef;"></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -87,10 +129,52 @@
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
-                            <div class="design-dropdown-color"></div>
+                            <div class="design-dropdown-color">
+                                <span style="background: #efefef;"></span>
+                            </div>
                         </div>
                         <div class="design-dropdown-menu">
-
+                            <div class="color-picket-list">
+                                <a class="color-picket-item">
+                                    <span style="background: #efefef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef1fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef2fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef3fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef4fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef5fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef5fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef6fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef7fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #efefef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef8fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef9fef;"></span>
+                                </a>
+                                <a class="color-picket-item">
+                                    <span style="background: #ef10ef;"></span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -132,124 +216,114 @@
                 </div>
                 <div class="image-store">
                     <div class="form-row">
-                        <select class="form-control" name="" id="">
-                            <option value="">热门模版</option>
-                        </select>
+                        <input type="text" class="form-control" placeholder="关键字搜索"/>
                     </div>
                     <div class="form-row">
                         <div class="image-list">
                             <div class="image-list-item active">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>99.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>99.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
                             <div class="image-list-item">
-                                <div class="img-wrap">
+                                <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
-                                <span>免费</span>
-                            </div>
-                            <div class="image-list-item">
-                                <div class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
+                                </a>
                                 <span>999.00元/件</span>
                             </div>
-                            <div class="image-list-item">
-                                <div class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <div class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <div class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <div class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </div>
-                                <span>999.00元/件</span>
-                            </div>
+
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="used-images">
+                <div class="label">
+                    使用过的模版
+                </div>
+                <div class="image-list">
+                    <a href="javascript:;">
+                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
+                    </a>
+                    <a href="javascript:;">
+                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
+                    </a>
+                    <a href="javascript:;">
+                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
+                    </a>
+                    <a href="javascript:;">
+                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
+                    </a>
+                    <a href="javascript:;">
+                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
+                    </a>
+                </div>
             </div>
         </div>
         <div class="product-preview">
@@ -262,6 +336,22 @@
                 <option value="">超级T恤款</option>
             </select>
             <ul class="product-list">
+                <li class="product-item" tips="基础圆领T恤">
+                    <img src="/css/design/product-thumbnail.png"/>
+                    <div>
+                        <span class="name">基础圆领T恤基础圆领T恤</span>
+                        <span class="desc">成本优选</span>
+                        <a href="#" class="info">详情</a>
+                    </div>
+                </li>
+                <li class="product-item" tips="基础圆领T恤">
+                    <img src="/css/design/product-thumbnail.png"/>
+                    <div>
+                        <span class="name">基础圆领T恤基础圆领T恤</span>
+                        <span class="desc">成本优选</span>
+                        <a href="#" class="info">详情</a>
+                    </div>
+                </li>
                 <li class="product-item active" tips="基础圆领T恤">
                     <img src="/css/design/product-thumbnail.png"/>
                     <div>

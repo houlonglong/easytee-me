@@ -15,6 +15,31 @@ $(function () {
         showImageStoreLayer();
     });
 
+    $('.design-dropdown-btn').click(function(e){
+        e.stopPropagation();
+        var menu = $(this).siblings('.design-dropdown-menu');
+        $('.design-dropdown-menu').each(function(idx, obj){
+            if(obj != menu[0]){
+                $(obj).hide();
+            }
+        });
+        menu.toggle();
+    });
+
+    $('.design-dropdown-menu').click(function(e){
+        e.stopPropagation();
+    });
+
+    $(window).click(function(){
+        $('.design-dropdown-menu').hide();
+    });
+
+    $('.color-picket-item').click(function(){
+        var bgColor = $('span', this).css('backgroundColor');
+        $(this).parents('.design-dropdown').find('.design-dropdown-color>span').css('backgroundColor', bgColor);
+        $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
+    });
+
     function showImageLayer(){
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
         $('.upload-location').hide();
