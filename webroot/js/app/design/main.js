@@ -40,9 +40,7 @@ $(function () {
         $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
     });
 
-    $('.font-families-item').click(function(){
-        $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
-    });
+
 
     $('.product-item').click(function(){
         $('.product-item').removeClass('active');
@@ -77,6 +75,44 @@ $(function () {
             design.height(choice.outerHeight() + parseInt(choice.css('marginTop')) + 20);
         }
     }
+
+    function initFontFamilies(){
+        var path = '/designer/fonts';
+        var fontType = 'popular';
+        var fonts = [
+            'helvetica',
+            'altehaasgrotesk',
+            'bebas',
+            'college',
+            'creampuff',
+            'distantgalaxy',
+            'goudybookletter',
+            'lindenhill',
+            'lobster',
+            'museoslab',
+            'permanentmarker',
+            'russian',
+            'wasabi'
+        ];
+        for(var o in fonts){
+            var image = path + '/' + fontType + '/' + fonts[o] + '.png';
+            var woff = path + '/' + fontType + '/' + fonts[o] + '.woff';
+            if(o==0){
+                $('img', '.design-dropdown-fontfamily').attr('src', image);
+            }
+            var item = $('<a class="font-families-item">').css('backgroundImage', 'url('+image+')').attr('data-image', image).attr('data-woff', woff);
+            $('.font-families').append(item);
+        }
+        $('.font-families-item').click(function(){
+            var image = $(this).attr('data-image');
+            $('img', '.design-dropdown-fontfamily').attr('src', image);
+            $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
+        });
+    }
+
+    initFontFamilies();
+
+    function initColorPicker(){}
 
     setDsHeight();
 });

@@ -74,26 +74,13 @@
                         <div class="design-dropdown-menu">
                             <div class="form-row">
                                 <select class="form-control" name="" id="">
-                                    <option value="">热门</option>
+                                    <option value="popular">热门</option>
                                     <option value="">type1</option>
                                     <option value="">type2</option>
                                 </select>
                             </div>
                             <div class="form-row">
                                 <div class="font-families">
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/altehaasgrotesk.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/bebas.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/college.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/creampuff.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/distantgalaxy.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/goudybookletter.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/helvetica.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/lindenhill.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/lobster.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/museoslab.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/permanentmarker.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/russian.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/wasabi.png)"></a>
                                 </div>
                             </div>
                         </div>
