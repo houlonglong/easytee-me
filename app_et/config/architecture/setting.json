@@ -1,6 +1,6 @@
 [
     {
-        "title":"众筹管理",
+        "title":"运营管理",
         "hide_menu":0,
         "icon":"fa-picture-o",
         "model": {
@@ -11,6 +11,20 @@
             {
                 "title":"众筹管理",
                 "url":"/admin/activity/index"
+            },
+            {
+                "title":"生产管理",
+                "url":"/admin/production/index"
+            },
+            {
+                "title":"生产中",
+                "url":"/admin/production/ongoing",
+                "hide_menu":1
+            },
+            {
+                "title":"已发货",
+                "url":"/admin/production/shipped",
+                "hide_menu":1
             },
             {
                 "title":"众筹详情",
@@ -35,64 +49,13 @@
                 "title":"订单详情",
                 "url":"/admin/activity/order_detail",
                 "hide_menu":1
-            }
-
-        ]
-    },
-    {
-        "title":"生产管理",
-        "icon":"fa-pencil-square-o",
-        "hide_menu":0,
-        "model": {
-            "path": "/admin/production",
-            "action": {}
-        },
-        "control":[
-            {
-                "title":"生产管理",
-                "url":"/admin/production/index"
             },
-            {
-                "title":"生产中",
-                "url":"/admin/production/ongoing",
-                "hide_menu":1
-            },
-            {
-                "title":"已发货",
-                "url":"/admin/production/shipped",
-                "hide_menu":1
-            }
-
-        ]
-    },
-    {
-        "title":"售后管理",
-        "hide_menu":0,
-        "icon":"fa-coffee",
-        "model": {
-            "path": "/admin/aftersale",
-            "action": {}
-        },
-        "control":[
             {
                 "title":"售后管理",
-                "url":"/admin/aftersale/index"
+                "url":"/admin/aftersale/index",
+                "hide_menu":1
             }
-        ]
-    },
-    {
-        "title":"设计工具",
-        "hide_menu":0,
-        "icon":"fa-coffee",
-        "model": {
-            "path": "/admin/design/tool",
-            "action": {}
-        },
-        "control":[
-            {
-                "title":"设计工具",
-                "url":"/admin/design/tool/index"
-            }
+
         ]
     },
     {
@@ -116,6 +79,21 @@
                 "title":"产品详情",
                 "url":"/admin/product/product/detail",
                 "hide_menu":1
+            }
+        ]
+    },
+    {
+        "title":"设计工具",
+        "hide_menu":0,
+        "icon":"fa-coffee",
+        "model": {
+            "path": "/admin/design/tool",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"设计工具",
+                "url":"/admin/design/tool/index"
             }
         ]
     },

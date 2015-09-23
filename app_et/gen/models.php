@@ -75,6 +75,9 @@ order/beta|订单确认
 order/goods|订单产品
 order|订单
 
+open/activity|活动第三方接口
+open/order|订单第三方接口
+
 EOT;
 
 include_once(__DIR__."/../init.php");

@@ -5,7 +5,7 @@
  * Date: 15/9/21
  * Time: 下午1:48
  */
-
+echo md5(time()."111");exit;
 define("APP_ID","111");
 define("APP_SECRET","111");
 define("API_URL","http://www.easytee.me/api");
