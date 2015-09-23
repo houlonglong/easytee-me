@@ -40,6 +40,15 @@ $(function () {
         $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
     });
 
+    $('.font-families-item').click(function(){
+        $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
+    });
+
+    $('.product-item').click(function(){
+        $('.product-item').removeClass('active');
+        $(this).addClass('active');
+    });
+
     function showImageLayer(){
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
         $('.upload-location').hide();
