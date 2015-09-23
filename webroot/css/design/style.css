@@ -47,6 +47,8 @@ a {
 .design-main .form-label {
     line-height: 1;
     font-size: 14px;
+    margin-left: 7px;
+    color: #6F6B6B;
 }
 
 .design-main input[type=text].form-control{
@@ -117,17 +119,26 @@ a {
 }
 
 .design-main .design-dropdown .design-dropdown-color {
-    width: 20px;
-    height: 20px;
-    background: #000;
-    margin: 8px;
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    display: block;
+    margin: 7px 0 0 8px;
+}
+
+.design-main .design-dropdown .design-dropdown-color span {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .design-main .design-dropdown .design-dropdown-menu {
     position: absolute;
     top: 0;
     left: 63px;
-    width: 200px;
+    width: 218px;
     min-height: 38px;
     border: 1px solid #e8eced;
     background: #fff;
