@@ -3,7 +3,6 @@
     float: left;
     margin-top: 30px;
     z-index: 3;
-    height: 48px;
 }
 
 .design-main .design-center .design-tools .tabs {
@@ -28,18 +27,18 @@
     top: 2px;
 }
 
-.design-main .design-center .design-tools .tabs .tab>a {
+.design-main .design-center .design-tools .tabs .tab > a {
     font-size: 16px;
     display: block;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     border: 1px solid #fff;
-    background: #e5e5e5;
+    background: #ECECEC;
     font-weight: bold;
     line-height: 48px;
 }
 
-.design-main .design-center .design-tools .tabs .tab.active>a {
+.design-main .design-center .design-tools .tabs .tab.active > a {
     color: #aa2425;
     background: #ffffff;
     border: 1px solid #c2c2c2;
@@ -64,14 +63,14 @@
     position: relative;
 }
 
-.design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-location-btn{
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-location-btn {
     position: absolute;
     width: 168px;
     height: 40px;
     border-radius: 3px;
     background: #aa2425;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     display: block;
     text-align: center;
     line-height: 40px;
@@ -80,14 +79,14 @@
     margin-left: -84px;
 }
 
-.design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-vendor-btn{
+.design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-vendor-btn {
     position: absolute;
     width: 168px;
     height: 40px;
     border-radius: 3px;
     background: #aa2425;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     display: block;
     text-align: center;
     line-height: 40px;
@@ -95,7 +94,6 @@
     left: 50%;
     margin-left: -84px;
 }
-
 
 .design-main .design-center .design-tools .tab-content .tab-content-image-layout:first-child {
     border: 0;
@@ -126,9 +124,10 @@
     margin-left: 40px;
     margin-top: 30px;
 }
+
 .design-main .design-center .product-choices {
     position: relative;
-    background: #f1f1f1;
+    background: #FFFFFF;
     border-radius: 5px;
     border: 1px solid #cacaca;
     padding: 10px;
@@ -138,7 +137,7 @@
     z-index: 3;
 }
 
-.design-main .design-center .product-choices .label{
+.design-main .design-center .product-choices .label {
     font-size: 16px;
     display: block;
     text-align: center;
@@ -148,44 +147,52 @@
 }
 
 .design-main .design-center .product-choices .product-list {
-    background: #fff;
+    background: #F9F9F9;
     border: 1px solid #e8eced;
+    margin-top: 10px;
 }
+
 .design-main .design-center .product-choices .product-item {
     display: block;
-    overflow: hidden;
     margin: 0 0 5px 0;
     padding: 5px;
     cursor: pointer;
+    border: 1px solid transparent;
 }
+
 .design-main .design-center .product-choices .product-item.active {
-    border: 1px solid #AA2425;
+    border: 1px solid #A22625;
     border-radius: 3px;
-    background: #ffe5e5;
+    background: #FFFFFF;
 }
+
 .design-main .design-center .product-choices .product-item.active .name {
     color: #AA2425;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }
+
 .design-main .design-center .product-choices .product-item img {
     float: left;
     margin-right: 15px;
 }
+
 .design-main .design-center .product-choices .product-item div .name {
     font-size: 16px;
     display: block;
     line-height: 1.8;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
+
 .design-main .design-center .product-choices .product-item div .desc {
     font-size: 14px;
     display: block;
 }
+
 .design-main .design-center .product-choices .product-item div .info {
     font-size: 14px;
     display: block;
-    color: #AA2425;
+    color: #C06F75;
 }
 
 .design-main .design-center .product-choices .pre-cost {
@@ -196,9 +203,11 @@
 .design-main .design-center .product-choices .pre-cost i {
     font-size: 21px;
 }
+
 .design-main .design-center .product-choices .pre-cost i:first-child {
     font-size: 14px;
 }
+
 .design-main .design-center .product-choices .btn {
     width: 86px;
     height: 30px;
@@ -256,6 +265,7 @@
     border: 1px solid #AA2425;
     border-radius: 3px;
     background: #ffe5e5;
+    display: block;
 }
 
 .design-main .design-center .image-store .image-list .image-list-item img {
@@ -268,4 +278,79 @@
     width: 100%;
     font-size: 12px;
     text-align: center;
+}
+
+.used-images {
+    width: 250px;
+}
+
+.used-images .label {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0 0 10px;
+}
+
+.used-images .image-list {
+    overflow: hidden;
+}
+
+.used-images .image-list-item {
+    display: block;
+    width: 70px;
+    float: left;
+}
+
+.color-picket-list {
+    padding: 4px;
+    overflow: hidden;
+}
+
+.color-picket-item {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    display: block;
+    margin: 2px;
+    float: left;
+    position: relative;
+}
+
+.color-picket-item span {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.color-picket-item:hover span {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    height: 21px;
+    width: 21px;
+    border-radius: 3px;
+}
+
+.font-families {
+    margin-top: 5px;
+    border-top: 1px solid #ccc;
+    overflow: auto;
+    height: 230px;
+}
+
+.font-families-item {
+    background: 10px center no-repeat;
+    height: 27px;
+    display: block;
+    padding: 3px;
+}
+
+.font-families-item:hover {
+    background-color: #f6f6f6;
+}
+
+.font-families-item img {
+    display: block;
+    width: 100%;
 }

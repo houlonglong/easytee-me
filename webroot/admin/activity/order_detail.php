@@ -2,12 +2,14 @@
 <html lang="zh-CN">
 <head>
     <?php
-    $order = Model_Admin_Order::detail($_REQUEST['id']);
+    $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
+    $order = Model_Admin_Order::order_detail($id);
+    $order_goods = Model_Admin_Order::goods_list($id);
     /**
      * 订单详情
      *
      */
-    $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
+
     include(block("admin/block/html_head"))?>
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.custom.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/chosen.min.css" />
@@ -44,44 +46,22 @@
                             <div class="container">
                                 <div class="row">
                                     <?php
-
                                     if (!$order) {
                                         echo '<div>当前订单不存在</div>';
                                     } else {
-                                        $orderGoods = $order['orderGoods'];
-                                        $express = null;
-                                        if (isset($order['express'])) {
-                                            $express = $order['express'];
-                                        }
+                                        $orderGoods = $order_goods;
+
                                         ?>
                                         <div class="col-sm-9 col-md-10  account-main-right">
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <div class="btn-group pull-right  hidden-print">
-                                                        <?php
-                                                        if ($order['status'] == '待付款' && $order['real_end_time'] > date('Y-m-d H:i:s')) {
-                                                            echo '<div class="row"><div class="col-xs-12">
-                                          <a href="/order/?pay_type=alipay&order_id=' . $order['id'] . '" class="btn btn-sm btn-warning" id="gotopay">
-                                              <span class="iconfont icon-alipay"></span> 支付宝支付</a>
-                                        <a class="btn btn-success" onclick="do_wechat_pay(' . $order['id'] . ')">
-                                            <span class="iconfont icon-iconfontweixin" ></span> 微信支付</a>
 
-                                            </div></div>';
-                                                        }
-                                                        if ($order['status'] != '待付款') {
-                                                            echo ' <button type="button" onclick="window.print();" class="btn btn-default btn-sm">打印票据
-                                </button>
-                                <a href="tuihuo.php?id=1"  class="hidden btn btn-success btn-sm get-tuihuo">申请售后
-                                </a>
-                                <button type="button" class="hidden btn btn-default btn-sm"  id="get-invoice" data-href="invoice.php">申请发票
-                                </button>';
-                                                        }
-                                                        ?>
 
                                                     </div>
                                                     <h3 class="">订单号:<?php echo $order['order_no']; ?></h3>
-                            <span>订购时间：<?php echo $order['pay_time']; ?>
-                                &nbsp;&nbsp;&nbsp;发货时间： <?php echo empty($order['delivery_time']) ? '还未发货' : $order['delivery_time']; ?></span>
+                                                    <span>订购时间：<?php echo $order['pay_time']; ?>
+                                                        &nbsp;&nbsp;&nbsp;发货时间： <?php echo empty($order['delivery_time']) ? '还未发货' : $order['delivery_time']; ?></span>
                                                     <hr>
                                                     <div class="row mb-lg">
                                                         <div class="col-sm-6 col-xs-12">
@@ -90,9 +70,11 @@
                                                                     <em class="iconfont icon-97kuaidi"></em>
                                                                 </div>
                                                                 <div class="col-md-10">
-                                                                    <h5>收货人：<?php echo $order['ship_name']; ?></h5>
-                                                                    <address><?php echo $order['ship_province'] . $order['ship_city'] . $order['ship_area'] . $order['ship_addr']; ?>
-                                                                        <br><?php echo $order['ship_mobile']; ?></address>
+                                                                    <h5>收货人：<?php echo $order['name']; ?></h5>
+                                                                    <address>地址：
+                                                                        <?php echo $order['province'] . $order['city'] . $order['county'] . $order['addr']; ?>
+                                                                        <br>电话：<?php echo $order['tel']; ?>
+                                                                    </address>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -100,34 +82,27 @@
                                                             <div class="text-center" style="line-height: 100px;display: none">
                                                                 等待发货
                                                             </div>
-                                                            <?php if (!empty($express)) { ?>
+                                                                <?php if (!$order['exp_no']) {
+                                                                    ?>
                                                                 <div class="clearfix">
-                                                                    <p class="pull-left">物流公司
+                                                                    <p class="pull-left">物流公司:
                                                                     </p>
 
-                                                                    <p class="pull-right mr"><?php echo $express['name']; ?>
+                                                                    <p class="pull-right mr"><?php echo $order['exp_com']; ?>
                                                                     </p>
                                                                 </div>
                                                                 <div class="clearfix">
                                                                     <p class="pull-left">物流单号
                                                                     </p>
 
-                                                                    <p class="pull-right mr"><?php echo $express['express_no']; ?><span
-                                                                            class="hidden-print">(<a href="#"
-                                                                                                     data-href="<?php echo $express['api'] . '?number=' . $express['express_no']; ?>"
-                                                                                                     id="kuaidi-search">查物流</a>)</span>
+                                                                    <p class="pull-right mr"><?php echo $order['exp_no']; ?>
                                                                     </p>
                                                                 </div>
                                                                 <div class="clearfix">
                                                                     <p class="pull-left">签收时间
                                                                     </p>
 
-                                                                    <p class="pull-right mr"><?php
-                                                                        if ($order['sign_time'] == '0000-00-00 00:00:00') {
-                                                                            echo '还未签收';
-                                                                        };
-                                                                        ?>
-                                                                    </p>
+
                                                                 </div>
                                                             <?php } ?>
                                                         </div>
@@ -136,6 +111,7 @@
                                                         <table class="table">
                                                             <thead>
                                                             <tr>
+                                                                <th>商品图片#</th>
                                                                 <th>商品信息#</th>
                                                                 <th style="width: 80px">尺码</th>
                                                                 <th style="width: 60px">数量</th>
@@ -151,19 +127,22 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td>
+                                                                            <img style="background-color: #<?php echo $good['color']; ?>" src="<?php echo $good['img_url']; ?>" alt="..." width="60px">
+                                                                        </td>
+                                                                        <td>
                                                                             <div class="media">
                                                                                 <a class="media-left" href="#">
-                                                                                    <img src="<?php echo $good['img_path']; ?>" alt="..." width="60px">
+
                                                                                 </a>
 
                                                                                 <div class="media-body">
-                                                                                    <h4 class="media-heading"><?php echo $good['product_name'] . '(' . $good['product_style_name'] . ')' . $good['manufacturer_brand_name']; ?></h4>
+                                                                                    <h4 class="media-heading"><?php echo $good['product_name'] . '(' . $good['color_name'] . ')' . $good['brand_name']; ?></h4>
                                                                                 </div>
                                                                             </div>
-                                                                        <td><?php echo $good['size']; ?></td>
+                                                                        <td><?php echo $good['pro_size']; ?></td>
                                                                         <td><?php echo $good['quantity']; ?></td>
-                                                                        <td><?php echo $good['unit_price']; ?></td>
-                                                                        <td class="text-right"><?php echo round($good['unit_price'] * $good['quantity'],2); ?></td>
+                                                                        <td><?php echo $good['sell_price']; ?></td>
+                                                                        <td class="text-right"><?php echo round($good['sell_price'] * $good['quantity'],2); ?></td>
                                                                     </tr>
                                                                     <?php
                                                                 }
@@ -179,14 +158,14 @@
                                                             <div class="clearfix"><p class="pull-left h4">邮费
                                                                 </p>
 
-                                                                <p class="pull-right mr h4">￥<?php echo $order['express_price']; ?>
+                                                                <p class="pull-right mr h4">￥<?php echo $order['exp_price']; ?>
                                                                 </p></div>
                                                             <div class="clearfix"><?php } ?>
                                                                 <p class="pull-left h4">合计
                                                                 </p>
 
                                                                 <p class="pull-right mr h4">
-                                                                    ￥<?php echo  ($order['status'] != '待付款')?$order['total_price']:$order['total_price']+$order['express_price']; ?>
+                                                                    ￥<?php echo  ($order['status'] != '待付款')?$order['goods_price']:$order['goods_price']+$order['exp_price']; ?>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -236,7 +215,7 @@
                                                                     <p class="pull-left">快递费
                                                                     </p>
 
-                                                                    <p class="pull-right mr">￥<?php echo $order['express_price']; ?>
+                                                                    <p class="pull-right mr">￥<?php echo $order['exp_price']; ?>
                                                                     </p>
                                                                 </div>
                                                                 <div class="clearfix">

@@ -326,11 +326,13 @@ class Model_Admin_User extends Model_Admin_Abstract
 
     function action_list()
     {
+
         return self::table_list();
     }
 
     function action_edit()
     {
+
         return self::table_edit();
     }
 
@@ -342,12 +344,14 @@ class Model_Admin_User extends Model_Admin_Abstract
 
     static function table_list()
     {
+
+
         $table_alias = $table = self::$table = "et_user";
         $table_alias = 'u';
         $join = '';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows", "page", "sidx", "sord");
+        $request = PtLib\http_request("rows", "page", "sidx", "sord","mobile","nick_name");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -368,6 +372,14 @@ class Model_Admin_User extends Model_Admin_Abstract
         //where
         $args = array();
         $where = " where 1=1 ";
+        if($request['mobile']){
+            $where .= " and u.mobile = ?";
+            $args[] = $request['mobile'];
+        }
+        if($request['nick_name']){
+            $where .= " and u.nick_name = ?";
+            $args[] = $request['nick_name'];
+        }
         //order
         $order = "";
         if ($sort)

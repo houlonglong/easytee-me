@@ -147,13 +147,13 @@ class Model_Cost
        // print_r($GLOBALS['setting']);exit;
        $close =  PtLib\db_select_row('SELECT
                     sum(
-                            good.purchase_price * good.quantity
+                            g.cost_price * g.quantity
                         ) as closePrice,a.sales_count,a.sales_target,a.total,d.colors
                     FROM
                         activities AS a
-                    INNER JOIN orders AS O ON O.activity_id = a.id
-                    INNER JOIN order_goods AS good ON good.order_id = O.id
-                    INNER JOIN designs as d ON d.id = a.design_id
+                    LEFT JOIN et_order_goods AS g ON g.activity_id = a.id
+                    LEFT JOIN et_order AS o ON g.order_id = o.id
+                    LEFT JOIN designs as d ON d.id = a.design_id
                     WHERE a.id = ? AND a.sales_count>=10 ',$activityId);
         if(empty($close['sales_count'])){
             return 0;

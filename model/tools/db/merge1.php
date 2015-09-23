@@ -9,9 +9,10 @@ class Model_Tools_Db_Merge1 extends BaseModel {
     }
 
     function cli_run(){
-        if(PtApp::$ENV == 'product') return ;
+        //echo PtApp::$ENV;exit;
+        //if(PtApp::$ENV == 'product') return ;
         self::merge_act();
-        self::merge_order();
+        //self::merge_order();
         //self::merge_user();
     }
     static function merge_order(){
@@ -106,6 +107,10 @@ class Model_Tools_Db_Merge1 extends BaseModel {
             self::_db()->insert("et_activity_info",array(
                 'id'=>$activity['id'],
                 "uid"=>$activity['uid'],
+                'name'=>$activity['name'],
+                'content'=>$activity['description'],
+                'delivery_type'=>$activity['delivery_type'],
+                'addr_id'=>$activity['address_id'],
                 'start_time'=>$activity['start_time'],
                 'end_time'=>$activity['real_end_time'],
                 'period'=>$activity['deadline'],
@@ -123,8 +128,8 @@ class Model_Tools_Db_Merge1 extends BaseModel {
                 'production_status'=> $activity['status'] == "fabrication" ? 1:0,
             ));
         }
-        self::_db()->run_sql("insert into et_activity_product_style(id,activity_id,style_id,sell_price) select id,activity_id,product_style_id as style_id,sell_price from activity_product_styles");
-        self::_db()->run_sql("insert into et_design_svg(id,design_id,side,svg_url) select id,design_id,side,svg_url from design_svg_side");
+        //self::_db()->run_sql("insert into et_activity_product_style(id,activity_id,style_id,sell_price) select id,activity_id,product_style_id as style_id,sell_price from activity_product_styles");
+        //self::_db()->run_sql("insert into et_design_svg(id,design_id,side,svg_url) select id,design_id,side,svg_url from design_svg_side");
         return;
     }
     static function get_uid_by_open_uid($open_uid){
