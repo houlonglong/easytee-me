@@ -71,9 +71,9 @@
                                                                 </div>
                                                                 <div class="col-md-10">
                                                                     <h5>收货人：<?php echo $order['name']; ?></h5>
-                                                                    <address>
+                                                                    <address>地址：
                                                                         <?php echo $order['province'] . $order['city'] . $order['county'] . $order['addr']; ?>
-                                                                        <br><?php echo $order['tel']; ?>
+                                                                        <br>电话：<?php echo $order['tel']; ?>
                                                                     </address>
                                                                 </div>
                                                             </div>
@@ -82,9 +82,10 @@
                                                             <div class="text-center" style="line-height: 100px;display: none">
                                                                 等待发货
                                                             </div>
-                                                            <?php if (!$order['exp_no']) { ?>
+                                                                <?php if (!$order['exp_no']) {
+                                                                    ?>
                                                                 <div class="clearfix">
-                                                                    <p class="pull-left">物流公司
+                                                                    <p class="pull-left">物流公司:
                                                                     </p>
 
                                                                     <p class="pull-right mr"><?php echo $order['exp_com']; ?>
@@ -110,6 +111,7 @@
                                                         <table class="table">
                                                             <thead>
                                                             <tr>
+                                                                <th>商品图片#</th>
                                                                 <th>商品信息#</th>
                                                                 <th style="width: 80px">尺码</th>
                                                                 <th style="width: 60px">数量</th>
@@ -125,9 +127,12 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td>
+                                                                            <img style="background-color: #<?php echo $good['color']; ?>" src="<?php echo $good['img_url']; ?>" alt="..." width="60px">
+                                                                        </td>
+                                                                        <td>
                                                                             <div class="media">
                                                                                 <a class="media-left" href="#">
-                                                                                    <img style="background-color: #<?php echo $good['color']; ?>" src="<?php echo $good['img_url']; ?>" alt="..." width="60px">
+
                                                                                 </a>
 
                                                                                 <div class="media-body">
