@@ -18,7 +18,7 @@ a:hover{text-decoration:none; cursor: pointer;}
 
 /* 这是订单展示开始*/
 .dingdan{
-    margin-top: 45px;
+    padding-top: 45px;
 
 }
 .dingdan-show{

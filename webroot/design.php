@@ -342,6 +342,9 @@
                 <a href="javascript:;">垂直翻转</a>
             </div>
         </div>
+        <div class="product-color-picket">
+
+        </div>
     </div>
 </div>
 <div class="foot">
