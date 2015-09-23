@@ -13,7 +13,7 @@ a{ font-size:12px;color:#666; text-decoration:none;}
 a:hover{text-decoration:none; cursor: pointer;}
 .hidden{display: none;}
 
-.banxin{width: 1060px;margin:0 auto;}
+.typeArea{width: 1060px;margin:0 auto;}
 
 .try{
     width: 100%;
@@ -256,7 +256,7 @@ header{
 .forget a:hover{
 
 }
-.anniu{
+.btnLogin{
     display: block;
     width: 125px;
     height: 34px;
@@ -267,19 +267,21 @@ header{
     border-radius: 3px;
     color: #fff;}
 
-.anniu:hover{
+.btnLogin:hover{
     text-decoration: none;
     background:#da3335;
 }
 .wrong input{
 	border-color: red;
 }
+.hidden{display: none;}
 .wrong span{
     color: red;
     position: absolute;
     width: 90px;
     left:288px;
     top:37px;
+    display: block;
 }
 
 .other-login>a{
@@ -287,6 +289,7 @@ header{
 	width: 26px;
     height: 25px;
     margin-left: 15px;
+    cursor: pointer;
 }
 .qq{
 	background: url(images/share-qq1.png) no-repeat;
@@ -367,7 +370,17 @@ header{
     float: left;
     
 }
-.reset-con>div>input::-webkit-input-placeholder { text-align: center; }
+.reset-con>div{position: relative;}
+.test-err i{
+    position: absolute;
+    top:10px;
+    left:277px;
+    color: red;
+    width: 80px;
+    display: block;
+}
+.reset-con .test-err input{border-color: red;}
+/* .reset-con>div>input::-webkit-input-placeholder { text-align: center; }
 .reset-con>div>input::-moz-input-placeholder { text-align: center; }
 .reset-con>div>input::-ms-input-placeholder { text-align: center; }
 .reset-con>div>input.current{border-color: red;}
@@ -380,11 +393,12 @@ header{
     }
 .reset-con>div>input.current::-ms-input-placeholder{
         color:red;
-    }
-.sj span{
+    } */
+.sj button{
     float: left;
     width: 83px;
-    height: 35px;
+    height: 37px;
+    border:none;
     border:1px solid #ccc;
     border-left: none;
     background: #fff;
@@ -403,25 +417,26 @@ header{
     background: url(images/dui.png) no-repeat;
 }
 div.err{position: relative;}
-div.err span{
+div.err button{
     display: none;
 }
 .reset-con div.err input{
     width: 274px;
     border-radius: 5px;
 }
-.reset-con div.err:after{
-    content: "抱歉无此账号";
+.reset-con div.err i{
+    /* content: "抱歉无此账号"; */
     position: absolute;
     right:-76px;
     top:10px;
     color: red;
+    display: block;
 
 }
-.reset-con .sj span.current{
+/* .reset-con .sj button.current{
     color: red;
-}
-.reset-con button{
+} */
+.reset-con .res-btn{
     display: block;
     margin:0 auto;
     width: 278px;
@@ -430,6 +445,7 @@ div.err span{
     color: #fff;
     font-size: 18px;
     border-radius: 5px;
+    cursor: pointer;
 }
 .reset-con button.current{
     background: #da3335;
@@ -664,4 +680,4 @@ button.agree:hover{
 }
 
 .denglu>div>div{display: none;}
-.denglu .xianshi{display: block;}
+.denglu .show{display: block;}
