@@ -13,7 +13,7 @@
 	<header>
 		<span class="header-bg"></span>
 		<div class="inHead">
-			<nav class="banxin clearfix nav">
+			<nav class="typeArea clearfix nav">
 				<h1 class="logo">
 					<a href="index.html">易衫网</a>
 				</h1>
@@ -35,25 +35,25 @@
 	<div class="denglu">
 		<img src="css/common/images/denglu-bg.png" >
 		<div>
-			<div class="denglu-con">
+			<div class="denglu-con show">
 				<h3 >请登录</h3>
-				<div class='wrong mar-center'>
+				<div class=' mar-center  tel'>
 					<label for="phone">手机</label>
 					<br>
 					<input type="text" id="phone">
-					<span >此账号不存在</span>
+					<span  class="hidden"></span>
 				</div>
-				<div class='wrong'>
-					<label for="mima">登录密码</label>
+				<div class='login-p'>
+					<label for="LoginPass">登录密码</label>
 					<br>
-					<input type="password" id="mima"  >
-					<span>密码有误</span>
+					<input type="password" id="LoginPass"  >
+					<span class="hidden">密码有误</span>
 				</div>
 				<div class="forget">
 					<a href="#">忘记密码</a>
 				</div>
 				<div>
-					<a href="#" class="anniu">登录</a>
+					<a href="#" class="btnLogin">登录</a>
 				</div>
 				<div class="other-login ">
 					<span>第三方登录</span>
@@ -66,21 +66,28 @@
 				</div>
 			</div>
 			<!--  重置密码 -->
-			<div class="reset-con">
+			<div class="reset-con ">
 				<h3>重置密码</h3>
-				<div class="sj err">
-					<input type="text" placeholder="请输入您的手机号">
-					<span>获取验证码</span>
+				<div class="sj ">
+					<input type="text" placeholder="请输入您的手机号" id="res-phone">
+					<button id="testing" >获取验证码</button>
+					<i class="hidden">抱歉无此账号</i>
 
 				</div>
 				<div>
-					<input type="text" placeholder="请输入验证码" ></div>
+					<input type="text" placeholder="请输入验证码" >
+					<i class="hidden">验证码错误</i>
+				</div>
 				<h4>请输入新密码</h4>
 				<div>
-					<input type="password" placeholder="6~32位字符" ></div>
-				<div>
-					<input type="password" placeholder="请再次输入密码"></div>
-				<button>提交重置</button>
+					<input type="password" placeholder="6~32位字符" id="res-pass">
+					<i class="hidden">密码格式错误</i>
+				</div>
+				<div class="" >
+					<input type="password" placeholder="请再次输入密码" id="res-pass2">
+					<i class="hidden">密码不一致</i>
+				</div>
+				<button class="res-btn">提交重置</button>
 			</div>
 			<!-- 注册 -->
 			<div class="register">
@@ -121,9 +128,20 @@
 					<a href="#">回当前页</a>
 				</div>
 			</div>
+			
+			<!-- 关联成功 -->
 			<div class="zc-success ">
 				<h3>关联成功!</h3>
 				<p>您已成功关联！我们将在<i>5</i>秒后回到当前页面</p>
+				<div class="link-btn">
+					<a href="#">跳至首页</a>
+					<a href="#">回当前页</a>
+				</div>
+			</div>
+			<!-- 重置密码成功 -->
+			<div class="zc-success ret-success">
+				<h3>重置成功!</h3>
+				<p>您已重置成功！我们将在<i>5</i>秒后回到当前页面</p>
 				<div class="link-btn">
 					<a href="#">跳至首页</a>
 					<a href="#">回当前页</a>
@@ -155,7 +173,7 @@
 			</div>
 
 			<!-- 关联已有账户 -->
-			<div class="guanlian-sj guanlian-account  xianshi">
+			<div class="guanlian-sj guanlian-account ">
 				<h3>关联已有账户</h3>
 				<p>为了给您更好的体验，请您关联已有易衫账户，下次即可快速登录</p>
 				<div class="err">
@@ -181,6 +199,9 @@
 	</div>
 	
 	
+<!-- <input type="password" id="tel">   //判断手机号的正则
+<button id="btnJ">提交</button> -->
+
 
 
 

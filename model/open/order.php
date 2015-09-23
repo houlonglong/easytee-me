@@ -7,6 +7,37 @@ class Model_Open_Order extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
+    function action_save($app_id,$order_no,$activity_id,$uid,$goods_price,
+        $quantity,$ship_name,$ship_tel,$ship_province,$ship_city,$ship_county,$ship_addr,
+        $notes,$goods,$time,$sign
+    ){
+        $app = self::_db()->select_row("select app_secret from et_application where app_id = ?",$app_id);
+        if(!$app) throw new Exception("app 不存在");
+        $request = array(
+            "model"=>"open/order",
+            "action"=>"save",
+            "app_id"=>$app_id,
+            "order_no"=>$order_no,
+            "activity_id"=>$activity_id,
+            "uid"=>$uid,
+            "goods_price"=>$goods_price,
+            "quantity"=>$quantity,
+            "ship_name"=>$ship_name,
+            "ship_tel"=>$ship_tel,
+            "ship_province"=>$ship_province,
+            "ship_city"=>$ship_city,
+            "ship_county"=>$ship_county,
+            "ship_addr"=>$ship_addr,
+            "subject"=>"订单描述",
+            "notes"=>$notes,
+            "goods"=>$goods,
+            "time"=>$time,
+        );
+        $_sign =  md5(http_build_query($request).$app['app_secret']);
+        if($_sign != $sign) throw new Exception("签名不正确");
+
+
+    }
     /**
      * 详情视图
      *

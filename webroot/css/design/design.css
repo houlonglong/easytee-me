@@ -301,8 +301,7 @@
 }
 
 .color-picket-list {
-    padding: 4px;
-    overflow: hidden;
+    padding: 6px;
 }
 
 .color-picket-item {
@@ -312,7 +311,7 @@
     border: 1px solid #eee;
     border-radius: 3px;
     display: block;
-    margin: 2px;
+    margin: 0 0px 7px 0;
     float: left;
     position: relative;
 }
@@ -330,6 +329,7 @@
     height: 21px;
     width: 21px;
     border-radius: 3px;
+    box-shadow: 0 0 1px #d8dddf;
 }
 
 .font-families {

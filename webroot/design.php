@@ -74,26 +74,13 @@
                         <div class="design-dropdown-menu">
                             <div class="form-row">
                                 <select class="form-control" name="" id="">
-                                    <option value="">热门</option>
+                                    <option value="popular">热门</option>
                                     <option value="">type1</option>
                                     <option value="">type2</option>
                                 </select>
                             </div>
                             <div class="form-row">
                                 <div class="font-families">
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/altehaasgrotesk.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/bebas.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/college.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/creampuff.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/distantgalaxy.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/goudybookletter.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/helvetica.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/lindenhill.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/lobster.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/museoslab.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/permanentmarker.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/russian.png)"></a>
-                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/wasabi.png)"></a>
                                 </div>
                             </div>
                         </div>
@@ -101,50 +88,11 @@
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
                             <div class="design-dropdown-color">
-                                <span style="background: #efefef;"></span>
+                                <span style="background: #000000;"></span>
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="color-picket-list">
-                                <a class="color-picket-item">
-                                   <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                   <span style="background: #ef1fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef2fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef3fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef4fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef6fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef7fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef8fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef9fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef10ef;"></span>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -163,50 +111,11 @@
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
                             <div class="design-dropdown-color">
-                                <span style="background: #efefef;"></span>
+                                <span style="background: #ffffff;"></span>
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="color-picket-list">
-                                <a class="color-picket-item">
-                                    <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef1fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef2fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef3fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef4fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef6fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef7fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef8fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef9fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef10ef;"></span>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -432,6 +341,9 @@
                 <a href="javascript:;">水平翻转</a>
                 <a href="javascript:;">垂直翻转</a>
             </div>
+        </div>
+        <div class="product-color-picket">
+
         </div>
     </div>
 </div>

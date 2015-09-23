@@ -7,62 +7,38 @@ class Model_User_Register extends BaseModel {
     function __construct(){
         //parent::__construct();
     }
-    function action_do_register(){
+    function action_do_register($captcha,$mobile,$redirect,$password){
         PtApp::session_start();
-        $captcha = self::_request("captcha");
         $reg_captcha = empty($_SESSION['reg_captcha'])?"":$_SESSION['reg_captcha'];
-        if($captcha != "0000") if(!$reg_captcha) throw new Exception("验证码不能为空");
-
-        $mobile = self::_request("mobile");
-        $redirect = self::_request("redirect");
-        $is_register = self::_db()->select_row('select id from new_users where mobile = ? ',$mobile);
+        if(!$reg_captcha) throw new Exception("验证码不能为空",8001);
+        $is_register = self::_db()->select_row('select id from et_user where mobile = ? ',$mobile);
         //var_dump($mobile);exit;
         if($is_register) throw new Exception("当前号码已经注册过");
-
-        $password = sha1(self::_request("password"));
+        $password = md5($password);
         if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("验证码不正确");
-        $data = array(
-            "nickname"=>$mobile,
-            "mobile"=>$mobile,
-            "password"=>$password,
-            "create_time"=>date('Y-m-d H:i:s'),
-            "login_time"=>date('Y-m-d H:i:s'),
-        );
-        if(!empty(self::_request('campus'))){
-            $data['campus'] = self::_request('campus');
-        }
-
-        $invite_id_cookie = \PtLib\get_cookie("invite_id_cookie");
-
-        if(empty($invite_id_cookie)){
-            $invite_id = 0;
-        }else{
-            $invite_id = $invite_id_cookie;
-        }
-        $data['invite_id'] = $invite_id;
-        $id = self::_db()->insert("new_users",$data);
-
-        self::_db()->insert("users",array(
-            "nick_name"=>$data['mobile'],
-            "app_id"=>1,
-            "app_uid"=>$id,
-            "token"=>md5(time()),
-            "create_time"=>date_time_now(),
+        $uid = self::_db()->insert("et_user",array(
+            'nick_name'=>$mobile,
+            'mobile'=>$mobile,
+            'password'=>$password,
+            'add_time'=>date_time_now(),
         ));
+        self::_db()->insert("et_user_finance",array(
+            'uid'=>$uid,
+        ));
+
         $user_info = array(
-            "nick_name"=>$data['mobile'],
-            "mobile"=>$data['mobile'],
-            "email"=>"",
-            "uid"=>$id
+            "uid"=>$uid,
+            "nick_name"=>$mobile,
         );
         Model_User_Auth::set_login($user_info);
         unset($_SESSION['reg_captcha']);
         setcookie("invite_id_cookie","",time()-3600,"/");
-        return array("redirect"=>$redirect);
+        $res = array("message"=>"注册成功");
+        if($redirect) $res['redirect'] = $redirect;
+        return $res;
     }
-    function action_get_code(){
-        $mobile = self::_request("mobile");
-        $is_register = self::_db(NEW_DB)->select_row('select id from users where mobile = ? ',$mobile);
+    function action_get_code($mobile){
+        $is_register = self::_db()->select_row('select id from et_user where mobile = ? ',$mobile);
         if($is_register){
             throw new Exception("当前号码已经注册过");
         }
@@ -72,7 +48,7 @@ class Model_User_Register extends BaseModel {
         $project = "6pvkv3";
         $option = array('code'=>$reg_captcha);
         Model_Tools_Sms::sendsms($mobile,$project,$option);
-        return array();
+        return "手机验证码已发送";
     }
 
 }

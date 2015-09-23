@@ -2,7 +2,7 @@
 * @Author: sky
 * @Date:   2015-09-18 11:04:40
 * @Last Modified by:   sky
-* @Last Modified time: 2015-09-18 21:16:41
+* @Last Modified time: 2015-09-22 19:37:12
 */
 
 'use strict';
@@ -77,7 +77,7 @@ $(function(){
 	function buildColorList(list){
 		for(var j=0; j<colorList.length; j++){
         	var color = colorList[j];
-        	htmlStr += '<a href="#" data-id="'+color.id+'"><i style="background-color: '+color.value+'"></i></a>';	
+        	htmlStr += '<a href="#" data- ="'+color.id+'"><i style="background-color: '+color.value+'"></i></a>';	
         }
 	}
 

@@ -18,18 +18,16 @@ class Model_User_Auth extends BaseModel{
     /**
      * 登陆
      */
-    function action_login(){
+    function action_login($mobile,$password,$redirect){
         PtApp::session_start();
-        $request = PtLib\http_request("username","password","captcha","redirect");
-        //Model_Tools_Captcha::check_captcha_code($request['captcha'],'admin_auth_login');
-        if(self::login($request['username'],$request['password'])){
-            if(empty($request['redirect'])){
-                $url = "/user/index";
-            }else{
-                $url = $request['redirect'];
+        if(self::login($mobile,$password)){
+            $res = array(
+                "message"=>"登陆成功",
+            );
+            if(!empty($redirect)){
+                $res['redirect'] = $redirect;
             }
-            //Model_Tools_Captcha::delete_session_code("admin_auth_login");
-            PtLib\json_response("登陆成功",0,"",$url);
+            return $res;
         }
     }
 
@@ -39,11 +37,10 @@ class Model_User_Auth extends BaseModel{
         $expire = 24*7; //时
         setcookie($cookie_auth_key,$value,time()+60*60*$expire,"/");
     }
-    static function login($username,$password){
-        $field = email_check($username)?"email":"mobile";
-        $user = self::_db()->select_row("select * from new_users where {$field} = ?",$username);
-        if(!$user) throw new Exception("用户不存在");
-        $password = sha1($password);
+    static function login($mobile,$password){
+        $user = self::_db()->select_row("select * from et_user where mobile = ?",$mobile);
+        if(!$user) throw new Exception("用户不存在",8102);
+        $password = md5($password);
         if($user['password'] == $password){
             $user_info = array(
                 "nick_name"=>$user['nickname'] ? $user['nickname']:($user['mobile']?$user['mobile']:$user['email']),
@@ -54,7 +51,7 @@ class Model_User_Auth extends BaseModel{
             self::set_login($user_info);
             return true;
         }else{
-            throw new Exception("用户名和密码不正确");
+            throw new Exception("密码不正确",8103);
         }
     }
     static function get_cookie_auth_key(){

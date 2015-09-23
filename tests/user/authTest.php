@@ -12,16 +12,15 @@ class AuthTest extends UnitTest{
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
-            "cookie"=>1,
+            "cookie"=>0,
         ));
         $this->set_local_test_proxy();
         $res = $this->post_action("api",array(
             "model"=>"user/auth",
             "action"=>"login",
-            "username"=>"18601628937",
+            "mobile"=>"18601628931",
             "password"=>"111111",
         ));
-        echo \PtLib\unicodeString($res);
     }
 
     /**
