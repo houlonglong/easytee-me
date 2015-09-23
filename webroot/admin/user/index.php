@@ -23,6 +23,22 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
+                        <div class="widget-box" style="border: none">
+                            <div class="widget-body">
+                                <div class="widget-main" style="padding: 0">
+                                    <form class="form-inline">
+                                        <input type="text" class="input-small" placeholder="昵称" id="username"style=" width: 200px;">
+                                        <input type="text" class="input-small" placeholder="手机号码" id="mobile" style=" width: 200px;">
+
+                                        <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                            <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="row">
                             <div class="col-xs-12">
@@ -53,8 +69,23 @@
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
+    var grid_selector = "#grid-table";
+    var pager_selector = "#grid-pager";
+    function search() {
+
+        var $query = {
+            nick_name: $('#username').val(),
+            mobile: $('#mobile').val(),
+        };
+        $(grid_selector).jqGrid('setGridParam', {
+            datatype: 'json',
+            postData: $query, //发送数据
+            page: 1
+        }).trigger("reloadGrid"); //重新载入
+    }
 
     jQuery(function($) {
+
         var grid_setting = {
             url:"/api?model=admin/user&action=list",
             url_save:"/api?model=admin/user&action=edit",
@@ -134,8 +165,7 @@
                 'model':cols
             };
         }
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
+
 
         //resize to fit page size
         $(window).on('resize.jqGrid', function () {
@@ -298,6 +328,25 @@
                     .datepicker({format:'yyyy-mm-dd' , autoclose:true});
             }, 0);
         }
+
+
+
+        $('.apply').click(function () {
+            var $this = $(this);
+            var $id = $this.data('id');
+            $.ajax({
+                url: "/api?model=admin/activity&action=audit",
+                data: {
+                    id: $id,
+                },
+                type: "POST",
+                success: function () {
+                    $('#' + $id).remove();
+                }
+
+            });
+
+        })
 
 
         //navButtons
@@ -509,6 +558,7 @@
             $('.ui-jqdialog').remove();
         });
     });
+
 </script>
 </body>
 </html>
