@@ -88,50 +88,11 @@
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
                             <div class="design-dropdown-color">
-                                <span style="background: #efefef;"></span>
+                                <span style="background: #000000;"></span>
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="color-picket-list">
-                                <a class="color-picket-item">
-                                   <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                   <span style="background: #ef1fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef2fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef3fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef4fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef6fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef7fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef8fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef9fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef10ef;"></span>
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -150,50 +111,11 @@
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
                             <div class="design-dropdown-color">
-                                <span style="background: #efefef;"></span>
+                                <span style="background: #ffffff;"></span>
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="color-picket-list">
-                                <a class="color-picket-item">
-                                    <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef1fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef2fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef3fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef4fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef5fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef6fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef7fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #efefef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef8fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef9fef;"></span>
-                                </a>
-                                <a class="color-picket-item">
-                                    <span style="background: #ef10ef;"></span>
-                                </a>
                             </div>
                         </div>
                     </div>
