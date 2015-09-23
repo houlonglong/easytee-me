@@ -233,25 +233,27 @@
             activity_id:$('#activity_id').val(),
             activity_name:$('#activity_name').val(),
         };
+        // 0 草稿  10 已结束 2 失败   1 进行中
+        $query["ship_status"] =   '';
+        $query["production_status"] = '';
+
+
         if(status == '0' || status == '10' || status == '2' || status == '1'){
-            $('.production_status').hide();
-            $('.ship_status').hide();
+            $('.production_status').hide().val('');
+            $('.ship_status').hide().val('');
+
         }else{
             $('.production_status').show();
-            $('.ship_status').show();
             $query["production_status"] = $('#production_status').val();
-            $query["ship_status"] = $('#ship_status').val();
-
+            // 0 待生产 1 生产中  2生成完成
+            if(parseInt($('#production_status').val())==0 ||parseInt($('#production_status').val())==1){
+                $('.ship_status').hide().val('');
+            }else{
+                $('.ship_status').show();
+                $query["ship_status"] = $('#ship_status').val();
+            }
         }
-
-        if(parseInt($('#production_status').val())==0 ||parseInt($('#production_status').val())==1){
-            $('.ship_status').hide();
-
-        }else{
-            $query["production_status"] = $('#production_status').val();
-        }
-
-
+        console.log($query)
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
             postData:$query, //发送数据
@@ -511,6 +513,10 @@
                 total: function (obj) {
                     return obj.return.total;
                 }
+            },
+
+            postData:{
+                status:1
             },
             mtype:grid_setting.method,
             url: grid_setting.url,
