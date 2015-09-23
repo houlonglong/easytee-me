@@ -65,9 +65,39 @@
                     <span class="form-label">选择字体</span>
                 </div>
                 <div class="form-row">
-                    <select class="form-control l-per-70" name="" id="">
-                        <option value="">Helvetica</option>
-                    </select>
+                    <div class="design-dropdown l-per-70">
+                        <div class="design-dropdown-btn">
+                            <div class="design-dropdown-fontfamily">
+                                <img src="/js/app/design/fonts/Popluar/helvetica.png" alt=""/>
+                            </div>
+                        </div>
+                        <div class="design-dropdown-menu">
+                            <div class="form-row">
+                                <select class="form-control" name="" id="">
+                                    <option value="">热门</option>
+                                    <option value="">type1</option>
+                                    <option value="">type2</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="font-families">
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/altehaasgrotesk.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/bebas.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/college.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/creampuff.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/distantgalaxy.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/goudybookletter.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/helvetica.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/lindenhill.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/lobster.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/museoslab.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/permanentmarker.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/russian.png)"></a>
+                                    <a href="javascript:;" class="font-families-item" style="background-image: url(/js/app/design/fonts/Popluar/wasabi.png)"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
                             <div class="design-dropdown-color">
@@ -125,7 +155,10 @@
                 </div>
                 <div class="form-row">
                     <select class="form-control l-per-70" name="" id="">
-                        <option value="">Helvetica</option>
+                        <option value="">无描边</option>
+                        <option value="">描边1</option>
+                        <option value="">描边2</option>
+                        <option value="">描边3</option>
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">

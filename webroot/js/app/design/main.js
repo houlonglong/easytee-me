@@ -40,6 +40,15 @@ $(function () {
         $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
     });
 
+    $('.font-families-item').click(function(){
+        $(this).parents('.design-dropdown').find('.design-dropdown-menu').hide();
+    });
+
+    $('.product-item').click(function(){
+        $('.product-item').removeClass('active');
+        $(this).addClass('active');
+    });
+
     function showImageLayer(){
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
         $('.upload-location').hide();
@@ -57,4 +66,17 @@ $(function () {
         $('.upload-location').hide();
         $('.image-store').show();
     }
+
+    function setDsHeight(){
+        var tools = $('.design-tools');
+        var choice = $('.product-choices');
+        var design = $('.design-center');
+        if(tools.outerHeight()>choice.outerHeight()){
+            design.height(tools.outerHeight() + parseInt(tools.css('marginTop')) + 20);
+        }else{
+            design.height(choice.outerHeight() + parseInt(choice.css('marginTop')) + 20);
+        }
+    }
+
+    setDsHeight();
 });
