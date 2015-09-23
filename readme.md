@@ -22,6 +22,10 @@
 - api:
     - 提交登陆信息 [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/user/auth/login.md)
 
+退出登陆
+------
+- url: http://2.dev.jzw.com/api?model=user/auth&action=logout
+
 第三方登陆
 ------
 - QQ
