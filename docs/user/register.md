@@ -28,7 +28,7 @@ Api Url
      {
          "return": {
             "message":"注册成功",
-            "redirect":"/user/index",
+            "redirect":"/order?id=1",
          },
          "message": "",
          "redirect": "",
@@ -37,8 +37,8 @@ Api Url
      
 备注:
 
-    1.如果请求参数中 `redirect`不为空 注册成功返回参数会有`return.redirect`,`return.redirect`跳转
-    2.注册成功直接登陆成功 按`return.redirect`跳转
+    1.如果请求参数中 `redirect`不为空 注册成功返回参数会有`return.redirect`,按`return.redirect`跳转
+    2.注册成功直接登陆成功 如果是AJAX登陆 看情况处理;非AJAX情况 按`return.redirect`跳转 
      
 异常:
 
@@ -82,7 +82,7 @@ Api Url
 
      {
         "return": "手机验证码已发送",
-        "message": "当前号码已经注册过",
+        "message": "",
         "redirect": "",
         "status": 0,
      }
