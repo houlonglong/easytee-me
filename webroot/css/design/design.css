@@ -128,7 +128,7 @@
 }
 .design-main .design-center .product-choices {
     position: relative;
-    background: #f1f1f1;
+    background: #FFFFFF;
     border-radius: 5px;
     border: 1px solid #cacaca;
     padding: 10px;
@@ -148,7 +148,7 @@
 }
 
 .design-main .design-center .product-choices .product-list {
-    background: #fff;
+    background: #F9F9F9;
     border: 1px solid #e8eced;
     margin-top: 10px;
 }
@@ -159,9 +159,9 @@
     cursor: pointer;
 }
 .design-main .design-center .product-choices .product-item.active {
-    border: 1px solid #AA2425;
+    border: 1px solid #A22625;
     border-radius: 3px;
-    background: #ffe5e5;
+    background: #FFFFFF;
 }
 .design-main .design-center .product-choices .product-item.active .name {
     color: #AA2425;
@@ -185,7 +185,7 @@
 .design-main .design-center .product-choices .product-item div .info {
     font-size: 14px;
     display: block;
-    color: #AA2425;
+    color: #C06F75;
 }
 
 .design-main .design-center .product-choices .pre-cost {
