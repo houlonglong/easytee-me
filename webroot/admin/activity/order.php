@@ -48,12 +48,12 @@
                                                 <input type="text" class="input-small" placeholder="活动ID"
                                                        id="activity_id">
                                                 <input type="text" class="input-small" placeholder="手机号码" id="mobile">
-                                                <select id="pay_status">
+                                                <select id="pay_status" onchange="search()">
                                                     <option value="">全部</option>
                                                     <option value="0">待付款</option>
                                                     <option value="1">已付款</option>
                                                 </select>
-                                                <select id="ship_status">
+                                                <select id="ship_status" onchange="search()">
                                                     <option value="">全部</option>
                                                     <option value="0">待发货</option>
                                                     <option value="1">已发货</option>
@@ -104,6 +104,21 @@
 
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
+    $query = {
+        order_no:$('#order_no').val(),
+        activity_name:$('#activity_name').val(),
+        activity_id:$('#activity_id').val(),
+        mobile:$('#mobile').val(),
+    };
+    $('#pay_status').change(function(){
+      //  console.log(typeof $('#pay_status').val())
+        if($('#pay_status').val() == '0'){
+            $('#ship_status').hide();
+        }else{
+            $('#ship_status').show();
+            $query['ship_status'] = $('#ship_status').val();
+        }
+    })
     function search() {
         var $query = {
             order_no: $('#order_no').val(),
@@ -163,18 +178,35 @@
                     editable: false,
                     sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a target="_blank" href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
+                        return '<a target="_blank" href="/admin/activity/detail?id=' + rowObject.activity_id + '" >' + cellvalue + '</a>';
                     }
                 },
-                {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false},
-                {title: "订单金额", name: 'goods_price', index: 'goods_price', width: 90, sortable: false, editable: false},
+                {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<b class="green">'+cellvalue+'</b>';
+                    }
+                },
+                {
+                    title: "订单金额",
+                    name: 'goods_price',
+                    index: 'goods_price',
+                    width: 90,
+                    sortable: false,
+                    editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<b class="blue">$'+cellvalue+'</b>';
+                    }
+                },
                 {
                     title: "运费",
                     name: 'exp_price',
                     index: 'exp_price',
                     width: 90,
                     sortable: false,
-                    editable: false
+                    editable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<span class="blue">'+cellvalue+'</span>';
+                    }
                 },
                 {
                     title: "状态",
@@ -187,12 +219,12 @@
                         var cell = '';
                         if(rowObject.pay_status){
                             if(rowObject.ship_status){
-                                cell = "已发货"
+                                cell = "<span class='label label-success arrowed-in arrowed-in-right'>已发货</span>"
                             }else{
-                                cell = "未发货"
+                                cell = "<span class='label label-warning arrowed arrowed-right'>未发货</span>"
                             }
                         }else{
-                            cell = "未付款"
+                            cell = "<span class='label arrowed'>未付款</span>"
                         }
                         return cell;
                     }
@@ -200,9 +232,9 @@
                 {title: "快递信息", name: 'express_no', index: 'express_no', width: 90, sortable: false, editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         if(cellvalue!=null){
-                            return '<span>快递单号：{exp_no}</span></br><span>快递公司:{exp_com}</span>'.format(rowObject);
+                            return '<span class="label label-success arrowed-in arrowed-in-right">快递单号：{exp_no}</span></br><span>快递公司:{exp_com}</span>'.format(rowObject);
                         }else{
-                            return '未发货';
+                            return "<span class='label arrowed'>无</span>";
                         }
 
                     }
@@ -348,6 +380,7 @@
             mtype: grid_setting.method,
             url: grid_setting.url,
             datatype: "json",
+            sortorder: "desc",
             height: grid_setting.height,
             colNames: get_col(grid_setting.cols)['name'],
             colModel: get_col(grid_setting.cols)['model'],

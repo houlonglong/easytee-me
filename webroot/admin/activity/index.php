@@ -518,6 +518,7 @@
             postData:{
                 status:1
             },
+            sortorder: "desc",
             mtype:grid_setting.method,
             url: grid_setting.url,
             datatype: "json",
