@@ -57,23 +57,23 @@
                                                     <select id="status" onchange="search()">
                                                         <option value="1">进行中</option>
                                                         <option value="10">已结束</option>
-                                                        <option value="0">草稿</option>
-                                                        <option value="2">失败的</option>
+                                                        <option value="0">草稿</option>  *
+                                                        <option value="2">失败的</option> *
                                                         <option value="3">成功的</option>
                                                         <option value="">全部</option>
                                                     </select>
 
                                                 </span>
-                                                <span class="mr-20">
+                                                <span class="mr-20 production_status" style="display: none;">
                                                     生产:
                                                     <select id="production_status" onchange="search()">
-                                                        <option value="">全部</option>
+                                                        <option value="">全部</option>    *
                                                         <option value="0">待生产</option>
                                                         <option value="1">生产中</option>
-                                                        <option value="2">生产完成</option>
+                                                        <option value="2">生产完成</option>   *
                                                     </select>
                                                 </span>
-                                                <span class="mr-20">
+                                                    <span class="mr-20 ship_status" style="display: none;">
                                                     发货:
                                                     <select id="ship_status" onchange="search()">
                                                         <option value="">全部</option>
@@ -82,8 +82,8 @@
                                                     </select>
                                                 </span>
                                                 <br><br>
-                                                <input type="text"  class="input-small" placeholder="活动ID" id="activity-id">
-                                                <input type="text"  class="input-small" placeholder="活动名称" id="activity-name">
+                                                <input type="text"  class="input-small" placeholder="活动ID" id="activity_id">
+                                                <input type="text"  class="input-small" placeholder="活动名称" id="activity_name">
 
 <!--                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">-->
 <!--                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">-->
@@ -220,17 +220,40 @@
         $('#modal_start_time').text($(obj).parents('tr').find('td').eq(3).text());
         $('#modal_sales_target').text($(obj).parents('tr').find('td').eq(2).text());
     }
+
+
+
+
     function search(){
-        var $query = {
+//        debugger;
+        var status = $('#status').val();
+        $query = {
             verify:$('#verify').val(),
-            status:$('#status').val(),
-            production_status:$('#production_status').val(),
-            ship_status:$('#ship_status').val(),
-            activity_id:$('#activity-id').val(),
-            activity_name:$('#activity-name').val(),
-//            startDate:$('#start-date').val(),
-//            endDate:$('#end-date').val()
+            status:status,
+            activity_id:$('#activity_id').val(),
+            activity_name:$('#activity_name').val(),
         };
+        // 0 草稿  10 已结束 2 失败   1 进行中
+        $query["ship_status"] =   '';
+        $query["production_status"] = '';
+
+
+        if(status == '0' || status == '10' || status == '2' || status == '1'){
+            $('.production_status').hide().val('');
+            $('.ship_status').hide().val('');
+
+        }else{
+            $('.production_status').show();
+            $query["production_status"] = $('#production_status').val();
+            // 0 待生产 1 生产中  2生成完成
+            if(parseInt($('#production_status').val())==0 ||parseInt($('#production_status').val())==1){
+                $('.ship_status').hide().val('');
+            }else{
+                $('.ship_status').show();
+                $query["ship_status"] = $('#ship_status').val();
+            }
+        }
+        console.log($query)
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
             postData:$query, //发送数据
@@ -490,6 +513,10 @@
                 total: function (obj) {
                     return obj.return.total;
                 }
+            },
+
+            postData:{
+                status:1
             },
             mtype:grid_setting.method,
             url: grid_setting.url,
