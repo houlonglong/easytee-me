@@ -134,15 +134,26 @@ a {
     height: 100%;
 }
 
+.design-main .design-dropdown .design-dropdown-fontfamily {
+    height: 22px;
+    margin: 9px 0 0 13px;
+}
+
+.design-main .design-dropdown .design-dropdown-fontfamily img {
+    height: 100%;
+}
+
 .design-main .design-dropdown .design-dropdown-menu {
     position: absolute;
     top: 0;
-    left: 63px;
+    right: -225px;
     width: 218px;
     min-height: 38px;
     border: 1px solid #e8eced;
     background: #fff;
     display: none;
+    z-index: 1;
+    box-shadow: 1px 1px 6px #B0B0B0;
 }
 
 .design-main .design-top {
