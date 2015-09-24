@@ -194,6 +194,54 @@
 
 
     <script type="text/javascript">
+        function do_success($id){
+            if(!confirm("确定么")) return;
+            if(!confirm("确定么")) return;
+            $.post("/api",{
+                model:"admin/activity",
+                action:"do_success",
+                id:$id
+            },function(data){
+                if(data.status == 0){
+                    alert("操作成功");
+                }else{
+                    alert(data.message)
+                }
+            },"json");
+        }
+        function do_fail($id){
+            if(!confirm("确定要删除么")) return;
+            if(!confirm("确定要删除么")) return;
+            $.post("/api",{
+                model:"admin/activity",
+                action:"do_fail",
+                id:$id
+            },function(data){
+                if(data.status == 0){
+                    alert("操作成功");
+                }else{
+                    alert(data.message)
+                }
+            },"json");
+        }
+        function del_activity($id,obj){
+            if(!confirm("确定要删除么")) return;
+            if(!confirm("确定要删除么")) return;
+
+            $.post("/api",{
+                model:"admin/activity",
+                action:"remove",
+                id:$id
+            },function(data){
+                if(data.status == 0){
+                    $(obj).parents("tr").slideUp(800,function(){
+                        $(this).remove();
+                    });
+                }else{
+                  alert(data.message)
+                }
+            },"json");
+        }
         var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
         var grid_selector = "#grid-table";
         var pager_selector = "#grid-pager";
@@ -269,7 +317,7 @@
                 rowList:[15,30,50,100],
                 caption:"",
                 cols:[
-                    {title:"Id",name:'id',index:'id', width:80, fixed:true,sortable:false, editable: false},
+                    {title:"Id",name:'id',index:'id', width:80, fixed:true,sortable:true, editable: false},
                     {title:"缩略图",name:'thumb_img_url',width:110, fixed:true,index:'thumb_img_url',sortable:false,editable: false,
                         formatter:function(cellvalue, options, rowObject){
                             var cell = '<img style="width:100px;height:100px;" src="'+cellvalue+'">';
@@ -291,12 +339,24 @@
                         formatter:function(cellvalue, options, rowObject){
                             var cell = rowObject.sale_count + "/" + cellvalue ;
                             cell += "<br>总额: "+rowObject.sale_total ;
-                            if(rowObject.sale_count > 10){
-                                cell += "<br>可进入预生产 " ;
-                            }else{
-                                cell += "<br>未达10件" ;
+
+                            var end_time =new Date((rowObject.end_time).replace(/-/g,"/"));
+                            var date = new Date();
+
+                            if(date > end_time && rowObject.status == 1 ){
+                                if(rowObject.sale_count > 10){
+                                    if(rowObject.production_status > 0){
+                                        cell += "<br>生产..";
+                                    }else{
+                                        cell += "<br><button class=\"btn btn-success\" onclick='do_success({id})'>成功</button>" ;
+                                    }
+
+                                }else{
+                                    cell += "<br>未达10件" ;
+                                    cell += "<br><button class=\"btn btn-danger\" onclick='do_fail({id})'>失败</button>" ;
+                                }
                             }
-                            return cell;
+                            return cell.format(rowObject);
                         }
                     },
                     {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
@@ -308,22 +368,12 @@
                         }
                     },
                     {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
-                        formatter:'actions',
-                        formatoptions:{
-                            keys:true,
-                            //delbutton: false,//disable delete button
-                            baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                            url:'someurl.php', addParam: '&action=edit', idName:'id',
-                            delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                            //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                        },
                         formatter:function(cellvalue, options, rowObject){
                             var html='';
-                            html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
-                            if(rowObject['pass'] == 0 ){
-                                html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
-                            }
-                            return html;
+                            html  = '<a class="btn btn-xs btn-info" target="_blank" href="/admin/activity/detail?id={id}" >详情</a><br>';
+                            html += '<a class="btn btn-xs btn-danger" target="_blank" onclick="del_activity({id},this)" >删除</a><br>';
+
+                            return html.format(rowObject);
                         }
                     },
                 ]

@@ -71,11 +71,11 @@
 				<div class="sj ">
 					<input type="text" placeholder="请输入您的手机号" id="res-phone">
 					<button id="testing" >获取验证码</button>
-					<i class="hidden">抱歉无此账号</i>
+					<i class="hidden">输入有误</i>
 
 				</div>
 				<div>
-					<input type="text" placeholder="请输入验证码" >
+					<input type="text" placeholder="请输入验证码" id="res-test" >
 					<i class="hidden">验证码错误</i>
 				</div>
 				<h4>请输入新密码</h4>
@@ -92,23 +92,27 @@
 			<!-- 注册 -->
 			<div class="register">
 				<h3>免费注册</h3>
-				<div class="sj ">
+				<div class="sj">
 					<label for="">手机号</label>
-					<input type="text" placeholder="请输入您的手机号">
-					<span>获取验证码</span>
-					<i>无效号码</i>
+					<input type="text" placeholder="请输入您的手机号" id="reg-phone">
+					<button id="reg-testing" >获取验证码</button>
+					<i class="hidden">输入错误</i>
 				</div>
-				<div class="yzm-err">
+				<div class="">
 					<label for="">验证码</label>
-					<input type="text" ><i>验证码有误</i>
+					<input type="text" placeholder="输入验证码" id="reg-test">
+					<i class="hidden">验证码有误</i>
 				</div>
-				<div class="mm-err">
+				<div class="">
 					<label for="">登录密码</label>
-					<input type="password" placeholder="必须是3~32位字符"></div>
+					<input type="password" placeholder="必须是6~32位字符" id="reg-pass">
+					<i class="hidden">密码格式错误</i>
+				</div>
+					
 
 				<div class="zc-btn">
-					<a href="#" class="anniu reg-anniu">免费注册</a>
-				</div>
+					<a href="#" class="anniu reg-btn">免费注册</a>
+				</div> 
 				<div class="other-login ">
 					<span>第三方登录</span>
 					<a href="#" class="qq"></a>
@@ -116,7 +120,7 @@
 					<a href="#" class="wx"></a>
 				</div>
 				<div class="zc-link">
-					<a href="#">没有账号？免费注册</a>
+					<a href="#">已有账号？立即登录</a>
 				</div>
 			</div>
 			<!-- 注册成功 -->

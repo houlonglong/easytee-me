@@ -205,6 +205,7 @@ header{
     position:relative;
     left: 50%;
     transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
     border-radius: 10px;
     overflow: hidden;
     margin-top: 100px;
@@ -471,6 +472,7 @@ div.err button{
     border-radius: 5px 0 0 5px;
     float: left;
 }
+
 .register>div>input{
     width: 100%;
     height: 100%;
@@ -493,9 +495,18 @@ div.err button{
     font-family: 黑体;
 }
 
-.reg-anniu{
-    margin:0 auto;
+.reg-btn{
+   display: block;
+   width: 126px;
+   height: 36px;
+   background: #a12625;
+   margin:0 auto;
+    color: #fff;
+    border-radius:5px;
+    line-height: 36px;
+    margin-top: 10px;
 }
+.reg-btn:hover{background: #da3335;}
 
 .register .other-login{
     margin-bottom:0;
@@ -519,40 +530,37 @@ div.err button{
     border-radius: 5px;
     border-color: red;
 }
-/* .register .err:after{
-    content: "无效号码";
+
+.err i{
     position: absolute;
     right:-60px;
     top:32px;
     color: red;
-} */
-.sj i{
-    position: absolute;
-    right:-60px;
-    top:32px;
-    color: red;
+    display: block;
 }
- .register .yzm-err{
+ .register .Prompt{
    
     position: relative;
  }
-  .register .yzm-err input{ border-color: red;}
- .yzm-err i{
-   
+  .register .Prompt input{ border-color: red;}
+ .Prompt i{
     position: absolute;
-    right:-76px;
+    right:-86px;
     top:32px;
     color: red;
+    width: 90px;
+    text-align:left;
+    display: block;
   }
 
-  .register .mm-err{
-   
-    position: relative;
+/*   .register .mm-err{
+ 
+  position: relative;
  }
-  .register .mm-err input{ border-color: red;}
-   .register .mm-err input::-webkit-input-placeholder{
-    color: red;
-   }
+.register .mm-err input{ border-color: red;}
+.register .mm-err input::-webkit-input-placeholder{
+ color: red;
+} */
 
 
 /* 注册成功样式 */

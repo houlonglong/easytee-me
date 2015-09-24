@@ -38,16 +38,16 @@ class Model_Service_Activity extends BaseModel{
         //单件印花成本
         if($sale_count > $sale_target) $_sale_count = $sale_target;
         else $_sale_count = $sale_count;
-        PtLib\log("[印花成本] 活动:%s 销量:%s 目标:%s 成本销量:%s 颜色:%s",$id,$sale_count,$sale_target,$_sale_count,$colors);
+        PtLib\log("[印花成本] 活动:%s 销量:%s 目标:%s 3成本销量:%s 颜色:%s",$id,$sale_count,$sale_target,$_sale_count,$colors);
         $cost_print_one = Model_Cost::calculate_cost($colors,$_sale_count);
-
-        //印花成本
+        //印花成本4
         $cost_print = $cost_print_one * $sale_count;
         PtLib\log("[印花成本] 活动:%s 单件:%s 总:%s",$id,$cost_print_one,$cost_print);
-        $total = self::_db()->select_row("select sum(quantity*unit_price - cost_price) as profit_all from et_order_goods  where activity_id = ? ",$id);
+        $total = self::_db()->select_row("select sum(quantity*sell_price - cost_price) as profit_all from et_order_goods  where activity_id = ? ",$id);
         $profit_all = $total['profit_all'] ? $total['profit_all']:"0";
         $profit = round($profit_all - $cost_print,2);
         PtLib\log("[印刷成本] 活动:%s 不含印花利润:%s - 印花成本:%s = 利润:%s",$id,$profit_all,$cost_print,$profit);
+        self::_db()->update("et_activity_info",array("sale_profit"=>$profit),array("id"=>$id));
         return $profit;
     }
 
