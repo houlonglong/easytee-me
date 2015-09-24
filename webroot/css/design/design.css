@@ -390,6 +390,10 @@
     position: relative;
 }
 
+.product-color-picket li.color-item.active {
+    border: 1px solid #000;
+}
+
 .product-color-picket li.color-item span {
     display: block;
     width: 100%;

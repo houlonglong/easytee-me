@@ -179,6 +179,11 @@ $(function () {
         $('.product-item').eq(0).click();
     }
 
+    $('#product_color_picket').find('.color-item').click(function(){
+        $('.color-item').removeClass('active');
+        $(this).addClass('active');
+    });
+
     $('.more-color', '.product-color-picket').hover(function () {
         $(this).parents('.product-color-picket').find('.color-column').not('.quick-colors').show();
         var len = $(this).parents('.product-color-picket').find('.color-column').length;
