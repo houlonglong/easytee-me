@@ -73,14 +73,16 @@ class Model_Admin_Order extends Model_Admin_Abstract{
     /**
      * 列表
      **/
-    function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id){
+    function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id,$exp_no){
+
         $table = self::$table;
         $table_alias = "o";
         $join = ' left join et_user as u on u.id = o.uid
         left join et_order_activity as act on act.order_id = o.id
         left join et_activity_info as a on a.id = act.activity_id
         left join et_order_ship as ship on ship.order_id = o.id
-        left join et_order_pay as pay on pay.order_id = o.id';
+        left join et_order_pay as pay on pay.order_id = o.id ';
+
 
         $limit = $rows;
         $sort = $sidx;
@@ -104,15 +106,20 @@ class Model_Admin_Order extends Model_Admin_Abstract{
             $where .= 'and o.order_no = ? ';
             $args[] = $order_no;
         }
+        if($exp_no){
+            $where .= 'and ship.exp_no = ? ';
+            $args[] = $exp_no;
+        }
         if($mobile){
             $where .= 'and u.mobile = ? ';
             $args[] = $mobile;
         }
-        if($pay_status === 0 || $pay_status == 1){
+        if($pay_status === '0' || $pay_status == '1'){
             $where .= 'and pay.pay_status = ? ';
             $args[] = $pay_status;
+
         }
-        if($ship_status === 0 || $ship_status == 1){
+        if($ship_status === '0' || $ship_status == '1'){
             $where .= 'and pay.ship_status = ? ';
             $args[] = $ship_status;
         }
