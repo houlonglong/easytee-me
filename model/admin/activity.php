@@ -264,10 +264,10 @@ limit 1");
 
         if ($request['status'] === "0" || $request['status'] > 0) {
             if($request['status'] == 1){//进行中
-                $where .= 'and a.start_time < now() and now() < a.end_time ';
+                $where .= 'and a.start_time < now() and now() < a.end_time and a.status = 1';
             }
             if($request['status'] == 10){//结束
-                $where .= 'and now() > a.end_time ';
+                $where .= 'and now() > a.end_time and a.status > 0';
             }
             if($request['status'] == 0){//草稿
                 $where = 'and a.status = 0 ';

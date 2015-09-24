@@ -309,10 +309,22 @@
                         formatter:function(cellvalue, options, rowObject){
                             var cell = rowObject.sale_count + "/" + cellvalue ;
                             cell += "<br>总额: "+rowObject.sale_total ;
-                            if(rowObject.sale_count > 10){
-                                cell += "<br>可进入预生产 " ;
-                            }else{
-                                cell += "<br>未达10件" ;
+
+                            var end_time =new Date((rowObject.end_time).replace(/-/g,"/"));
+                            var date = new Date();
+
+                            if(date > end_time && rowObject.status == 1 ){
+                                if(rowObject.sale_count > 10){
+                                    if(rowObject.production_status > 0){
+                                        cell += "<br>生产..";
+                                    }else{
+                                        cell += "<br><button class=\"btn btn-success\">成功</button>" ;
+                                    }
+
+                                }else{
+                                    cell += "<br>未达10件" ;
+                                    cell += "<br><button class=\"btn btn-danger\">失败</button>" ;
+                                }
                             }
                             return cell;
                         }
