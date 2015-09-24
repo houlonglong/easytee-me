@@ -173,8 +173,8 @@ class Model_Service_Activity extends BaseModel{
             }
         }
     }
-    function cli_run($commit){
-        $this->cli_compute_profit($commit);
+    static function do_close($commit){
+
         //进行中的 结束时间小于当前时间的 活动
         $activities = self::_db()->select_rows("select i.*,u.nick_name,u.mobile,a.name
                     from et_activity_info as i
@@ -327,6 +327,13 @@ class Model_Service_Activity extends BaseModel{
                 PtLib\log($e->getMessage());
                 self::_db()->rollback();
             }
+        }
+    }
+    function cli_run($commit){
+        while(1){
+            $this->cli_compute_profit($commit);
+            self::do_close($commit);
+            sleep(30);
         }
     }
 
