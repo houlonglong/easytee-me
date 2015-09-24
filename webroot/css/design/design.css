@@ -301,8 +301,7 @@
 }
 
 .color-picket-list {
-    padding: 4px;
-    overflow: hidden;
+    padding: 6px;
 }
 
 .color-picket-item {
@@ -312,7 +311,7 @@
     border: 1px solid #eee;
     border-radius: 3px;
     display: block;
-    margin: 2px;
+    margin: 0 0px 7px 0;
     float: left;
     position: relative;
 }
@@ -330,6 +329,7 @@
     height: 21px;
     width: 21px;
     border-radius: 3px;
+    box-shadow: 0 0 1px #d8dddf;
 }
 
 .font-families {
@@ -353,4 +353,64 @@
 .font-families-item img {
     display: block;
     width: 100%;
+}
+
+.product-color-picket {
+    position: absolute;
+    top: 262px;
+    left: 987px;
+    width: 38px;
+    border: 1px solid #CDCDCD;
+    box-shadow: 1px 1px 6px #B0B0B0;
+    background: #fff;
+    z-index: 1;
+}
+
+.product-color-picket ul.color-column {
+
+}
+
+.product-color-picket li.color-item {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    border: 1px solid #DADADA;
+    border-radius: 3px;
+    display: block;
+    margin: 6px;
+    position: relative;
+}
+
+.product-color-picket li.color-item span {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.product-color-picket li.color-item:hover span {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    height: 21px;
+    width: 21px;
+    border-radius: 3px;
+    box-shadow: 0 0 1px #d8dddf;
+}
+
+.product-color-picket li.more-color {
+    width: 22px;
+    height: 22px;
+    padding: 2px;
+    border: 1px solid #DADADA;
+    border-radius: 3px;
+    display: block;
+    margin: 6px;
+    position: relative;
+}
+
+.product-color-picket li.more-color span {
+    background: url(images/icon-more-color.png);
+    display: block;
+    width: 100%;
+    height: 100%;
 }

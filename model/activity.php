@@ -8,15 +8,29 @@ class Model_Activity extends BaseModel{
         //parent::__construct();
     }
 
-    static function detail_info($id){
+    static function detail_info($id,$app_id = ''){
+        $where = "where et_activity_info.id = ?";
+        $args[] = $id;
+        if($app_id){
+            $where .= " and app.app_id = ?";
+            $args[] = $app_id;
+        }
         $act = self::_db()->select_row("select
                   uid,
                   name,content,sale_target,sale_count,sale_total,sale_profit,
                   period,start_time,end_time,verify,status,production_status,ship_status,
                   colors,default_side,default_style_id,design_id,
-                  thumb_img_url,thumb_svg_url
-                  from et_activity_info where id = ?",$id);
+                  thumb_img_url,thumb_svg_url,app.app_uid
+                  from et_activity_info
+                  left join et_app_activity as app on app.id = et_activity_info.id
+                  $where ",$args);
 
+        if(!$act) throw new Exception("没有找到活动");
+        if($app_id){
+            unset($act['uid']);
+            $act['uid'] = $act['app_uid'];
+            unset($act['app_uid']);
+        }
         //var_dump($act);exit;
         $default_style['thumb_img_url'] =  $act['thumb_img_url'];
         $default_style['thumb_svg_url'] =  $act['thumb_svg_url'];
