@@ -214,7 +214,7 @@
                     formatter: function (cellvalue, options, rowObject) {
                         var cell = '';
                         if(rowObject.pay_status){
-                            if(rowObject.ship_status){
+                            if(rowObject.ship_status == 1){
                                 cell = "<span class='label label-success arrowed-in arrowed-in-right'>已发货</span>"
                             }else{
                                 cell = "<span class='label label-warning arrowed arrowed-right'>未发货</span>"

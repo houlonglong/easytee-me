@@ -310,7 +310,9 @@
             var grid_setting = {
                 url:"/api?model=admin/activity&action=list",
                 method:"POST",
-                postData:{status:1},
+                postData:{status:1,
+                           uid:<?php echo $_GET['uid'] ?>
+                },
                 sortorder:"desc",
                 height:500,
                 rowNum:5,

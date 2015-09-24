@@ -58,7 +58,7 @@
                                 </li>
 
                                 <li>
-                                    <a data-toggle="tab" href="#dropdown14">发起的活动</a>
+                                    <a data-toggle="tab" onclick="location.href='/admin/user/activity?uid=<?=$uid?>'">发起的活动</a>
                                 </li>
 
                                 <li>
@@ -129,29 +129,29 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="ds_username">可提现余额：</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="ds_username"  style="width: 10%;"  type="text" value="<?php echo $user['balance_tx'] ?>"/>
+                                                <input class="form-control" id="ds_username"  style="width: 120px;"  type="text" value="<?php echo $user['balance_tx'] ?>"/>
                                             </div>
                                             <label class="col-sm-2 control-label" for="ds_password">暂时冻结余额：</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="ds_password"  style="width: 10%;" type="text" value="<?php echo $user['balance_block'] ?>"/>
+                                                <input class="form-control" id="ds_password"  style="width:  120px;" type="text" value="<?php echo $user['balance_block'] ?>"/>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" for="ds_username">不可提现余额：</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="ds_username" style="width: 10%;" type="text" value="<?php echo $user['balance_ntx'] ?>"/>
+                                                <input class="form-control" id="ds_username" style="width:  120px;" type="text" value="<?php echo $user['balance_ntx'] ?>"/>
                                             </div>
                                             <label class="col-sm-2 control-label" for="ds_password">总赚取余额：</label>
                                             <div class="col-sm-4">
-                                                <input class="form-control" id="ds_password"  style="width: 10%;"  type="text" value="<?php echo $user['total_earn'] ?>"/>
+                                                <input class="form-control" id="ds_password"  style="width:  120px;"  type="text" value="<?php echo $user['total_earn'] ?>"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="disabledSelect"   class="col-sm-2 control-label">余额：</label>
                                             <div class="col-sm-4">
 
-                                                <input class="form-control"  id="ds_password"  style="width: 10%;" type="text" value="<?php echo $user['balance_tx']+$user['balance_ntx']+$user['balance_block'] ?>">
+                                                <input class="form-control"  id="ds_password"  style="width:  120px;" type="text" value="<?php echo $user['balance_tx']+$user['balance_ntx']  ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
