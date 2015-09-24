@@ -145,15 +145,26 @@ a {
 
 .design-main .design-dropdown .design-dropdown-menu {
     position: absolute;
-    top: 0;
-    right: -220px;
+    top: -13px;
+    right: -216px;
     width: 212px;
     min-height: 38px;
-    border: 1px solid #CDCDCD;
+    border: 1px solid #989898;
+    box-shadow: 1px 1px 6px #989898;
+    border-radius: 3px;
     background: #fff;
     display: none;
     z-index: 1;
-    box-shadow: 1px 1px 6px #B0B0B0;
+}
+
+.design-main .design-dropdown .design-dropdown-menu-arrow {
+    background: url(images/icon-design-dropdown-menu-arrow.png);
+    width: 13px;
+    height: 29px;
+    position: absolute;
+    top: 16px;
+    left: -13px;
+    z-index: 1;
 }
 
 .design-main .design-top {
