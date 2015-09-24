@@ -391,17 +391,18 @@
                 购买素衫
             </a>
         </div>
-        <div class="design-selected-tools">
+        <div id="design_selected_tools" class="design-selected-tools">
             <div class="form-row">
-                <input type="checkbox" id="123"/>
-                <label for="123">引导居中</label>
+                <input type="checkbox" id="snapCenter"/>
+                <label for="snapCenter">引导居中</label>
             </div>
             <div class="form-row">
-                <a href="javascript:;">复制</a>
-                <a href="javascript:;">移到底层</a>
-                <a href="javascript:;">对齐中心</a>
-                <a href="javascript:;">水平翻转</a>
-                <a href="javascript:;">垂直翻转</a>
+                <a href="javascript:;" class="icon-tools icon-tools-duplicate" title="复制"></a>
+                <a href="javascript:;" class="icon-tools icon-tools-align-center" title="对齐中心"></a>
+                <a href="javascript:;" class="icon-tools icon-tools-move-bottom" title="移到底层"></a>
+                <a href="javascript:;" class="icon-tools icon-tools-horizontal" title="水平翻转"></a>
+                <a href="javascript:;" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>

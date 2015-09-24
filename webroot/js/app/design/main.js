@@ -189,6 +189,24 @@ $(function () {
         $(this).width('auto');
     });
 
+    function designToolsAppendToText(){
+        $('#design_selected_tools').appendTo('.tab-content:eq(0)');
+    }
+    function designToolsAppendToImage(){
+        $('#design_selected_tools').appendTo('.tab-content:eq(1)');
+    }
+
+    function enableDesignTools(){
+        $('#design_selected_tools').show();
+    }
+
+    function disableDesignTools(){
+        $('#design_selected_tools').hide();
+    }
+
+    designToolsAppendToText();
+    enableDesignTools();
+
     //初始化设计工具数据
     initFontFamilies();
     initColorPicker();
