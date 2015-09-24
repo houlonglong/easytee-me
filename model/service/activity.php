@@ -11,18 +11,18 @@ class Model_Service_Activity extends BaseModel{
      * @param $id 活动ID
      */
     static function close_activity($id){
-        PtLib\log("[活动] id:%s 更新状态为:%s 结束活动",$id,2);
+        PtLib\log("[活动] id:%s 更新状态为:%s 活动失败",$id,2);
         self::_db()->update("et_activity_info",array("status"=>2),array("id"=>$id));
 
     }
 
     /**
-     * 结束活动 进入生产
+     * 结束活动 活动成功
      * @param $id 活动ID
      */
-    static function close_activity_and_produce($id,$sale_profit){
-        PtLib\log("[活动] id:%s 状态为:%s,活动结束;利润为:%s",$id,2,$sale_profit);
-        $row = array("status"=>2,"production_status"=>1,"sale_profit"=>$sale_profit);
+    static function close_activity_success($id){
+        PtLib\log("[活动] id:%s 状态为:%s,活动成功结束",$id,2);
+        $row = array("status"=>3);
         self::_db()->update("et_activity_info",$row,array("id"=>$id));
     }
 
@@ -38,15 +38,21 @@ class Model_Service_Activity extends BaseModel{
         //单件印花成本
         if($sale_count > $sale_target) $_sale_count = $sale_target;
         else $_sale_count = $sale_count;
-        PtLib\log("[印花成本] 活动:%s 销量:%s 目标:%s 3成本销量:%s 颜色:%s",$id,$sale_count,$sale_target,$_sale_count,$colors);
+        PtLib\log("[印花成本] 活动:%s 当前销量:%s 目标销量:%s 成本计算销量:%s 颜色数:%s",$id,$sale_count,$sale_target,$_sale_count,$colors);
+        //单件印花成本
         $cost_print_one = Model_Cost::calculate_cost($colors,$_sale_count);
-        //印花成本4
+
+        //印花总成本
         $cost_print = $cost_print_one * $sale_count;
-        PtLib\log("[印花成本] 活动:%s 单件:%s 总:%s",$id,$cost_print_one,$cost_print);
-        $total = self::_db()->select_row("select sum(quantity*sell_price - cost_price) as profit_all from et_order_goods  where activity_id = ? ",$id);
+        PtLib\log("[印花成本] 活动:%s 单件印花成本:%s 印花总成本:%s",$id,$cost_print_one,$cost_print);
+        $total = self::_db()->select_row("select sum(g.quantity * (g.sell_price - g.cost_price)) as profit_all from et_order_goods as g
+                    left join et_order_pay as p on p.order_id = g.order_id  where p.pay_status = 1 and g.activity_id = ? ",$id);
+
+        //不包含印花利润
         $profit_all = $total['profit_all'] ? $total['profit_all']:"0";
+
         $profit = round($profit_all - $cost_print,2);
-        PtLib\log("[印刷成本] 活动:%s 不含印花利润:%s - 印花成本:%s = 利润:%s",$id,$profit_all,$cost_print,$profit);
+        PtLib\log("[印刷成本] 活动:%s 不包含印花利润:%s - 印花总成本:%s = 利润:%s",$id,$profit_all,$cost_print,$profit);
         self::_db()->update("et_activity_info",array("sale_profit"=>$profit),array("id"=>$id));
         return $profit;
     }
@@ -139,6 +145,29 @@ class Model_Service_Activity extends BaseModel{
         }
 
     }
+    function cli_compute_profit($commit)
+    {
+        //进行中的
+        $activities = self::_db()->select_rows("select i.*,u.nick_name,u.mobile,a.name
+                    from et_activity_info as i
+                    left join activities as a on a.id = i.id
+                    left join et_user as u on u.id = i.uid
+                    where i.status = 1 and i.sale_count >= 10 and i.production_status = 0 and i.end_time > now() and now() > i.start_time");
+
+        PtLib\log("=======");
+        if (!$activities) {
+            PtLib\log("没有活动要结束");
+        }
+        //print_r($activities);
+        foreach ($activities as $activity) {
+            PtLib\log("-------");
+            $colors = intval($activity['colors']);
+            $sale_count = intval($activity['sale_count']);
+            $sale_target = intval($activity['sale_target']);
+            $act_id = $activity['id'];
+            $sale_profit = self::get_activity_profit($act_id,$colors,$sale_count,$sale_target);
+        }
+    }
     function cli_run($commit){
         //进行中的 结束时间小于当前时间的 活动
         $activities = self::_db()->select_rows("select i.*,u.nick_name,u.mobile,a.name
@@ -197,7 +226,7 @@ class Model_Service_Activity extends BaseModel{
                     PtLib\log("[活动] id:%s 销售数量:%s 大于起订量10件 并小于销售目标:%s 利润:%s",$act_id,$sale_count,$sale_target,$sale_profit);
                     //var_dump($sale_profit);exit;
                     if($sale_profit > 0){//有利润进入生产
-                        self::close_activity_and_produce($act_id,$sale_profit);
+                        self::close_activity_success($act_id);
                         //结算利润给卖家
                         self::clearing_profit($act_id,$uid,$sale_profit);
                         //给卖家发送活动成功进入生产短信
@@ -250,7 +279,7 @@ class Model_Service_Activity extends BaseModel{
                 }else{//完成销售目标,有可能超销售目标 ==> 进入生产
                     if($sale_profit <= 0) $sale_profit = self::get_activity_profit($act_id,$colors,$sale_count,$sale_target);
                     PtLib\log("[活动] id:%s 完成销售目标 销售数量:%s 销售目标:%s 利润:%s",$act_id,$sale_count,$sale_target,$sale_profit);
-                    self::close_activity_and_produce($act_id,$sale_profit);
+                    self::close_activity_success($act_id);
                     //结算利润给卖家
                     self::clearing_profit($act_id,$uid,$sale_profit);
                     //给卖家发送活动成功进入生产短信
