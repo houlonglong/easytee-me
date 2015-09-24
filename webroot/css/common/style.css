@@ -423,6 +423,7 @@ div.err button{
 .reset-con div.err input{
     width: 274px;
     border-radius: 5px;
+    border-color: red;
 }
 .reset-con div.err i{
     /* content: "抱歉无此账号"; */

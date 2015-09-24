@@ -61,9 +61,9 @@ class Model_Admin_Production extends Model_Admin_Abstract{
     * 列表
     **/
     static function table_list(){
-        $table = self::$table;
-        $join = ' inner join et_activity_info as a on a.id = p.id';
-        $request = PtLib\http_request("rows","page","sidx","sord","status");
+        $table = "et_activity_info as a";
+        $join = ' left join et_activity_produce as p on a.id = p.id';
+        $request = PtLib\http_request("rows","page","sidx","sord","ship_status","production_status","activity_name","activity_id");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -82,33 +82,43 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         }
         //where
         $args = array();
-        $where  = " where 1=1 and (a.sale_count >= 10 or a.status = 3)";
+        //达到最低销量 或者成功的
+        $where  = " where 1=1 ";
 
-        if(!empty($request['activity_name'])){
+        if($request['activity_name']){
             $where .=' and a.name= ? ';
             $args[] = $request['activity_name'];
         }
+
         if(!empty($request['activity_id'])){
             $where .=' and a.id= ? ';
             $args[] = $request['activity_id'];
         }
+        if($request['production_status'] === "0" || $request['production_status']){
+            if($request['production_status'] === "01" || $request['production_status'] === '02'){
+                if($request['production_status'] === "01"){
+                    $where .=' and (a.sale_count >= 10 and a.status = 1) ';
+                }else{
+                    $where .=' and ( a.status = 3) ';
+                }
+            }else{
+                $where .=' and a.production_status= ? ';
+                $args[] = $request['production_status'];
 
-        $status = $request['status'];
-        if($status == 'index1'){
-            $where .='and activities.sales_count>=10 and activities.real_end_time >? ';
-            $args[] = date('Y-m-d H:i:s');
+                if($request['production_status']== 2 && ($request['ship_status'] === '0' || $request['ship_status'])){
+                    $where .=' and a.ship_status= ? ';
+                    $args[] = $request['ship_status'];
+                }
+            }
+        }else{
+            $where .=' and (a.sale_count >= 10 or a.status = 3) ';
         }
-        if($status == 'ongoing'){
-            $where .='and activities.status= "fabrication" ';
-        }
-        if($status == 'shipped'){
-            $where .='and activities.status= "shipped" ';
-        }
+
         //order
         $order = "";
         if($sort)
             $order = "order by p." .addslashes($sort) ." ".$sort_type;
-        $sql = "select count(a.id) as total from $table as p $join $where ";
+        $sql = "select count(a.id) as total from $table $join $where ";
 //        $count_res = db()->select_row($sql,$args);
         $count_res = PtLib\db()->select_row($sql,$args);
         $records = $count_res['total'];
@@ -128,16 +138,15 @@ class Model_Admin_Production extends Model_Admin_Abstract{
 
         $skip = ($page - 1) * $limit;
 
-        $sql = "select $select_fields from $table as p $join $where $order limit $skip,$limit ";
+        $sql = "select $select_fields from $table  $join $where $order limit $skip,$limit ";
         $rows = PtLib\db()->select_rows($sql,$args);
         foreach($rows as $row){
-            $profie = Model_Cost::calculate_profie($row['id']);
-            if($status == 'index'){
-                if($profie<=0 ){
-                    continue;
-                }
-            }
-            $row['profie'] = $profie;
+//            $profie = Model_Cost::calculate_profie($row['id']);
+//            if($status == 'index'){
+//                if($profie<=0 ){
+//                    continue;
+//                }
+//            }
             $response->rows[] = array(
                 'id'=>$row['id'],
                 "cell"=>$row

@@ -274,28 +274,28 @@ limit 1");
             }
         }
 
-        if ($request['production_status'] >= 0 ) {
-            if($request['production_status'] == 0){//
-                $where .= 'and a.production_status = 0 ';
-            }
-            if($request['production_status'] == 1){//
-                $where .= 'and a.production_status = 1 ';
-            }
-            if($request['production_status'] == 2){//
-                $where .= 'and a.production_status = 2 ';
-            }
-        }
-        if ($request['ship_status'] >= 0 ) {
-            if($request['ship_status'] == 0){//
-                $where .= 'and a.ship_status = 0 ';
-            }
-            if($request['ship_status'] == 1){//
-                $where .= 'and a.ship_status = 1 ';
-            }
-            if($request['ship_status'] == 2){//
-                $where .= 'and a.ship_status = 2 ';
-            }
-        }
+//        if ($request['production_status'] >= 0 ) {
+//            if($request['production_status'] == 0){//
+//                $where .= 'and a.production_status = 0 ';
+//            }
+//            if($request['production_status'] == 1){//
+//                $where .= 'and a.production_status = 1 ';
+//            }
+//            if($request['production_status'] == 2){//
+//                $where .= 'and a.production_status = 2 ';
+//            }
+//        }
+//        if ($request['ship_status'] >= 0 ) {
+//            if($request['ship_status'] == 0){//
+//                $where .= 'and a.ship_status = 0 ';
+//            }
+//            if($request['ship_status'] == 1){//
+//                $where .= 'and a.ship_status = 1 ';
+//            }
+//            if($request['ship_status'] == 2){//
+//                $where .= 'and a.ship_status = 2 ';
+//            }
+//        }
         if ($request['activity_id']) {
             $where .= " and a.id = ? ";
             $args[] = $request['activity_id'];
