@@ -288,7 +288,8 @@
 .used-images .label {
     font-size: 16px;
     font-weight: bold;
-    margin: 10px 0 0 10px;
+    margin: 10px 0;
+    text-align: center;
 }
 
 .used-images .image-list {
@@ -297,7 +298,7 @@
 
 .used-images .image-list-item {
     display: block;
-    width: 70px;
+    width: 62px;
     float: left;
 }
 
@@ -358,14 +359,14 @@
 
 .product-color-picket {
     position: absolute;
-    top: 0;
-    right: 208px;
-    border: 1px solid #CDCDCD;
-    box-shadow: 1px 1px 6px #B0B0B0;
+    top: -50px;
+    right: 215px;
+    border: 1px solid #989898;
+    box-shadow: 1px 1px 6px #989898;
+    border-radius: 3px;
     background: #fff;
     z-index: 1;
     padding: 8px 13px 8px 8px;
-    overflow: hidden;
 }
 
 .product-color-picket ul.color-column {
@@ -387,6 +388,10 @@
     display: block;
     margin: 4px 0px;
     position: relative;
+}
+
+.product-color-picket li.color-item.active {
+    border: 1px solid #000;
 }
 
 .product-color-picket li.color-item span {
@@ -413,7 +418,7 @@
     border-radius: 3px;
     display: block;
     position: relative;
-    margin: 4px 0px;
+    margin: 4px 0;
 }
 
 .product-color-picket li.more-color span {
@@ -421,4 +426,40 @@
     display: block;
     width: 100%;
     height: 100%;
+}
+
+.icon-tools {
+    float: left;
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    margin-left: 10px;
+    background-color: #DADBDB;
+    border: 1px solid #DADBDB;
+}
+.icon-tools:first-child {
+    margin-left: 0;
+}
+.icon-tools-duplicate {
+    background: url(images/icon-tools.png) 6px 1px;
+}
+.icon-tools-move-bottom {
+    background: url(images/icon-tools.png) -118px 1px;
+}
+.icon-tools-align-center {
+    background: url(images/icon-tools.png) -53px 1px;
+}
+.icon-tools-horizontal {
+    background: url(images/icon-tools.png) -187px 1px;
+}
+.icon-tools-vertical {
+    background: url(images/icon-tools.png) -253px 1px;
+}
+.product-color-menu-arrow {
+    background: url(images/icon-product-color-menu-arrow.png) no-repeat;
+    position: absolute;
+    top: 67px;
+    right: -11px;
+    width: 11px;
+    height: 32px;
 }
