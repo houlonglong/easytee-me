@@ -53,7 +53,7 @@
                                                     <option value="0">待付款</option>
                                                     <option value="1">已付款</option>
                                                 </select>
-                                                <select id="ship_status" onchange="search()">
+                                                <select id="ship_status" onchange="search()" style="display: none">
                                                     <option value="">全部</option>
                                                     <option value="0">待发货</option>
                                                     <option value="1">已发货</option>
@@ -112,7 +112,7 @@
     };
     $('#pay_status').change(function(){
       //  console.log(typeof $('#pay_status').val())
-        if($('#pay_status').val() == '0'){
+        if($('#pay_status').val() == '0' || $('#pay_status').val() == ''){
             $('#ship_status').hide();
         }else{
             $('#ship_status').show();
@@ -142,6 +142,9 @@
             method: "POST",
             height: 500,
             rowNum: 15,
+            postData:{
+                pay_status: ''
+            },
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
@@ -381,6 +384,7 @@
             url: grid_setting.url,
             datatype: "json",
             sortorder: "desc",
+            postData:grid_setting.postData,
             height: grid_setting.height,
             colNames: get_col(grid_setting.cols)['name'],
             colModel: get_col(grid_setting.cols)['model'],
