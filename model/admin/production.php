@@ -70,7 +70,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " p.*,a.*,date_add(a.end_time, interval 7 day) as end_time";
+        $select_fields = " p.*,a.*,date_add(a.end_time, interval 7 day) as give_time";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
@@ -95,22 +95,24 @@ class Model_Admin_Production extends Model_Admin_Abstract{
             $args[] = $request['activity_id'];
         }
         if($request['production_status'] === "0" || $request['production_status']){
-            if($request['production_status'] === "01" || $request['production_status'] === '02'){
+            if($request['production_status'] === "01" || $request['production_status'] === '02'){//待生产
                 if($request['production_status'] === "01"){
-                    $where .=' and (a.sale_count >= 10 and a.status = 1) ';
-                }else{
-                    $where .=' and ( a.status = 3) ';
+                    //进行中 完成最低销量
+                    $where .=' and a.sale_count >= 10 and a.status = 1 and a.production_status = 0';
+                }else{ //成功的
+                    $where .=' and a.status = 3 and a.production_status = 0';
                 }
-            }else{
-                $where .=' and a.production_status= ? ';
+            }else{ //已生产
+
+                $where .=' and a.production_status= ? and (a.sale_count >= 10 or a.status = 3)';
                 $args[] = $request['production_status'];
 
-                if($request['production_status']== 2 && ($request['ship_status'] === '0' || $request['ship_status'])){
+                if($request['production_status']== 2 && ($request['ship_status'] === '0' || $request['ship_status'])){//发货状态
                     $where .=' and a.ship_status= ? ';
                     $args[] = $request['ship_status'];
                 }
             }
-        }else{
+        }else{//全部生产
             $where .=' and (a.sale_count >= 10 or a.status = 3) ';
         }
 

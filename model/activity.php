@@ -15,7 +15,7 @@ class Model_Activity extends BaseModel{
             $where .= " and app.app_id = ?";
             $args[] = $app_id;
         }
-        $act = self::_db()->select_row("select
+        $act = self::_db()->select_row("select et_activity_info.id,
                   uid,
                   name,content,sale_target,sale_count,sale_total,sale_profit,
                   period,start_time,end_time,verify,status,production_status,ship_status,
