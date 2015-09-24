@@ -242,7 +242,7 @@ limit 1");
         $join = ' inner join et_user as u on u.id = a.uid ';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("verify","production_status","ship_status","rows", "page", "sidx", "sord", "activity_id", "activity_name", "username", "mobile", 'startDate', 'endDate', 'pass', 'status', 'success');
+        $request = PtLib\http_request("verify","production_status","ship_status","uid","rows", "page", "sidx", "sord", "activity_id", "activity_name", "username", "mobile", 'startDate', 'endDate', 'pass', 'status', 'success');
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -264,6 +264,11 @@ limit 1");
 
         $where = " where 1=1 ";
         $args =array();
+
+        if($request['uid']){
+            $where .= 'and a.uid = ? ';
+            $args[] = $request['uid'];
+        }
 
         if ($request['verify'] === "0" || $request['verify'] > 0) {
             $where .= 'and a.verify = ? ';
