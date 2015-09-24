@@ -182,17 +182,24 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
+                                                            <?php
+                                                            if($order['balance_tx']+$order['balance_ntx'] > 0 ){
+                                                                ?>
+                                                                <tr class="bg-gray">
+                                                                    <td><?php echo "余额支付" ?></td>
+                                                                    <td>无</td>
+                                                                    <td class="text-right"><?php echo $order['balance_tx']+$order['balance_ntx'] ?></td>
+                                                                </tr>
+                                                            <?php  }
+
+                                                            if($order['pay_type']!='account') {
+                                                            } ?>
                                                             <tr class="bg-gray">
                                                                 <td><?php
+
                                                                     switch ($order['pay_type']) {
                                                                         case 'wechat':
                                                                             echo '微信支付';
-                                                                            break;
-                                                                        case 'unionpay':
-                                                                            echo '网银支付';
-                                                                            break;
-                                                                        case 'easytee':
-                                                                            echo '站内交易';
                                                                             break;
                                                                         case 'alipay':
                                                                             echo '支付宝';
