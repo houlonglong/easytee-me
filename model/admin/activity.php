@@ -322,6 +322,7 @@ limit 1");
         if ($request['activity_name']) {
             $where .= " and a.name like '%" . mysql_escape($request['activity_name']) . "%' ";
         }
+
 //        if ($request['startDate']) {
 //            $where .= ' and ' . $table_alias . '.start_time >="' . date('Y-m-d 00:00:00', strtotime($request['startDate'])) . '"';
 //        }

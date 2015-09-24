@@ -67,8 +67,9 @@ class Model_Service_Activity extends BaseModel{
         $profit = floatval($profit);
         $prenent_40 = $profit * 0.4;
         $prenent_60 = $profit * 0.6;
-        self::_db()->run_sql('update et_user_finance set balance_block = balance_block + '.$prenent_40.',balance_tx = balance_tx + '.$prenent_60.' where uid = ?',$uid);
-        PtLib\log("[帐户余额] 用户:%s 可提现:+ %s 暂时冻结:+ %s",$uid,$prenent_60,$prenent_40);
+        self::_db()->run_sql('update et_user_finance set balance_block = balance_block + '.$prenent_40.',balance_tx = balance_tx + '.$prenent_60.', total_earn = total_earn + '.$prenent_60.' where uid = ?',$uid);
+        PtLib\log("[帐户余额] 用户:%s 可提现:+ %s 暂时冻结:+ %s 总赚取:+ %s",$uid,$prenent_60,$prenent_40,$prenent_60);
+
         //交易明细
         $date = date_time_now();
         $logs = array(
@@ -156,7 +157,7 @@ class Model_Service_Activity extends BaseModel{
 
         PtLib\log("=======");
         if (!$activities) {
-            PtLib\log("没有活动要结束");
+            PtLib\log("没有要计算的活动");
         }
         //print_r($activities);
         foreach ($activities as $activity) {
@@ -166,9 +167,14 @@ class Model_Service_Activity extends BaseModel{
             $sale_target = intval($activity['sale_target']);
             $act_id = $activity['id'];
             $sale_profit = self::get_activity_profit($act_id,$colors,$sale_count,$sale_target);
+            if($sale_profit != $activity['sale_profit']){
+                self::_db()->update("et_activity_info",array("sale_profit"=>$sale_profit),array("id"=>$activity['id']));
+                PtLib\log("[活动] id:%s 更新利润为:%s => %s ",$act_id,$activities['sale_profit'],$sale_profit);
+            }
         }
     }
     function cli_run($commit){
+        $this->cli_compute_profit($commit);
         //进行中的 结束时间小于当前时间的 活动
         $activities = self::_db()->select_rows("select i.*,u.nick_name,u.mobile,a.name
                     from et_activity_info as i
