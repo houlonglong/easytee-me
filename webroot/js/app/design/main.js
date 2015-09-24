@@ -34,11 +34,6 @@ $(function () {
         $('.design-dropdown-menu').hide();
     });
 
-    $('.product-item').click(function () {
-        $('.product-item').removeClass('active');
-        $(this).addClass('active');
-    });
-
     function showImageLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
         $('.upload-location').hide();
@@ -176,7 +171,12 @@ $(function () {
     }
 
     function initProducts(products) {
-
+        $('.product-item').click(function () {
+            $('.product-item').removeClass('active');
+            $(this).addClass('active');
+            $('#product_color_picket').appendTo(this);
+        });
+        $('.product-item').eq(0).click();
     }
 
     $('.more-color', '.product-color-picket').hover(function () {
