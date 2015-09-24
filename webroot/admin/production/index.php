@@ -59,7 +59,7 @@
                                                         </span>
                                                         <span class="mr-20">
                                                             <select name="" id="wait_produce" onchange="search()">
-                                                                <option value="">全部</option>
+                                                                <option value="0">全部</option>
                                                                 <option value="01">目标完成,还没有束</option>
                                                                 <option value="02">可生产</option>
                                                             </select>
@@ -156,7 +156,7 @@
             method:"POST",
             height:500,
             rowNum:15,
-            postData:{production_status:1},
+            postData:{production_status:0},
             sortorder:"desc",
             rowList:[15,30,50,100],
             caption:"",
@@ -172,18 +172,24 @@
                     formatter:function(cellvalue, options, rowObject){
                         var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
                         rowObject["act_url"] = act_url;
-                        var cell = "<a target='_blank' href='{act_url}'>{name}</a>".format(rowObject);
-                        return cell;
+                        rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
+                        var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>" +
+                            "{verify}<br>" +
+                            "production_status:{production_status}<br>" +
+                            "UID:<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>";
+                        return cell.format(rowObject);
                     }
                 },
-                {title:"发起人UID",name:'uid',index:'uid',sortable:false,width:50,sortable:false,editable: false,
+                {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
                     formatter:function(cellvalue, options, rowObject){
-                        var cell = "<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
+                        var cell = "期限:"+rowObject.period +
+                            '<br>开始:'+cellvalue+
+                            '<br>结束:'+rowObject.end_time;
                         return cell;
                     }
                 },
-                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
-                {title:"预计交货时间",name:'end_time',index:'end_time',sortable:false,width:100,sortable:false,editable: false},
+                {title:"订单成交数",name:'sale_count',index:'sale_count',width:50,sortable:false,editable: false},
+                {title:"预计交货时间",name:'give_time',index:'give_time',sortable:false,width:100,sortable:false,editable: false},
                 {title:"生产",name:'status',index:'status', width:200, fixed:true, sortable:false,
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
@@ -205,6 +211,16 @@
                         }
 
                     },
+                },
+                {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
+                    formatter:function(cellvalue, options, rowObject){
+                        var html='';
+                        html = '<a class="btn btn-xs btn-info" target="_blank" href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
+                        if(rowObject['pass'] == 0 ){
+                            html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
+                        }
+                        return html;
+                    }
                 },
             ]
 

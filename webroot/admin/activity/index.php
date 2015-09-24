@@ -194,6 +194,24 @@
 
 
     <script type="text/javascript">
+        function del_activity($id,obj){
+            if(!confirm("确定要删除么")) return;
+            if(!confirm("确定要删除么")) return;
+
+            $.post("/api",{
+                model:"admin/activity",
+                action:"remove",
+                id:$id
+            },function(data){
+                if(data.status == 0){
+                    $(obj).parents("tr").slideUp(800,function(){
+                        $(this).remove();
+                    });
+                }else{
+                  alert(data.message)
+                }
+            },"json");
+        }
         var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
         var grid_selector = "#grid-table";
         var pager_selector = "#grid-pager";
@@ -269,7 +287,7 @@
                 rowList:[15,30,50,100],
                 caption:"",
                 cols:[
-                    {title:"Id",name:'id',index:'id', width:80, fixed:true,sortable:false, editable: false},
+                    {title:"Id",name:'id',index:'id', width:80, fixed:true,sortable:true, editable: false},
                     {title:"缩略图",name:'thumb_img_url',width:110, fixed:true,index:'thumb_img_url',sortable:false,editable: false,
                         formatter:function(cellvalue, options, rowObject){
                             var cell = '<img style="width:100px;height:100px;" src="'+cellvalue+'">';
@@ -308,22 +326,12 @@
                         }
                     },
                     {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
-                        formatter:'actions',
-                        formatoptions:{
-                            keys:true,
-                            //delbutton: false,//disable delete button
-                            baseLinkUrl:'someurl.php', addParam: '&action=edit', idName:'id',
-                            url:'someurl.php', addParam: '&action=edit', idName:'id',
-                            delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback}
-                            //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-                        },
                         formatter:function(cellvalue, options, rowObject){
                             var html='';
-                            html = '<a class="btn btn-xs btn-info"  href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
-                            if(rowObject['pass'] == 0 ){
-                                html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
-                            }
-                            return html;
+                            html  = '<a class="btn btn-xs btn-info" target="_blank" href="/admin/activity/detail?id={id}" >详情</a><br>';
+                            html += '<a class="btn btn-xs btn-danger" target="_blank" onclick="del_activity({id},this)" >删除</a><br>';
+
+                            return html.format(rowObject);
                         }
                     },
                 ]
