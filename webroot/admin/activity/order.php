@@ -104,21 +104,7 @@
 
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
-    $query = {
-        order_no:$('#order_no').val(),
-        activity_name:$('#activity_name').val(),
-        activity_id:$('#activity_id').val(),
-        mobile:$('#mobile').val(),
-    };
-    $('#pay_status').change(function(){
-      //  console.log(typeof $('#pay_status').val())
-        if($('#pay_status').val() == '0' || $('#pay_status').val() == ''){
-            $('#ship_status').hide();
-        }else{
-            $('#ship_status').show();
-            $query['ship_status'] = $('#ship_status').val();
-        }
-    })
+
     function search() {
         var $query = {
             order_no: $('#order_no').val(),
@@ -128,6 +114,13 @@
             activity_id:$('#activity_id').val(),
             activity_name:$('#activity_name').val()
         };
+        if($('#pay_status').val() == '0' || $('#pay_status').val() == ''){
+            $('#ship_status').hide();
+        }else{
+            $('#ship_status').show();
+            $query['ship_status'] = $('#ship_status').val();
+        }
+
         $(grid_selector).jqGrid('setGridParam', {
             datatype: 'json',
             postData: $query, //发送数据
