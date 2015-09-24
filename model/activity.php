@@ -8,6 +8,13 @@ class Model_Activity extends BaseModel{
         //parent::__construct();
     }
 
+    /**
+     * 活动详情
+     * @param $id
+     * @param string $app_id
+     * @return array
+     * @throws Exception
+     */
     static function detail_info($id,$app_id = ''){
         $where = "where et_activity_info.id = ?";
         $args[] = $id;

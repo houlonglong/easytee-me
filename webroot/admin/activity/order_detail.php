@@ -9,7 +9,6 @@
      * 订单详情
      *
      */
-
     include(block("admin/block/html_head"))?>
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.custom.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/chosen.min.css" />
@@ -270,71 +269,6 @@
 <script src="/ace/assets/js/bootstrap-tag.min.js"></script>
 <script>
     $(function(){
-        var id = '<?=$id?>';
-        var url = "/api?model=admin/user&action=detail";
-        $.get(url,{id:id},function(data){
-            var row = data['return'];
-            $(".auto_change").each(function(){
-                var key = this.id;
-                var value = row[key];
-                $(this).val(value);
-            });
-            //console.log(row);
-            $("#form").fadeIn(200);
-        },"json");
-        $('#pic_upload').ace_file_input({
-            style:'well',
-            btn_choose:'拖一张图片到这里或者点击选择图片',
-            btn_change:null,
-            no_icon : "ace-icon fa fa-picture-o",
-            whitelist_ext : ["jpeg", "jpg", "png", "gif" , "bmp"],
-            whitelist_mime : ["image/jpg", "image/jpeg", "image/png", "image/gif", "image/bmp"],
-            droppable:true,
-            thumbnail:'large'//small | large | fit
-            //,icon_remove:null//set null, to hide remove/reset button
-            /**,before_change:function(files, dropped) {
-						//Check an example below
-						//or examples/file-upload.html
-						return true;
-					}*/
-            /**,before_remove : function() {
-						return true;
-					}*/
-            ,
-            preview_error : function(filename, error_code) {
-                //name of the file that failed
-                //error_code values
-                //1 = 'FILE_LOAD_FAILED',
-                //2 = 'IMAGE_LOAD_FAILED',
-                //3 = 'THUMBNAIL_FAILED'
-                //alert(error_code);
-            }
-
-        }).on('change', function(){
-
-            //console.log($(this).data('ace_input_files'));
-            //console.log($(this).data('ace_input_method'));
-            var files = $(this).data('ace_input_files');
-            var file = files[0];
-            var start = 0;
-            var stop = file.size - 1;
-            var reader = new FileReader();
-            // If we use onloadend, we need to check the readyState.
-            reader.onloadend = function(evt) {
-                if (evt.target.readyState == FileReader.DONE) { // DONE == 2
-                    var content = evt.target.result;
-                    //console.log(content.length);
-                    $.post("/api?model=admin/tools/pic&action=upload",{content:content},function(data){
-                        console.log(data)
-                    },"json");
-                }
-            };
-            var blob = file.slice(start, stop + 1);
-            //console.log(blob);
-            reader.readAsDataURL(blob);
-
-        });
-
 
     });
 </script>

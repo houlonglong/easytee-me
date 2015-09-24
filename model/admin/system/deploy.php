@@ -1,5 +1,4 @@
 <?php
-echo urlencode("/");exit;
 /**
  * 系统部署
  */
@@ -77,12 +76,11 @@ class Model_Admin_System_Deploy extends Model_Admin_Abstract{
             "res"=>$res,
         );
     }
-    function action_git_commit(){
+    function action_git_commit($msg){
         $env = \PtLib\get_pt_env("PT_ENV");
         if($env == "test" || $env == "product"){
             exit;
         }
-        $msg = slef::_request("msg");
         $root = PATH_PRO;
         $cmd = "cd $root && git add . && git commit -m '{$msg}' && git pull origin master && git push origin master";
         PtLib\log($cmd);
