@@ -36,6 +36,14 @@ limit 1");
         self::_db()->delete("et_activity_product",array("activity_id"=>$id));
         self::_location($url);
     }
+    function action_do_success($id){
+        self::_db()->update("et_activity_info",array("status"=>3),array("id"=>$id));
+        return array("操作成功");
+    }
+    function action_do_fail($id){
+        self::_db()->update("et_activity_info",array("status"=>2),array("id"=>$id));
+        return array("操作成功");
+    }
     /**
      * 详情
      * @return array
@@ -264,10 +272,10 @@ limit 1");
 
         if ($request['status'] === "0" || $request['status'] > 0) {
             if($request['status'] == 1){//进行中
-                $where .= 'and a.start_time < now() and now() < a.end_time ';
+                $where .= 'and a.start_time < now() and now() < a.end_time and a.status = 1';
             }
             if($request['status'] == 10){//结束
-                $where .= 'and now() > a.end_time ';
+                $where .= 'and now() > a.end_time and a.status > 0';
             }
             if($request['status'] == 0){//草稿
                 $where = 'and a.status = 0 ';
