@@ -68,7 +68,7 @@ class Model_Admin_System_Deploy extends Model_Admin_Abstract{
      * V2.0 线上 Task Service
      */
     function action_v_2_0_task_service(){
-        $cmd = 'ssh e_s "cd /data/projects/easytee/easytee_v2 && git pull origin master"';
+        $cmd = 'ssh e_ser "cd /opt/projects/easytee/easytee_v2/ && git pull origin master"';
         PtLib\log($cmd);
         $res = shell_exec($cmd);
         return array(

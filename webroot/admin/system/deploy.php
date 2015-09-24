@@ -78,7 +78,7 @@
 <?php include(block("admin/block/scripts"))?>
 <script>
     function git_commit(){
-        $("#deploy_cmd,#deploy_cmd").html("");
+        $("#deploy_cmd,#deploy_res").html("").hide();
         var $msg = prompt("提交信息:");
         if(!$msg) return;
         $.post("/api",{
@@ -86,19 +86,19 @@
             action:"git_commit",
             msg:$msg
         },function(data){
-            $("#deploy_cmd").html(data.return.cmd);
-            $("#deploy_res").html(data.return.res);
+            $("#deploy_cmd").html(data.return.cmd).show();
+            $("#deploy_res").html(data.return.res).show();
         });
     }
     function deploy($action){
-        $("#deploy_cmd,#deploy_cmd").html("");
+        $("#deploy_cmd,#deploy_res").html("").hide();
         if(!confirm("确定要执行此操作么")) return;
         $.post("/api",{
             model:"admin/system/deploy",
             action:$action,
         },function(data){
-            $("#deploy_cmd").html(data.return.cmd);
-            $("#deploy_res").html(data.return.res);
+            $("#deploy_cmd").html(data.return.cmd).show();
+            $("#deploy_res").html(data.return.res).show();
         });
     }
 </script>
