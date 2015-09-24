@@ -73,7 +73,9 @@ class Model_Admin_Order extends Model_Admin_Abstract{
     /**
      * 列表
      **/
-    function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id,$exp_no){
+    function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id,$exp_no,$uid){
+
+
 
         $table = self::$table;
         $table_alias = "o";
@@ -82,8 +84,6 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         left join et_activity_info as a on a.id = act.activity_id
         left join et_order_ship as ship on ship.order_id = o.id
         left join et_order_pay as pay on pay.order_id = o.id ';
-
-
         $limit = $rows;
         $sort = $sidx;
         $sort_type = $sord;
@@ -99,6 +99,10 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         //where
         $args = array();
         $where  = " where 1=1 and a.name is not null ";
+        if ($uid){
+            $where  .= " and o.uid = ? ";
+            $args[] = $uid;
+        }
         if($activity_name){
             $where .= 'and a.name like "%'.$activity_name.'%" ';
         }
