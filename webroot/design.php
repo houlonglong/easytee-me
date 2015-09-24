@@ -273,6 +273,12 @@
         </div>
         <div class="product-preview">
             <img src="/css/design/product_type_1_front.png" alt=""/>
+            <div class="product-sides">
+                <a class="product-side active" href="javascript:;">正面</a>
+                <a class="product-side" href="javascript:;">反面</a>
+                <a class="product-side" href="javascript:;">左袖</a>
+                <a class="product-side" href="javascript:;">右袖</a>
+            </div>
         </div>
         <div class="design-right-tools clearfix">
             <div class="product-choices ">
