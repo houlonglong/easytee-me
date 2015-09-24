@@ -54,12 +54,12 @@ $(function () {
 
     function setDsHeight() {
         var tools = $('.design-tools');
-        var choice = $('.product-choices');
+        var rTools = $('.design-right-tools');
         var design = $('.design-center');
-        if (tools.outerHeight() > choice.outerHeight()) {
+        if (tools.outerHeight() > rTools.outerHeight()) {
             design.height(tools.outerHeight() + parseInt(tools.css('marginTop')) + 20);
         } else {
-            design.height(choice.outerHeight() + parseInt(choice.css('marginTop')) + 20);
+            design.height(rTools.outerHeight() + parseInt(rTools.css('marginTop')) + 20);
         }
     }
 
