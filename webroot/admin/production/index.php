@@ -47,27 +47,28 @@
                                             <div class="widget-body">
                                                 <div class="widget-main">
                                                     <form class="form-inline">
-                                                        <input type="text" class="input-small" placeholder="活动名称" id="activity-name">
-                                                        <input type="text" class="input-small" placeholder="活动ID" id="activity-id">
+                                                        <input type="text" class="input-small" placeholder="活动名称" id="activity_name">
+                                                        <input type="text" class="input-small" placeholder="活动ID" id="activity_id">
                                                         <span class="mr-20">
-                                                            <select name="" id="verify">
-                                                                <option value="">全部</option>
-                                                                <option value="1">目标完成,预生产</option>
-                                                                <option value="0">已结束,待生产</option>
-                                                            </select>
-                                                        </span>
-                                                        <span class="mr-20">
-                                                            <select name="" id="verify">
-                                                                <option value="">全部</option>
+                                                            <select name="" id="production_status" onchange="search()">
+                                                                <option value="0">待生产</option>
                                                                 <option value="1">生产中</option>
-                                                                <option value="0">生产完成</option>
+                                                                <option value="2">生产完成</option>
+                                                                <option value="">全部</option>
                                                             </select>
                                                         </span>
                                                         <span class="mr-20">
-                                                            <select name="" id="verify">
+                                                            <select name="" id="wait_produce" onchange="search()">
+                                                                <option value="0">全部</option>
+                                                                <option value="01">目标完成,还没有束</option>
+                                                                <option value="02">可生产</option>
+                                                            </select>
+                                                        </span>
+                                                        <span class="mr-20">
+                                                            <select name="" id="ship_status" style="display: none" onchange="search()">
                                                                 <option value="">全部</option>
-                                                                <option value="1">待发货</option>
-                                                                <option value="0">已发货</option>
+                                                                <option value="0">待发货</option>
+                                                                <option value="1">已发货</option>
                                                             </select>
                                                         </span>
                                                         <button type="button" class="btn btn-success btn-sm" onclick="search()">
@@ -110,7 +111,7 @@
 <script type="text/javascript">
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var url_api_base   = "admin/production";
-    var url_api_list   = "/api?model="+url_api_base + "&action=list&status=index";
+    var url_api_list   = "/api?model="+url_api_base + "&action=list";
     var url_api_edit   = "/api?model="+url_api_base + "&action=edit";
     var url_api_detail = "/"+url_api_base + "/detail";
     function do_product($action){
@@ -120,13 +121,27 @@
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search() {
+        var production_status = $("#production_status").val();
         var $query = {
-            activity_name: $('#activity-name').val(),
-            username: $('#username').val(),
-            mobile: $('#mobile').val(),
-            activity_id:$('#activity-id').val()
-
+            activity_name: $('#activity_name').val(),
+            activity_id:$('#activity_id').val(),
+            production_status:production_status,
+            ship_status:''
         };
+        if(production_status === "0"){
+            $("#wait_produce").show();
+            $("#ship_status").hide();
+            $query['production_status'] = $("#wait_produce").val();
+        }else{
+            if(production_status == 2){
+                $("#ship_status").show();
+                $query['ship_status'] = $("#ship_status").val();
+            }else{
+                $("#ship_status").hide();
+            }
+            $("#wait_produce").hide();
+        }
+
         $(grid_selector).jqGrid('setGridParam',{
             datatype:'json',
             postData:$query, //发送数据
@@ -141,6 +156,8 @@
             method:"POST",
             height:500,
             rowNum:15,
+            postData:{production_status:0},
+            sortorder:"desc",
             rowList:[15,30,50,100],
             caption:"",
             cols:[
@@ -155,18 +172,24 @@
                     formatter:function(cellvalue, options, rowObject){
                         var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
                         rowObject["act_url"] = act_url;
-                        var cell = "<a target='_blank' href='{act_url}'>{name}</a>".format(rowObject);
-                        return cell;
+                        rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
+                        var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>" +
+                            "{verify}<br>" +
+                            "production_status:{production_status}<br>" +
+                            "UID:<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>";
+                        return cell.format(rowObject);
                     }
                 },
-                {title:"发起人UID",name:'uid',index:'uid',sortable:false,width:50,sortable:false,editable: false,
+                {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
                     formatter:function(cellvalue, options, rowObject){
-                        var cell = "<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
+                        var cell = "期限:"+rowObject.period +
+                            '<br>开始:'+cellvalue+
+                            '<br>结束:'+rowObject.end_time;
                         return cell;
                     }
                 },
-                {title:"订单成交数",name:'sales_count',index:'sales_count',width:100,sortable:false,editable: false},
-                {title:"预计交货时间",name:'end_time',index:'end_time',sortable:false,width:100,sortable:false,editable: false},
+                {title:"订单成交数",name:'sale_count',index:'sale_count',width:50,sortable:false,editable: false},
+                {title:"预计交货时间",name:'give_time',index:'give_time',sortable:false,width:100,sortable:false,editable: false},
                 {title:"生产",name:'status',index:'status', width:200, fixed:true, sortable:false,
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
@@ -189,31 +212,20 @@
 
                     },
                 },
+                {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
+                    formatter:function(cellvalue, options, rowObject){
+                        var html='';
+                        html = '<a class="btn btn-xs btn-info" target="_blank" href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
+                        if(rowObject['pass'] == 0 ){
+                            html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
+                        }
+                        return html;
+                    }
+                },
             ]
 
         };
-        /**
-         //colNames:[' ', 'ID','Last Sales','Name', 'Stock', 'Ship via','Notes'],
-         /*
-         colModel:[
-         {title:"",name:'myac',index:'', width:80, fixed:true, sortable:false, resize:false,
-             formatter:'actions',
-             formatoptions:{
-                 keys:true,
-                 //delbutton: false,//disable delete button
 
-                 delOptions:{recreateForm: true, beforeShowForm:beforeDeleteCallback},
-                 //editformbutton:true, editOptions:{recreateForm: true, beforeShowForm:beforeEditCallback}
-             }
-         },
-         {title:"",name:'id',index:'id', width:60, sorttype:"int", editable: true},
-         {title:"",name:'sdate',index:'sdate',width:90, editable:true, sorttype:"date",unformat: pickDate},
-         {title:"",name:'name',index:'name', width:150,editable: true,editoptions:{size:"20",maxlength:"30"}},
-         {title:"",name:'stock',index:'stock', width:70, editable: true,edittype:"checkbox",editoptions: {value:"Yes:No"},unformat: aceSwitch},
-         {title:"",name:'ship',index:'ship', width:90, editable: true,edittype:"select",editoptions:{value:"FE:FedEx;IN:InTime;TN:TNT;AR:ARAMEX"}},
-         {title:"",name:'note',index:'note', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
-         ],
-         */
 
         function get_col(cols){
             var col_name = [];
@@ -242,20 +254,6 @@
             }
         });
 
-        //if your grid is inside another element, for example a tab pane, you should use its parent's width:
-        /**
-         $(window).on('resize.jqGrid', function () {
-					var parent_width = $(grid_selector).closest('.tab-pane').width();
-					$(grid_selector).jqGrid( 'setGridWidth', parent_width );
-				})
-         //and also set width when tab pane becomes visible
-         $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-				  if($(e.target).attr('href') == '#mygrid') {
-					var parent_width = $(grid_selector).closest('.tab-pane').width();
-					$(grid_selector).jqGrid( 'setGridWidth', parent_width );
-				  }
-				})
-         */
         var subgrid_data =
             [
                 {id:"1", name:"sub grid item 1", qty: 11}
@@ -304,6 +302,8 @@
             mtype:grid_setting.method,
             url: grid_setting.url,
             datatype: "json",
+            sortorder:grid_setting.sortorder,
+            postData:grid_setting.postData,
             height: grid_setting.height,
             colNames:get_col(grid_setting.cols)['name'],
             colModel:get_col(grid_setting.cols)['model'],

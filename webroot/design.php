@@ -103,10 +103,10 @@
                 </div>
                 <div class="form-row">
                     <select class="form-control l-per-70" name="" id="">
-                        <option value="">无描边</option>
-                        <option value="">描边1</option>
-                        <option value="">描边2</option>
-                        <option value="">描边3</option>
+                        <option value="0">无描边</option>
+                        <option value="1">细描边</option>
+                        <option value="2">中描边</option>
+                        <option value="3">粗描边</option>
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
@@ -285,6 +285,68 @@
                         <span class="desc">成本优选</span>
                         <a href="#" class="info">详情</a>
                     </div>
+                    <div class="product-color-picket">
+                        <ul class="color-column quick-colors">
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="more-color">
+                                <span></span>
+                            </li>
+                        </ul>
+                        <ul class="color-column">
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                        </ul>
+                        <ul class="color-column">
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                            <li class="color-item">
+                                <span style="background-color: #0000ff;"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="product-item" tips="基础圆领T恤">
                     <img src="/css/design/product-thumbnail.png"/>
@@ -341,28 +403,6 @@
                 <a href="javascript:;">水平翻转</a>
                 <a href="javascript:;">垂直翻转</a>
             </div>
-        </div>
-        <div class="product-color-picket">
-            <ul class="color-column">
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="more-color">
-                    <span></span>
-                </li>
-            </ul>
         </div>
     </div>
 </div>

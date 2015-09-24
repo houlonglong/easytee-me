@@ -30,6 +30,12 @@ limit 1");
         }
         return $act;
     }
+    function action_re_gen_img($id,$url){
+        self::_db()->update("activities",array("thumb_img_url"=>"","thumb_svg_url"=>""),array("id"=>$id));
+        self::_db()->update("et_activity_info",array("thumb_img_url"=>"","thumb_svg_url"=>""),array("id"=>$id));
+        self::_db()->delete("et_activity_product",array("activity_id"=>$id));
+        self::_location($url);
+    }
     /**
      * 详情
      * @return array
@@ -274,28 +280,28 @@ limit 1");
             }
         }
 
-        if ($request['production_status'] >= 0 ) {
-            if($request['production_status'] == 0){//
-                $where .= 'and a.production_status = 0 ';
-            }
-            if($request['production_status'] == 1){//
-                $where .= 'and a.production_status = 1 ';
-            }
-            if($request['production_status'] == 2){//
-                $where .= 'and a.production_status = 2 ';
-            }
-        }
-        if ($request['ship_status'] >= 0 ) {
-            if($request['ship_status'] == 0){//
-                $where .= 'and a.ship_status = 0 ';
-            }
-            if($request['ship_status'] == 1){//
-                $where .= 'and a.ship_status = 1 ';
-            }
-            if($request['ship_status'] == 2){//
-                $where .= 'and a.ship_status = 2 ';
-            }
-        }
+//        if ($request['production_status'] >= 0 ) {
+//            if($request['production_status'] == 0){//
+//                $where .= 'and a.production_status = 0 ';
+//            }
+//            if($request['production_status'] == 1){//
+//                $where .= 'and a.production_status = 1 ';
+//            }
+//            if($request['production_status'] == 2){//
+//                $where .= 'and a.production_status = 2 ';
+//            }
+//        }
+//        if ($request['ship_status'] >= 0 ) {
+//            if($request['ship_status'] == 0){//
+//                $where .= 'and a.ship_status = 0 ';
+//            }
+//            if($request['ship_status'] == 1){//
+//                $where .= 'and a.ship_status = 1 ';
+//            }
+//            if($request['ship_status'] == 2){//
+//                $where .= 'and a.ship_status = 2 ';
+//            }
+//        }
         if ($request['activity_id']) {
             $where .= " and a.id = ? ";
             $args[] = $request['activity_id'];
@@ -410,7 +416,11 @@ limit 1");
             PtLib\db()->update('activities', array('pass' => 1), array('id' => $id));
         }
     }
-
+    function action_remove($id){
+        self::_db()->delete("activities",array("id"=>$id));
+        self::_db()->delete("et_activity_info",array("id"=>$id));
+        return array();
+    }
     function action_audit_back()
     {
         $id = $this->_request('id');

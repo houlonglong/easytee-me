@@ -43,43 +43,44 @@
                             <div class="col-xs-12">
                                 <div class="widget-box">
                                     <div class="widget-header">
-                                        <h4 class="widget-title">众筹详情</h4>
+                                        <h4 class="widget-title"><?php echo $row['activity']['name']; ?></h4>
                                     </div>
 
                                     <div class="widget-body">
                                         <div class="widget-main">
-                                            <div>
-                                                <h3>
-                                                    活动名称: <?php
-                                                    echo $row['activity']['name']; ?>
-                                                </h3>
-                                            </div>
-                                            <div>
-                                                <table class="table">
-                                                    <tr>
-                                                        <th style="text-align: right">发起人UID</th>
-                                                        <td style="text-align: left"><a target='_blank' href='/admin/user/modify?id=<?php echo $row['activity']['uid']; ?>'><?php echo $row['activity']['uid']; ?></a></td>
-                                                        <th style="text-align: right">开始时间</th>
-                                                        <td style="text-align: left"><?php echo $row['activity']['start_time']; ?></td>
-                                                        <th style="text-align: right">结束时间</th>
-                                                        <td style="text-align: left"><?php echo $row['activity']['end_time']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="text-align: right">销售目标</th>
-                                                        <td style="text-align: left"><?php echo $row['activity']['sale_target']; ?></td>
-                                                        <th style="text-align: right">实际销售</th>
-                                                        <td style="text-align: left"><?php echo $row['activity']['sale_count']; ?></td>
-                                                        <th style="text-align: right">颜色数量</th>
-                                                        <td style="text-align: left"><?php echo $row['activity']['colors']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style="text-align: right">快递总费用</th>
-                                                        <td style="text-align: left"></td>
-                                                    </tr>
-                                                    <?php //销售成本
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    <?php if($row['activity']["thumb_img_url"]){ ?>
+                                                        <img style="width: 100px;height:100px;" src="<?=$row['activity']["thumb_img_url"]?>" alt="">
+                                                    <?php } else { ?>
+                                                        没有生成
+                                                    <?php } ?>
+                                                    <button class="btn" onclick="re_gen_img(<?=$row['activity']["id"]?>)">重新生成</button>
+                                                </div>
+                                                <div class="col-xs-8">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th style="text-align: right">发起人UID</th>
+                                                            <td style="text-align: left"><a target='_blank' href='/admin/user/modify?id=<?php echo $row['activity']['uid']; ?>'><?php echo $row['activity']['uid']; ?></a></td>
+                                                            <th style="text-align: right">开始时间</th>
+                                                            <td style="text-align: left"><?php echo $row['activity']['start_time']; ?></td>
+                                                            <th style="text-align: right">结束时间</th>
+                                                            <td style="text-align: left"><?php echo $row['activity']['end_time']; ?></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="text-align: right">销售目标</th>
+                                                            <td style="text-align: left"><?php echo $row['activity']['sale_target']; ?></td>
+                                                            <th style="text-align: right">实际销售</th>
+                                                            <td style="text-align: left"><?php echo $row['activity']['sale_count']; ?></td>
+                                                            <th style="text-align: right">颜色数量</th>
+                                                            <td style="text-align: left"><?php echo $row['activity']['colors']; ?></td>
+                                                        </tr>
+                                                    </table>
 
-                                                    ?>
-                                                </table>
+                                                </div>
+                                            </div>
+
+                                            <div>
                                             </div>
                                         </div>
                                     </div>
@@ -138,6 +139,15 @@
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     var activity_id = <?=$_REQUEST['id']?>;
+
+    var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
+    function re_gen_img($id){
+        $u = encodeURIComponent("http://{1}/activity/{0}".format($id,frontend_domain))
+        var $url = '/api?model=admin/activity&action=re_gen_img&id={0}&url={1}'.format($id,$u);
+        //alert($url);
+        location.href= $url;
+    }
+
     function search() {
         var $query = {
             order_no: $('#order_no').val(),
@@ -187,17 +197,6 @@
                     sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
                         return '<a target="_blank" href="/admin/user/modify?id=' + cellvalue + '">' + cellvalue + '</a>';
-                    }
-                },
-                {
-                    title: "活动名称",
-                    width: 300,
-                    name: 'activity_name',
-                    index: 'activity_name',
-                    editable: false,
-                    sortable:false,
-                    formatter: function (cellvalue, options, rowObject) {
-                        return '<a target="_blank" href="/admin/activity/detail?id=' + rowObject.activity_id + '">' + cellvalue + '</a>';
                     }
                 },
                 {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false},
