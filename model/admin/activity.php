@@ -36,6 +36,14 @@ limit 1");
         self::_db()->delete("et_activity_product",array("activity_id"=>$id));
         self::_location($url);
     }
+    function action_do_success($id){
+        self::_db()->update("et_activity_info",array("status"=>3),array("id"=>$id));
+        return array("操作成功");
+    }
+    function action_do_fail($id){
+        self::_db()->update("et_activity_info",array("status"=>2),array("id"=>$id));
+        return array("操作成功");
+    }
     /**
      * 详情
      * @return array

@@ -194,6 +194,36 @@
 
 
     <script type="text/javascript">
+        function do_success($id){
+            if(!confirm("确定么")) return;
+            if(!confirm("确定么")) return;
+            $.post("/api",{
+                model:"admin/activity",
+                action:"do_success",
+                id:$id
+            },function(data){
+                if(data.status == 0){
+                    alert("操作成功");
+                }else{
+                    alert(data.message)
+                }
+            },"json");
+        }
+        function do_fail($id){
+            if(!confirm("确定要删除么")) return;
+            if(!confirm("确定要删除么")) return;
+            $.post("/api",{
+                model:"admin/activity",
+                action:"do_fail",
+                id:$id
+            },function(data){
+                if(data.status == 0){
+                    alert("操作成功");
+                }else{
+                    alert(data.message)
+                }
+            },"json");
+        }
         function del_activity($id,obj){
             if(!confirm("确定要删除么")) return;
             if(!confirm("确定要删除么")) return;
@@ -318,15 +348,15 @@
                                     if(rowObject.production_status > 0){
                                         cell += "<br>生产..";
                                     }else{
-                                        cell += "<br><button class=\"btn btn-success\">成功</button>" ;
+                                        cell += "<br><button class=\"btn btn-success\" onclick='do_success({id})'>成功</button>" ;
                                     }
 
                                 }else{
                                     cell += "<br>未达10件" ;
-                                    cell += "<br><button class=\"btn btn-danger\">失败</button>" ;
+                                    cell += "<br><button class=\"btn btn-danger\" onclick='do_fail({id})'>失败</button>" ;
                                 }
                             }
-                            return cell;
+                            return cell.format(rowObject);
                         }
                     },
                     {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
