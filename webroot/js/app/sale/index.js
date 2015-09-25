@@ -53,6 +53,7 @@ $(function () {
         $('.style-info li:first').clone(true).appendTo('.style-info');
     });
 
+    
     //定义数据模型-Dialog的视图是一致的。并且最终传给后台使用。
     var model = {
         arr: [{}],

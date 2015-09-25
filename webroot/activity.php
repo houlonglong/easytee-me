@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
-    <!-- <script type="text/javascript" src="js/app/sale/index.js"></script> -->
+    <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     
