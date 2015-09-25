@@ -148,37 +148,6 @@ $(function () {
         });
     }
 
-    function initProductCategories() {
-        var categories = [
-            {
-                id: 1,
-                name: '款式类型1'
-            },
-            {
-                id: 2,
-                name: '款式类型2'
-            },
-            {
-                id: 3,
-                name: '款式类型3'
-            }
-        ];
-        for (var o in categories) {
-            var c = categories[o];
-
-        }
-        initProducts();
-    }
-
-    function initProducts(products) {
-        $('.product-item').click(function () {
-            $('.product-item').removeClass('active');
-            $(this).addClass('active');
-            $('#product_color_picket').appendTo(this);
-        });
-        $('.product-item').eq(0).click();
-    }
-
     $('#product_color_picket').find('.color-item').click(function(){
         $('.color-item').removeClass('active');
         $(this).addClass('active');
@@ -189,6 +158,7 @@ $(function () {
         var len = $(this).parents('.product-color-picket').find('.color-column').length;
         $(this).parents('.product-color-picket').width(len * 28);
     });
+
     $('.product-color-picket').mouseleave(function () {
         $(this).find('.color-column').not('.quick-colors').hide();
         $(this).width('auto');
@@ -197,6 +167,7 @@ $(function () {
     function designToolsAppendToText(){
         $('#design_selected_tools').appendTo('.tab-content:eq(0)');
     }
+
     function designToolsAppendToImage(){
         $('#design_selected_tools').appendTo('.tab-content:eq(1)');
     }
@@ -216,8 +187,275 @@ $(function () {
     initFontFamilies();
     initColorPicker();
 
-    //初始化产品类型
-    initProductCategories();
     //初始化设计页高度
     setDsHeight();
+
+    var ds;
+    //模拟Ajax数据
+    var categories = {
+        1: {
+            id: '1',
+            name: '基础－T恤款',
+            products: [
+                {
+                    id: '11',
+                    name: '基础圆领T恤基础圆领T恤1',
+                    sides: [{
+                        id: 'front',
+                        image: '/js/app/design/common/data/front1.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 150,
+                            height: 200
+                        }
+                    },{
+                        id: 'back',
+                        image: '/js/app/design/common/data/back1.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 190,
+                            height: 340
+                        }
+                    }]
+                },
+                {
+                    id: '12',
+                    name: '基础圆领T恤基础圆领T恤2',
+                    sides: [{
+                        id: 'front',
+                        image: '/js/app/design/common/data/product_type_2_front.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 150,
+                            height: 200
+                        }
+                    },{
+                        id: 'back',
+                        image: '/js/app/design/common/data/product_type_2_back.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 190,
+                            height: 340
+                        }
+                    }]
+                }
+            ]
+        },
+        2: {
+            id: '2',
+            name: '基础－T恤款',
+            products: [
+                {
+                    id: '21',
+                    name: '2基础圆领T恤基础圆领T恤1',
+                    sides: [{
+                        id: 'front',
+                        image: '/js/app/design/common/data/front1.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 150,
+                            height: 200
+                        }
+                    },{
+                        id: 'back',
+                        image: '/js/app/design/common/data/back1.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 190,
+                            height: 340
+                        }
+                    }]
+                },
+                {
+                    id: '22',
+                    name: '2基础圆领T恤基础圆领T恤2',
+                    sides: [{
+                        id: 'front',
+                        image: '/js/app/design/common/data/product_type_2_front.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 150,
+                            height: 200
+                        }
+                    },{
+                        id: 'back',
+                        image: '/js/app/design/common/data/product_type_2_back.png',
+                        scale: 7.47,
+                        printable: {
+                            x: 149,
+                            y: 100,
+                            width: 190,
+                            height: 340
+                        }
+                    }]
+                }
+            ]
+        }
+    };
+
+    /*
+     * 加载产品类型
+     */
+    function initProductCategories(list){
+        var str = '';
+        for(var o in list){
+            var item = list[o];
+            str += '<option value="'+item.id+'">'+item.name+'</option>';
+        }
+        $('#selectProductCategories').append(str);
+        $('#selectProductCategories').change(function(){
+            var categoryId = $(this).val();
+            var products = categories[categoryId].products;
+            initProductChoice(categoryId, products);
+        });
+        $('#selectProductCategories').change();
+    }
+
+    /*
+     * 加载产品列表
+     * 详情link
+     * 选择产品事件
+     */
+    function initProductChoice(categoryId, list){
+        var str = '';
+        for(var o in list){
+            var item = list[o];
+            str += '<li class="product-item" data-id="'+item.id+'" tips="'+item.name+'">';
+            str += '    <img src="'+item.sides[0].image+'"/>';
+            str += '    <div>';
+            str += '        <span class="name">'+item.name+'</span>';
+            str += '        <span class="desc">成本优选</span>';
+            str += '        <a href="#'+item.id+'" class="info">详情</a>';
+            str += '    </div>';
+            str += '</li>';
+        }
+        $('.product-list').empty().append(str);
+        $('.product-item').click(function () {
+            $('.product-item').removeClass('active');
+            $(this).addClass('active');
+            $('#product_color_picket').appendTo(this);
+
+            var productId = $(this).attr('data-id');
+            var products = categories[categoryId].products;
+            var product;
+            for(var o in products) {
+                var _product = products[o];
+                if(_product.id == productId){
+                    product = _product;
+                    break;
+                }
+            }
+
+            if(!ds){
+                /*
+                 * 初始化DS
+                 */
+                ds = new Ds('#ds', product.sides);
+            }else{
+                ds.load(product);
+            }
+        });
+        $('.product-item').eq(0).click();
+    }
+
+    //初始化产品类型
+    initProductCategories(categories);
+
+    /*
+     * 上传图片
+     */
+
+    /*
+     * 加载素材库图片
+     */
+
+
+
+    /*
+     * 加载产品颜色列表
+     * 选择产品颜色事件
+     */
+
+    /*
+     * 添加文本事件
+     */
+    $('#addTextInput')[0].oninput=function(){
+        var val = $(this).val();
+        ds.call('text', val);
+    };
+
+    /*
+     * 读取文本API
+     */
+
+    /*
+     * 选择字体事件
+     */
+
+    /*
+     * 读取字体API
+     */
+
+    /*
+     * 选择字体颜色事件
+     */
+
+    /*
+     * 读取字体颜色API
+     */
+
+    /*
+     * 选择描边事件
+     */
+
+    /*
+     * 读取描边API
+     */
+
+    /*
+     * 选择描边颜色事件
+     */
+
+    /*
+     * 读取描边颜色API
+     */
+
+    /*
+     * 复制事件
+     */
+
+    /*
+     * 垂直居中事件
+     */
+
+    /*
+     * 移动到底层事件
+     */
+
+    /*
+     * 水平翻转事件
+     */
+
+    /*
+     * 垂直翻转事件
+     */
+
+    /*
+     * 切换正面、反面、左袖、右袖事件
+     */
+
 });

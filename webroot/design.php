@@ -3,33 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="css/common/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/design.css"/>
+    <link rel="stylesheet" type="text/css" href="js/app/design/vendor/etds/css/et.ds-min.css"/>
     <script src="js/app/design/vendor/jquery-1.11.2.js"></script>
+    <script src="js/app/design/vendor/etds/et.ds.js"></script>
     <script src="js/app/design/main.js"></script>
 </head>
 <body>
-<header>
-    <div class="inHead">
-        <nav class="banxin clearfix nav">
-            <h1 class="logo">
-                <a href="index.html">易衫网</a>
-            </h1>
-            <span class="how">如何开始</span>
-
-            <div class="login">
-                <a href="#" class="begin">发起活动</a>
-
-                <div>
-                    <a href="#">消息</a>
-                    <a href="#">登录</a>
-                    <a href="#">注册</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
 <div class="design-main">
     <div class="design-top">
         <div class="design-top-leaf"></div>
@@ -59,7 +40,7 @@
                     <span class="form-label">文字内容</span>
                 </div>
                 <div class="form-row">
-                    <input class="form-control" type="text" placeholder="请输入文字"/>
+                    <input id="addTextInput" class="form-control" type="text" placeholder="请输入文字"/>
                 </div>
                 <div class="form-row">
                     <span class="form-label">选择字体</span>
@@ -272,7 +253,7 @@
             </div>
         </div>
         <div class="product-preview">
-            <img src="/css/design/product_type_1_front.png" alt=""/>
+            <div id="ds" class="ds"></div>
             <div class="product-sides">
                 <a class="product-side active" href="javascript:;">正面</a>
                 <a class="product-side" href="javascript:;">反面</a>
@@ -283,51 +264,51 @@
         <div class="design-right-tools clearfix">
             <div class="product-choices ">
                 <span class="label">款式和颜色</span>
-                <select class="form-control" name="" id="">
-                    <option value="">基础T恤款</option>
-                    <option value="">超级T恤款</option>
+                <select class="form-control" id="selectProductCategories">
+<!--                    <option value="">基础T恤款</option>-->
+<!--                    <option value="">超级T恤款</option>-->
                 </select>
                 <ul class="product-list">
-                    <li class="product-item" tips="基础圆领T恤">
-                        <img src="/css/design/product-thumbnail.png"/>
-                        <div>
-                            <span class="name">基础圆领T恤基础圆领T恤</span>
-                            <span class="desc">成本优选</span>
-                            <a href="#" class="info">详情</a>
-                        </div>
-                    </li>
-                    <li class="product-item" tips="基础圆领T恤">
-                        <img src="/css/design/product-thumbnail.png"/>
-                        <div>
-                            <span class="name">基础圆领T恤基础圆领T恤</span>
-                            <span class="desc">成本优选</span>
-                            <a href="#" class="info">详情</a>
-                        </div>
-                    </li>
-                    <li class="product-item active" tips="基础圆领T恤">
-                        <img src="/css/design/product-thumbnail.png"/>
-                        <div>
-                            <span class="name">基础圆领T恤基础圆领T恤</span>
-                            <span class="desc">成本优选</span>
-                            <a href="#" class="info">详情</a>
-                        </div>
-                    </li>
-                    <li class="product-item" tips="基础圆领T恤">
-                        <img src="/css/design/product-thumbnail.png"/>
-                        <div>
-                            <span class="name">基础圆领T恤</span>
-                            <span class="desc">成本优选</span>
-                            <a href="#" class="info">详情</a>
-                        </div>
-                    </li>
-                    <li class="product-item">
-                        <img src="/css/design/product-thumbnail.png"/>
-                        <div>
-                            <span class="name">基础圆领T恤</span>
-                            <span class="desc">成本优选</span>
-                            <a href="#" class="info">详情</a>
-                        </div>
-                    </li>
+<!--                    <li class="product-item" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item active" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
                 </ul>
                 <div class="pre-cost">
                     印制
@@ -447,45 +428,6 @@
                 <span style="background-color: #0000ff;"></span>
             </li>
         </ul>
-    </div>
-</div>
-<div class="foot">
-    <div class="infooter clearfix">
-        <h2>易衫网</h2>
-        <dl>
-            <dt>导航</dt>
-            <dd>
-                <a href="#">首页</a>
-            </dd>
-            <dd>
-                <a href="#">开始设计</a>
-            </dd>
-            <dd>
-                <a href="#">关于我们</a>
-            </dd>
-            <dd>
-                <a href="#">帮助中心</a>
-            </dd>
-        </dl>
-        <dl>
-            <dt>服务</dt>
-            <dd>客服QQ：12345678</dd>
-        </dl>
-        <dl>
-            <dt>联系我们</dt>
-            <dd>工作日：上午9点 - 下午6点</dd>
-            <dd>休息日：上午9点 - 下午5点</dd>
-            <dd>客服热线 ： 400-92020-85</dd>
-        </dl>
-        <dl>
-            <dt>官方</dt>
-            <dd class="weibo">
-                <a href="#">微博</a>
-            </dd>
-            <dd class="weixin">微信</dd>
-        </dl>
-        <span class="ewm"></span>
-        <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
     </div>
 </div>
 </body>
