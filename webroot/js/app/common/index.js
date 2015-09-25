@@ -25,14 +25,6 @@ $(function () {
         $('html,body').animate({scrollTop: 0}, 500);
     });
 
-    /*$('.forget a').click(function (event) {
-        $('.reset-con').addClass('show').siblings().removeClass('show');
-    });
-
-    $('.zc-link a').click(function (event) {
-        $('.register').addClass('show').siblings().removeClass('show');
-    });*/
-
 //登录时判断手机正则
 	var reg = /(1[3-9]\d{9}$)/;
     
@@ -40,13 +32,14 @@ $(function () {
         var tel = $("#phone").val();
         var userName = $("#phone").val();
         var userPass = $("#LoginPass").val();
+        
         var reg = /(1[3-9]\d{9}$)/;
         if (!reg.test(tel)) {
             //alert("请输入正确格式的手机号码！");
             $('.tel').addClass('wrong').children('span').html('输入错误');
             return false;
         } else {
-            $('.tel').removeClass('wrong').children('span').html('');
+            $('.tel').removeClass('wrong').children('span').html('账号不存在');
         }
 
         var LoginP = $('#LoginPass').val();
@@ -54,21 +47,26 @@ $(function () {
             $('.login-p').addClass('wrong').children('span').html('密码不能为空');
             return;
         } else {
-            $('.login-p').removeClass('wrong').children('span').html('');
+            $('.login-p').removeClass('wrong').children('span').html('密码错误');
         }
         //登录时发送的ajax 
         $.ajax({
             type: "post",
-            url: "",
+            url: "/api",
             data: {
-                userName: userName,
-                userPass: userPass
+                mobile: userName,
+                password: userPass,
+                action:"login",
+                redirect:"/user/index",
+                model: "user/auth"
             },
             success: function (data) {
-                if (status === 0) {//0代表响应成功
-                    window.location.href = "";
-                } else {
-                    $('.denglu-con').addClass('wrong');
+                if (data.status == 8102) {//81-2代表账号不存在
+                    $('.tel').children('span').html('账号不存在');
+                    $('.tel').addClass('wrong');
+                    return;
+                } else if(data.status==8103){
+                   $('.login-p').addClass('wrong').children('span').html('密码错误');
                 }
 
             }
@@ -77,25 +75,6 @@ $(function () {
     });
 
 
-  /*  $(".btnLogin").click(function (event) {
-        
-        $.ajax({
-            type: "post",
-            url: "",
-            data: {
-                userName: userName,
-                userPass: userPass
-            },
-            success: function (data) {
-                if (status == 0) {//0代表响应成功
-                    window.location.href = "";
-                } else {
-                    $('.denglu-con').addClass('wrong');
-                }
-
-            }
-        })
-    });*/
 //z重置密码
 
     //60s倒计时
@@ -140,6 +119,7 @@ $(function () {
         }*/
 
         $.get('/login', {
+            model: "user/register",
             phone: $("#res-phone").val()
         }, function () {
             if (status == 0) {

@@ -1,5 +1,5 @@
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function() {
 		var reg = /(1[3-9]\d{9}$)/;
     
@@ -43,7 +43,7 @@
 
     });
 	});
-</script>
+</script> -->
 <div class="denglu">
 		<img src="/css/common/images/denglu-bg.png" >
 		<div>
