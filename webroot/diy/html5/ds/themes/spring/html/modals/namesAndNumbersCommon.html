@@ -1,0 +1,184 @@
+﻿<div class="isd-add-numbers" ng-controller="NamesAndNumbersController">
+  <div class="isd-add-cart isd-clearfix">
+    <div class="isd-option-name isd-clearfix" style="margin-top:26px;">
+      <span>OPTIONS</span>
+      <label>
+        <span>Names<small>({{namesPrice}})</small></span>
+      </label>
+      <label style="margin-top:16px;">
+        <span>Numbers<small>({{numbersPrice}})</small></span>
+      </label>
+    </div>
+    <div class="isd-select-size isd-colors" style="width:37px;margin-right:20px;">
+      <ul>
+        <li class="isd-clearfix">
+          <label>COLOR</label>
+          <a ng-click="chooseNamesColor()" ng-style="{'background-color':names.color}">&nbsp;</a>
+        </li>
+        <li class="isd-clearfix">
+          <a ng-click="chooseNumbersColor()" ng-style="{'background-color':numbers.color}" style="margin-top:2px;">
+            &nbsp;</a>
+        </li>
+      </ul>
+    </div>
+    <div class="isd-select-size">
+      <ul>
+        <li class="isd-clearfix">
+          <label>
+            SIZE
+          </label>
+
+          <div style="width: 230px;">
+            <div class="isd-select-wrap">
+              <select class="isd-size-select isd-txt-btn" ng-model="names.textSize" ng-change="namesFontSizeChanged()"
+                      ng-options="font as font.label for font in namesFontOptions">
+              </select>
+
+              <div class="isd-select-arrow">
+                <span class="isd-arrow-down"></span>
+              </div>
+            </div>
+          </div>
+
+        </li>
+        <li class="isd-clearfix">
+
+          <div style="width: 230px;">
+            <div class="isd-select-wrap">
+              <select class="isd-size-select isd-txt-btn" ng-model="numbers.textSize"
+                      ng-change="numbersFontSizeChanged()"
+                      ng-options="font as font.label for font in numbersFontOptions">
+              </select>
+
+              <div class="isd-select-arrow">
+                <span class="isd-arrow-down"></span>
+              </div>
+            </div>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+    <div class="isd-select-size">
+      <ul>
+        <li class="isd-clearfix">
+          <label>
+            FONT
+          </label>
+
+          <div style="width: 230px;">
+            <div class="isd-select-wrap">
+              <select class="isd-size-select isd-txt-btn" ng-model="names.font" ng-change="namesFontChanged()"
+                      ng-options="font as font.fontFamily for font in fonts"></select>
+
+              <div class="isd-select-arrow">
+                <span class="isd-arrow-down"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="isd-clearfix">
+
+          <div style="width: 230px;">
+            <div class="isd-select-wrap">
+              <select class="isd-size-select isd-txt-btn" ng-model="numbers.font" ng-change="numbersFontChanged()"
+                      ng-options="font as font.fontFamily for font in fonts"></select>
+
+              <div class="isd-select-arrow">
+                <span class="isd-arrow-down"></span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+  </div>
+  <div class="isd-product-size-block isd-clearfix">
+    <div class="isd-image-block">
+      <div id="namePreview"
+           ng-style="{'font-family':previewData.nameFontFamily, 'font-size':previewData.nameFontSize, 'color':names.color}">
+        {{previewData.name}}
+      </div>
+      <div id="numberPreview"
+           ng-style="{'font-family':previewData.numberFontFamily, 'font-size':previewData.numberFontSize, 'color':numbers.color}">
+        {{previewData.number}}
+      </div>
+      <div id="nnDisclaimer">Not an exact representation</div>
+    </div>
+    <div class="isd-slide-block">
+      <div style="max-height: 214px;overflow: auto;width:463px;">
+        <div class="isd-product-heading isd-clearfix">
+          <label class="isd-clos-1">
+            <span>NAME</span>
+          </label>
+          <label class="isd-clos-2">
+            <span>#</span>
+          </label>
+          <label class="isd-clos-3">
+            <span>SIZE</span>
+          </label>
+          <label class="isd-cols-4"></label>
+          <label class="isd-cols-5"></label>
+        </div>
+        <div class="isd-product-heading isd-clearfix" ng-repeat="nn in namesNumbers">
+          <label class="isd-clos-1">
+            <input type="text" class="isd-txt-btn" ng-model="nn.name" ng-blur="nameChanged(nn)"/>
+          </label>
+          <label class="isd-clos-2">
+            <input type="text" class="isd-txt-btn" ng-model="nn.number" ng-blur="numberChanged(nn)" maxlength="3"/>
+          </label>
+          <label class="isd-clos-3">
+            <div style="width: 80px; margin-top:7px;">
+              <div class="isd-select-wrap">
+                <select class="isd-size-select isd-txt-btn" ng-model="nn.size"
+                        ng-options="size as size.name for size in productStyleSizes"></select>
+
+                <div class="isd-select-arrow">
+                  <span class="isd-arrow-down"></span>
+                </div>
+              </div>
+            </div>
+          </label>
+          <label class="isd-cols-4">
+            <a class="isd-preview-btn" is-disabled="!nn.name.length"
+               ng-click="!nn.name.length ? '' : (previewNameNumber($index, nn))"/>
+          </label>
+          <label class="isd-cols-5">
+            <a ng-click="deleteNameNumber($index, nn)" class="isd-remove-item isd-remove-item-single">&nbsp;</a>
+          </label>
+
+        </div>
+      </div>
+
+      <div style="margin:10px 0 0 10px;">
+        <a ng-click="addNameNumber()" ng-hide="noAddingAllowed" style="line-height: 41px;font-size: 12px;">
+          Add another...
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="isd-total-numbers">
+    <div class="isd-total-item isd-clearfix">
+      <ul>
+        <li class="isd-clearfix"><span>TOTAL NAMES</span>
+          <small>{{totals.numNames}}</small>
+        </li>
+        <li class="isd-clearfix"><span>TOTAL NUMBERS</span>
+          <small>{{totals.numNumbers}}</small>
+        </li>
+        <li class="isd-clearfix"><span>ON ITEMS</span>
+          <small>{{totals.numItems}}</small>
+        </li>
+      </ul>
+      <strong>${{totals.totalPrice}}<span>TOTAL</span></strong>
+    </div>
+    <a style="margin-top:15px;float:right;" ng-click="addToOrder()" class="isd-btn isd-button-primary">{{inCart ?
+      "Continue" : "Add to Order"}}</a>
+  </div>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>

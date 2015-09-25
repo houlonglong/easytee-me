@@ -274,5 +274,8 @@
         <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
     </div>
 </div>
+
+<?php include(block("block/login"))?>
+
 </body>
 </html>

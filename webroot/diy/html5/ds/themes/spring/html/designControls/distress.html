@@ -1,0 +1,19 @@
+﻿<div class="isd-custom-control" ng-init="offset = 0; pageSize = 10;">
+  <div class="isd-header">
+    Distress Effects
+  </div>
+  <div class="isd-custom-selector">
+    <div class="isd-slider-block">
+      <ul class="isd-clearfix isd-slider-image">
+        <li ng-repeat="effect in distressEffects" ng-click="selectDistress(effect)"
+            ng-show="$index >= offset && $index < offset + pageSize"><span>{{effect.name}}</span>
+          <a><img ng-src="{{effect.distress_thumb_path}}"/></a></li>
+      </ul>
+      <div class="isd-direction-arrow">
+        <a class="isd-direction-up" ng-show="offset > 0" ng-click="offset = offset - pageSize"><i>&nbsp;</i></a>
+        <a class="isd-direction-down" ng-show="offset + pageSize < distressEffects.length"
+           ng-click="offset = offset + pageSize"><i>&nbsp;</i></a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+﻿<div class="isd-custom-control">
+  <span class="isd-edit-text-embroidery"><i></i>{{action}} Embroidered Text</span>
+
+  <div class="isd-custom-selector">
+    <ul>
+      <li class="isd-clearfix">
+        <div class="isd-write-text">
+          <span>Type your Text</span>
+          <input type="text" class="isd-txt-btn" ng-model="text.value" ng-change="updateTextValue()" is-tooltip="29"
+                 is-auto-select/>
+        </div>
+        <div class="isd-color-selector" is-tooltip="30" style="margin-left: 10px; text-align: left;">
+          <span>Color</span>
+          <a ng-style="{'background-color':getColorString(text.color1)}" ng-click="showFillColorModal()"
+             class="{{transparentClass(text.color1)}}" style="width:34px;height:34px;">&nbsp;</a>
+        </div>
+      </li>
+      <li style="margin-top:15px">
+        <span>Font</span>
+        <select id="fontCategorySelect" class="isd-txt-btn" style="height:21px;" ng-model="text.font_id"
+                ng-change="updateFontName()" ng-options="font.font_id as font.name for font in fonts"></select>
+      </li>
+    </ul>
+    <ul class="isd-outline-size">
+      <li style="width: 100%;">
+        <div class="isd-get-high">
+          <span style="width:238px;">Letter Space</span>
+
+          <div style="width:238px;">
+            <div class="isd-up-down-btn" style="height:46px;width:100%;">
+              <a class="isd-flat-icons fi-minus" ng-click="decreaseLetterSpacing()"></a>
+              <span style="width:40px; text-align:center;">{{formatNumber(text.letter_spacing, 1)}}</span>
+              <a class="isd-flat-icons fi-plus" ng-click="increaseLetterSpacing()"></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li style="width: 100%; ">
+        <div class="isd-get-high">
+          <span style="width:238px;">Word Space</span>
+
+          <div style="width:238px;">
+            <div class="isd-up-down-btn" style="height: 46px; width: 100%;">
+              <a class="isd-flat-icons fi-minus" ng-click="decreaseWordSpacing()"></a>
+              <span style="width:40px; text-align:center;">{{formatNumber(text.word_spacing, 1)}}</span>
+              <a class="isd-flat-icons fi-plus" ng-click="increaseWordSpacing()"></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li style="width: 100%;">
+        <div class="isd-get-high">
+          <span style="width:238px;">Letter Slant</span>
+
+          <div style="width:238px;">
+            <div class="isd-up-down-btn" style="height: 46px; width: 100%;">
+              <a class="isd-flat-icons fi-minus" ng-click="decreaseTextSlant()"></a>
+              <span style="width:40px; text-align:center;">{{formatNumber(text.slant, 1)}}</span>
+              <a class="isd-flat-icons fi-plus" ng-click="increaseTextSlant()"></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <span>Text Shape</span>
+        <select class="isd-txt-btn" style="height:21px;" ng-model="text.shape" ng-change="updateTextShape()"
+                is-tooltip="40" ng-options="shape.value as shape.label for shape in shapes">
+        </select>
+      </li>
+      <li style="display: inline-block;width: 100%;" ng-show="text.shape == 'Circle'">
+        <div class="isd-get-high" style="float:left;width:100%;">
+          <span>Radius</span>
+
+          <div>
+            <a class="isd-flat-icons fi-minus" ng-click="decreaseTextRadius()"></a>
+            <span style="width:40px; text-align:center;">{{formatNumber(text.circle_radius, 1)}}</span>
+            <a class="isd-flat-icons fi-plus" ng-click="increaseTextRadius()"></a>
+            <!--<div class="isd-up-down-btn" style="height:46px;width:74px;">
+                <input type="text" class="isd-txt-btn " ng-disabled="1" value="{{formatNumber(text.circle_radius, 1)}}" />
+                <div class="isd-spinner-btn">
+                    <a class="isd-up" ng-click="increaseTextRadius()">&nbsp;</a>
+                    <a class="isd-down" ng-click="decreaseTextRadius()">&nbsp;</a>
+                </div>
+            </div>-->
+          </div>
+        </div>
+      </li>
+
+      <li style="display: none;width: 100%;">
+        <div class="isd-get-high">
+          <span style="float:none;display:block;">Top Curve</span>
+
+          <div>
+            <select class="isd-txt-btn" ng-model="text.top_curve_type" ng-change="updateTopCurveType()"
+                    style="width:auto; display:inline-block;height:21px;float:left;">
+              <option value="Curve">Curve</option>
+              <option value="Grow">Grow</option>
+              <option value="Peak">Peak</option>
+              <option value="Shrink">Shrink</option>
+            </select>
+
+            <div class="isd-up-down-btn" style="height:32px;width:120px;padding-top:5px;display:inline-block;">
+              <a class="isd-flat-icons fi-minus" ng-click="decreaseTopCurve()"></a>
+              <span style="width:40px; text-align:center;">{{formatNumber(text.top_curve, 1)}}</span>
+              <a class="isd-flat-icons fi-plus" ng-click="increaseTopCurve()"></a>
+
+              <!--<input type="text" class="isd-txt-btn" ng-disabled="1" value="{{formatNumber(text.top_curve, 1)}}" />
+              <div class="isd-spinner-btn">
+                  <a class="isd-up" ng-click="increaseTopCurve()">&nbsp;</a>
+                  <a class="isd-down" ng-click="decreaseTopCurve()">&nbsp;</a>
+              </div>-->
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <li style="display: none;width: 100%;">
+        <div class="isd-get-high">
+          <span style="float:none;display:block;">Bottom Curve</span>
+
+          <div>
+            <select class="isd-txt-btn" ng-model="text.bottom_curve_type" ng-change="updateBottomCurveType()"
+                    style="width:auto; display:inline-block;height:21px;float:left;">
+              <option value="Curve">Curve</option>
+              <option value="Grow">Grow</option>
+              <option value="Peak">Peak</option>
+              <option value="Shrink">Shrink</option>
+            </select>
+
+            <div class="isd-up-down-btn" style="height:32px;width:120px;padding-top:5px;display:inline-block;">
+              <a class="isd-flat-icons fi-minus" ng-click="decreaseBottomCurve()"></a>
+              <span style="width:40px; text-align:center;">{{formatNumber(text.bottom_curve, 1)}}</span>
+              <a class="isd-flat-icons fi-plus" ng-click="increaseBottomCurve()"></a>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li style="display:none;">
+        <div class="isd-get-high">
+          <span>Sequence</span>
+          <select class="isd-txt-btn" ng-model="text.sequence" ng-change="updateSequence()">
+            <option value="A-B-C">A-B-C</option>
+            <option value="A-C-B">A-C-B</option>
+            <option value="B-A-C">B-A-C</option>
+            <option value="B-C-A">B-C-A</option>
+            <option value="C-A-B">C-A-B</option>
+            <option value="C-B-A">C-B-A</option>
+          </select>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
