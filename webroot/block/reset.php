@@ -1,37 +1,31 @@
 <div class="denglu">
 		<img src="/css/common/images/denglu-bg.png" >
 		<div>
-			<div class="denglu-con show">
-				<h3 >请登录</h3>
-				<div class=' mar-center  tel'>
-					<label for="phone">手机</label>
-					<br>
-					<input type="text" id="phone">
-					<span  class="hidden triangle"></span>
-				</div>
-				<div class='login-p'>
-					<label for="LoginPass">登录密码</label>
-					<br>
-					<input type="password" id="LoginPass"  >
-					<span class="hidden triangle">密码有误</span>
-				</div>
-				<div class="forget">
-					<a href="#">忘记密码</a>
+			
+			<!--  重置密码 -->
+			<div class="reset-con show">
+				<h3>重置密码</h3>
+				<div class="sj ">
+					<input type="text" placeholder="请输入您的手机号" id="res-phone">
+					<button id="testing" >获取验证码</button>
+					<i class="hidden triangle">输入有误</i>
+
 				</div>
 				<div>
-					<a href="#" class="btnLogin">登录</a>
+					<input type="text" placeholder="请输入验证码" id="res-test" >
+					<i class="hidden triangle">验证码错误</i>
 				</div>
-				<div class="other-login ">
-					<span>第三方登录</span>
-					<a href="#" class="qq"></a>
-					<a href="#" class="wb"></a>
-					<a href="#" class="wx"></a>
+				<h4>请输入新密码</h4>
+				<div>
+					<input type="password" placeholder="6~32位字符" id="res-pass">
+					<i class="hidden triangle">密码格式错误</i>
 				</div>
-				<div class="zc-link">
-					<a href="#">没有账号？免费注册</a>
+				<div class="" >
+					<input type="password" placeholder="请再次输入密码" id="res-pass2">
+					<i class="hidden triangle">密码不一致</i>
 				</div>
+				<button class="res-btn">提交重置</button>
 			</div>
-			
 			
 			<!-- 注册成功 -->
 			<div class="zc-success reg-success">
@@ -62,8 +56,6 @@
 				</div>
 			</div>
 			
-			
-
 			
 		</div>
 	</div>

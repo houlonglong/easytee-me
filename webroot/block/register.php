@@ -1,26 +1,30 @@
 <div class="denglu">
 		<img src="/css/common/images/denglu-bg.png" >
 		<div>
-			<div class="denglu-con show">
-				<h3 >请登录</h3>
-				<div class=' mar-center  tel'>
-					<label for="phone">手机</label>
-					<br>
-					<input type="text" id="phone">
-					<span  class="hidden triangle"></span>
+			<!-- 注册 -->
+			<div class="register show">
+				<h3>免费注册</h3>
+				<div class="sj">
+					<label for="">手机号</label>
+					<input type="text" placeholder="请输入您的手机号" id="reg-phone">
+					<button id="reg-testing" >获取验证码</button>
+					<i class="hidden triangle">输入错误</i>
 				</div>
-				<div class='login-p'>
-					<label for="LoginPass">登录密码</label>
-					<br>
-					<input type="password" id="LoginPass"  >
-					<span class="hidden triangle">密码有误</span>
+				<div class="">
+					<label for="">验证码</label>
+					<input type="text" placeholder="输入验证码" id="reg-test">
+					<i class="hidden triangle">验证码有误</i>
 				</div>
-				<div class="forget">
-					<a href="#">忘记密码</a>
+				<div class="">
+					<label for="">登录密码</label>
+					<input type="password" placeholder="必须是6~32位字符" id="reg-pass">
+					<i class="hidden triangle">密码格式错误</i>
 				</div>
-				<div>
-					<a href="#" class="btnLogin">登录</a>
-				</div>
+					
+
+				<div class="zc-btn">
+					<a href="#" class="anniu reg-btn">免费注册</a>
+				</div> 
 				<div class="other-login ">
 					<span>第三方登录</span>
 					<a href="#" class="qq"></a>
@@ -28,11 +32,9 @@
 					<a href="#" class="wx"></a>
 				</div>
 				<div class="zc-link">
-					<a href="#">没有账号？免费注册</a>
+					<a href="#">已有账号？立即登录</a>
 				</div>
 			</div>
-			
-			
 			<!-- 注册成功 -->
 			<div class="zc-success reg-success">
 				<h3>注册成功!</h3>
@@ -61,9 +63,6 @@
 					<a href="#">回当前页</a>
 				</div>
 			</div>
-			
-			
-
 			
 		</div>
 	</div>
