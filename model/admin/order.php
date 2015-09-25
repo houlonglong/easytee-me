@@ -7,14 +7,6 @@ class Model_Admin_Order extends Model_Admin_Abstract{
     function __construct(){
         parent::__construct();
     }
-    /**
-     * 详情
-     * @return array
-     */
-    function action_order_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
 
     /**
      * 详情
@@ -73,15 +65,15 @@ class Model_Admin_Order extends Model_Admin_Abstract{
     /**
      * 列表
      **/
-    function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id){
+    function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id,$exp_no,$uid){
+
         $table = self::$table;
         $table_alias = "o";
         $join = ' left join et_user as u on u.id = o.uid
         left join et_order_activity as act on act.order_id = o.id
         left join et_activity_info as a on a.id = act.activity_id
         left join et_order_ship as ship on ship.order_id = o.id
-        left join et_order_pay as pay on pay.order_id = o.id';
-
+        left join et_order_pay as pay on pay.order_id = o.id ';
         $limit = $rows;
         $sort = $sidx;
         $sort_type = $sord;
@@ -97,6 +89,10 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         //where
         $args = array();
         $where  = " where 1=1 and a.name is not null ";
+        if ($uid){
+            $where  .= " and o.uid = ? ";
+            $args[] = $uid;
+        }
         if($activity_name){
             $where .= 'and a.name like "%'.$activity_name.'%" ';
         }
@@ -104,15 +100,20 @@ class Model_Admin_Order extends Model_Admin_Abstract{
             $where .= 'and o.order_no = ? ';
             $args[] = $order_no;
         }
+        if($exp_no){
+            $where .= 'and ship.exp_no = ? ';
+            $args[] = $exp_no;
+        }
         if($mobile){
             $where .= 'and u.mobile = ? ';
             $args[] = $mobile;
         }
-        if($pay_status === 0 || $pay_status == 1){
+        if($pay_status === '0' || $pay_status == '1'){
             $where .= 'and pay.pay_status = ? ';
             $args[] = $pay_status;
+
         }
-        if($ship_status === 0 || $ship_status == 1){
+        if($ship_status === '0' || $ship_status == '1'){
             $where .= 'and pay.ship_status = ? ';
             $args[] = $ship_status;
         }
@@ -153,40 +154,5 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         }
         return $response;
     }
-
-
-    /**
-     * 修改
-     **/
-    function action_edit(){
-        return self::table_edit();
-    }
-
-
-    /*
-    * 修改
-    **/
-    static function table_edit(){
-        $table = self::$table;
-        if(empty($table)) throw new ErrorException("table is not defined");
-        $request = PtLib\http_request("oper");
-        $oper = $request['oper'];
-        $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
-        $condition = array("id"=>$id);
-        $data = PtLib\http_request("status");
-        if($oper == 'edit' && $id && $data){
-            //pt_log($data);
-            //pt_log($condition);
-            PtLib\db()->update($table,$data,$condition);
-        }
-        if($oper == 'add'){
-            PtLib\db()->insert($table,$data);
-        }
-        if($oper == 'del'&& $id && $data){
-            PtLib\db()->delete($table,$condition);
-        }
-        return array();
-    }
-
 
 }

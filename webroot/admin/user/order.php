@@ -6,7 +6,7 @@
      * 提现申请
      *
      */
-    $__model_path = "admin/user";
+    $__model_path = "admin/order";
     include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
@@ -84,14 +84,18 @@
 
                                                                     <input type="text" class="input-small" placeholder="开始时间" id="start-date" style="width: 200px">
                                                                     <input type="text" class="input-small" placeholder="结束时间" id="end-date" style="width: 200px;margin-left: 20px">
-                                                                    <select id="status" style="margin-left: 20px">
-                                                                        <option value="">状态</option>
-                                                                        <option value="unread">待付款</option>
-                                                                        <option value="passed">待发货</option>
-                                                                        <option value="paid">已发货</option>
-                                                                    </select></br></br>
-                                                                    <input type="text"  class="input-small" placeholder="订单号" id="username"  style="width: 200px">
-                                                                    <input type="text"  class="input-small" placeholder="快递号" style="width: 200px;margin-left: 20px " id="mobile" >
+                                                                    <input type="text"  class="input-small" placeholder="订单号" id="order_no"  style="width: 200px">
+                                                                    <input type="text"  class="input-small" placeholder="快递号" style="width: 200px;margin-left: 20px " id="exp_no" >
+                                                                    <select id="pay_status" onchange="search()">
+                                                                        <option value="">全部</option>
+                                                                        <option value="0">待付款</option>
+                                                                        <option value="1">已付款</option>
+                                                                    </select>
+                                                                    <select id="ship_status" onchange="search()" style="display: none">
+                                                                        <option value="">全部</option>
+                                                                        <option value="0">待发货</option>
+                                                                        <option value="1">已发货</option>
+                                                                    </select>
                                                                     <button type="button" class="btn btn-success btn-sm"  style="margin-left: 20px" onclick="search()">
                                                                         <i class="ace-icon fa fa-search bigger-110"></i>查询
                                                                     </button>
@@ -132,23 +136,23 @@
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
-
-
-
     var grid_selector = "#grid-table";
     var pager_selector = "#grid-pager";
     function search() {
-
-
         var $query = {
-            activity_id: $('#activity-id').val(),
-            activity_name: $('#activity-name').val(),
-            username: $('#username').val(),
+            exp_no: $('#exp_no').val(),
+            order_no: $('#order_no').val(),
             startDate: $('#start-date').val(),
             endDate: $('#end-date').val(),
-            status:$('#status').val()
-
+            pay_status: $('#pay_status').val(),
+            ship_status: $('#ship_status').val(),
         };
+        if($('#pay_status').val() == '0' || $('#pay_status').val() == ''){
+            $('#ship_status').hide();
+        }else{
+            $('#ship_status').show();
+            $query['ship_status'] = $('#ship_status').val();
+        }
         $(grid_selector).jqGrid('setGridParam', {
             datatype: 'json',
             postData: $query, //发送数据
@@ -160,7 +164,7 @@
     jQuery(function ($) {
         //$("#query_area").html('<label>Ttile</label><input type="text" id="title"><button class="btn-primary" onclick="search()">search</button>');
         var url_api_base = "<?php echo $__model_path;?>";
-        var url_api_list = "/api?model=" + url_api_base + "&action=order&uid=<?=$uid?>";
+        var url_api_list = "/api?model=" + url_api_base + "&action=list&uid=<?=$uid?>";
         var url_api_edit = "/api?model=" + url_api_base + "&action=edit";
         var url_api_detail = "/" + url_api_base + "/detail";
 
@@ -178,19 +182,19 @@
                 {title:"金额",name:'goods_price',index:'goods_price',editable: false,sortable:false,width:70},
                 {title:"状态",name:'ship_status',index:'ship_status',editable: false,sortable:false,width:50,
                     formatter: function (cellvalue, options, rowObject) {
-                        console.log(rowObject)
+                       console.log(rowObject)
                         //支付状态
                         var pay_status = rowObject.pay_status
                         //物流状态
                         var ship_status = cellvalue;
 
                         if(pay_status==0){
-                            var ship_status = '<label class="label label-danger arrowed">'+待付款+'</label>';
+                            var ship_status = '<label class="label label-info arrowed-right arrowed-in">'+'待付款'+'</label>';
                         }else{
                             if(ship_status==0){
-                                var ship_status = '<label class="label label-warning arrowed arrowed-right">'+'待发货'+'</label>';
+                                var ship_status = '<label class="label label-info arrowed-right arrowed-in">'+'已付款 待发货'+'</label>';
                             }else{
-                                var ship_status = '<label class="label arrowed">'+"已发货"+'</label>';
+                                var ship_status = '<label class="label label-success arrowed-in arrowed-in-right">'+"已经发货 已发货"+'</label>';
                             }
                         }
 
@@ -199,18 +203,28 @@
                 },
                 {title:"支付类型",name:'pay_type',index:'pay_type',editable: false,sortable:false,width:50,
                     formatter: function (cellvalue, options, rowObject) {
-                        console.log(cellvalue)
+                        //console.log(cellvalue)
                         //支付状态
                         var pay_type = rowObject.pay_type
+                        var balance= parseInt(rowObject.balance_ntx+rowObject.balance_tx)
+                        //goconsole.log(typeof balance)
 
+                        if(balance > 0){
+                            var pay_type = '<label class="label label-danger arrowed">'+'混合支付'+'</label>';
+                        }
 
                         if(pay_type == "alipay"){
                             var pay_type = '<label class="label label-warning arrowed arrowed-right">'+"支付宝"+'</label>';
                         }
 
                         if(pay_type=="wechat"){
-                            var pay_type = '<label class="label label-danger arrowed">'+微信+'</label>';
+                            var pay_type = '<label class="label label-danger arrowed">'+'微信'+'</label>';
                         }
+                        if(pay_type=="account"){
+                            var pay_type = '<label class="label label-danger arrowed">'+'余额支付'+'</label>';
+                        }
+
+
                         return  pay_type
                     }
 

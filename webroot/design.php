@@ -72,6 +72,7 @@
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
+                            <div class="design-dropdown-menu-arrow"></div>
                             <div class="form-row">
                                 <select class="form-control" name="" id="">
                                     <option value="popular">热门</option>
@@ -92,6 +93,7 @@
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
+                            <div class="design-dropdown-menu-arrow"></div>
                             <div class="color-picket-list">
                             </div>
                         </div>
@@ -115,6 +117,7 @@
                             </div>
                         </div>
                         <div class="design-dropdown-menu">
+                            <div class="design-dropdown-menu-arrow"></div>
                             <div class="color-picket-list">
                             </div>
                         </div>
@@ -270,140 +273,180 @@
         </div>
         <div class="product-preview">
             <img src="/css/design/product_type_1_front.png" alt=""/>
-        </div>
-        <div class="product-choices clearfix">
-            <span class="label">款式和颜色</span>
-            <select class="form-control" name="" id="">
-                <option value="">基础T恤款</option>
-                <option value="">超级T恤款</option>
-            </select>
-            <ul class="product-list">
-                <li class="product-item" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                    <div class="product-color-picket">
-                        <ul class="color-column quick-colors">
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="more-color">
-                                <span></span>
-                            </li>
-                        </ul>
-                        <ul class="color-column">
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                        </ul>
-                        <ul class="color-column">
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                            <li class="color-item">
-                                <span style="background-color: #0000ff;"></span>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="product-item" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item active" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-            </ul>
-            <div class="pre-cost">
-                印制
-                <i>50</i>
-                件的成本：<i>¥</i>
-                <i>999.00</i>
-            </div>
-            <a href="#" class="btn">
-                购买素衫
-            </a>
-        </div>
-        <div class="design-selected-tools">
-            <div class="form-row">
-                <input type="checkbox" id="123"/>
-                <label for="123">引导居中</label>
-            </div>
-            <div class="form-row">
-                <a href="javascript:;">复制</a>
-                <a href="javascript:;">移到底层</a>
-                <a href="javascript:;">对齐中心</a>
-                <a href="javascript:;">水平翻转</a>
-                <a href="javascript:;">垂直翻转</a>
+            <div class="product-sides">
+                <a class="product-side active" href="javascript:;">正面</a>
+                <a class="product-side" href="javascript:;">反面</a>
+                <a class="product-side" href="javascript:;">左袖</a>
+                <a class="product-side" href="javascript:;">右袖</a>
             </div>
         </div>
+        <div class="design-right-tools clearfix">
+            <div class="product-choices ">
+                <span class="label">款式和颜色</span>
+                <select class="form-control" name="" id="">
+                    <option value="">基础T恤款</option>
+                    <option value="">超级T恤款</option>
+                </select>
+                <ul class="product-list">
+                    <li class="product-item" tips="基础圆领T恤">
+                        <img src="/css/design/product-thumbnail.png"/>
+                        <div>
+                            <span class="name">基础圆领T恤基础圆领T恤</span>
+                            <span class="desc">成本优选</span>
+                            <a href="#" class="info">详情</a>
+                        </div>
+                    </li>
+                    <li class="product-item" tips="基础圆领T恤">
+                        <img src="/css/design/product-thumbnail.png"/>
+                        <div>
+                            <span class="name">基础圆领T恤基础圆领T恤</span>
+                            <span class="desc">成本优选</span>
+                            <a href="#" class="info">详情</a>
+                        </div>
+                    </li>
+                    <li class="product-item active" tips="基础圆领T恤">
+                        <img src="/css/design/product-thumbnail.png"/>
+                        <div>
+                            <span class="name">基础圆领T恤基础圆领T恤</span>
+                            <span class="desc">成本优选</span>
+                            <a href="#" class="info">详情</a>
+                        </div>
+                    </li>
+                    <li class="product-item" tips="基础圆领T恤">
+                        <img src="/css/design/product-thumbnail.png"/>
+                        <div>
+                            <span class="name">基础圆领T恤</span>
+                            <span class="desc">成本优选</span>
+                            <a href="#" class="info">详情</a>
+                        </div>
+                    </li>
+                    <li class="product-item">
+                        <img src="/css/design/product-thumbnail.png"/>
+                        <div>
+                            <span class="name">基础圆领T恤</span>
+                            <span class="desc">成本优选</span>
+                            <a href="#" class="info">详情</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="pre-cost">
+                    印制
+                    <i>50</i>
+                    件的成本：<i>¥</i>
+                    <i>999.00</i>
+                </div>
+                <a href="#" class="btn">
+                    购买素衫
+                </a>
+            </div>
+            <a class="next-step" href="javascript:;">下一步</a>
+        </div>
+    </div>
+    <div id="design_selected_tools" class="design-selected-tools">
+        <div class="form-row">
+            <div class="form-label">
+                <input type="checkbox" id="snapCenter"/>
+                <label for="snapCenter">引导居中</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <a href="javascript:;" class="icon-tools icon-tools-duplicate" title="复制"></a>
+            <a href="javascript:;" class="icon-tools icon-tools-align-center" title="对齐中心"></a>
+            <a href="javascript:;" class="icon-tools icon-tools-move-bottom" title="移到底层"></a>
+            <a href="javascript:;" class="icon-tools icon-tools-horizontal" title="水平翻转"></a>
+            <a href="javascript:;" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="product_color_picket" class="product-color-picket">
+        <span class="product-color-menu-arrow"></span>
+        <ul class="color-column quick-colors">
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="more-color">
+                <span></span>
+            </li>
+        </ul>
+        <ul class="color-column">
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+        </ul>
+        <ul class="color-column">
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+        </ul>
     </div>
 </div>
 <div class="foot">

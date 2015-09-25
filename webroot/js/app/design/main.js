@@ -34,11 +34,6 @@ $(function () {
         $('.design-dropdown-menu').hide();
     });
 
-    $('.product-item').click(function () {
-        $('.product-item').removeClass('active');
-        $(this).addClass('active');
-    });
-
     function showImageLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
         $('.upload-location').hide();
@@ -59,12 +54,12 @@ $(function () {
 
     function setDsHeight() {
         var tools = $('.design-tools');
-        var choice = $('.product-choices');
+        var rTools = $('.design-right-tools');
         var design = $('.design-center');
-        if (tools.outerHeight() > choice.outerHeight()) {
+        if (tools.outerHeight() > rTools.outerHeight()) {
             design.height(tools.outerHeight() + parseInt(tools.css('marginTop')) + 20);
         } else {
-            design.height(choice.outerHeight() + parseInt(choice.css('marginTop')) + 20);
+            design.height(rTools.outerHeight() + parseInt(rTools.css('marginTop')) + 20);
         }
     }
 
@@ -176,8 +171,18 @@ $(function () {
     }
 
     function initProducts(products) {
-
+        $('.product-item').click(function () {
+            $('.product-item').removeClass('active');
+            $(this).addClass('active');
+            $('#product_color_picket').appendTo(this);
+        });
+        $('.product-item').eq(0).click();
     }
+
+    $('#product_color_picket').find('.color-item').click(function(){
+        $('.color-item').removeClass('active');
+        $(this).addClass('active');
+    });
 
     $('.more-color', '.product-color-picket').hover(function () {
         $(this).parents('.product-color-picket').find('.color-column').not('.quick-colors').show();
@@ -188,6 +193,24 @@ $(function () {
         $(this).find('.color-column').not('.quick-colors').hide();
         $(this).width('auto');
     });
+
+    function designToolsAppendToText(){
+        $('#design_selected_tools').appendTo('.tab-content:eq(0)');
+    }
+    function designToolsAppendToImage(){
+        $('#design_selected_tools').appendTo('.tab-content:eq(1)');
+    }
+
+    function enableDesignTools(){
+        $('#design_selected_tools').show();
+    }
+
+    function disableDesignTools(){
+        $('#design_selected_tools').hide();
+    }
+
+    designToolsAppendToText();
+    enableDesignTools();
 
     //初始化设计工具数据
     initFontFamilies();

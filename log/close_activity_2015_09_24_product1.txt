@@ -1,0 +1,942 @@
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:158
+=======
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:164
+-------
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:2595 当前销量:17 目标销量:300 成本计算销量:17 颜色数:6
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:2595 单件印花成本:30.9 印花总成本:525.3
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:2595 不包含印花利润:1156.00 - 印花总成本:525.3 = 利润:630.7
+[2015:09:24 21:28:58] [errhd] [8] /model/service/activity.php:172
+Undefined index: sale_profit
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:172
+[活动] id:2595 更新利润为: => 630.7 
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:164
+-------
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:3222 当前销量:24 目标销量:50 成本计算销量:24 颜色数:5
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:3222 单件印花成本:27.025 印花总成本:648.6
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:3222 不包含印花利润:0 - 印花总成本:648.6 = 利润:-648.6
+[2015:09:24 21:28:58] [errhd] [8] /model/service/activity.php:172
+Undefined index: sale_profit
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:172
+[活动] id:3222 更新利润为: => -648.6 
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:164
+-------
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:3680 当前销量:14 目标销量:50 成本计算销量:14 颜色数:7
+[2015:09:24 21:28:58] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:3680 单件印花成本:34.4 印花总成本:481.6
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:3680 不包含印花利润:476.00 - 印花总成本:481.6 = 利润:-5.6
+[2015:09:24 21:28:59] [errhd] [8] /model/service/activity.php:172
+Undefined index: sale_profit
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:172
+[活动] id:3680 更新利润为: => -5.6 
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:185
+=======
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:212
+[活动] id:1670 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:14
+[活动] id:1670 更新状态为:2 活动失败
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1670 失败,给卖家:15066673677 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"bgfhh","username":"15066673677"}
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:212
+[活动] id:1693 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:14
+[活动] id:1693 更新状态为:2 活动失败
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1693 失败,给卖家:18811134989 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7d2b\u4e91\u6b8b\u96ea","username":"18811134989"}
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:212
+[活动] id:1779 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:14
+[活动] id:1779 更新状态为:2 活动失败
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1779 失败,给卖家:15160005011 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"esfsg","username":"15160005011"}
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:212
+[活动] id:1821 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:14
+[活动] id:1821 更新状态为:2 活动失败
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1821 失败,给卖家:15195569843 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u4e2a\u6027","username":"15195569843"}
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:212
+[活动] id:1822 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:14
+[活动] id:1822 更新状态为:2 活动失败
+[2015:09:24 21:28:59] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1822 失败,给卖家:15195569843 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8d8a\u6d3b\u8d8a\u5e74\u8f7b","username":"15195569843"}
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:212
+[活动] id:1858 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:14
+[活动] id:1858 更新状态为:2 活动失败
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1858 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7231\u7684\u65b9\u7a0b\u5f0f","username":"18630160619"}
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:212
+[活动] id:1893 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:14
+[活动] id:1893 更新状态为:2 活动失败
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1893 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u53d1","username":"HHAPPYH"}
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:212
+[活动] id:1896 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:14
+[活动] id:1896 更新状态为:2 活动失败
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1896 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7231\u7684\u65b9\u7a0b\u5f0f","username":"18630160619"}
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:212
+[活动] id:1900 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:14
+[活动] id:1900 更新状态为:2 活动失败
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1900 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7231\u7684\u65b9\u7a0b\u5f0f","username":"18630160619"}
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:212
+[活动] id:1902 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:14
+[活动] id:1902 更新状态为:2 活动失败
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1902 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7231\u7684\u65b9\u7a0b\u5f0f","username":"18630160619"}
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:212
+[活动] id:1922 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:14
+[活动] id:1922 更新状态为:2 活动失败
+[2015:09:24 21:29:00] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1922 失败,给卖家:15000245941 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6211\u7684\u6d3b\u52a8","username":"15000245941"}
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:212
+[活动] id:1945 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:14
+[活动] id:1945 更新状态为:2 活动失败
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:221
+[活动短信] id:1945 失败,给卖家:13817301496 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"hhhhhhhhhh","username":"13817301496"}
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:212
+[活动] id:2003 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:14
+[活动] id:2003 更新状态为:2 活动失败
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2003 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u554a","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:212
+[活动] id:2032 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:14
+[活动] id:2032 更新状态为:2 活动失败
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2032 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5357\u4eac\u519c\u4e1a\u5927\u5b66","username":"sunshine"}
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:212
+[活动] id:2038 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:14
+[活动] id:2038 更新状态为:2 活动失败
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2038 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5357\u4eac\u519c\u4e1a\u5927\u5b66\u6cd5\u5b66\u793e","username":"sunshine"}
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:212
+[活动] id:2041 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:14
+[活动] id:2041 更新状态为:2 活动失败
+[2015:09:24 21:29:01] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2041 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5357\u4eac\u519c\u4e1a\u5927\u5b66","username":"sunshine"}
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:212
+[活动] id:2042 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:14
+[活动] id:2042 更新状态为:2 活动失败
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2042 失败,给卖家:13671647808 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"46544654","username":"Someonelxl"}
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:212
+[活动] id:2055 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:14
+[活动] id:2055 更新状态为:2 活动失败
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2055 失败,给卖家:15062280023 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u4e3a\u821e\u800c\u751f","username":"15062280023"}
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:212
+[活动] id:2078 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:14
+[活动] id:2078 更新状态为:2 活动失败
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2078 失败,给卖家:13151692119 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8fd9\u4e2a\u5f00\u5b66\u5b63\uff0c\u8ba9\u4f60\u6210\u4e3a\u6559\u5b98\u7684\u7126\u70b9\uff01","username":"13151692119"}
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:212
+[活动] id:2094 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:14
+[活动] id:2094 更新状态为:2 活动失败
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2094 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"kjk","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:212
+[活动] id:2097 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:14
+[活动] id:2097 更新状态为:2 活动失败
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2097 失败,给卖家:15051631950 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"vivoT\u6064\u5b9a\u5236","username":"1505163195"}
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:212
+[活动] id:2129 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:14
+[活动] id:2129 更新状态为:2 活动失败
+[2015:09:24 21:29:02] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2129 失败,给卖家:15850064489 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5fc3\u4e2d\u7684\u59d1\u5a18","username":"15850064489"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2147 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2147 更新状态为:2 活动失败
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2147 失败,给卖家:13817301496 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"ffffffffffffff","username":"13817301496"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2148 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2148 更新状态为:2 活动失败
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2148 失败,给卖家:13817301496 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5065\u8eab\u4ff1\u4e50\u90e8","username":"13817301496"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2196 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2196 更新状态为:2 活动失败
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2196 失败,给卖家:13812664484 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"LOVE","username":"13812664484"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2208 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2208 更新状态为:2 活动失败
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2208 失败,给卖家:18662243142 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u62ab\u5934\u58ebHELP","username":"18662243142"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2283 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2283 更新状态为:2 活动失败
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2283 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"[ROCKRTS] \u706b\u7bad\u961f\u54c8\u767b\u7403\u8ff7\u6587\u5316\u886b","username":"15895893837"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2309 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2309 更新状态为:2 活动失败
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2309 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"[ROCKRTS] \u706b\u7bad\u961f\u54c8\u767b\u7403\u8ff7\u6587\u5316\u886b\u53d1\u552e","username":"15895893837"}
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:212
+[活动] id:2331 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:03] [debug] [1] /model/service/activity.php:14
+[活动] id:2331 更新状态为:2 活动失败
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2331 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u706b\u7bad\u54c8\u767b","username":"15895893837"}
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:212
+[活动] id:2341 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:14
+[活动] id:2341 更新状态为:2 活动失败
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2341 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u3010ROCKRTS\u3011\u706b\u7bad\u961f\u54c8\u767b26\u751f\u65e5\u5feb\u4e50\u7403\u8ff7\u6587\u5316\u886b","username":"15895893837"}
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:212
+[活动] id:2344 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:14
+[活动] id:2344 更新状态为:2 活动失败
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2344 失败,给卖家:13671647808 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"dfsd","username":"Someonelxl"}
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:212
+[活动] id:2347 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:14
+[活动] id:2347 更新状态为:2 活动失败
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2347 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u3010ROCKRTS\u3011\u706b\u7bad\u961f\u54c8\u767b26\u751f\u65e5\u5feb\u4e50\u7403\u8ff7\u6587\u5316\u886b","username":"15895893837"}
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:212
+[活动] id:2354 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:14
+[活动] id:2354 更新状态为:2 活动失败
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2354 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u3010ROCKRTS\u3011\u706b\u7bad\u961f\u54c8\u767b26\u751f\u65e5\u5feb\u4e50\u7403\u8ff7\u6587\u5316\u886b","username":"15895893837"}
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:212
+[活动] id:2357 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:14
+[活动] id:2357 更新状态为:2 活动失败
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2357 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u3010ROCKRTS\u3011\u706b\u7bad\u961f\u54c8\u767b\u7403\u8ff7\u6587\u5316\u886b","username":"15895893837"}
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:212
+[活动] id:2362 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:04] [debug] [1] /model/service/activity.php:14
+[活动] id:2362 更新状态为:2 活动失败
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2362 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"fff","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:212
+[活动] id:2368 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:14
+[活动] id:2368 更新状态为:2 活动失败
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2368 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u3010ROCKRTS\u3011\u706b\u7bad\u961f\u54c8\u767b\u7403\u8ff7\u6587\u5316\u886b","username":"15895893837"}
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:212
+[活动] id:2369 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:14
+[活动] id:2369 更新状态为:2 活动失败
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2369 失败,给卖家:13151692119 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8d85\u7ea7\u53ef\u7231\u7684\u76ae\u5361\u4e18TEE\uff0c\u60c5\u4fa3\u642d\u914d\u66f4nice\u54e6\uff01","username":"13151692119"}
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:212
+[活动] id:2371 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:14
+[活动] id:2371 更新状态为:2 活动失败
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2371 失败,给卖家:13151692119 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8d85\u7ea7\u53ef\u7231\u7684\u76ae\u5361\u4e18TEE\uff0c\u60c5\u4fa3\u642d\u914d\u66f4nice\u54e6\uff01","username":"13151692119"}
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:212
+[活动] id:2389 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:14
+[活动] id:2389 更新状态为:2 活动失败
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2389 失败,给卖家:13151692119 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8d85\u7ea7\u53ef\u7231\u7684\u76ae\u5361\u4e18TEE\uff0c\u60c5\u4fa3\u642d\u914d\u66f4nice\u54e6\uff01","username":"13151692119"}
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:212
+[活动] id:2390 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:14
+[活动] id:2390 更新状态为:2 活动失败
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2390 失败,给卖家:13151692119 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8d85\u7ea7\u53ef\u7231\u7684\u76ae\u5361\u4e18TEE\uff0c\u60c5\u4fa3\u642d\u914d\u66f4nice\u54e6\uff01","username":"13151692119"}
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:212
+[活动] id:2391 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:05] [debug] [1] /model/service/activity.php:14
+[活动] id:2391 更新状态为:2 活动失败
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2391 失败,给卖家:13151692119 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u8fd9\u4e2a\u5f00\u5b66\u5b63\uff0c\u8ba9\u4f60\u6210\u4e3a\u5b66\u6821\u7684\u7126\u70b9\uff01","username":"13151692119"}
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:212
+[活动] id:2403 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:14
+[活动] id:2403 更新状态为:2 活动失败
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2403 失败,给卖家:13913174253 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u4e3a\u5929\u6d25\u732e\u51fa\u81ea\u5df1\u7684\u4e00\u70b9\u5fae\u8584\u4e4b\u529b","username":"13913174253"}
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:212
+[活动] id:2428 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:14
+[活动] id:2428 更新状态为:2 活动失败
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2428 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u643a\u7a0b\u95fa\u871c\u5c0f\u7ec4","username":"sunshine"}
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:212
+[活动] id:2432 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:14
+[活动] id:2432 更新状态为:2 活动失败
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2432 失败,给卖家:18721738628 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"123","username":"18721738628"}
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:212
+[活动] id:2518 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:06] [debug] [1] /model/service/activity.php:14
+[活动] id:2518 更新状态为:2 活动失败
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2518 失败,给卖家:18751903667 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u82f1\u96c4\u8054\u76df\u4e13\u9898","username":"18751903667"}
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:212
+[活动] id:2543 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:14
+[活动] id:2543 更新状态为:2 活动失败
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2543 失败,给卖家:13681875608 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"11111","username":"13681875608"}
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:212
+[活动] id:2644 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:14
+[活动] id:2644 更新状态为:2 活动失败
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2644 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u4e1c\u5927\u6cd5\u5b66\u793e","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:212
+[活动] id:2670 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:14
+[活动] id:2670 更新状态为:2 活动失败
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2670 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"11","username":"\u6613\u886b\u7f5111"}
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:212
+[活动] id:2678 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:14
+[活动] id:2678 更新状态为:2 活动失败
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2678 失败,给卖家:13162809806 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6297\u6218\u80dc\u522970\u5e74\u201c\u6297\u654c\u201dT\u6064","username":"13162809806"}
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:212
+[活动] id:2734 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:14
+[活动] id:2734 更新状态为:2 活动失败
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2734 失败,给卖家:13162809806 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6297\u6218\u7eaa\u5ff5T\u6064\u201c\u6297\u654c\u201d\u7cfb\u5217","username":"13162809806"}
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:212
+[活动] id:2735 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:07] [debug] [1] /model/service/activity.php:14
+[活动] id:2735 更新状态为:2 活动失败
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2735 失败,给卖家:13162809806 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6297\u6218\u80dc\u522970\u5468\u5e74\u7eaa\u5ff5T\u6064\u201c\u6297\u654c\u201d\u7cfb\u5217","username":"13162809806"}
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:212
+[活动] id:2736 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:14
+[活动] id:2736 更新状态为:2 活动失败
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2736 失败,给卖家:13162809806 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6297\u6218\u80dc\u522970\u5468\u5e74\u201c\u6297\u654c\u201d\u7cfb\u5217","username":"13162809806"}
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:212
+[活动] id:2737 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:14
+[活动] id:2737 更新状态为:2 活动失败
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2737 失败,给卖家:13162809806 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6297\u6218\u80dc\u522970\u5468\u5e74\u201c\u6297\u654c\u201d\u7cfb\u5217T\u6064","username":"13162809806"}
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:212
+[活动] id:2748 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:14
+[活动] id:2748 更新状态为:2 活动失败
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2748 失败,给卖家:18704599619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6297\u621870\u5468\u5e74\u7eaa\u5ff5T\u6064","username":"18704599619"}
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:212
+[活动] id:2757 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:14
+[活动] id:2757 更新状态为:2 活动失败
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2757 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5927\u9605\u5175","username":"18630160619"}
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:212
+[活动] id:2759 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:14
+[活动] id:2759 更新状态为:2 活动失败
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2759 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5927\u9605\u5175","username":"18630160619"}
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:212
+[活动] id:2760 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:08] [debug] [1] /model/service/activity.php:14
+[活动] id:2760 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2760 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5927\u9605\u5175","username":"18630160619"}
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:212
+[活动] id:2762 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:14
+[活动] id:2762 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2762 失败,给卖家:18630160619 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5927\u9605\u5175","username":"18630160619"}
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:212
+[活动] id:2784 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:14
+[活动] id:2784 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2784 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"1","username":"\u6613\u886b\u7f5111"}
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:212
+[活动] id:2798 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:14
+[活动] id:2798 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2798 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"12","username":"\u9650\u91cf\u7248\u7684\u96e8"}
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:212
+[活动] id:2804 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:14
+[活动] id:2804 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2804 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"1","username":"\u6613\u886b\u7f5111"}
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:212
+[活动] id:2811 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:14
+[活动] id:2811 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2811 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"111","username":"\u6613\u886b\u7f5111"}
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:212
+[活动] id:2812 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:14
+[活动] id:2812 更新状态为:2 活动失败
+[2015:09:24 21:29:09] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2812 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"1","username":"\u6613\u886b\u7f5111"}
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:212
+[活动] id:2818 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:14
+[活动] id:2818 更新状态为:2 活动失败
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2818 失败,给卖家:18896955377 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6293\u4f4f\u590f\u5929\u7684\u5c3e\u5df4  \u8dd1\u51fa\u81ea\u5df1\u7684\u59ff\u6001~","username":"Paul"}
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:212
+[活动] id:2821 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:14
+[活动] id:2821 更新状态为:2 活动失败
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2821 失败,给卖家:18896955377 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7626\u6210\u4e00\u9053\u95ea\u7535  \u8fd8\u4e0d\u7ea6\u5417~","username":"Paul"}
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:212
+[活动] id:2823 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:14
+[活动] id:2823 更新状态为:2 活动失败
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2823 失败,给卖家:18896955377 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u7626\u6210\u4e00\u9053\u95ea\u7535  \u8fd8\u4e0d\u7ea6\u5417~","username":"Paul"}
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:212
+[活动] id:2859 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:14
+[活动] id:2859 更新状态为:2 活动失败
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2859 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6c5f\u82cf\u7406\u5de5\u5b66\u9662\u65b0\u5a92\u4f53\u8fd0\u8425\u4e2d\u5fc3\u6587\u5316\u886b","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:212
+[活动] id:2865 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:14
+[活动] id:2865 更新状态为:2 活动失败
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2865 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6c5f\u82cf\u7406\u5de5\u5b66\u9662\u65b0\u5a92\u4f53\u8fd0\u8425\u4e2d\u5fc3","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:212
+[活动] id:2867 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:10] [debug] [1] /model/service/activity.php:14
+[活动] id:2867 更新状态为:2 活动失败
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2867 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6c5f\u82cf\u7406\u5de5\u5b66\u9662\u65b0\u5a92\u4f53\u8fd0\u8425\u4e2d\u5fc3","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:212
+[活动] id:2879 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:14
+[活动] id:2879 更新状态为:2 活动失败
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2879 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"1","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:212
+[活动] id:2880 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:14
+[活动] id:2880 更新状态为:2 活动失败
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2880 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6c5f\u82cf\u7406\u5de5\u5b66\u9662\u65b0\u5a92\u4f53\u8fd0\u8425\u4e2d\u5fc3","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:212
+[活动] id:2909 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:14
+[活动] id:2909 更新状态为:2 活动失败
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:221
+[活动短信] id:2909 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u51a0\u519b\u5361\u724c--\u4e07\u667a\u724c","username":"sunshine"}
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:212
+[活动] id:3073 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:14
+[活动] id:3073 更新状态为:2 活动失败
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3073 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"hhhhhhhhhhhhhhhhhhhhhhhhhh","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:212
+[活动] id:3091 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:14
+[活动] id:3091 更新状态为:2 活动失败
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3091 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"nanaokjnoihijhjhbijobn;kjghiunkig]u","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:212
+[活动] id:3099 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:11] [debug] [1] /model/service/activity.php:14
+[活动] id:3099 更新状态为:2 活动失败
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3099 失败,给卖家:15895893837 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"BIGGER","username":"15895893837"}
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:212
+[活动] id:3108 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:14
+[活动] id:3108 更新状态为:2 活动失败
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3108 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5e38\u5dde\u5927\u5b66\u81ea\u5f8b\u5ba3\u4f20","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:3177 当前销量:15 目标销量:20 成本计算销量:15 颜色数:6
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:3177 单件印花成本:31.5 印花总成本:472.5
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:3177 不包含印花利润:0 - 印花总成本:472.5 = 利润:-472.5
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:232
+[活动] id:3177 销售数量:15 大于起订量10件 并小于销售目标:20 利润:-472.5
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:14
+[活动] id:3177 更新状态为:2 活动失败
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:276
+[活动短信] id:3177 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":15,"activity":"\u51a0\u519b\u5361\u724c--\u4e07\u667a\u724c","username":"sunshine"}
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:212
+[活动] id:3180 销售数量:2 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:14
+[活动] id:3180 更新状态为:2 活动失败
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:118
+[交易明细] 用户:628 amount:110,note:活动:3180 未达目标,退款 订单号:15091000090255499
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:124
+[帐户余额] 用户:628 可提现:+ 55 不可提现:+ 55
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:127
+[订单更新] 订单号:15091000090255499,pay_status 更新为:2
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:138
+[订单退款短信] 订单号:15091000090255499,project:4NOd3,mobile:18601628934,option:{"username":"test","salesNum":2,"activity":"1"}
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:118
+[交易明细] 用户:628 amount:110,note:活动:3180 未达目标,退款 订单号:15091000125407599
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:124
+[帐户余额] 用户:628 可提现:+ 55 不可提现:+ 55
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:127
+[订单更新] 订单号:15091000125407599,pay_status 更新为:2
+[2015:09:24 21:29:12] [debug] [1] /model/service/activity.php:138
+[订单退款短信] 订单号:15091000125407599,project:4NOd3,mobile:18601628934,option:{"username":"test","salesNum":2,"activity":"1"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:118
+[交易明细] 用户:628 amount:110,note:活动:3180 未达目标,退款 订单号:15091000131599144
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:124
+[帐户余额] 用户:628 可提现:+ 55 不可提现:+ 55
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:127
+[订单更新] 订单号:15091000131599144,pay_status 更新为:2
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:138
+[订单退款短信] 订单号:15091000131599144,project:4NOd3,mobile:18601628934,option:{"username":"test","salesNum":2,"activity":"1"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3180 失败,给卖家:18601628934 发送短信,project:oWwG62,option:{"salesNum":2,"activity":"1","username":"test"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:212
+[活动] id:3182 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:14
+[活动] id:3182 更新状态为:2 活动失败
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3182 失败,给卖家:18601628934 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"11","username":"test"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:212
+[活动] id:3234 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:14
+[活动] id:3234 更新状态为:2 活动失败
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3234 失败,给卖家:18260027135 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5357\u4e2d\u533b\u6700\u7f8e\u56e2\u670d\uff01\u6ca1\u9519\uff0c\u5357\u4e2d\u533b\u521b\u4e1a\u534f\u4f1a\u6210\u5458\u4e13\u5c5e\uff0c\u4f60\u503c\u5f97\u62e5\u6709\uff01","username":"18260027135"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:212
+[活动] id:3247 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:14
+[活动] id:3247 更新状态为:2 活动失败
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3247 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5e38\u5dde\u5927\u5b66\u81ea\u5f8b\u4f1a","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:212
+[活动] id:3254 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:14
+[活动] id:3254 更新状态为:2 活动失败
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3254 失败,给卖家: 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5e38\u5dde\u5927\u5b66\u81ea\u5f8b\u4f1a","username":"\u4fdd\u5c0f\u4e3d"}
+[2015:09:24 21:29:13] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:212
+[活动] id:3258 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:14
+[活动] id:3258 更新状态为:2 活动失败
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3258 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"jid","username":"sunshine"}
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:3335 当前销量:22 目标销量:20 成本计算销量:20 颜色数:9
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:3335 单件印花成本:38 印花总成本:836
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:3335 不包含印花利润:998.00 - 印花总成本:836 = 利润:162
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:287
+[活动] id:3335 完成销售目标 销售数量:22 销售目标:20 利润:162
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:24
+[活动] id:3335 状态为:2,活动成功结束
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:66
+[利润结算] 活动:3335 用户:687 利润:162 
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:71
+[帐户余额] 用户:687 可提现:+ 97.2 暂时冻结:+ 64.8 总赚取:+ 97.2
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:298
+[活动短信] id:3335 成功,给卖家:13564699882 发送短信,project:fyiCw2,option:{"username":"13564699882","activity":"Crazy\u78a7\u6c60\u56e2T\uff0c\u53c8\u6709\u4e86","salesNum":22,"money":162}
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:311
+[活动短信] id:3335 成功,给生产负责人:18601628937 发送短信,project:4NOd3,option:{"activityId":3335,"activityTitle":"Crazy\u78a7\u6c60\u56e2T\uff0c\u53c8\u6709\u4e86"}
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:212
+[活动] id:3360 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:14
+[活动] id:3360 更新状态为:2 活动失败
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3360 失败,给卖家:15861809807 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"llllll","username":"15861809807"}
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:212
+[活动] id:3390 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:14] [debug] [1] /model/service/activity.php:14
+[活动] id:3390 更新状态为:2 活动失败
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3390 失败,给卖家:15751003175 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u6211\u6765\u81ea\u4e2d\u56fd","username":"15751003175"}
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:212
+[活动] id:3443 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:14
+[活动] id:3443 更新状态为:2 活动失败
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3443 失败,给卖家:15195809906 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"DDDDD","username":"15195809906"}
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:212
+[活动] id:3481 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:14
+[活动] id:3481 更新状态为:2 活动失败
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3481 失败,给卖家:13817301496 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u82b1\u74e3\u534f\u4f1a","username":"13817301496"}
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:212
+[活动] id:3483 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:14
+[活动] id:3483 更新状态为:2 活动失败
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3483 失败,给卖家:13817301496 发送短信,project:oWwG62,option:{"salesNum":0,"activity":".0","username":"13817301496"}
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:212
+[活动] id:3500 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:14
+[活动] id:3500 更新状态为:2 活动失败
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3500 失败,给卖家:15813350967 发送短信,project:oWwG62,option:{"salesNum":0,"activity":".......................","username":"15813350967"}
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:212
+[活动] id:3506 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:15] [debug] [1] /model/service/activity.php:14
+[活动] id:3506 更新状态为:2 活动失败
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3506 失败,给卖家:15151959751 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"4ry","username":"sunshine"}
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:212
+[活动] id:3521 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:14
+[活动] id:3521 更新状态为:2 活动失败
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3521 失败,给卖家:13761728349 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"1111111","username":"13761728349"}
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:212
+[活动] id:3548 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:14
+[活动] id:3548 更新状态为:2 活动失败
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3548 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"uuuuuuuujuuuuuuuuuuuuuuuuuuuu","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:212
+[活动] id:3658 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:14
+[活动] id:3658 更新状态为:2 活动失败
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3658 失败,给卖家:13681895904 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"SHZY","username":"13681895904"}
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:212
+[活动] id:3751 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:14
+[活动] id:3751 更新状态为:2 活动失败
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3751 失败,给卖家:15950599671 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u963f\u65af\u987f\u53d1\u751f","username":"15950599671"}
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:212
+[活动] id:3765 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:16] [debug] [1] /model/service/activity.php:14
+[活动] id:3765 更新状态为:2 活动失败
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3765 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u5c06\u5c06\u8ba1\u5c31\u8ba1","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:212
+[活动] id:3774 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:14
+[活动] id:3774 更新状态为:2 活动失败
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3774 失败,给卖家:15221110540 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"wwwwwwwwwwww","username":"\u987e\u957f\u751f"}
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:212
+[活动] id:3886 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:14
+[活动] id:3886 更新状态为:2 活动失败
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3886 失败,给卖家:13816279481 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u63d0\u83ab\u732b\u52a8\u6f2b\u5c55\u5b9a\u5236T\u6064","username":"13816279481"}
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:3894 当前销量:10 目标销量:10 成本计算销量:10 颜色数:3
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:3894 单件印花成本:24 印花总成本:240
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:3894 不包含印花利润:241.00 - 印花总成本:240 = 利润:1
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:287
+[活动] id:3894 完成销售目标 销售数量:10 销售目标:10 利润:1
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:24
+[活动] id:3894 状态为:2,活动成功结束
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:66
+[利润结算] 活动:3894 用户:506 利润:1 
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:71
+[帐户余额] 用户:506 可提现:+ 0.6 暂时冻结:+ 0.4 总赚取:+ 0.6
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:298
+[活动短信] id:3894 成功,给卖家:18201717898 发送短信,project:fyiCw2,option:{"username":"\u90a3\u5e74\u90a3\u6708","activity":"\u9f99\u57ce\u5c81\u6708--\u6700\u70ab\u4e2a\u6027T\u6064","salesNum":10,"money":1}
+[2015:09:24 21:29:17] [debug] [1] /model/service/activity.php:311
+[活动短信] id:3894 成功,给生产负责人:18601628937 发送短信,project:4NOd3,option:{"activityId":3894,"activityTitle":"\u9f99\u57ce\u5c81\u6708--\u6700\u70ab\u4e2a\u6027T\u6064"}
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:212
+[活动] id:3919 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:14
+[活动] id:3919 更新状态为:2 活动失败
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3919 失败,给卖家:15061882513 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u73ed\u670d","username":"susie\u9752\u6625\u7eaa"}
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:212
+[活动] id:3922 销售数量:0 小于 10 结束活动,处理订单退款
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:14
+[活动] id:3922 更新状态为:2 活动失败
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:221
+[活动短信] id:3922 失败,给卖家:15061882513 发送短信,project:oWwG62,option:{"salesNum":0,"activity":"\u73ed\u670d","username":"susie\u9752\u6625\u7eaa"}
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:3937 当前销量:33 目标销量:33 成本计算销量:33 颜色数:7
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:3937 单件印花成本:30.129375 印花总成本:994.269375
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:3937 不包含印花利润:1006.50 - 印花总成本:994.269375 = 利润:12.23
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:287
+[活动] id:3937 完成销售目标 销售数量:33 销售目标:33 利润:12.23
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:24
+[活动] id:3937 状态为:2,活动成功结束
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:66
+[利润结算] 活动:3937 用户:821 利润:12.23 
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:71
+[帐户余额] 用户:821 可提现:+ 7.338 暂时冻结:+ 4.892 总赚取:+ 7.338
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:298
+[活动短信] id:3937 成功,给卖家:15061882513 发送短信,project:fyiCw2,option:{"username":"susie\u9752\u6625\u7eaa","activity":"\u536b\u8863 \u73ed\u670d","salesNum":33,"money":12.23}
+[2015:09:24 21:29:18] [debug] [1] /model/service/activity.php:311
+[活动短信] id:3937 成功,给生产负责人:18601628937 发送短信,project:4NOd3,option:{"activityId":3937,"activityTitle":"\u536b\u8863 \u73ed\u670d"}
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:191
+------
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:41
+[印花成本] 活动:4201 当前销量:14 目标销量:14 成本计算销量:14 颜色数:5
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:47
+[印花成本] 活动:4201 单件印花成本:29 印花总成本:406
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:55
+[印刷成本] 活动:4201 不包含印花利润:588.00 - 印花总成本:406 = 利润:182
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:287
+[活动] id:4201 完成销售目标 销售数量:14 销售目标:14 利润:182
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:24
+[活动] id:4201 状态为:2,活动成功结束
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:66
+[利润结算] 活动:4201 用户:900 利润:182 
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:71
+[帐户余额] 用户:900 可提现:+ 109.2 暂时冻结:+ 72.8 总赚取:+ 109.2
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:298
+[活动短信] id:4201 成功,给卖家:13501908306 发送短信,project:fyiCw2,option:{"username":"13501908306","activity":"\u827e\u6162\u8dd1\u8dd1\u56e2 \u56e2\u670d\u9996\u6279\u5b9a\u5236","salesNum":14,"money":182}
+[2015:09:24 21:29:19] [debug] [1] /model/service/activity.php:311
+[活动短信] id:4201 成功,给生产负责人:18601628937 发送短信,project:4NOd3,option:{"activityId":4201,"activityTitle":"\u827e\u6162\u8dd1\u8dd1\u56e2 \u56e2\u670d\u9996\u6279\u5b9a\u5236"}
