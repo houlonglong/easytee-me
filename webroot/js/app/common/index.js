@@ -25,13 +25,13 @@ $(function () {
         $('html,body').animate({scrollTop: 0}, 500);
     });
 
-    $('.forget a').click(function (event) {
+    /*$('.forget a').click(function (event) {
         $('.reset-con').addClass('show').siblings().removeClass('show');
     });
 
     $('.zc-link a').click(function (event) {
         $('.register').addClass('show').siblings().removeClass('show');
-    });
+    });*/
 
 //登录时判断手机正则
 	var reg = /(1[3-9]\d{9}$)/;
@@ -109,12 +109,12 @@ $(function () {
     function time(a) {
         if (wait == 0) {
             a.removeAttribute("disabled");
-            $("#testing").html("获取验证码").css('background', '#fff');
+            $(a).html("获取验证码").css('background', '#fff');
             wait = 60;
 
         } else {
             a.setAttribute("disabled", true);
-            $("#testing").html(wait + "后重新发送").css('background', '#eee');
+            $(a).html(wait + "后重新发送").css('background', '#eee');
             wait--;
             clearTimeout(timer);
             timer = setTimeout(function () {
@@ -122,6 +122,7 @@ $(function () {
             }, 1000);
         }
     }
+
 
     $('#testing').click(function (event) {
         resPass = $("#res-pass").val();
@@ -154,7 +155,7 @@ $(function () {
     $(".denglu input").keyup(function (event) {  //过滤文字中间的空格
         $(this).val($(this).val().replace(/(^\s*)|(\s*$)/g, ""));
         $.trim($(".denglu input"));  //过滤文字两边的空格；
-        $('div').removeClass('err test-err wrong Prompt');  //每次输入时去掉错误提示
+        $('div').removeClass('err test-err wrong Prompt phone-err');  //每次输入时去掉错误提示
     });
     
     //点击重置判断密码的正则
@@ -231,6 +232,7 @@ $(function () {
 	var regPhone=$('#reg-phone').val();
 	var regTest=$('#reg-test').val();
 	var regPass=$('#reg-pass').val();
+	
 	$('#reg-testing').click(function(event) {
 		 regPhone=$('#reg-phone').val();
 		 regTest=$('#reg-test').val();
@@ -285,13 +287,128 @@ $(function () {
 			},
 			success:function(){
 				if(status===0){
-					$('.zc-success').addClass('show').siblings('div').removeClass('show');
+					$('.reg-success').addClass('show').siblings('div').removeClass('show');
                     fn();
 				}
 			}
 		})
+	});
 
+	//关联已有账户
+	$('.agree2').click(function(event) {
+		var relPhone=$('#rel-phone').val();
+		var relPass= $('#rel-pass').val();
+		var reg2 = /^[\S]{6,32}$/;
+
+		if (!reg.test(relPhone)) {
+            //alert("请输入正确格式的手机号码！");
+            $('#rel-phone').parent().addClass('err').children('i').html('输入错误');/**/
+            return false;
+        } else {
+            $('#rel-phone').parent().removeClass('err').children('i').html('未注册账号');
+        }
+
+        
+        if(relPass==''){
+        	$("#rel-pass").parent().addClass('err').children('i').html('请输入密码');
+        	return;
+        }else{
+        	$("#rel-pass").parent().removeClass('err').children('i').html('密码错误');
+        }
+
+        $.ajax({
+        	type:'post',
+        	url :'',
+        	data:{
+        		relPhone:'relPhone',
+        		relPass :'relPass'
+        	},
+        	success:function(){
+        		if(status===0){
+        			$('.rel-success').addClass('show').siblings('div').removeClass('show');
+        		}
+        	}
+        })
 
 	});
+
+
+	//关联手机账户
+    /*$('.guanlian-sj').click(function(event) {
+        event.stopPropagation();
+    });
+    $('.guanlian-sj label').click(function(event) {
+        event.stopPropagation();
+    });*/
+    $('#relP-testing').click(function(event) {
+        var relPphone=$('#relP-phone').val();
+        var reg = /(1[3-9]\d{9}$)/;
+        if (!reg.test(relPphone)) {
+            //alert("请输入正确格式的手机号码！");
+            $('#relP-phone').parent().addClass('phone-err');/*.children('i').html('输入错误');*/
+            return false;
+        } else {
+            $('#relP-phone').parent().removeClass('phone-err')
+        }
+        //time(this);测试
+        $.get('/login', {
+            phone1: 'relPphone',
+        }, function () {
+            if (status == 0) {
+                time(this);
+            } else {
+                $('#relP-phone').parent().addClass('phone-err');
+            }
+        })
+    });
+
+    $('#agree1').click(function(event) {
+        var relPphone=$('#relP-phone').val();
+        var relPtest=$('#relP-test').val();
+        var relPpass=$('#relP-pass').val();
+        var reg2 = /^[\S]{6,32}$/;
+        var reg = /(1[3-9]\d{9}$)/;
+        
+        if (!reg.test(relPphone)) {
+            //alert("请输入正确格式的手机号码！");
+            $('#relP-phone').parent().addClass('phone-err');/*.children('i').html('输入错误')*/
+            return false;
+        } else {
+            $('#relP-phone').parent().removeClass('phone-err');
+        }
+
+        if(relPtest==''){
+            $("#relP-test").parent().addClass('err').children('i').html("请输入验证码");
+            return;
+        }else{
+            $("#relP-test").parent().removeClass('err').children('i').html("验证码错误");
+        }
+        
+        //密码问题
+        if (!reg2.test(relPpass)) {
+            //alert("密码格式错误");
+            $("#relP-pass").parent().addClass('err');
+            return;
+        } else {
+            $("#relP-pass").parent().removeClass('err');
+        }
+        
+        $.ajax({
+            type:'post',
+            url:"",
+            data:{
+                phone:'relPphone',
+                Test:'relPtest',
+                userPass:'relPpass'
+            },
+            success:function(){
+                if(status===0){
+                    $('.rel-success').addClass('show').siblings('div').removeClass('show');
+                    fn();
+                }
+            }
+        })
+
+    });
 
 });//结尾括号
