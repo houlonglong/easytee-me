@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>易衫网-服装在线设计工具</title>
+    <style type="text/css">
+        body {
+            background: #f2f2f2;
+        }
+    </style>
+
+    <!-- launcher -->
+    <script src="../common/js/launcher.txt" type="text/javascript"></script>
+    <script type="text/javascript">
+        //获取编辑器配置
+        var flashvars = null;
+        try {
+            flashvars = window.parent.flashvars;
+        } catch (ex) { }
+        if (!flashvars) {
+            flashvars = {};
+            //跨域的情况下，通过URL获取配置
+            var match,
+                    pl = /\+/g,  //正则表达式用空格分隔
+                    search = /([^&=]+)=?([^&]*)/g,
+                    decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+                    query = window.location.search.substring(1);
+
+            while (match = search.exec(query))
+                flashvars[decode(match[1])] = decode(match[2]);
+        }
+    </script>
+</head>
+<body class="ds-iframe">
+<script type="text/javascript">
+    flashvars.EmbedType = "inline";//防止死循环
+    launchDesigner("ds", flashvars, document.body);
+</script>
+</body>
+</html>

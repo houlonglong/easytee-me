@@ -1,0 +1,35 @@
+﻿<div class="isd-custom-control" ng-init="offset = 0; pageSize = 999;">
+  <div class="isd-header">
+    Manage Layers
+    <div ng-show="layers.length" style="display:inline-block;" class="p">( {{layers.length}} )</div>
+  </div>
+  <div class="isd-scrollbar isd-slider-2">
+    <div class="isd-layer-block isd-clearfix" ng-repeat="layer in layers"
+         ng-show="$index >= offset && $index < offset + pageSize">
+      <div class="isd-slider-image">
+        <a ng-style="{'background-color':layer.layerBackgroundColor}" ng-click="selectLayer(layer)">
+          <div id="livePreview{{layer.id}}" ng-bind-html="layer.previewHtml">
+
+          </div>
+          <!--<div style="padding-top:35px;text-align:center;" ng-show="layer.canvas_text_id">{{layer.value}}</div>-->
+        </a>
+      </div>
+      <div class="isd-move-event" style="width: 130px;">
+        <div class="isd-clearfix ">
+          <a class="isd-flat-icons fi-move-layer-down" ng-click="moveLayerDown(layer)" is-tooltip="44"
+             style="margin-left:15px;position: absolute;top: 60px;left:94px" is-disabled="$last"
+             ng-disabled="$last"></a>
+
+          <a class="isd-flat-icons isd-remove" ng-click="deleteLayer(layer)"
+             style="position: absolute;top: 31px;right: 0;"></a>
+
+          <a class="isd-flat-icons fi-move-layer-up isd-disabled" is-disabled="$first" ng-disabled="$first"
+             ng-click="moveLayerUp(layer)" is-tooltip="44" disabled="disabled"
+             style="position: absolute; margin-left: 15px; top: 11px; left: 94px"></a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

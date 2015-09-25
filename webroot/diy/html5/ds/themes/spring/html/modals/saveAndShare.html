@@ -1,0 +1,104 @@
+<div class="isd-light-container isd-top-left" ng-controller="SaveAndShareController">
+  <h1 ng-cloak>{{loginOnly ? "Login" : "Save & Share"}}</h1>
+
+  <div class="isd-light-main isd-clearfix">
+    <div class="isd-form-area isd-login">
+      <form ng-hide="showForgotPasswordForm" is-submit="logInExisting()" style="height: 300px;background-color: #fff;"
+            is-validate>
+        <div class="isd-error">{{login.error}}</div>
+        <h1 style="text-align: left;margin: 0px;padding-bottom: 10px;margin-bottom: 40px;">Login</h1>
+        <ul>
+          <li><span style="float:left;">email</span>
+
+            <div class="isd-clearfix" style="float:right;width:237px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="text" ng-model="login.email" is-auto-focus data-input-type="email"></div>
+          </li>
+          <li><span style="float:left;">password</span>
+
+            <div class="isd-clearfix" style="float:right;width:237px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="password" ng-model="login.password" data-input-type="password"></div>
+          </li>
+        </ul>
+        <a class="isd-forgot"
+           ng-click="showForgotPasswordForm = true; forgotPasswordSuccess = false; forgotPasswordError = false;">Forgot
+          your password?</a>
+        <input type="submit" class="montserrat isd-btn isd-button-primary" value="Log in"
+               style="float:right;clear:both;"/>
+      </form>
+
+      <form ng-show="showForgotPasswordForm" is-submit="submitForgotPassword()">
+        <div ng-show="forgotPasswordSuccess" class="isd-message p">
+          Found you! You should have an e-mail within the next few minutes with a new password.
+          Once you've got it, <a ng-click="showForgotPasswordForm = false">Click here to sign-in</a>.
+        </div>
+        <div ng-show="forgotPasswordError" class="isd-message p">
+          Sorry, we could not find an account with that e-mail address. Please try a different
+          e-mail address or register a new account.
+        </div>
+        <div class="isd-message p">
+          Enter your e-mail address to reset your password or go
+          <a ng-click="showForgotPasswordForm = false">back to the log in screen.</a>
+        </div>
+
+        <br><br>
+
+        <ul>
+          <li><span style="float:left;">email</span>
+
+            <div class="isd-clearfix" style="float:right;width:237px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="text" ng-model="login.email" data-input-type="email"></div>
+          </li>
+        </ul>
+        <br><br>
+        <input type="submit" class="montserrat isd-btn isd-button-default" value="Reset Password" style="float:right;"
+               required/>
+      </form>
+    </div>
+
+
+    <div class="isd-form-area isd-create-login">
+      <div class="isd-error">{{create.error}}</div>
+      <form is-submit="createAccount()">
+        <h1 style="text-align: left;margin: 0px;padding-bottom: 10px;margin-bottom: 40px;">Create Account</h1>
+        <ul>
+          <li><span style="float:left;">first name</span>
+
+            <div class="isd-clearfix" style="float:right;width:257px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="text" ng-model="create.firstName" data-input-type="name"></div>
+          </li>
+          <li><span style="float:left;">last name</span>
+
+            <div class="isd-clearfix" style="float:right;width:257px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="text" ng-model="create.lastName" data-input-type="name"></div>
+          </li>
+          <li><span style="float:left;">email</span>
+
+            <div class="isd-clearfix" style="float:right;width:257px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="text" ng-model="create.email" data-input-type="email"></div>
+          </li>
+          <li><span style="float:left;">desired password</span>
+
+            <div class="isd-clearfix" style="float:right;width:257px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="password" ng-model="create.password" data-input-type="password"></div>
+          </li>
+          <li><span style="float:left;">confirm password</span>
+
+            <div class="isd-clearfix" style="float:right;width:257px;">
+              <div class="isd-invalid-msg"></div>
+              <input class="isd-txt-btn" type="password" ng-model="create.passwordConfirm" data-input-type="password">
+            </div>
+          </li>
+        </ul>
+        <input type="submit" class="montserrat isd-btn isd-button-default" value="Sign up" style="float:right;"/>
+      </form>
+    </div>
+  </div>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>

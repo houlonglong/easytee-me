@@ -1,0 +1,10 @@
+﻿<h1>
+    发起众筹活动<div class="isd-flat-icons fi-secure" style="margin-top:-8px;"></div>
+</h1>
+<h5 class="isd-check-list" ng-repeat="step in previousSteps" ng-class="{'isd-active': $last}">
+    <a ng-show-modal="{{step.modalName}}">步骤 {{step.number + 1}}: {{step.description}}</a>
+</h5>
+<div ng-transclude></div>
+<h5 class="isd-check-list" ng-repeat="step in nextSteps" ng-class="{'isd-border-top': $first, 'isd-border-none': $last}">
+    <a ng-show-modal="{{step.modalName}}">步骤 {{step.number + 1}}: {{step.description}}</a>
+</h5>

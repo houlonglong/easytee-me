@@ -1,0 +1,12 @@
+﻿<div class="isd-light-container" ng-controller="DesignsAndClipArtController" style="width:610px; left:164px;">
+  <h1>选择剪贴画</h1>
+
+  <div class="isd-clipart isd-clearfix">
+
+    <a ng-show-modal="designIdeas" class="isd-btn isd-button-default" is-tooltip="9" ng-hide="disableDesigns">素材市场</a>
+    <a ng-show-modal="clipArt" class="isd-btn isd-button-default" is-tooltip="10" ng-hide="disableClipArt">剪贴画</a>
+    <a ng-show-modal="myArt" class="isd-btn isd-button-default" is-tooltip="13" ng-hide="disableUserArt"
+       style="margin-right:0px;">我的素材</a>
+  </div>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>

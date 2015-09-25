@@ -43,7 +43,7 @@ class Model_User_Auth extends BaseModel{
         $password = md5($password);
         if($user['password'] == $password){
             $user_info = array(
-                "nick_name"=>$user['nickname'] ? $user['nickname']:($user['mobile']?$user['mobile']:$user['email']),
+                "nick_name"=>$user['nick_name'] ? $user['nick_name']:($user['mobile']?$user['mobile']:$user['email']),
                 "mobile"=>$user['mobile'],
                 "email"=>$user['email'],
                 "uid"=>$user['id']

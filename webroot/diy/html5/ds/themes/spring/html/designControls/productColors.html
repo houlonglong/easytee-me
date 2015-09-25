@@ -1,0 +1,25 @@
+﻿<div class="isd-custom-control" style="display:none;">
+  <div class="isd-header">
+    Product Colors
+  </div>
+  <div class="isd-custom-selector">
+    <div class="isd-color-picker">
+      <div class="isd-sub-header">Current Product</div>
+      <p class="p">{{shortDescription}}</p>
+
+      <div class="isd-sub-header">Current Color</div>
+      <p class="p">{{colorDescription}}</p>
+
+      <div class="isd-sub-header">Available Colors</div>
+      <ul class="isd-clearfix">
+        <li ng-repeat="style in styles"
+            ng-class="{'isd-selected': style.product_style_id == selectedProductStyle.product_style_id}">
+          <div ng-click="selectStyle(style)" class="isd-productStyleColor1"
+               ng-style="{'background-color':'#' + style.html_color}"></div>
+          <div ng-click="selectStyle(style)" class="isd-productStyleColor2"
+               ng-style="{'background-color':'#' + (style.html_color2 || style.html_color)}"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

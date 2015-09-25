@@ -1,0 +1,102 @@
+﻿<!-- Light box content start here -->
+<div class="isd-light-container" ng-controller="SelectSizesController">
+  <cart-navigation step-number="1">
+    <div class="isd-step-2 isd-clearfix" ng-controller="GetQuoteController">
+      <div class="isd-get-product isd-clearfix" style="margin-top:0px;">
+
+        <div ng-show="readOnly" style="font-size:16px;margin-bottom:15px;">Your quantities and sizes have been entered
+          automatically from your <a ng-click="close()" is-show-drawer="namesAndNumbers" is-drawer-width="759px"
+                                     style="color:Blue;">Names and Numbers information</a>.
+        </div>
+        <!-- <table class="isd-getQuote isd-checkout-table">
+            <thead>
+                <tr>
+                    <th style="width:60px !important;">COLOR</th>
+                    <th ng-repeat="size in productStyleSizes" width="73">
+                        {{size.name}}
+                    </th>
+                </tr>
+            </thead>
+        </table> -->
+        <div class="isd-scrollbar"
+             style="height:233px; overflow:auto; max-width:915px; display:inline-block;position: relative;">
+          <div class="isd-checkout-table">
+            <div ng-repeat="sizeStyle in sizeStyles"
+                 style="border-bottom:1px solid #c9c9c9;padding-bottom:10px;display:inline-block;position:relative;">
+              <div class="isd-product-color"
+                   style="width:51px !important;display:inline-block;text-align:center;margin-top:13px;float:left;">
+                Color<br><br>
+                <a ng-style="{'background-color': '#' + sizeStyle.style.html_color}"
+                   ng-click="showStyleModal(sizeStyle, $index);styleModalVisible=false"
+                   class="isd-color-selector isd-color-selector-cart" style="margin-top: -3px;"
+                   data-color="{{sizeStyle.style.color}}" show-color-tooltip>
+                  <div class="isd-productStyleColor1"
+                       ng-style="{'background-color': getColorString(sizeStyle.style.html_color)}"
+                       style="width:50%;"></div>
+                  <div class="isd-productStyleColor2"
+                       ng-style="{'background-color': getColorString((sizeStyle.style.html_color2) ? sizeStyle.style.html_color2 : sizeStyle.style.html_color)}"
+                       style="width:50%;"></div>
+                </a>
+                </a>
+              </div>
+              <div style="display:block;width:915px;display:table-cell;">
+                <div ng-repeat="size in sizeStyle.sizes" class="isd-text-spinner"
+                     style="display:inline-block;text-align:center;margin-top:14px;float:left;position: relative;height: auto;">
+                  {{size.name}}<br><br>
+                  <input type="text" ng-model="size.quantity" class="isd-txt-btn" ng-change="quantityChanged(size)"
+                         ng-disabled="readOnly"/>
+
+                  <div class="isd-spinner-btn isd-in-cart">
+                    <a ng-click="readOnly || changeQuantity(size, 1)" class="isd-up">&nbsp;</a> <a
+                    ng-click="readOnly || changeQuantity(size, -1)"
+                    class="isd-down">&nbsp;</a>
+                  </div>
+                </div>
+              </div>
+              <div ng-style="{'top': sizeStyle.sizes.length > 9 ? '40%' : '26px'}"
+                   style="display: inline-block;position: absolute;right:0px;">
+                <a class="isd-flat-icons isd-remove" ng-click="readOnly || removeStyle(sizeStyle, $index)"
+                   ng-hide="readOnly"></a>
+              </div>
+            </div>
+          </div>
+          <ul ng-show="styleModalVisible" id="chooseStyleModal"
+              style="position:absolute;left:0px;top:{{styleModalIndex * 50 + 95}}px" class="isd-colorSelectors">
+            <li ng-repeat="style in allProductStyles" ng-show="style.html_color">
+              <a ng-click="selectStyle(style)" class="isd-color-selector isd-color-selector-cart"
+                 data-color="{{style.color}}" show-color-tooltip style="width:30px;height:30px;">
+                <div class="isd-productStyleColor1"
+                     ng-style="{'background-color': getColorString(style.html_color)}"></div>
+                <div class="isd-productStyleColor2"
+                     ng-style="{'background-color': getColorString((style.html_color2) ? style.html_color2 : style.html_color)}"></div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div style="margin-top:10px;">
+          <div class="isd-add-btn" style="top:44px;float:left;">
+            <a ng-hide="readOnly" ng-click="readOnly || addProductStyle()"><span><i>&nbsp;</i><small>Add another color
+            </small></span></a>
+          </div>
+          <div style="font-size: 14px;color: red;float: right;margin-right: 180px;"
+               ng-repeat="error in inventoryErrors">{{error}}
+          </div>
+          <div style="font-size: 14px;color: red;line-height: 40px;float: right;margin-right: 180px;"
+               ng-show="minimumQuantity > 0">Minimum order quantity: {{minimumQuantity}}
+          </div>
+          <a ng-click="nextStep()" class="isd-btn isd-button-primary isd-btn-continue">Continue</a>
+        </div>
+
+
+        <!-- <div class="isd-direction-arrow">
+            <a class="isd-direction-up" ng-show="pageOffset > 0" ng-click="previousPage()"><i>&nbsp;</i></a>
+            <a class="isd-direction-down" ng-show="pageOffset + pageSize < sizeStyles.length" ng-click="pageOffset = pageOffset + pageSize">
+                <i>&nbsp;</i></a>
+        </div> -->
+      </div>
+
+    </div>
+  </cart-navigation>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>
+<!-- Light box content end here -->
