@@ -24,10 +24,9 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="page-header">
                     <h1>
-                        Title
+                        设计工具
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            small
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
@@ -38,9 +37,10 @@
                                 <canvas id="canvas" width="500" height="500"></canvas>
                             </div>
                             <div class="col-xs-4">
-                                <div>
-                                    <input type="file" class="btn" id="file_select" multiple="multiple" />
-                                </div>
+                                <label class="btn btn-primary" for="file_select">
+                                    <input id="file_select" type="file" style="display:none;">
+                                    上传图片
+                                </label>
                                 <hr>
                                 <div>
                                     <input type="text" id="c_text"> <button class="btn" onclick="change_text()">修改</button>
@@ -84,6 +84,16 @@
    // });
     //canvas.add(rect);
     $(function(){
+        fabric.Image.fromURL("/test/LOL.png", function(oImg) {
+            // scale image down, and flip it, before adding it onto canvas
+            //oImg.scale(0.5).setFlipX(true);
+            canvas.add(oImg);
+        },{
+            width:200,
+            height:200,
+            left:100,
+            top:100
+        });
         $("#text1").keydown(function(){
             if(this.value){
                 console.log(this.value,texts['text1'])
