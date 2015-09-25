@@ -1,0 +1,80 @@
+﻿<div class="isd-light-container isd-top-left" ng-controller="ReviewOrderController">
+  <cart-navigation step-number="7">
+    <div class="isd-step-8 isd-clearfix">
+      <div class="isd-cart-namesNumbers" ng-show="showingNamesNumbers">
+      </div>
+      <div class="isd-review-order" ng-hide="showingNamesNumbers"
+           style="height:334px; overflow:auto; width:660px; margin-top:15px;">
+        <div class="isd-order-details isd-clearfix" ng-repeat="cartItem in cart.cart_retail_items"
+             style="position:relative;">
+          <div class="isd-slider-image">
+            <a style="cursor:default;"><img ng-src="{{cartItem.design_product_image_url}}"/></a>
+          </div>
+          <div class="isd-order-desc" ng-init="showNote=cartItem.note">
+            <h4 style="padding-bottom:0px;">
+              PRODUCT
+            </h4>
+            <span style="padding-top:6px;font-size:12px;">{{cartItem.product_name}}</span>
+            <textarea ng-show="showNote" ng-model="cartItem.note" ng-change="cartItem.updateNote = true"
+                      placeholder="Enter note here..."></textarea>
+            <a ng-click="showNote=1" ng-hide="showNote" style="position:absolute;top:88px;" class="isd-note">Add a
+              note</a>
+            <a ng-show="cartItem.hasNamesNumbers" ng-click="showNamesNumbers(cartItem)"
+               class="isd-blue-btn isd-cartNamesNumbers">View Names &amp; Numbers</a>
+          </div>
+          <div class="isd-order-data">
+            <h4 style="padding-bottom:4px;">
+              SIZE
+            </h4>
+            <ul>
+              <li ng-repeat="size in cartItem.selectedSizes">{{size.product_style_size_name}}</li>
+            </ul>
+          </div>
+          <div class="isd-order-data">
+            <h4 style="padding-bottom:4px;">
+              QUANTITY
+            </h4>
+            <ul>
+              <li ng-repeat="size in cartItem.selectedSizes">{{size.quantity}}</li>
+            </ul>
+            <a ng-click="editCart(cartItem)" style="color:#639811;margin-top:10px;">UPDATE</a>
+          </div>
+          <div class="isd-order-data" ng-hide="hidePricing">
+            <h4 style="padding-bottom:4px;">
+              SUBTOTAL
+            </h4>
+            <ul>
+              <li ng-repeat="size in cartItem.selectedSizes">{{formatPrice(size.subtotal)}}</li>
+            </ul>
+          </div>
+
+          <!--
+              Removing this because we don't support removing items at the order review stage.
+
+              <div class="isd-order-data" style="width: 50px;">
+              <h4 style="padding-bottom:12px;">&nbsp;</h4>
+              <a class="isd-flat-icons isd-remove" ng-click="deleteCartItem(cartItem)"></a>
+          </div>-->
+        </div>
+        <!-- <div class="isd-direction-arrow">
+            <a class="isd-direction-up" ng-show="pageOffset > 0" ng-click="previousPage()"><i>&nbsp;</i></a>
+            <a ng-show="pageOffset + pageSize < cart.cart_retail_items.length" ng-click="pageOffset = pageOffset + pageSize" class="isd-direction-down"><i>&nbsp;</i></a>
+        </div> -->
+      </div>
+      <div class="isd-total-review" ng-hide="showingNamesNumbers" style="padding-top:0px;">
+        <ul ng-hide="hidePricing">
+          <li><strong class="isd-lighter">SUBTOTAL</strong><strong
+            class="isd-right">{{formatPrice(cart.sub_total)}}</strong></li>
+          <li><strong class="isd-lighter">TAX</strong><strong
+            class="isd-right">{{formatPrice(cart.tax_amount)}}</strong></li>
+          <li><strong class="isd-lighter">DISCOUNT</strong><strong class="isd-right">{{formatPrice(cart.discount_total)}}</strong>
+          </li>
+          <li><strong>SHIPPING</strong><strong class="isd-right">{{formatPrice(cart.shipping_amount)}}</strong></li>
+          <li class="isd-total"><strong class="isd-right">{{formatPrice(cart.total_due)}}</strong></li>
+        </ul>
+        <button type="button" class="isd-btn isd-button-primary" ng-click="nextStep()">{{placeOrderText}}</button>
+      </div>
+    </div>
+  </cart-navigation>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>

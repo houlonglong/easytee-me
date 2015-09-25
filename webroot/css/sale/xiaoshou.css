@@ -349,6 +349,7 @@ a:hover{text-decoration:none; cursor: pointer;}
     left: 50%;
     top:50%;
     transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
     display: none;
 }
 .datu li.current{
@@ -420,6 +421,7 @@ a:hover{text-decoration:none; cursor: pointer;}
     left: 50%;
     top:50%;
     transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
 }
 .cha{
     position: absolute;
@@ -551,7 +553,7 @@ a:hover{text-decoration:none; cursor: pointer;}
     border: 4px solid transparent;
     border-right-color: #717071;
     transform: rotate(-135deg);
-
+     -webkit-transform: rotate(137deg);
 }
 
 .yanse-info.current .palette{
@@ -579,6 +581,7 @@ a:hover{text-decoration:none; cursor: pointer;}
     background: #fff;
     border-right:1px solid #b2b2b2;
     border-bottom:1px solid #b2b2b2;
+    -webkit-transform: rotate(137deg);
     transform: rotate(137deg);
     border-radius: 3px;
     box-shadow: 1px 1px 1px 0 #ccc;

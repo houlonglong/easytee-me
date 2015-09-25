@@ -1,0 +1,28 @@
+.tanceng{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(62,58,57,.8);
+    z-index: 20;
+    display: none;
+}
+.close{
+    position: fixed;
+    right: 30px;
+    top: 30px;
+    width: 50px;
+    height: 49px;
+    background: url(../common/images/close.png) no-repeat;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.tanceng>div .denglu{
+	-webkit-transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
+	position: fixed;
+	top:50%;
+	margin-top:0;
+}

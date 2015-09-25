@@ -1,0 +1,33 @@
+﻿<div class="isd-custom-control">
+  <div class="isd-header">
+    Edit Art
+  </div>
+  <div class="isd-custom-selector">
+    <div><span>Colors:</span><br/>
+
+      <div class="isd-color-selector" ng-repeat="color in colors track by $index"
+           style="float:none;display:inline-block;height:40px;" ng-click="showChangeColorModal($index)">
+        <a ng-style="{'background-color':color}" ng-class="transparentClass(color)" data-color="{{color}}"
+           ng-click="showColorModal($index)" show-color-tooltip>&nbsp;</a>
+      </div>
+    </div>
+    <ul class="isd-outline-size">
+      <li class="isd-nudge">
+        <span style="width:238px; float:left;text-align:left; margin-top:10px;">Nudge</span>
+
+        <div style="width:238px; float:left; ">
+          <a class="isd-flat-icons fi-down" style="margin-left:0px;" ng-click="nudge('down')"></a>
+          <a class="isd-flat-icons fi-up" ng-click="nudge('up')"></a>
+          <a class="isd-flat-icons fi-left" ng-click="nudge('left')"></a>
+          <a class="isd-flat-icons fi-right" ng-click="nudge('right')" style="clear:right;"></a>
+        </div>
+      </li>
+    </ul>
+
+
+    <a ng-click="replaceClipArt()" class="isd-replace-clip-art-link">
+      <span class="isd-flat-icons isd-replace-clip-art"></span>
+      Replace Clip Art
+    </a>
+  </div>
+</div>

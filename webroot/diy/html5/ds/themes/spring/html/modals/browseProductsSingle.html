@@ -1,0 +1,52 @@
+﻿<div name="product-window" class=" product-type-window filter-dialog header-dialog window">
+    <button type="button" class="close" ng-click="close()">×</button>
+    <div class=" product-type-selector filter-bar-selector"   ng-controller="ProductCategoriesController"  ng-init="pageSize = 999;">
+        <div class="filter-box">
+            <div class="product-type-filter">
+                <div class="header">
+                    <div class="filter-caret">
+                        <div class="caret active"></div>
+                    </div>
+                    <div class="right-panel">
+                        <div class="container">
+                            <div class="bread-crumbs">选择款式</div>
+                        </div>
+                        <div class="selectors"></div>
+                    </div>
+                </div>
+                <div class="filter-bar active" title="选择一个分类">
+                    <div class=" product-type-slider department">
+                        <div class="slider">
+                            <div class=" body department-bar">
+                                <ul class=" product-type-filter-items department-list">
+                                    <li  ng-click="selectCategoryByID($event)" ng-repeat="category in categoriesFlat">
+                                        <button class="department-button department-1" label="Men" value="{{category.id}}" is-attr="{disabled : category.isParent}">
+                                            <div class="icon">{{category.icon}}</div>
+                                            <div class="department">{{category.name}}</div>
+                                        </button>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" product-types list">
+            <div style="overflow: auto; top: 65px;" class="product-type-tile-list tile-list">
+                <ul>
+                    <li class="loaded" ng-click="selectProduct(product)" ng-repeat="product in products">
+                        <div style="position: relative;">
+                            <div class=" sprd-image product-type-image product-type-812">
+                                <div alt="{{product.name}}" ng-style="{'background-image':'url(' + product.thumburl_large + ')'}"></div>
+                            </div>
+                            <div class="product-type-price" ng-hide="{{hideProductPricing}}">￥{{product.unit_price}}</div>
+                            <div class="product-type-label" ng-bind-html="product.name"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

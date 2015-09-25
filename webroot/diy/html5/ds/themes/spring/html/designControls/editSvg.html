@@ -1,0 +1,36 @@
+﻿<form id="isd-editSvg">
+    <div class="form-group">
+        <label>所选素材</label>
+        <div class="form-control">
+            <img ng-src="{{imageSrc}}" style="max-height: 24px; max-width: 60px;position: relative;top:-3px"/>
+            <span class="glyphicon glyphicon-trash pull-right" ng-click="delobj()"></span>
+        </div>
+
+    </div>
+    <div class="form-group" ng-show="colors">
+        <label>颜色替换</label>
+        <div>
+            <div class="dropdown ds-colorsBox " ng-repeat="color in colors track by $index" >
+                <a  ng-style="{'background-color':color}" ng-class="transparentClass(color)" data-color="{{color}}" ng-click="showChangeColorModal($index,$event)"
+                    show-color-tooltip>&nbsp;</a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>对齐</label>
+        <div>
+            <a class="btn btn-default btn-sm" title="垂直居中" ng-click="align_vertical()">
+                <span class="glyphicon glyphicon glyphicon-object-align-horizontal"></span>
+            </a>
+            <a class="btn btn-default btn-sm" title="水平居中" ng-click="align_horizontal()">
+                <span class="glyphicon glyphicon-object-align-vertical"></span>
+            </a>
+            <a class="btn btn-default btn-sm" title="水平翻转" ng-click="resize_horizontal()">
+                <span class="glyphicon glyphicon-resize-horizontal"></span>
+            </a>
+            <a class="btn btn-default btn-sm" title="垂直翻转" ng-click="resize_vertical()">
+                <span class="glyphicon glyphicon-resize-vertical"></span>
+            </a>
+        </div>
+    </div>
+</form>

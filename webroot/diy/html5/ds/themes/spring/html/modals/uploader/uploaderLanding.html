@@ -1,0 +1,38 @@
+﻿<div id="uploaderLanding" class="isd-light-container isd-uploaderModal" ng-controller="UploaderLandingController">
+  <h1>
+    图片上传
+  </h1>
+
+  <div class="isd-uploaderModalBody isd-clearfix">
+    <div class="isd-modalSubtitle">您可以从您的计算机，平板电脑或手机上传图片</div>
+    <div id="uploadSources" class="isd-clearfix">
+      <div id="mobileUploadFromComputer" style="width: 100px;  display: inline-block;" class="isd-landingPageChoice isd-left">
+        来自电脑
+        <div style="height:82px;">
+          <img style="margin-top:23px;" ng-src="{{ezdLocation}}/ds/images/uploaderComputer.png"/>
+        </div>
+        <form id="uploadForm" style="display: inline">
+          <a onclick="$('#localUploadFile').trigger('click')" class="isd-btn isd-button-default">选择</a>
+          <input type="file" name="Filename" style="opacity:0;visibility:hidden;width:1px;height:1px;float:right;"
+                 id="localUploadFile" is-auto-load accept=".pdf,.eps,image/*"/>
+        </form>
+      </div>
+      <div id="mobileUploadFromComputer" class="isd-landingPageChoice isd-right" ng-hide="disableUploadRasterArt">
+        来自手机
+        <img ng-src="{{ezdLocation}}/ds/images/uploaderDevices.png" ng-hide="disableUploadRasterArt"/>
+        <a ng-click="mobileUpload()" style="width: 100px;  display: inline-block;" class="isd-btn isd-button-default">选择</a>
+      </div>
+    </div>
+    <div style="clear:both"></div>
+    <fieldset id="uploadLandingNotes">
+      <legend>支持的文件格式</legend>
+      <img ng-src="{{ezdLocation}}/ds/images/uploaderFileFormats.png"/>
+    </fieldset>
+
+    <fieldset id="uploadLandingCopyright">
+      <legend>版权声明</legend>
+      <p class="p">您提交的任何设计必须是您设计或者拥有合法使用权。你不得使用他人拥有的内容，除非你得到他们的许可。如果有人因为你的设计向我们索赔，您同意支付我们受到损失，包括律师费等任何损失.</p>
+    </fieldset>
+  </div>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>
