@@ -164,7 +164,7 @@ $(function () {
             htmlStr += '</div>';
             htmlStr += '<select name="" id="" class="chima-info">';
 
-            htmlStr += buildSizes(getProductSizes(getFirstProduct(item.products).id, ));
+            htmlStr += buildSizes(getProductSizes(getFirstProduct(item.products).id ));
 
             htmlStr += '</select>';
             htmlStr += '<div class="money-info">';

@@ -1,3 +1,49 @@
+
+<script type="text/javascript">
+	$(function() {
+		var reg = /(1[3-9]\d{9}$)/;
+    
+    $('.btnLogin').click(function (event) {
+        var tel = $("#phone").val();
+        var userName = $("#phone").val();
+        var userPass = $("#LoginPass").val();
+        var reg = /(1[3-9]\d{9}$)/;
+        if (!reg.test(tel)) {
+            //alert("请输入正确格式的手机号码！");
+            $('.tel').addClass('wrong').children('span').html('输入错误');
+            return false;
+        } else {
+            $('.tel').removeClass('wrong').children('span').html('');
+        }
+
+        var LoginP = $('#LoginPass').val();
+        if (!LoginP) {
+            $('.login-p').addClass('wrong').children('span').html('密码不能为空');
+            return;
+        } else {
+            $('.login-p').removeClass('wrong').children('span').html('');
+        }
+        //登录时发送的ajax 
+        $.ajax({
+            type: "post",
+            url: "",
+            data: {
+                userName: userName,
+                userPass: userPass
+            },
+            success: function (data) {
+                if (status === 0) {//0代表响应成功
+                    window.location.href = "";
+                } else {
+                    $('.denglu-con').addClass('wrong');
+                }
+
+            }
+        })
+
+    });
+	});
+</script>
 <div class="denglu">
 		<img src="/css/common/images/denglu-bg.png" >
 		<div>
@@ -16,7 +62,7 @@
 					<span class="hidden triangle">密码有误</span>
 				</div>
 				<div class="forget">
-					<a href="#">忘记密码</a>
+					<a href="javascrpit:;">忘记密码</a>
 				</div>
 				<div>
 					<a href="#" class="btnLogin">登录</a>
@@ -28,7 +74,7 @@
 					<a href="#" class="wx"></a>
 				</div>
 				<div class="zc-link">
-					<a href="#">没有账号？免费注册</a>
+					<a href="javascrpit:;">没有账号？免费注册</a>
 				</div>
 			</div>
 			
@@ -61,9 +107,5 @@
 					<a href="#">回当前页</a>
 				</div>
 			</div>
-			
-			
-
-			
 		</div>
 	</div>

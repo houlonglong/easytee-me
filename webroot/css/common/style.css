@@ -200,10 +200,11 @@ header{
 /* 正文开始 */
 .denglu{
     width: 826px;
-    height: 434px;
+    height: 446px;
     background: #f5f5f5;
     position:relative;
     left: 50%;
+    
     transform: translate(-50%,0);
     -webkit-transform: translate(-50%,0);
     border-radius: 10px;
@@ -211,7 +212,7 @@ header{
     margin-top: 100px;
     margin-bottom: 200px;
 }
-.denglu img{float: left;}
+.denglu img{float: left; height: 100%;}
 .denglu-con{
     height: 433px;
     margin-left: 351px;
@@ -273,33 +274,30 @@ header{
     background:#da3335;
 }
 .wrong input{
-	border-color: red;
+    border-color: red;
 }
 .hidden{display: none;}
 .wrong span{
-    color: red;
-    position: absolute;
-    width: 90px;
-    left:288px;
-    top:37px;
+   left: 0;
+   bottom: 32px;
     display: block;
 }
 
 .other-login>a{
-	float: left;
-	width: 26px;
+    float: left;
+    width: 26px;
     height: 25px;
     margin-left: 15px;
     cursor: pointer;
 }
 .qq{
-	background: url(images/share-qq1.png) no-repeat;
+    background: url(images/share-qq1.png) no-repeat;
 }
 .wb{
-	background: url(images/share-weibo1.png) no-repeat;
+    background: url(images/share-weibo1.png) no-repeat;
 }
 .wx{
-	background: url(images/share-weixin1.png) no-repeat;
+    background: url(images/share-weixin1.png) no-repeat;
 }
 .qq:hover{
     background: url(images/share-qq2.png) no-repeat;
@@ -311,7 +309,7 @@ header{
     background: url(images/share-weixin2.png) no-repeat;
 }
 .other-login span{
-	float: left;
+    float: left;
     /* margin-left: 83px; */
     padding-top: 5px;
     
@@ -374,27 +372,13 @@ header{
 .reset-con>div{position: relative;}
 .test-err i{
     position: absolute;
-    top:10px;
-    left:277px;
-    color: red;
-    width: 80px;
+    bottom:36px;
+    left:0px;
+    
     display: block;
 }
 .reset-con .test-err input{border-color: red;}
-/* .reset-con>div>input::-webkit-input-placeholder { text-align: center; }
-.reset-con>div>input::-moz-input-placeholder { text-align: center; }
-.reset-con>div>input::-ms-input-placeholder { text-align: center; }
-.reset-con>div>input.current{border-color: red;}
-.reset-con>div>input.current::-webkit-input-placeholder{
-        color:red;
-    }
 
-.reset-con>div>input.current::-moz-input-placeholder{
-        color:red;
-    }
-.reset-con>div>input.current::-ms-input-placeholder{
-        color:red;
-    } */
 .sj button{
     float: left;
     width: 83px;
@@ -427,17 +411,12 @@ div.err button{
     border-color: red;
 }
 .reset-con div.err i{
-    /* content: "抱歉无此账号"; */
     position: absolute;
-    right:-76px;
-    top:10px;
-    color: red;
+    bottom:32px;
+    left:0px;
     display: block;
-
 }
-/* .reset-con .sj button.current{
-    color: red;
-} */
+
 .reset-con .res-btn{
     display: block;
     margin:0 auto;
@@ -464,7 +443,7 @@ div.err button{
      width: 278px;
      margin-bottom: 30px;
      height: 35px;
-     text-indent: 15px;
+   /*   text-indent: 15px; */
 }
 
 .register .sj input{
@@ -485,6 +464,7 @@ div.err button{
     display: block;
     text-align:left;
     line-height: 24px;
+     text-indent: 15px;
 }
 
 .register h3{
@@ -531,11 +511,10 @@ div.err button{
     border-color: red;
 }
 
-.err i{
+.register  .err i{
     position: absolute;
-    right:-60px;
-    top:32px;
-    color: red;
+    left: 0;
+    bottom:10px;
     display: block;
 }
  .register .Prompt{
@@ -545,22 +524,10 @@ div.err button{
   .register .Prompt input{ border-color: red;}
  .Prompt i{
     position: absolute;
-    right:-86px;
-    top:32px;
-    color: red;
-    width: 90px;
-    text-align:left;
+    left: 0;
+    bottom:10px;
     display: block;
   }
-
-/*   .register .mm-err{
- 
-  position: relative;
- }
-.register .mm-err input{ border-color: red;}
-.register .mm-err input::-webkit-input-placeholder{
- color: red;
-} */
 
 
 /* 注册成功样式 */
@@ -612,7 +579,7 @@ div.err button{
 }
 .guanlian-sj h3{
     font-size: 18px;
-    line-height: 66px;
+    line-height: 60px;
 }
 .guanlian-sj p{
     width: 275px;
@@ -628,6 +595,7 @@ div.err button{
     border:none;
     border:1px solid #717071;
     border-radius: 5px;
+    text-indent: 10px;
 }
 .guanlian-sj div label{
     display: block;
@@ -640,52 +608,91 @@ div.err button{
 }
 
 .guanlian-sj button{
-    width: 277px;
-    height: 34px;
-    background: #a12625;
-    margin-bottom: 15px;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
+    float: left;
+    border-color:#717071 ;
+    height: 36px;
+    position: relative;
+    z-index: 10;
 }
-.guanlian-sj button.zc-link{
-    margin-top:10px;
+.guanlian-sj .sj input{
+    float: left;
+    width: 193px;
+    border-radius: 5px 0 0 5px;
+    margin-left: 98px;
+}
+.guanlian-sj button.zc-link1,.guanlian-sj button.agree1{
+    
     background: #ddd;
     color: #000;
+    width: 277px;
+    height: 34px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 0;
+    margin-left: 98px;
 }
-button.agree:hover{
+.guanlian-sj button.agree1{ background: #a12625; color: #fff; margin-bottom: 10px;}
+.guanlian-sj button.agree1:hover{
     background: #da3335;
 }
 .xieyi{
-    padding:15px 0;
+    padding:10px 0;
 }
 .xieyi a{
     color: #000;
     border-bottom: 1px solid #000;
 }
 
+ .guanlian-sj .phone-err{position: relative;}
+ .guanlian-sj .phone-err input{
+    width: 275px;
+    border-radius: 5px;
+    border-color: red;
+ }
+ .guanlian-sj .phone-err button{display: none;}
+ .guanlian-sj .phone-err i{
+    display: block;
+    bottom:-2px;
+ }
+
+ .triangle{
+    width: 140px;
+    height: 21px;
+    background: #ffd570;
+    position: absolute;
+    bottom:15px;
+    left: 108px;
+    line-height: 21px;
+    text-align: center;
+    border-radius: 3px;
+ }
+  .triangle:after{
+    content: "";
+    position: absolute;
+    left: 9px;
+    bottom:-15px;
+    border: 8px solid transparent;
+    border-right-color: #ffd570;
+    transform: rotate(-92deg);
+    -webkit-transform: rotate(-92deg);
+  }
+
 .guanlian-sj .err{position: relative;}
 .guanlian-sj .err input{
     border-color: red;
 }
 .guanlian-sj .err i{
-    /* content: "此号码已注册"; */
-    position: absolute;
-    right:19px;
-    top:44px;
-    color: red;
-
+   bottom:35px;
+    display: block;
 }
 
 .guanlian-account .err i{
-   /*  content: "未注册号码"; */
-    position: absolute;
-    right:19px;
-    top:44px;
-    color: red;
+   
+    display: block;
 }
-.guanlian-account .agree{
-    margin-top: 20px;
+.guanlian-account button.agree2{
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .denglu>div>div{display: none;}
