@@ -139,3 +139,17 @@ PHPSTORM 单步调试
 -------
 
     php bin/cli.php --model=tools/db/merge1 --action=run --env=develop
+    
+#supervisor
+-------
+
+    sudo apt-get install -y supervisor
+    
+    
+    [inet_http_server]
+    port = 0.0.0.0:9001
+    username = admin
+    password = easytee.me
+    
+
+url http://service.jzw.la:9001/
