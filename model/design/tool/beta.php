@@ -348,9 +348,16 @@ class Model_Design_Tool_Beta extends BaseModel {
 
         return $result;
     }
+
+    function action_design_init(){
+        $result['product_info'] = Model_Product::get_product_info();
+        $result['design'] = array();
+        $result['templates'] = array();
+        return $result;
+    }
     function action_product_get_cat_list($json){
         $cats = self::_db()->select_rows("select * from et_product_cat where enable = 'Y'");
-
+        return $cats;
         $productCate = array();
         foreach ($cats as $key => $val) {
             $productCate[] = array(

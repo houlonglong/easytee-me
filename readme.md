@@ -38,7 +38,7 @@
 - src: /webroot/user/forget_pass.php
 - api:
     - 获取手机验证码
-    - 提交重置信息 [
+    - 提交重置信息 
 
 
 活动预购
@@ -71,14 +71,13 @@
 ------
 - url: [http://2.dev.jzw.com/design](http://2.dev.jzw.com/design)
 - src: /webroot/design.php
-- api:
-    - 获取产品分类
-    - 获取设计信息
-    - 保存设计信息
-    - 获取活动信息
-    - 保存活动信息
+- api: [文档](http://git.ptphp.com/easytee/easytee-me/blob/master/docs/design/tool/beta.md)
+    - 获取设计初始化信息
+    - 计算印刷成本
+    - 保存设计
+    - 保存活动
+    - 查询活动 `url` 是否存在
     
-
 PHPSTORM 单步调试
 ======
 配置 php.ini

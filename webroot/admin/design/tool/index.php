@@ -10,6 +10,7 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
+    <link rel="stylesheet" href="design.css" class="ace-main-stylesheet" />
 
 </head>
 <body class="no-skin">
@@ -34,7 +35,18 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-xs-8">
-                                <canvas id="canvas" width="500" height="500"></canvas>
+                                <div class="main-content-wrapper">
+                                    <div class="editor-main-area">
+                                        <div id="canvas-wrapper" class="editor-area">
+                                            <div class="canvas-bg-wrapper">
+                                                <img class="canvas-bg" alt="" style="background-color: grey" src="http://cdn.open.easytee.me/products/2/front.png" style="-webkit-user-select: none;">
+                                                <div class="canvas-container" style="-webkit-user-select: none; width: 500px; height: 500px; left: 37.5px; top: 0px; position: absolute; z-index: 100; opacity: 1;">
+                                                    <canvas id="canvas" width="500" height="500"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xs-4">
                                 <label class="btn btn-primary" for="file_select">
@@ -56,94 +68,11 @@
 </div><!-- /.main-container -->
 <?php include(block("admin/block/scripts"))?>
 <script src="/js/libs/fabric/fabric.js"></script>
+<script class="reload" src="design.js"></script>
 <script class="reload" src="main.js"></script>
 
 <script>
-    function change_text(){
-        var val = $("#c_text").val();
-        texts['text1'] = new fabric.Text(val, { left: 160, top: 150 });
-        canvas.add(texts['text1']);
-    }
-    var canvas = new fabric.Canvas('canvas');
-    var texts = {};
-    var rect = new fabric.Rect({
-        top : 100,
-        left : 100,
-        width : 60,
-        height : 70,
-        fill : 'red'
-    });
-    //texts['text1'] = new fabric.Text('hello world', { left: 160, top: 150 });
-    //canvas.add(texts['text1']);
-    //fabric.Image.fromURL('http://www.easytee.me/resources/public/image/site-logo.png', function(oImg) {
-    //    console.log(oImg);
-    //    canvas.add(oImg);
-    //},{
-    //    left: 160,
-    //    top: 100,
-   // });
-    //canvas.add(rect);
-    $(function(){
-        fabric.Image.fromURL("/test/LOL.png", function(oImg) {
-            // scale image down, and flip it, before adding it onto canvas
-            //oImg.scale(0.5).setFlipX(true);
-            canvas.add(oImg);
-        },{
-            width:200,
-            height:200,
-            left:100,
-            top:100
-        });
-        $("#text1").keydown(function(){
-            if(this.value){
-                console.log(this.value,texts['text1'])
-                texts['text1'].setText(this.value);
-                canvas.renderAll();
-            }
-        });
-        $("#file_select").change(function(e){
-            if (!(window.File && window.FileList && window.FileReader)) {
-                return alert("不支持上传方法");
-            }
-            var files = e.target.files || e.dataTransfer.files;
-            var file = files[0];
-            console.log(file.name,file.type,file.size+"bytes",file);
-            if (file.type.indexOf("svg") > 0) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    //$("#result").html(e.target.result);
-                    fabric.loadSVGFromURL(e.target.result, function(objects, options){
-                        var obj = fabric.util.groupSVGElements(objects, options);
-                        obj.set({
-                            left: 100,
-                            top: 100
-                        });
-                        canvas.add(obj);
-                    });
-                }
-                reader.readAsDataURL(file);
-                //reader.readAsText(file);
-            }else if (file.type.indexOf("image") == 0) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var img_base64 = e.target.result;
-                    fabric.Image.fromURL(img_base64, function(oImg) {
-                        // scale image down, and flip it, before adding it onto canvas
-                        //oImg.scale(0.5).setFlipX(true);
-                        canvas.add(oImg);
-                    },{
-                        width:200,
-                        height:200,
-                        left:100,
-                        top:100
-                    });
-                    //console.log(img_base64);
-                    //$("#result").html('<img src="'+img_base64+'">');
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    });
+
 </script>
 </body>
 </html>
