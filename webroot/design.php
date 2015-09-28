@@ -40,7 +40,7 @@
                     <span class="form-label">文字内容</span>
                 </div>
                 <div class="form-row">
-                    <input id="addTextInput" class="form-control" type="text" placeholder="请输入文字"/>
+                    <textarea id="addTextInput" class="form-control" type="text" placeholder="请输入文字"></textarea>
                 </div>
                 <div class="form-row">
                     <span class="form-label">选择字体</span>
