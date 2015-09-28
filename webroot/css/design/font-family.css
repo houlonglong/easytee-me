@@ -1,28 +1,52 @@
 @font-face {
-    font-family: 'Helvetica';
+    font-family: 'helvetica';
     src:url('fonts/popular/helvetica-webfont.woff') format('woff');
 }
 @font-face {
-    font-family: 'Altehaasgrotesk';
+    font-family: 'russian';
+    src:url('fonts/popular/russian-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'altehaasgrotesk';
     src:url('fonts/popular/altehaasgrotesk-webfont.woff') format('woff');
 }
 @font-face {
-    font-family: 'Bebas';
+    font-family: 'bebas';
     src:url('fonts/popular/bebas-webfont.woff') format('woff');
 }
 @font-face {
-    font-family: 'College';
+    font-family: 'college';
     src:url('fonts/popular/college-webfont.woff') format('woff');
 }
 @font-face {
-    font-family: 'Creampuff';
+    font-family: 'creampuff';
     src:url('fonts/popular/creampuff-webfont.woff') format('woff');
 }
 @font-face {
-    font-family: 'Distantgalaxy';
+    font-family: 'distantgalaxy';
     src:url('fonts/popular/distantgalaxy-webfont.woff') format('woff');
 }
 @font-face {
-    font-family: 'Goudybookletter';
+    font-family: 'goudybookletter';
     src:url('fonts/popular/goudybookletter-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'lindenhill';
+    src:url('fonts/popular/lindenhill-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'lobster';
+    src:url('fonts/popular/lobster-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'museoslab';
+    src:url('fonts/popular/museoslab-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'permanentmarker';
+    src:url('fonts/popular/permanentmarker-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'wasabi';
+    src:url('fonts/popular/wasabi-webfont.woff') format('woff');
 }
