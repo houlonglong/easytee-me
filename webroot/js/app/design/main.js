@@ -585,6 +585,7 @@ $(function () {
                 }
                 if (!ds) {
                     ds = new Ds('#ds', product.sides);
+                    ds.call('setSvgIcon', '/js/app/design/vendor/etds/svg/zoom_in_light.svg', '/js/app/design/vendor/etds/svg/zoom_out_light.svg', '/js/app/design/vendor/etds/svg/zoom_in.svg', '/js/app/design/vendor/etds/svg/zoom_out.svg');
                 } else {
                     ds.load(product);
                 }
