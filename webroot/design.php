@@ -372,64 +372,6 @@
                 <span></span>
             </li>
         </ul>
-        <ul class="color-column">
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-        </ul>
-        <ul class="color-column">
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-        </ul>
     </div>
 </div>
 </body>

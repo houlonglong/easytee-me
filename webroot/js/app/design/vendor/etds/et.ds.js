@@ -1487,6 +1487,12 @@ function Canvas(container, options){
             y: options.printable.y || 100,
             width: options.printable.width || 215,
             height: options.printable.height || 300
+        },
+        svgIcon: {
+            zoomIn: 'ds/svg/zoom_in.svg',
+            zoomOut: 'ds/svg/zoom_out.svg',
+            zoomInLight: 'ds/svg/zoom_in_light.svg',
+            zoomOutLight: 'ds/svg/zoom_out_light.svg'
         }
     };
     var target;
@@ -1732,6 +1738,17 @@ function Canvas(container, options){
         $('.ghost-image', target).attr('src', opt.image);
         this.setPrintable()
     };
+
+    this.setSvgIcon = function(zoomInLight, zoomOutLihgt, zoomIn, zoomOut){
+        opt.svgIcon.zoomIn = zoomIn;
+        opt.svgIcon.zoomOut = zoomOut;
+        opt.svgIcon.zoomInLight = zoomInLight;
+        opt.svgIcon.zoomOutLight = zoomOutLihgt;
+        $('.printable-area-zoom-image', target).eq(0).attr('src', zoomInLight);
+        $('.printable-area-zoom-image', target).eq(1).attr('src', zoomOutLihgt);
+        $('.printable-area-zoom-image', target).eq(2).attr('src', zoomIn);
+        $('.printable-area-zoom-image', target).eq(3).attr('src', zoomOut);
+    };
     //------------------------------------------
 
     function init(){
@@ -1745,10 +1762,10 @@ function Canvas(container, options){
         html += '<div class="printable-area-toolbar">';
         html += '<span>设计区域</span>';
         html += '<div class="printable-area-zoom">';
-        html += '<img class="printable-area-zoom-image no-select" src="ds/svg/zoom_in_light.svg">';
-        html += '<img class="printable-area-zoom-image no-select" src="ds/svg/zoom_out_light.svg">';
-        html += '<img class="printable-area-zoom-image zero-opacity no-select" src="ds/svg/zoom_in.svg">';
-        html += '<img class="printable-area-zoom-image zero-opacity no-select" src="ds/svg/zoom_out.svg">';
+        html += '<img class="printable-area-zoom-image no-select" src="'+opt.svgIcon.zoomInLight+'">';
+        html += '<img class="printable-area-zoom-image no-select" src="'+opt.svgIcon.zoomOutLight+'">';
+        html += '<img class="printable-area-zoom-image zero-opacity no-select" src="'+opt.svgIcon.zoomIn+'">';
+        html += '<img class="printable-area-zoom-image zero-opacity no-select" src="'+opt.svgIcon.zoomOut+'">';
         html += '</div>';
         html += '</div>';
         html += '</div>';
@@ -1972,15 +1989,20 @@ function Ds(target, options){
         return obj;
     }
 
-    //------------------------------
+    this.setSvgIcon = function(zoomInLight, zoomOutLihgt, zoomIn, zoomOut){
+        for(var i=0; i<canvases.length; i++){
+            var canvas = canvases[i];
+            canvas['setSvgIcon'].call(canvas, zoomInLight, zoomOutLihgt, zoomIn, zoomOut);
+        }
+    };
+
     this.autoAlign = function(status){
         for(var i=0; i<canvases.length; i++){
             var canvas = canvases[i];
             canvas['autoAlign'].call(canvas, status);
         }
-    }
+    };
 
-    //�޸Ķ�Ӧid��canvas�ı�����printable
     this.load = function(options){
         for(var o in options){
             var option = options[o];
