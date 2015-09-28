@@ -69,7 +69,7 @@
                     </div>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
-                            <div class="design-dropdown-color">
+                            <div class="design-dropdown-color" id="textFillColor">
                                 <span style="background: #000000;"></span>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
-                            <div class="design-dropdown-color">
+                            <div class="design-dropdown-color" id="strokeColor">
                                 <span style="background: #ffffff;"></span>
                             </div>
                         </div>
@@ -326,7 +326,7 @@
     <div id="design_selected_tools" class="design-selected-tools">
         <div class="form-row">
             <div class="form-label">
-                <input type="checkbox" id="snapCenter"/>
+                <input type="checkbox" id="snapCenter" checked/>
                 <label for="snapCenter">引导居中</label>
             </div>
         </div>
