@@ -33,7 +33,7 @@ $(function () {
         var userName = $("#phone").val();
         var userPass = $("#LoginPass").val();
         
-        var reg = /(1[3-9]\d{9}$)/;
+
         if (!reg.test(tel)) {
             //alert("请输入正确格式的手机号码！");
             $('.tel').addClass('wrong').children('span').html('输入错误');
@@ -55,7 +55,7 @@ $(function () {
             url: "/api",
             data: {
                 mobile: userName,
-                password: userPass,
+                password:sha1(userPass),
                 action:"login",
                 redirect:"/user/index",
                 model: "user/auth"
@@ -78,7 +78,7 @@ $(function () {
 //z重置密码
 
     //60s倒计时
-    var wait = 60;
+  var wait = 60;
     var timer = null;
     var resPass = $("#res-pass").val();
     var resPass2 = $("#res-pass2").val();
@@ -92,7 +92,7 @@ $(function () {
             wait = 60;
 
         } else {
-            a.setAttribute("disabled", true);
+            a.attr("disabled",true);
             $(a).html(wait + "后重新发送").css('background', '#eee');
             wait--;
             clearTimeout(timer);
@@ -117,13 +117,14 @@ $(function () {
         } else {
             $('.reset-con .sj').removeClass('err');
         }*/
-
+        var that=$(this);
+         time(this);
         $.get('/login', {
             model: "user/register",
             phone: $("#res-phone").val()
         }, function () {
             if (status == 0) {
-                time(this);
+                time(that);
             } else {
                 $(".reset-con .sj").addClass('err');
             }
@@ -212,8 +213,9 @@ $(function () {
 	var regPhone=$('#reg-phone').val();
 	var regTest=$('#reg-test').val();
 	var regPass=$('#reg-pass').val();
-	
+
 	$('#reg-testing').click(function(event) {
+
 		 regPhone=$('#reg-phone').val();
 		 regTest=$('#reg-test').val();
 		 regPass=$('#reg-pass').val();
@@ -225,6 +227,20 @@ $(function () {
         } else {
             $('#reg-phone').parent().removeClass('err');
         }
+
+        $.get("/api",
+            {  //注册时发送验证码
+                model: "user/register",
+                action: "get_code",
+                mobile: regPhone
+              },
+            function (response,sataus,xhr){
+            if(response.status==0){
+                time($('#reg-testing'));
+            }else if(response.status==1){
+                $('#reg-phone').parent().addClass('err').children('i').html('该账号已注册');
+            }
+        });
 
 	});
 
@@ -259,17 +275,22 @@ $(function () {
 		
 		$.ajax({
 			type:'post',
-			url:"",
+			url:"/api",
 			data:{
-				phone:'regPhone',
-				Test:'regTest',
-				userPass:'regPass'
+				model: "user/register",
+                action: "do_register",
+                redirect: "/order?id=1",
+                mobile:regPhone,
+                captcha:regTest,
+                password:sha1(regPass)
 			},
-			success:function(){
-				if(status===0){
-					$('.reg-success').addClass('show').siblings('div').removeClass('show');
+			success:function(data){
+				if(data.status===0){  //注册成功显示 成功页面 倒计时5秒返回首页或当前页
+                    $('.reg-success').addClass('show').siblings('div').removeClass('show');
                     fn();
-				}
+                }else if(data.status==80011){
+                    $("#reg-test").parent().addClass('Prompt').children('i').html("验证码错误");
+                }
 			}
 		})
 	});
@@ -390,5 +411,6 @@ $(function () {
         })
 
     });
+  //注册成功
 
 });//结尾括号
