@@ -511,7 +511,8 @@ $(function () {
             });
             $('.product-item').eq(0).click();
 
-            $('.product-color-picket .color-item').click(function () {
+            $('.product-color-picket .color-item').click(function (e) {
+                e.stopPropagation();
                 $('.color-item').removeClass('active');
                 $(this).addClass('active');
 
