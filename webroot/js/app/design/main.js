@@ -75,7 +75,7 @@ $(function () {
     /**
      * 初始化设计工具设置面板数据及事件
      */
-    function initLeftPanel() {
+    function initDsLeftPanel() {
         /**
          * 初始化Tabs及事件
          */
@@ -402,7 +402,7 @@ $(function () {
     /**
      * 初始化设计工具产品选择面板数据及事件
      */
-    function initRightPanel() {
+    function initDsRightPanel() {
         //模拟Ajax数据
         var categories = {
             1: {
@@ -614,7 +614,7 @@ $(function () {
     /**
      * 初始化设计工具产品预览面板数据及事件
      */
-    function initCenterPanel() {
+    function initDsCenterPanel() {
         /*
          * 切换正面、反面、左袖、右袖事件
          */
@@ -727,12 +727,8 @@ $(function () {
         });
 
         eventManager.on('unselectBox', function () {
-            var idx = $('.tab.active').index();
-            if (idx == 0) {
-                restoreTextLayer();
-            } else {
-                restoreImageLayer();
-            }
+            restoreTextLayer();
+            restoreImageLayer();
             disableDesignTools();
         });
 
@@ -743,8 +739,8 @@ $(function () {
     }
 
     //init
-    initLeftPanel();
-    initCenterPanel();
-    initRightPanel();
+    initDsLeftPanel();
+    initDsCenterPanel();
+    initDsRightPanel();
     initDsEvents();
 });
