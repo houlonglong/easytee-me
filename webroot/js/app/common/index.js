@@ -117,13 +117,14 @@ $(function () {
         } else {
             $('.reset-con .sj').removeClass('err');
         }*/
-
+        var that=$(this);
+         time(this);
         $.get('/login', {
             model: "user/register",
             phone: $("#res-phone").val()
         }, function () {
             if (status == 0) {
-                time(this);
+                time(that);
             } else {
                 $(".reset-con .sj").addClass('err');
             }

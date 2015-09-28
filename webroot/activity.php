@@ -47,7 +47,7 @@
                     <div>
                         <a href="#">消息</a>
                         <a href="#" id="popup-login">登录</a>
-                        <a href="#">注册</a>
+                        <a href="#" id="popup-register">注册</a>
                     </div>
                 </div>
             </nav>
