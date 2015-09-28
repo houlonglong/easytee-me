@@ -494,6 +494,20 @@ $(function () {
                 } else {
                     ds.load(sides);
                 }
+
+                var styles = productInfo.styles[productId];
+                var style;
+                for(var o in styles){
+                    if(styles[o].is_default == 1){
+                        style = styles[o];
+                        style.id = o;
+                        break;
+                    }
+                }
+                if(style){
+                    $('.color-item[data-id='+style.id+']').addClass('active');
+                    ds.call('productColor', '#'+style.color);
+                }
             });
             $('.product-item').eq(0).click();
 
