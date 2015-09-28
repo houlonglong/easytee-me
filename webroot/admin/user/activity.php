@@ -2,6 +2,9 @@
 <html lang="zh-CN">
 <head>
     <?php
+
+        $uid = empty($_REQUEST['uid'])?"":$_REQUEST['uid'];
+
     /**
      * 众筹管理
      *
@@ -36,6 +39,44 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
+                        <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                            <li >
+                                <a data-toggle="tab" onclick="location.href='/admin/user/modify?id=<?=$uid?>'">基本信息</a>
+                            </li>
+
+                          <!--  <li>
+                                <a data-toggle="tab" href="#profile4">认证</a>
+                            </li>-->
+
+                            <li>
+                                <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/addr?uid=<?=$uid?>'">收货地址</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
+                            </li>
+
+                            <li class="active">
+                                <a data-toggle="tab" onclick="location.href='/admin/user/activity?uid=<?=$uid?>'">发起的活动</a>
+                            </li>
+
+<!--                            <li>-->
+<!--                                <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/order?uid=--><?//=$uid?>//'">订单详情</a>
+//                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
+                            </li>
+
+                            <li>
+
+                                <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/finance_flow?uid=<?=$uid?>'">交易明细</a>
+                            </li>
+
+                            <li>
+                                <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/oauth?uid=<?=$uid?>'">第三方绑定</a>
+                            </li>
+                        </ul>
 
                         <div class="row">
                             <div class="col-xs-12">

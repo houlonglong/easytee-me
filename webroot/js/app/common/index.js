@@ -33,7 +33,7 @@ $(function () {
         var userName = $("#phone").val();
         var userPass = $("#LoginPass").val();
         
-        var reg = /(1[3-9]\d{9}$)/;
+
         if (!reg.test(tel)) {
             //alert("请输入正确格式的手机号码！");
             $('.tel').addClass('wrong').children('span').html('输入错误');
@@ -78,7 +78,7 @@ $(function () {
 //z重置密码
 
     //60s倒计时
-    var wait = 60;
+  var wait = 60;
     var timer = null;
     var resPass = $("#res-pass").val();
     var resPass2 = $("#res-pass2").val();
@@ -92,7 +92,7 @@ $(function () {
             wait = 60;
 
         } else {
-            a.setAttribute("disabled", true);
+            a.attr("disabled",true);
             $(a).html(wait + "后重新发送").css('background', '#eee');
             wait--;
             clearTimeout(timer);
@@ -213,9 +213,9 @@ $(function () {
 	var regPhone=$('#reg-phone').val();
 	var regTest=$('#reg-test').val();
 	var regPass=$('#reg-pass').val();
-	
+
 	$('#reg-testing').click(function(event) {
-        
+
 		 regPhone=$('#reg-phone').val();
 		 regTest=$('#reg-test').val();
 		 regPass=$('#reg-pass').val();
@@ -228,11 +228,13 @@ $(function () {
             $('#reg-phone').parent().removeClass('err');
         }
 
-        $.get("/api",{  //注册时发送验证码
-            model: "user/register",
-            action: "get_code",
-            mobile: regPhone
-        },function (response,sataus,xhr){
+        $.get("/api",
+            {  //注册时发送验证码
+                model: "user/register",
+                action: "get_code",
+                mobile: regPhone
+              },
+            function (response,sataus,xhr){
             if(response.status==0){
                 time($('#reg-testing'));
             }else if(response.status==1){
@@ -409,5 +411,6 @@ $(function () {
         })
 
     });
+  //注册成功
 
 });//结尾括号

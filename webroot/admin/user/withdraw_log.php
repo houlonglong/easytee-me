@@ -43,16 +43,16 @@
                                             <a data-toggle="tab" href="#profile4">认证</a>
                                         </li>
 
-                                        <li>
-                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/addr?uid=<?=$uid?>'">收货地址</a>
+                                       <!-- <li>
+                                            <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/addr?uid=<?/*=$uid*/?>'">收货地址</a>
                                         </li>
-
+-->
                                         <li class="active">
                                             <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
                                         </li>
 
                                         <li>
-                                            <a data-toggle="tab" href="#dropdown14">发起的活动</a>
+                                            <a data-toggle="tab" onclick="location.href='/admin/user/activity?uid=<?=$uid?>'">发起的活动</a>
                                         </li>
 
                                         <li>
