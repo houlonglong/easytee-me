@@ -3,239 +3,141 @@
  * 用户设置
  */
 class Model_User_Setting extends Model_User_Abstract {
-    static $table = "";
     function __construct(){
         parent::__construct();
     }
     function view_profile(){
         $uid = self::get_uid();
-        $user = self::_db()->select_row("select * from users where id = ?",$uid);
+        $user = self::_db()->select_row("select u.*,i.* from et_user as u left join et_user_info as i where u.id = ?",$uid);
         return $user;
     }
-    function action_profile_save(){
-        $nick_name = self::_request("nick_name");
-        $mobile = self::_request("mobile");
+    function action_profile_save($nick_name){
         $uid = self::get_uid();
-        self::_db()->update("users",array("mobile"=>$mobile,"nick_name"=>$nick_name),array("id"=>$uid));
+        self::_db()->update("users",array("nick_name"=>$nick_name),array("id"=>$uid));
         return array("ok");
     }
-    function view_address(){
+    function view_address($p){
         $uid = self::get_uid();
-        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
-        return array("rows"=>$addresses);
-    }
-    function action_address_detail(){
-        $id = self::_request("id");
-        $uid = self::get_uid();
-        $row = self::_db()->select_row("select * from user_addresses where id = ? and uid = ?",$id,$uid);
-        return $row;
-    }
-    function action_address_delete(){
-        $id = self::_request("id");
-        $uid = self::get_uid();
-        self::_db()->delete("user_addresses",array("uid"=>$uid,"id"=>$id));
-        return array("ok");
-    }
-    function action_address_list(){
-        $uid = self::get_uid();
-        $addresses = self::_db()->select_rows("select * from user_addresses where uid = ? order by id desc",$uid);
+        $page = empty($p)?1:intval($p);
+        $addresses = Model_User_Address::get_list($uid,20,$page);
         return $addresses;
     }
-    function action_save_address(){
-        $id = self::_request("id");
+    function action_address_detail($id){
         $uid = self::get_uid();
-        $name = self::_request("name");
+        $row = Model_User_Address::detail($id,$uid);
+        return $row;
+    }
+    function action_address_remove($id){
+        $uid = self::get_uid();
+        Model_User_Address::remove($id,$uid);
+        return "删除成功";
+    }
+    function action_address_list($p,$limit){
+        $uid = self::get_uid();
+        $page = empty($p)?1:intval($p);
+        $limit = empty($limit)?20:intval($limit);
+        $rows = Model_User_Address::get_list($uid,$limit,$page);
+        return $rows;
+    }
+    function action_save_address($id,$name,$tel,$province,$city,$county,$addr,$from_wexin,$is_default){
+        $uid = self::get_uid();
         if(!$name){
             throw new Exception("姓名不能为空");
         }
-        $tel = self::_request("tel");
         if(!$tel){
             throw new Exception("电话不能为空");
         }
-        $province = self::_request("province");
         if(!$province){
             throw new Exception("省份不能为空");
         }
-        $city = self::_request("city");
         if(!$city){
             throw new Exception("城市不能为空");
         }
-        $county = self::_request("county");
         if(!$county){
             throw new Exception("区不能为空");
         }
-        $address = self::_request("address");
-        if(!$address){
+        if(!$addr){
             throw new Exception("地址不能为空");
         }
-        $source = self::_request("source");
-        $row = array(
-            "name"=>$name,
-            "tel"=>$tel,
-            "mobile"=>$tel,
-            "province"=>$province,
-            "city"=>$city,
-            "county"=>$county,
-            "address"=>$address,
-            "zipcode"=>"",
-            "source"=>$source?1:0,
-        );
+        $from_wexin = empty($from_wexin)?0:1;
+        $is_default = empty($is_default)?0:1;
+
         if($id){
-            $row['update_time']=date_time_now();
-            self::_db()->update("user_addresses",$row,array(
-                "id"=>$id,
-                "uid"=>$uid,
-            ));
+            Model_User_Address::update($id,$uid,$name,$tel,$province,$city,$county,$addr,$from_wexin,$is_default);
         }else{
-            $row['uid']=$uid;
-            $row['create_time']=date_time_now();
-            self::_db()->insert("user_addresses",$row);
+            $id = Model_User_Address::save($uid,$name,$tel,$province,$city,$county,$addr,$from_wexin,$is_default);
         }
 
-        return array("ok");
+        return $id;
     }
 
-    function view_pay_account(){
-        $uid = self::get_uid();
-        $account = self::_db()->select_row("select * from user_attributes where uid = ?",$uid);
-        return $account;
+    function view_withdraw_account(){
+        $_accounts = self::_db()->select_rows("select * from et_user_finance where uid = ?",self::get_uid());
+        $accounts = array();
+        foreach($_accounts as $_account){
+            $accounts[$_account['withdraw_type']] = $_account['withdraw_account'];
+        }
+        return $accounts;
     }
-    function action_pay_account_save(){
+    function action_withdraw_account_save($withdraw_type,$withdraw_account){
         $uid = self::get_uid();
-        $pay_type = self::_request("pay_type");
-        $pay_account= self::_request("pay_account");
-        if(!$pay_account){
+        if(!$withdraw_account){
             throw new Exception("帐户不能为空");
         }
-        self::_db()->update("user_attributes",array(
-            "pay_type"=>$pay_type,
-            "pay_account"=>$pay_account
-        ),array("uid"=>$uid));
-        return array("ok");
+        $row = self::_db()->select_row("select * from et_user_withdraw_account where uid = ? and withdraw_type = ?",$withdraw_type);
+        if($row){
+            self::_db()->update("et_user_withdraw_account",array(
+                "withdraw_type"=>$withdraw_type,
+                "withdraw_account"=>$withdraw_account
+            ),array("id"=>$row['id']));
+        }else{
+            self::_db()->insert("et_user_withdraw_account",array(
+                'uid'=>$uid,
+                "withdraw_type"=>$withdraw_type,
+                "withdraw_account"=>$withdraw_account
+            ));
+        }
+        return "保存成功";
     }
     function view_withdraw(){
         $uid = self::get_uid();
-        $account = self::_db()->select_row("select * from user_attributes where uid = ?",$uid);
-        if(!$account['pay_account']) self::_location("/user/setting/pay_account");
-        $account['balance_tx'] = self::get_balance_tx();;
-        return $account;
-    }
-    static function get_user_money(){
-        return self::_db()->select_row("select * from users where id = ?",Model_User_Abstract::get_uid());
+        $_accounts = self::_db()->select_rows("select * from et_user_finance where uid = ?",$uid);
+        if(!$_accounts) self::_location("/user/setting/withdraw_account");
+        $accounts = array();
+        foreach($_accounts as $_account){
+            $accounts[$_account['withdraw_type']] = $_account['withdraw_account'];
+        }
+        $res['accounts'] = $accounts;
+        $res['balance_tx'] = self::get_balance_tx();;
+        return $res;
     }
 
-    static function get_balance_tx(){
-        $money = self::get_user_money();
-        return empty($money['money'])?0:$money['money'];
-    }
-    static function get_total_earn(){
-        $money = self::get_user_money();
-        return empty($money['money_all'])?0:$money['money_all'];
-    }
-    function action_do_withdraw(){
+    function action_do_withdraw($amount,$withdraw_type,$withdraw_account){
         $uid = self::get_uid();
-        $amount = intval(self::_request("amount"));
-        if(!$amount){
-            throw new Exception("帐户不能为空");
-        }
+        if(!$amount) throw new Exception("提现金额不能为空");
+        if(!$withdraw_type) throw new Exception("提现帐户类型不能为空");
+        if(!$withdraw_account) throw new Exception("提现帐户不能为空");
+        $account = self::_db()->select_row("select * from et_user_withdraw_account where uid = ? and withdraw_account = ? and withdraw_type = ?",$uid,$withdraw_account,$withdraw_type);
+        if(!$account) throw new Exception("提现帐户不存在");
+
         $balance_tx = self::get_balance_tx();
-        if($balance_tx<$amount){
-            throw new Exception("提面金额不能大于帐户可提现金额");
-        }
-        $account = self::_db()->select_row("select * from user_attributes where uid = ?",$uid);
+        if($balance_tx < $amount) throw new Exception("提面金额不能大于帐户可提现金额");
 
-        $uid = self::get_uid();
-        self::_db()->insert("user_withdraw_applies",array(
-            "money"=>$amount,
-            "pay_type"=>$account['pay_type'],
-            "pay_account"=>$account['pay_account'],
+        self::_db()->insert("et_user_withdraw",array(
             "uid"=>$uid,
-            "create_time"=>date_time_now(),
+            "withdraw_fee"=>0,
+            "withdraw_amount"=>$amount,
+            "withdraw_type"=>$withdraw_type,
+            "withdraw_account"=>$withdraw_account,
+            "withdraw_status"=>0,
+            "withdraw_add_time"=>date_time_now(),
             ));
         self::_db()->update("users",array("money"=>$balance_tx -$amount ),array("id"=>$uid));
-        return array("ok");
+        return "提现申请成功";
     }
-    function view_withdraw_record(){
+    function view_withdraw_log(){
         $uid = self::get_uid();
-        $records = self::_db()->select_rows("select * from user_withdraw_applies where uid = ? order by id desc",$uid);
-        //var_dump($records);exit;
-        return array("rows"=>$records);
+        return Model_User_Widthdraw::get_log($uid);
     }
-    /**
-     * 详情视图
-     *
-    function view_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
 
-    /**
-     * 列表
-     *
-    function action_list(){
-        return self::table_list();
-    }
-     */
-
-    /**
-     * 详情
-     * @return array
-     *
-    function action_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
-
-    /*
-    * 列表
-    *
-    static function table_list(){
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $response = PtLib\get_table_list($table,$table_alias);
-        return $response;
-    }
-    */
-    /**
-     * 详情
-     * @param $id
-     * @return array
-     *
-    static function detail($id){
-        $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
-        return $row;
-    }
-     */
-
-    /**
-     * 修改
-     *
-    function action_edit(){
-        return self::table_edit();
-    }
-     */
-
-    /*
-    * 修改
-    *
-    static function table_edit(){
-        $table = self::$table;
-        return PtLib\table_edit($table);
-    }
-    */
-
-    /**
-     * @param
-     * @return
-     *
-    function action_test(){
-        $request = PtLib\http_request("id");
-        $data = array();
-        $data['id'] = $request;
-        return $data;
-    }
-     */
 }

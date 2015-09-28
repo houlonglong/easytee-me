@@ -7,81 +7,55 @@ class Model_User_Finance extends Model_User_Abstract {
     function __construct(){
         parent::__construct();
     }
-    /**
-     * 详情视图
-     *
-    function view_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
+    static function get_log($uid,$start_time = '',$end_time = '',$limit = 20,$page = 1,$sort = 'f.id',$sort_type = "desc"){
+        $select_fields = " w.*";
+        $table = "et_user_finance_log AS f";
+        $join = ' ';
 
-    /**
-     * 列表
-     *
-    function action_list(){
-        return self::table_list();
-    }
-     */
+        //where
+        $where = " WHERE 1=1 ";
+        $args =array();
 
-    /**
-     * 详情
-     * @return array
-     *
-    function action_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
-     */
+        if($uid){
+            $where .= 'AND f.uid = ? ';
+            $args[] = $uid;
+        }
 
-    /*
-    * 列表
-    *
-    static function table_list(){
-        $table_alias = $table = self::$table;
-        //$table_alias = '';
-        $response = PtLib\get_table_list($table,$table_alias);
+        if($start_time){
+            $start_time = $start_time." 00:00:00";
+            $where .= 'AND f.add_time > ? ';
+            $args[] = $start_time;
+        }
+        if($end_time){
+            $end_time = $end_time." 23:59:59";
+            $where .= 'AND f.add_time < ? ';
+            $args[] = $end_time;
+        }
+        //order
+        $order = "ORDER BY " . addslashes($sort) . " " . $sort_type;
+        $sql = "SELECT COUNT(f.id) AS total FROM $table $join $where ";
+        $count_res = self::_db()->select_row($sql, $args);
+        $records = $count_res['total'];
+
+        if ($records > 0) {
+            $total_pages = ceil($records / $limit);
+        } else {
+            $total_pages = 1;
+        }
+        if ($page > $total_pages) $page = $total_pages;
+        $params = array(
+            'total_rows'=>$records, #(必须)
+            'list_rows'=>$limit,
+            'now_page'  =>$page,  #(必须),
+            'base_url' => ""
+        );
+        $pager = new PtPager($params);
+        $skip = ($page - 1) * $limit;
+        $sql = "SELECT $select_fields FROM $table $join $where $order LIMIT $skip,$limit ";
+        $rows = self::_db()->select_rows($sql, $args);
+        $response['rows'] = $rows;
+        $response['pager'] = $pager;
         return $response;
     }
-    */
-    /**
-     * 详情
-     * @param $id
-     * @return array
-     *
-    static function detail($id){
-        $table = self::$table;
-        $row = PtLib\db_select_row("select * from $table where id = ?",$id);
-        return $row;
-    }
-     */
 
-    /**
-     * 修改
-     *
-    function action_edit(){
-        return self::table_edit();
-    }
-     */
-
-    /*
-    * 修改
-    *
-    static function table_edit(){
-        $table = self::$table;
-        return PtLib\table_edit($table);
-    }
-    */
-
-    /**
-     * @param
-     * @return
-     *
-    function action_test(){
-        $request = PtLib\http_request("id");
-        $data = array();
-        $data['id'] = $request;
-        return $data;
-    }
-     */
 }

@@ -6,7 +6,7 @@
      * 众筹管理
      *
      */
-    include(block("admin/block/html_head"))?>
+    include(block("admin/block/html_head"));?>
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
