@@ -40,8 +40,8 @@
 				<h3>注册成功!</h3>
 				<p>感谢注册易衫网！我们将在<i>5</i>秒后回到当前页面</p>
 				<div class="link-btn">
-					<a href="/index.php">跳至首页</a>
-					<a href="user/auth/login.php">返回当前页</a>
+					<a href="">跳至首页</a>
+					<a href="">返回当前页</a>
 				</div>
 			</div>
 			
