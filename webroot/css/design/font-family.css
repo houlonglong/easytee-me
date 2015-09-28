@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Helvetica';
+    src:url('fonts/Popluar/helvetica-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'Altehaasgrotesk';
+    src:url('fonts/Popluar/altehaasgrotesk-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'Bebas';
+    src:url('fonts/Popluar/bebas-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'College';
+    src:url('fonts/Popluar/college-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'Creampuff';
+    src:url('fonts/Popluar/creampuff-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'Distantgalaxy';
+    src:url('fonts/Popluar/distantgalaxy-webfont.woff') format('woff');
+}
+@font-face {
+    font-family: 'Goudybookletter';
+    src:url('fonts/Popluar/goudybookletter-webfont.woff') format('woff');
+}
