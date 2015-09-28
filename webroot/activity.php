@@ -63,10 +63,10 @@
             <li><img src=""></li>
         </ul>
         <ul class="big-img">
-            <li class="current">正面<img src=""></li>
-            <li>反面<img src=""></li>
-            <li>左袖<img src=""></li>
-            <li>右袖<img src=""></li>
+            <li class="current"><img src=""></li>
+            <li><img src=""></li>
+            <li><img src=""></li>
+            <li><img src=""></li>
         </ul>
 
     </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="style">
             <p>款式</p>
-            <select name="" id="">
+            <select name="" id="changeProductS">
                 
             </select>
         </div>
