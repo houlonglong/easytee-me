@@ -3,33 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="css/common/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/design.css"/>
+    <link rel="stylesheet" type="text/css" href="js/app/design/vendor/etds/css/et.ds-min.css"/>
     <script src="js/app/design/vendor/jquery-1.11.2.js"></script>
+    <script src="js/app/design/vendor/etds/et.ds.js"></script>
     <script src="js/app/design/main.js"></script>
 </head>
 <body>
-<header>
-    <div class="inHead">
-        <nav class="banxin clearfix nav">
-            <h1 class="logo">
-                <a href="index.html">易衫网</a>
-            </h1>
-            <span class="how">如何开始</span>
-
-            <div class="login">
-                <a href="#" class="begin">发起活动</a>
-
-                <div>
-                    <a href="#">消息</a>
-                    <a href="#">登录</a>
-                    <a href="#">注册</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-</header>
 <div class="design-main">
     <div class="design-top">
         <div class="design-top-leaf"></div>
@@ -59,7 +40,7 @@
                     <span class="form-label">文字内容</span>
                 </div>
                 <div class="form-row">
-                    <input class="form-control" type="text" placeholder="请输入文字"/>
+                    <input id="addTextInput" class="form-control" type="text" placeholder="请输入文字"/>
                 </div>
                 <div class="form-row">
                     <span class="form-label">选择字体</span>
@@ -94,7 +75,7 @@
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="design-dropdown-menu-arrow"></div>
-                            <div class="color-picket-list">
+                            <div class="color-picket-list" id="textFillColorPicket">
                             </div>
                         </div>
                     </div>
@@ -104,11 +85,11 @@
                     <span class="form-label">选择描边</span>
                 </div>
                 <div class="form-row">
-                    <select class="form-control l-per-70" name="" id="">
+                    <select class="form-control l-per-70" id="changeTextOutline">
                         <option value="0">无描边</option>
-                        <option value="1">细描边</option>
-                        <option value="2">中描边</option>
-                        <option value="3">粗描边</option>
+                        <option value="0.33">细描边</option>
+                        <option value="0.66">中描边</option>
+                        <option value="1">粗描边</option>
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
@@ -118,7 +99,7 @@
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="design-dropdown-menu-arrow"></div>
-                            <div class="color-picket-list">
+                            <div class="color-picket-list" id="textStrokeColorPicket">
                             </div>
                         </div>
                     </div>
@@ -272,211 +253,181 @@
             </div>
         </div>
         <div class="product-preview">
-            <img src="/css/design/product_type_1_front.png" alt=""/>
-        </div>
-        <div class="product-choices clearfix">
-            <span class="label">款式和颜色</span>
-            <select class="form-control" name="" id="">
-                <option value="">基础T恤款</option>
-                <option value="">超级T恤款</option>
-            </select>
-            <ul class="product-list">
-                <li class="product-item" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item active" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item" tips="基础圆领T恤">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-                <li class="product-item">
-                    <img src="/css/design/product-thumbnail.png"/>
-                    <div>
-                        <span class="name">基础圆领T恤</span>
-                        <span class="desc">成本优选</span>
-                        <a href="#" class="info">详情</a>
-                    </div>
-                </li>
-            </ul>
-            <div class="pre-cost">
-                印制
-                <i>50</i>
-                件的成本：<i>¥</i>
-                <i>999.00</i>
+            <div id="ds" class="ds"></div>
+            <div class="product-sides">
+                <a class="product-side active" href="javascript:;">正面</a>
+                <a class="product-side" href="javascript:;">反面</a>
+                <a class="product-side" href="javascript:;">左袖</a>
+                <a class="product-side" href="javascript:;">右袖</a>
             </div>
-            <a href="#" class="btn">
-                购买素衫
-            </a>
         </div>
-        <div id="design_selected_tools" class="design-selected-tools">
-            <div class="form-row">
-                <div class="form-label">
-                    <input type="checkbox" id="snapCenter"/>
-                    <label for="snapCenter">引导居中</label>
+        <div class="design-right-tools clearfix">
+            <div class="product-choices ">
+                <span class="label">款式和颜色</span>
+                <select class="form-control" id="selectProductCategories">
+<!--                    <option value="">基础T恤款</option>-->
+<!--                    <option value="">超级T恤款</option>-->
+                </select>
+                <ul class="product-list">
+<!--                    <li class="product-item" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item active" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item" tips="基础圆领T恤">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="product-item">-->
+<!--                        <img src="/css/design/product-thumbnail.png"/>-->
+<!--                        <div>-->
+<!--                            <span class="name">基础圆领T恤</span>-->
+<!--                            <span class="desc">成本优选</span>-->
+<!--                            <a href="#" class="info">详情</a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+                </ul>
+                <div class="pre-cost">
+                    印制
+                    <i>50</i>
+                    件的成本：<i>¥</i>
+                    <i>999.00</i>
                 </div>
+                <a href="#" class="btn">
+                    购买素衫
+                </a>
             </div>
-            <div class="form-row">
-                <a href="javascript:;" class="icon-tools icon-tools-duplicate" title="复制"></a>
-                <a href="javascript:;" class="icon-tools icon-tools-align-center" title="对齐中心"></a>
-                <a href="javascript:;" class="icon-tools icon-tools-move-bottom" title="移到底层"></a>
-                <a href="javascript:;" class="icon-tools icon-tools-horizontal" title="水平翻转"></a>
-                <a href="javascript:;" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-        <div id="product_color_picket" class="product-color-picket">
-            <span class="product-color-menu-arrow"></span>
-            <ul class="color-column quick-colors">
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="more-color">
-                    <span></span>
-                </li>
-            </ul>
-            <ul class="color-column">
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-            </ul>
-            <ul class="color-column">
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-                <li class="color-item">
-                    <span style="background-color: #0000ff;"></span>
-                </li>
-            </ul>
+            <a class="next-step" href="javascript:;">下一步</a>
         </div>
     </div>
-</div>
-<div class="foot">
-    <div class="infooter clearfix">
-        <h2>易衫网</h2>
-        <dl>
-            <dt>导航</dt>
-            <dd>
-                <a href="#">首页</a>
-            </dd>
-            <dd>
-                <a href="#">开始设计</a>
-            </dd>
-            <dd>
-                <a href="#">关于我们</a>
-            </dd>
-            <dd>
-                <a href="#">帮助中心</a>
-            </dd>
-        </dl>
-        <dl>
-            <dt>服务</dt>
-            <dd>客服QQ：12345678</dd>
-        </dl>
-        <dl>
-            <dt>联系我们</dt>
-            <dd>工作日：上午9点 - 下午6点</dd>
-            <dd>休息日：上午9点 - 下午5点</dd>
-            <dd>客服热线 ： 400-92020-85</dd>
-        </dl>
-        <dl>
-            <dt>官方</dt>
-            <dd class="weibo">
-                <a href="#">微博</a>
-            </dd>
-            <dd class="weixin">微信</dd>
-        </dl>
-        <span class="ewm"></span>
-        <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
+    <div id="design_selected_tools" class="design-selected-tools">
+        <div class="form-row">
+            <div class="form-label">
+                <input type="checkbox" id="snapCenter"/>
+                <label for="snapCenter">引导居中</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <a href="javascript:;" id="duplicateBtn" class="icon-tools icon-tools-duplicate" title="复制"></a>
+            <a href="javascript:;" id="alignToCenterBtn" class="icon-tools icon-tools-align-center" title="对齐中心"></a>
+            <a href="javascript:;" id="moveToBottomBtn" class="icon-tools icon-tools-move-bottom" title="移到底层"></a>
+            <a href="javascript:;" id="horizontalBtn" class="icon-tools icon-tools-horizontal" title="水平翻转"></a>
+            <a href="javascript:;" id="verticalBtn" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div id="product_color_picket" class="product-color-picket">
+        <span class="product-color-menu-arrow"></span>
+        <ul class="color-column quick-colors">
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="more-color">
+                <span></span>
+            </li>
+        </ul>
+        <ul class="color-column">
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+        </ul>
+        <ul class="color-column">
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+            <li class="color-item">
+                <span style="background-color: #0000ff;"></span>
+            </li>
+        </ul>
     </div>
 </div>
 </body>

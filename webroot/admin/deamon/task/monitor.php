@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <iframe src="http://121.40.129.97:9001/" width="100%" height="800px" frameborder="0"></iframe>
+                        <iframe src="http://121.43.151.115:9001/" width="100%" height="800px" frameborder="0"></iframe>
                         <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->

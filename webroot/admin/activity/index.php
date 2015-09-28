@@ -101,89 +101,6 @@
         </div>
     </div><!-- /.main-content -->
     <?php include(block("admin/block/footer"))?>
-    <div class="modal fade bs-example-modal-sm" id="modal_test" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <button type="button" class="bootbox-close-button close" data-dismiss="modal" aria-hidden="true"
-                        style="margin-top: 5px;margin-right: 10px;">×
-                </button>
-
-                <div class="modal-header">
-                    <h4>活动名称：<span id="modal_active"></span></h4>
-
-                </div>
-                <div class="tabbable">
-                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                        <li class="active">
-                            <a data-toggle="tab" href="#apply">批准</a>
-                        </li>
-                        <li>
-                            <a data-toggle="tab" href="#apply_back">驳回</a>
-                        </li>
-
-                    </ul>
-
-                    <div class="tab-content">
-                        <div id="apply" class="tab-pane in active">
-                            <div class="modal-body">
-                                <div>发起人：<span id="modal_username"></span></div>
-                                <div>开始时间：<span id="modal_start_time"></span></div>
-                                <div>结束时间：<span id="modal_end_time"></span></div>
-                                <div>销售目标：<span id="modal_sales_target"></span></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-sm btn-danger apply" data-dismiss="modal" data-action="批准"><i
-                                        class="ace-icon fa fa-trash-o"></i> 批准
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="apply_back" class="tab-pane">
-                            <form class="form-horizontal">
-                                <div class="form-group" style="margin-left: -120px;">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">拒绝理由 </label>
-
-                                    <div class="col-sm-9">
-                                        <select name="reason" id="reason" class="col-xs-10 col-sm-5">
-                                            <option value="1">
-                                                是否涉及敏感字眼
-                                            </option>
-                                            <option value="2">
-                                                是否辱骂国家领导人
-                                            </option>
-                                            <option value="3">
-                                                是否传播邪教文化
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group" style="margin-left: -120px;">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1">备注</label>
-
-                                    <div class="col-sm-9">
-                                        <textarea name="" id="notes" cols="30" rows="10" class="form-control" style="width: 307px;height: 96px;"></textarea>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-actions center">
-                                    <button type="button" class="btn btn-sm btn-success btn btn-sm apply-back">
-                                        驳回
-                                        <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-                                    </button>
-                                </div>
-                            </form>
-
-
-                        </div>
-
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div><!-- /.main-container -->
     <?php include(block("admin/block/scripts"))?>
     <!-- page specific plugin scripts -->
     <script src="/ace/assets/js/moment.min.js"></script>
@@ -194,6 +111,11 @@
 
 
     <script type="text/javascript">
+
+        var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
+        var grid_selector = "#grid-table";
+        var pager_selector = "#grid-pager";
+
         function do_success($id){
             if(!confirm("确定么")) return;
             if(!confirm("确定么")) return;
@@ -242,19 +164,6 @@
                 }
             },"json");
         }
-        var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
-        var grid_selector = "#grid-table";
-        var pager_selector = "#grid-pager";
-        function audit(obj){
-            var id = $(obj).data('id');
-            $('.apply').data('id',id);
-            $('.apply-back').data('id',id);
-            $('#modal_active').text($(obj).parents('tr').find('td').eq(0).text());
-            $('#modal_username').text($(obj).parents('tr').find('td').eq(1).text());
-            $('#modal_end_time').text($(obj).parents('tr').find('td').eq(4).text());
-            $('#modal_start_time').text($(obj).parents('tr').find('td').eq(3).text());
-            $('#modal_sales_target').text($(obj).parents('tr').find('td').eq(2).text());
-        }
 
         function search(){
             var status = $('#status').val();
@@ -281,30 +190,6 @@
                 page:1
             }).trigger("reloadGrid"); //重新载入
         }
-        $('.apply').click(function(){
-            var $this = $(this);
-            var $id = $this.data('id');
-            $.ajax({
-                url:"/api?model=admin/activity&action=audit",
-                data:{
-                    id:$id,
-                },
-                type:"POST",
-                success: function () {
-                    $('#'+$id).remove();
-                }
-
-            });
-
-        })
-        $('#end-date,#start-date').datepicker({ dateFormat: 'yy-mm-dd' });
-
-        function reset(){
-            $('#activity-id').val('');
-            $('#activity-name').val('');
-            $('#username').val();
-            $('#activity-status').val('');
-        }
 
         jQuery(function($) {
             var grid_setting = {
@@ -312,8 +197,8 @@
                 method:"POST",
                 postData:{status:1},
                 sortorder:"desc",
-                height:500,
-                rowNum:5,
+                height:800,
+                rowNum:6,
                 rowList:[15,30,50,100],
                 caption:"",
                 cols:[
@@ -444,8 +329,6 @@
                 caption: grid_setting.caption
             });
             $(window).triggerHandler('resize.jqGrid');//trigger window resize to make the grid get the correct size
-
-
             //navButtons
             jQuery(grid_selector).jqGrid('navGrid',pager_selector,
                 { 	//navbar options
@@ -461,135 +344,8 @@
                     refreshicon : 'ace-icon fa fa-refresh green',
                     view: false,
                     viewicon : 'ace-icon fa fa-search-plus grey',
-                },
-                {
-                    //edit record form
-                    //closeAfterEdit: true,
-                    //width: 700,
-                    recreateForm: true,
-                    beforeShowForm : function(e) {
-                        var form = $(e[0]);
-                        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                        style_edit_form(form);
-                    }
-                },
-                {
-                    //new record form
-                    //width: 700,
-                    closeAfterAdd: true,
-                    recreateForm: true,
-                    viewPagerButtons: false,
-                    beforeShowForm : function(e) {
-                        var form = $(e[0]);
-                        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar')
-                            .wrapInner('<div class="widget-header" />')
-                        style_edit_form(form);
-                    }
-                },
-                {
-                    //delete record form
-                    recreateForm: true,
-                    beforeShowForm : function(e) {
-                        var form = $(e[0]);
-                        if(form.data('styled')) return false;
-
-                        form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                        style_delete_form(form);
-
-                        form.data('styled', true);
-                    },
-                    onClick : function(e) {
-                        //alert(1);
-                    }
-                },
-                {
-                    //search form
-                    recreateForm: true,
-                    afterShowSearch: function(e){
-                        var form = $(e[0]);
-                        form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                        style_search_form(form);
-                    },
-                    afterRedraw: function(){
-                        style_search_filters($(this));
-                    }
-                    ,
-                    multipleSearch: true,
-                    /**
-                     multipleGroup:true,
-                     showQuery: true
-                     */
-                },
-                {
-                    //view record form
-                    recreateForm: true,
-                    beforeShowForm: function(e){
-                        var form = $(e[0]);
-                        form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
-                    }
                 }
             );
-
-            function style_edit_form(form) {
-                //enable datepicker on "sdate" field and switches for "stock" field
-                //form.find('input[name=sdate]').datepicker({format:'yyyy-mm-dd' , autoclose:true})
-
-                //form.find('input[name=stock]').addClass('ace ace-switch ace-switch-5').after('<span class="lbl"></span>');
-                //don't wrap inside a label element, the checkbox value won't be submitted (POST'ed)
-                //.addClass('ace ace-switch ace-switch-5').wrap('<label class="inline" />').after('<span class="lbl"></span>');
-
-
-                //update buttons classes
-                var buttons = form.next().find('.EditButton .fm-button');
-                buttons.addClass('btn btn-sm').find('[class*="-icon"]').hide();//ui-icon, s-icon
-                buttons.eq(0).addClass('btn-primary').prepend('<i class="ace-icon fa fa-check"></i>');
-                buttons.eq(1).prepend('<i class="ace-icon fa fa-times"></i>')
-
-                buttons = form.next().find('.navButton a');
-                buttons.find('.ui-icon').hide();
-                buttons.eq(0).append('<i class="ace-icon fa fa-chevron-left"></i>');
-                buttons.eq(1).append('<i class="ace-icon fa fa-chevron-right"></i>');
-            }
-
-            function style_delete_form(form) {
-                var buttons = form.next().find('.EditButton .fm-button');
-                buttons.addClass('btn btn-sm btn-white btn-round').find('[class*="-icon"]').hide();//ui-icon, s-icon
-                buttons.eq(0).addClass('btn-danger').prepend('<i class="ace-icon fa fa-trash-o"></i>');
-                buttons.eq(1).addClass('btn-default').prepend('<i class="ace-icon fa fa-times"></i>')
-            }
-
-            function style_search_filters(form) {
-                form.find('.delete-rule').val('X');
-                form.find('.add-rule').addClass('btn btn-xs btn-primary');
-                form.find('.add-group').addClass('btn btn-xs btn-success');
-                form.find('.delete-group').addClass('btn btn-xs btn-danger');
-            }
-            function style_search_form(form) {
-                var dialog = form.closest('.ui-jqdialog');
-                var buttons = dialog.find('.EditTable')
-                buttons.find('.EditButton a[id*="_reset"]').addClass('btn btn-sm btn-info').find('.ui-icon').attr('class', 'ace-icon fa fa-retweet');
-                buttons.find('.EditButton a[id*="_query"]').addClass('btn btn-sm btn-inverse').find('.ui-icon').attr('class', 'ace-icon fa fa-comment-o');
-                buttons.find('.EditButton a[id*="_search"]').addClass('btn btn-sm btn-purple').find('.ui-icon').attr('class', 'ace-icon fa fa-search');
-            }
-
-            function beforeDeleteCallback(e) {
-                var form = $(e[0]);
-                if(form.data('styled')) return false;
-
-                form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
-                style_delete_form(form);
-
-                form.data('styled', true);
-            }
-
-            function beforeEditCallback(e) {
-                var form = $(e[0]);
-                form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />');
-                style_edit_form(form);
-            }
-
-
-
             $(document).one('ajaxloadstart.page', function(e) {
                 $(grid_selector).jqGrid('GridUnload');
                 $('.ui-jqdialog').remove();

@@ -7,14 +7,6 @@ class Model_Admin_Order extends Model_Admin_Abstract{
     function __construct(){
         parent::__construct();
     }
-    /**
-     * 详情
-     * @return array
-     */
-    function action_order_detail(){
-        $request = PtLib\http_request("id");
-        return self::detail($request['id']);
-    }
 
     /**
      * 详情
@@ -74,8 +66,6 @@ class Model_Admin_Order extends Model_Admin_Abstract{
      * 列表
      **/
     function action_list($rows,$page,$sidx,$sord,$order_no,$activity_name,$mobile,$pay_status,$ship_status,$activity_id,$exp_no,$uid){
-
-
 
         $table = self::$table;
         $table_alias = "o";
@@ -164,40 +154,5 @@ class Model_Admin_Order extends Model_Admin_Abstract{
         }
         return $response;
     }
-
-
-    /**
-     * 修改
-     **/
-    function action_edit(){
-        return self::table_edit();
-    }
-
-
-    /*
-    * 修改
-    **/
-    static function table_edit(){
-        $table = self::$table;
-        if(empty($table)) throw new ErrorException("table is not defined");
-        $request = PtLib\http_request("oper");
-        $oper = $request['oper'];
-        $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
-        $condition = array("id"=>$id);
-        $data = PtLib\http_request("status");
-        if($oper == 'edit' && $id && $data){
-            //pt_log($data);
-            //pt_log($condition);
-            PtLib\db()->update($table,$data,$condition);
-        }
-        if($oper == 'add'){
-            PtLib\db()->insert($table,$data);
-        }
-        if($oper == 'del'&& $id && $data){
-            PtLib\db()->delete($table,$condition);
-        }
-        return array();
-    }
-
 
 }

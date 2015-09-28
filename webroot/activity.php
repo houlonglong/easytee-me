@@ -4,53 +4,77 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/sale/xiaoshou.css">
     <link rel="stylesheet" type="text/css" href="css/common/style.css">
+    <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
     <script type="text/javascript" src="js/app/sale/index.js"></script>
+    <script type="text/javascript" src="js/app/common/popup.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
+    
 </head>
 <body>
-<div class="try"></div>
+
+<div class="try"><i></i></div>
+<div class="tanceng">
+    <span class="close"></span>
+    <div></div>
+</div>
+<div class="hidden" id="page-popup">
+    <div id="page-login">
+        <?php include(block("block/login"))?>
+    </div>
+    <div id="page-register">
+        <?php include(block("block/register"))?>
+    </div>
+    
+    <div id="page-reset">
+        <?php include(block("block/reset"))?>
+    </div>
+</div>
+
+ 
 <header>
-    <span class="header-bg"></span>
-    <nav class="banxin clearfix nav">
-        <h1 class="logo">
-            <a href="index.html">易衫网</a>
-        </h1>
-        <span class="how">如何开始</span>
-
-        <div class="login">
-            <a href="#" class="begin">发起活动</a>
-
-            <div>
-                <a href="#">消息</a>
-                <a href="#">登录</a>
-                <a href="#">注册</a>
-            </div>
+        <span class="header-bg"></span>
+        <div class="inHead">
+            <nav class="typeArea clearfix nav">
+                <h1 class="logo">
+                    <a href="index.html">易衫网</a>
+                </h1>
+                <span class="how">如何开始</span>
+                <div class="login">
+                    <a href="#" class="begin">发起活动</a>
+                    <div>
+                        <a href="#">消息</a>
+                        <a href="#" id="popup-login">登录</a>
+                        <a href="#" id="popup-register">注册</a>
+                    </div>
+                </div>
+            </nav>
         </div>
-    </nav>
-</header>
-<div class="dingdan banxin clearfix">
-    <div class="dingdan-show clearfix">
-        <ul class="xiaotu">
-            <li class="current">正面</li>
-            <li>反面</li>
-            <li>左袖</li>
-            <li>右袖</li>
+        <div class="head-foot"></div>
+    </header>
+<div class="order banxin clearfix">
+    <div class="order-show clearfix">
+        <ul class="small-img">
+            <li class="current"><img src=""></li>
+            <li><img src=""></li>
+            <li><img src=""></li>
+            <li><img src=""></li>
         </ul>
-        <ul class="datu">
-            <li class="current">正面<img src="css/sale/images/show-yifu.png"></li>
-            <li>反面<img src="css/sale/images/show-yifu.png"></li>
-            <li>左袖<img src="css/sale/images/show-yifu.png"></li>
-            <li>右袖<img src="css/sale/images/show-yifu.png"></li>
+        <ul class="big-img">
+            <li class="current">正面<img src=""></li>
+            <li>反面<img src=""></li>
+            <li>左袖<img src=""></li>
+            <li>右袖<img src=""></li>
         </ul>
 
     </div>
-    <div class="dingdan-info">
+    <div class="order-info">
         <h3>简易—中式文化新浪潮</h3>
 
-        <div class="jiage clearfix">
-            <div class="jiage-num">99</div>
+        <div class="price clearfix">
+            <div class="price-num">99</div>
             <div class="ren">发起人：<span>巴黎汇呵呵呵呵呵</span></div>
         </div>
         <div class="num-sell clearfix">
@@ -63,25 +87,13 @@
         <div class="style">
             <p>款式</p>
             <select name="" id="">
-                <option value="">基础款T恤</option>
-                <option value="">基础款T恤</option>
-                <option value="">基础款T恤</option>
-                <option value="">基础款T恤</option>
+                
             </select>
         </div>
         <div class="size">
             <p>颜色</p>
             <ul class="color-lump">
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
-                <li><span></span></li>
+                
             </ul>
             <div class="color-list">
                 尺码信息
@@ -252,5 +264,6 @@
         <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
     </div>
 </div>
+
 </body>
 </html>

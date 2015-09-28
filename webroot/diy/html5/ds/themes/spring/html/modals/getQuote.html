@@ -1,0 +1,136 @@
+﻿<!-- Light box content start here -->
+<div class="isd-light-container isd-top-left" ng-controller="GetQuoteController" style="height: 712px;">
+  <h1>
+    Get Quote
+  </h1>
+
+  <div class="isd-light-main isd-clearfix">
+    <div class="isd-get-product isd-clearfix" style="height:330px;">
+      <!-- <table class="isd-getQuote isd-checkout-table">
+          <thead>
+              <tr>
+                  <th style="width:60px !important;">COLOR</th>
+                  <th ng-repeat="size in productStyleSizes" width="83">
+                      {{size.name}}
+                  </th>
+              </tr>
+          </thead>
+      </table> -->
+      <div class="isd-scrollbar"
+           style="height:261px; overflow:auto; max-width: 915px; display: inline-block;position:relative;">
+        <div class="isd-checkout-table">
+          <div ng-repeat="sizeStyle in sizeStyles"
+               style="border-bottom:1px solid #c9c9c9;padding-bottom:10px;display:inline-block;position:relative;">
+            <div class="isd-product-color"
+                 style="width:51px !important;display:inline-block;text-align:center;margin-top:13px;float:left;">
+              Color<br><br>
+              <a ng-style="{'background-color':'#' + sizeStyle.style.html_color}"
+                 ng-click="showStyleModal(sizeStyle, $index)"
+                 class="isd-color-selector isd-color-selector-cart" style="margin-top: -3px;"
+                 data-color="{{sizeStyle.style.color}}" show-color-tooltip>
+                <div class="isd-productStyleColor1"
+                     ng-style="{'background-color': getColorString(sizeStyle.style.html_color)}"
+                     style="width:50%;"></div>
+                <div class="isd-productStyleColor2"
+                     ng-style="{'background-color': getColorString((sizeStyle.style.html_color2) ? sizeStyle.style.html_color2 : sizeStyle.style.html_color)}"
+                     style="width:50%;"></div>
+              </a>
+            </div>
+            <div
+            <div style="display:block;width:915px;display:table-cell;">
+              <div ng-repeat="size in sizeStyle.sizes" class="isd-text-spinner"
+                   style="display:inline-block;text-align:center;margin-top:14px;float:left;position: relative;height: auto;">
+                {{size.name}}<br><br>
+                <input type="text" ng-model="size.quantity" class="isd-txt-btn" ng-change="quantityChanged()"/>
+
+                <div class="isd-spinner-btn" style="float:left;">
+                  <a ng-click="changeQuantity(size, 1)" class="isd-up" style="height:18px;">&nbsp;</a>
+                  <a ng-click="changeQuantity(size, -1)" class="isd-down" style="height:18px;">&nbsp;</a>
+                </div>
+              </div>
+            </div>
+            <div ng-style="{'top': sizeStyle.sizes.length > 9 ? '40%' : '26px'}"
+                 style="display: inline-block;position: absolute;right:0px;">
+              <a class="isd-flat-icons isd-remove" ng-click="removeStyle(sizeStyle, $index)"></a>
+            </div>
+          </div>
+        </div>
+        <ul ng-show="styleModalVisible" id="chooseStyleModal"
+            style="position:absolute;left:0px;top:{{styleModalIndex * 50 + 95}}px" class="isd-colorSelectors">
+          <li ng-repeat="style in allProductStyles" ng-show="style.html_color">
+            <a ng-click="selectStyle(style)" class="isd-color-selector isd-color-selector-cart"
+               data-color="{{style.color}}" show-color-tooltip style="width:30px;height:30px;">
+              <div class="isd-productStyleColor1"
+                   ng-style="{'background-color': getColorString(style.html_color)}"></div>
+              <div class="isd-productStyleColor2"
+                   ng-style="{'background-color': getColorString((style.html_color2) ? style.html_color2 : style.html_color)}"></div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div style="width:100%;">
+        <a ng-click="addProductStyle();styleModalVisible=false">
+          <div class="isd-add-btn" style="float:left;">
+            <span><i></i><small>Add another color</small></span>
+          </div>
+        </a>
+      </div>
+
+
+      <!-- <div class="isd-direction-arrow">
+          <a class="isd-direction-up" ng-show="pageOffset > 0" ng-click="pageOffset = Math.max(0, pageOffset - pageSize)"><i>&nbsp;</i></a>
+          <a class="isd-direction-down" ng-show="pageOffset + pageSize < sizeStyles.length" ng-click="pageOffset = pageOffset + pageSize">
+              <i>&nbsp;</i></a>
+      </div> -->
+    </div>
+
+    <div class="isd-summary-block isd-clearfix" style="margin-top:11px;">
+      <div class="isd-product-summary">
+        <h3>
+          summary
+        </h3>
+        <ul>
+          <li><strong>PRODUCT</strong><span>{{productDescription}}</span></li>
+          <li><strong>COLOR</strong><span>{{productColor}}</span></li>
+          <li><strong>QUANTITY</strong><span>{{quantity}}</span></li>
+          <li><strong>COLOR COUNT</strong><span>{{numColorsString}}</span></li>
+          <li>
+            <strong>NAMES &amp; NUMBERS</strong><span>
+                                Total: {{numNames}} Names(s) and {{numNumbers}} Number(s) on {{numNameNumberItems}}
+                                Items(s)
+                            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="isd-total-price isd-product-summary">
+        <h3>&nbsp;</h3>
+        <ul>
+          <li ng-show="!minimumNotMet"><strong>SUBTOTAL</strong><strong
+            class="isd-right">{{priceTotals.total}}</strong></ling-show>
+          <li ng-show="!minimumNotMet">
+            <strong>AVERAGE PER
+              <small>*Estimated Total Does Not Include Shipping</small>
+            </strong><strong class="isd-right">{{priceTotals.averagePer}}</strong>
+          </li>
+          <li ng-show="minimumNotMet">
+            <div style="font-size: 14px;color: red;" ng-show="minimumQuantity > 0">Minimum order quantity of
+              {{minimumQuantity}} has <em ng-show="minimumNotMet">not</em> been met.
+            </div>
+          </li>
+        </ul>
+
+      </div>
+      <div class="isd-button-wrapper">
+        <a ng-click="close()" class="isd-btn isd-button-default isd-btn-cont-designing">Continue Designing</a>
+
+        <div style="float:right; margin-right:40px;" class="isd-quote-buttons">
+          <a ng-click="updateQuote()" class="isd-btn isd-button-default">Update Quote</a>
+          <a ng-click="checkout()" class="isd-btn isd-button-primary"
+             ng-show="allowCheckout && (hasDesign() || !requireDesign)">Buy Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a ng-click="close()" class="isd-close-btn">&nbsp;</a>
+</div>
+<!-- Light box content end here -->

@@ -1,169 +1,111 @@
+
+<!-- <script type="text/javascript">
+	$(function() {
+		var reg = /(1[3-9]\d{9}$)/;
+    
+    $('.btnLogin').click(function (event) {
+        var tel = $("#phone").val();
+        var userName = $("#phone").val();
+        var userPass = $("#LoginPass").val();
+        var reg = /(1[3-9]\d{9}$)/;
+        if (!reg.test(tel)) {
+            //alert("è¯·è¾“å…¥æ­£ç¡®æ ¼å¼çš„æ‰‹æœºå·ç ï¼");
+            $('.tel').addClass('wrong').children('span').html('è¾“å…¥é”™è¯¯');
+            return false;
+        } else {
+            $('.tel').removeClass('wrong').children('span').html('');
+        }
+
+        var LoginP = $('#LoginPass').val();
+        if (!LoginP) {
+            $('.login-p').addClass('wrong').children('span').html('å¯†ç ä¸èƒ½ä¸ºç©º');
+            return;
+        } else {
+            $('.login-p').removeClass('wrong').children('span').html('');
+        }
+        //ç™»å½•æ—¶å‘é€çš„ajax 
+        $.ajax({
+            type: "post",
+            url: "",
+            data: {
+                userName: userName,
+                userPass: userPass
+            },
+            success: function (data) {
+                if (status === 0) {//0ä»£è¡¨å“åº”æˆåŠŸ
+                    window.location.href = "";
+                } else {
+                    $('.denglu-con').addClass('wrong');
+                }
+
+            }
+        })
+
+    });
+	});
+</script> -->
 <div class="denglu">
-    <img src="css/common/images/denglu-bg.png" >
-    <div>
-        <div class="denglu-con show">
-            <h3 >ÇëµÇÂ¼</h3>
-            <div class=' mar-center  tel'>
-                <label for="phone">ÊÖ»ú</label>
-                <br>
-                <input type="text" id="phone">
-                <span  class="hidden"></span>
-            </div>
-            <div class='login-p'>
-                <label for="LoginPass">µÇÂ¼ÃÜÂë</label>
-                <br>
-                <input type="password" id="LoginPass"  >
-                <span class="hidden">ÃÜÂëÓÐÎó</span>
-            </div>
-            <div class="forget">
-                <a href="#">Íü¼ÇÃÜÂë</a>
-            </div>
-            <div>
-                <a href="#" class="btnLogin">µÇÂ¼</a>
-            </div>
-            <div class="other-login ">
-                <span>µÚÈý·½µÇÂ¼</span>
-                <a href="#" class="qq"></a>
-                <a href="#" class="wb"></a>
-                <a href="#" class="wx"></a>
-            </div>
-            <div class="zc-link">
-                <a href="#">Ã»ÓÐÕËºÅ£¿Ãâ·Ñ×¢²á</a>
-            </div>
-        </div>
-        <!--  ÖØÖÃÃÜÂë -->
-        <div class="reset-con ">
-            <h3>ÖØÖÃÃÜÂë</h3>
-            <div class="sj ">
-                <input type="text" placeholder="ÇëÊäÈëÄúµÄÊÖ»úºÅ" id="res-phone">
-                <button id="testing" >»ñÈ¡ÑéÖ¤Âë</button>
-                <i class="hidden">ÊäÈëÓÐÎó</i>
-
-            </div>
-            <div>
-                <input type="text" placeholder="ÇëÊäÈëÑéÖ¤Âë" id="res-test" >
-                <i class="hidden">ÑéÖ¤Âë´íÎó</i>
-            </div>
-            <h4>ÇëÊäÈëÐÂÃÜÂë</h4>
-            <div>
-                <input type="password" placeholder="6~32Î»×Ö·û" id="res-pass">
-                <i class="hidden">ÃÜÂë¸ñÊ½´íÎó</i>
-            </div>
-            <div class="" >
-                <input type="password" placeholder="ÇëÔÙ´ÎÊäÈëÃÜÂë" id="res-pass2">
-                <i class="hidden">ÃÜÂë²»Ò»ÖÂ</i>
-            </div>
-            <button class="res-btn">Ìá½»ÖØÖÃ</button>
-        </div>
-        <!-- ×¢²á -->
-        <div class="register">
-            <h3>Ãâ·Ñ×¢²á</h3>
-            <div class="sj">
-                <label for="">ÊÖ»úºÅ</label>
-                <input type="text" placeholder="ÇëÊäÈëÄúµÄÊÖ»úºÅ" id="reg-phone">
-                <button id="reg-testing" >»ñÈ¡ÑéÖ¤Âë</button>
-                <i class="hidden">ÊäÈë´íÎó</i>
-            </div>
-            <div class="">
-                <label for="">ÑéÖ¤Âë</label>
-                <input type="text" placeholder="ÊäÈëÑéÖ¤Âë" id="reg-test">
-                <i class="hidden">ÑéÖ¤ÂëÓÐÎó</i>
-            </div>
-            <div class="">
-                <label for="">µÇÂ¼ÃÜÂë</label>
-                <input type="password" placeholder="±ØÐëÊÇ6~32Î»×Ö·û" id="reg-pass">
-                <i class="hidden">ÃÜÂë¸ñÊ½´íÎó</i>
-            </div>
-
-
-            <div class="zc-btn">
-                <a href="#" class="anniu reg-btn">Ãâ·Ñ×¢²á</a>
-            </div>
-            <div class="other-login ">
-                <span>µÚÈý·½µÇÂ¼</span>
-                <a href="#" class="qq"></a>
-                <a href="#" class="wb"></a>
-                <a href="#" class="wx"></a>
-            </div>
-            <div class="zc-link">
-                <a href="#">ÒÑÓÐÕËºÅ£¿Á¢¼´µÇÂ¼</a>
-            </div>
-        </div>
-        <!-- ×¢²á³É¹¦ -->
-        <div class="zc-success ">
-            <h3>×¢²á³É¹¦!</h3>
-            <p>¸ÐÐ»×¢²áÒ×ÉÀÍø£¡ÎÒÃÇ½«ÔÚ<i>5</i>Ãëºó»Øµ½µ±Ç°Ò³Ãæ</p>
-            <div class="link-btn">
-                <a href="#">ÌøÖÁÊ×Ò³</a>
-                <a href="#">»Øµ±Ç°Ò³</a>
-            </div>
-        </div>
-
-        <!-- ¹ØÁª³É¹¦ -->
-        <div class="zc-success ">
-            <h3>¹ØÁª³É¹¦!</h3>
-            <p>ÄúÒÑ³É¹¦¹ØÁª£¡ÎÒÃÇ½«ÔÚ<i>5</i>Ãëºó»Øµ½µ±Ç°Ò³Ãæ</p>
-            <div class="link-btn">
-                <a href="#">ÌøÖÁÊ×Ò³</a>
-                <a href="#">»Øµ±Ç°Ò³</a>
-            </div>
-        </div>
-        <!-- ÖØÖÃÃÜÂë³É¹¦ -->
-        <div class="zc-success ret-success">
-            <h3>ÖØÖÃ³É¹¦!</h3>
-            <p>ÄúÒÑÖØÖÃ³É¹¦£¡ÎÒÃÇ½«ÔÚ<i>5</i>Ãëºó»Øµ½µ±Ç°Ò³Ãæ</p>
-            <div class="link-btn">
-                <a href="#">ÌøÖÁÊ×Ò³</a>
-                <a href="#">»Øµ±Ç°Ò³</a>
-            </div>
-        </div>
-
-        <!-- ¹ØÁªÊÖ»ú -->
-        <div class="guanlian-sj ">
-            <h3>¹ØÁªÊÖ»ú</h3>
-            <p>ÎªÁË¸øÄú¸üºÃµÄÌåÑé£¬ÇëÄúÁªÒ»¸ö³£ÓÃÊÖ»úºÅ£¬ÏÂ´Î¼´¿É¿ìËÙµÇÂ¼</p>
-            <div class="err">
-                <label for="">ÊÖ»úºÅÂë</label>
-                <input type="text">
-                <i>´ËºÅÂëÒÑ×¢²á</i>
-            </div>
-            <div>
-                <label for="">ÉèÖÃÃÜÂë</label>
-                <input type="text">
-            </div>
-            <div class="xieyi">
-                <a href="#">²é¿´Ð­Òé</a>
-            </div>
-            <div>
-                <button class="agree">Í¬ÒâÐ­Òé²¢×¢²á</button>
-            </div>
-            <div>
-                <button class="zc-link">»¹Ã»ÓÐÕËºÅ£¿Ãâ·Ñ×¢²á</button>
-            </div>
-        </div>
-
-        <!-- ¹ØÁªÒÑÓÐÕË»§ -->
-        <div class="guanlian-sj guanlian-account ">
-            <h3>¹ØÁªÒÑÓÐÕË»§</h3>
-            <p>ÎªÁË¸øÄú¸üºÃµÄÌåÑé£¬ÇëÄú¹ØÁªÒÑÓÐÒ×ÉÀÕË»§£¬ÏÂ´Î¼´¿É¿ìËÙµÇÂ¼</p>
-            <div class="err">
-                <label for="">ÊÖ»úºÅÂë</label>
-                <input type="text">
-                <i>Î´×¢²áºÅÂë</i>
-            </div>
-            <div>
-                <label for="">µÇÂ¼ÃÜÂë</label>
-                <input type="text">
-            </div>
-            <!-- <div class="xieyi">
-                <a href="#">²é¿´Ð­Òé</a>
-            </div> -->
-            <div>
-                <button class="agree">½¨Á¢¹ØÁª</button>
-            </div>
-            <div>
-                <button class="zc-link">»¹Ã»ÓÐÕËºÅ£¿Ãâ·Ñ×¢²á</button>
-            </div>
-        </div>
-    </div>
-</div>
+		<img src="/css/common/images/denglu-bg.png" >
+		<div>
+			<div class="denglu-con show">
+				<h3 >è¯·ç™»å½•</h3>
+				<div class=' mar-center  tel'>
+					<label for="phone">æ‰‹æœº</label>
+					<br>
+					<input type="text" id="phone">
+					<span  class="hidden triangle"></span>
+				</div>
+				<div class='login-p'>
+					<label for="LoginPass">ç™»å½•å¯†ç </label>
+					<br>
+					<input type="password" id="LoginPass"  >
+					<span class="hidden triangle">å¯†ç æœ‰è¯¯</span>
+				</div>
+				<div class="forget">
+					<a href="javascrpit:;">å¿˜è®°å¯†ç </a>
+				</div>
+				<div>
+					<a href="#" class="btnLogin">ç™»å½•</a>
+				</div>
+				<div class="other-login ">
+					<span>ç¬¬ä¸‰æ–¹ç™»å½•</span>
+					<a href="#" class="qq"></a>
+					<a href="#" class="wb"></a>
+					<a href="#" class="wx"></a>
+				</div>
+				<div class="zc-link">
+					<a href="javascrpit:;">æ²¡æœ‰è´¦å·ï¼Ÿå…è´¹æ³¨å†Œ</a>
+				</div>
+			</div>
+			
+			
+			<!-- æ³¨å†ŒæˆåŠŸ -->
+			<div class="zc-success reg-success">
+				<h3>æ³¨å†ŒæˆåŠŸ!</h3>
+				<p>æ„Ÿè°¢æ³¨å†Œæ˜“è¡«ç½‘ï¼æˆ‘ä»¬å°†åœ¨<i>5</i>ç§’åŽå›žåˆ°å½“å‰é¡µé¢</p>
+				<div class="link-btn">
+					<a href="#">è·³è‡³é¦–é¡µ</a>
+					<a href="#">å›žå½“å‰é¡µ</a>
+				</div>
+			</div>
+			
+			<!-- å…³è”æˆåŠŸ -->
+			<div class="zc-success rel-success">
+				<h3>å…³è”æˆåŠŸ!</h3>
+				<p>æ‚¨å·²æˆåŠŸå…³è”ï¼æˆ‘ä»¬å°†åœ¨<i>5</i>ç§’åŽå›žåˆ°å½“å‰é¡µé¢</p>
+				<div class="link-btn">
+					<a href="#">è·³è‡³é¦–é¡µ</a>
+					<a href="#">å›žå½“å‰é¡µ</a>
+				</div>
+			</div>
+			<!-- é‡ç½®å¯†ç æˆåŠŸ -->
+			<div class="zc-success ret-success">
+				<h3>é‡ç½®æˆåŠŸ!</h3>
+				<p>æ‚¨å·²é‡ç½®æˆåŠŸï¼æˆ‘ä»¬å°†åœ¨<i>5</i>ç§’åŽå›žåˆ°å½“å‰é¡µé¢</p>
+				<div class="link-btn">
+					<a href="#">è·³è‡³é¦–é¡µ</a>
+					<a href="#">å›žå½“å‰é¡µ</a>
+				</div>
+			</div>
+		</div>
+	</div>

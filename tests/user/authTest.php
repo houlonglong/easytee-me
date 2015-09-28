@@ -18,8 +18,8 @@ class AuthTest extends UnitTest{
         $res = $this->post_action("api",array(
             "model"=>"user/auth",
             "action"=>"login",
-            "mobile"=>"18601628931",
-            "password"=>"111111",
+            "mobile"=>"18601628937",
+            "password"=>sha1("111111"),
         ));
     }
 

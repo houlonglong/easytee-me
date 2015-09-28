@@ -25,7 +25,6 @@ class Model_Design_Tool_Beta extends BaseModel {
      */
     static function init(){
         #初始化设计
-
         $uid  = self::get_uid();
         $info = array(
             'app_id' => 1,
@@ -76,16 +75,13 @@ class Model_Design_Tool_Beta extends BaseModel {
         );
     }
 
-    function action_init(){
-        if (!isset($_REQUEST["productId"]) || empty($_REQUEST["productId"])) {
-            throw new Exception("productId不能为空");
+    function action_init($product_id,$json){
+        if (!$product_id) {
+            throw new Exception("product_id不能为空");
         }
-        $productId = $_REQUEST["productId"];
-        // $embroideryMode = @$_REQUEST['embroideryMode'];
-        $defaultProductID = $productId;
+        $defaultProductID = $product_id;
         //Star 字体分类列表
-        $fonts = self::_db("font")->select_rows("select * from font_categories");
-
+        $fonts = self::_db("font")->select_rows("select * from font_categories where app_id = 1");
         $fontList = array(
             'name' => 'FontList',
             'attribute' => null,
@@ -102,6 +98,7 @@ class Model_Design_Tool_Beta extends BaseModel {
                 'item' => null,
             );
         }
+        //print_r($fontList);exit;
         //END
         $ExcludedFontIDs = array(
             'name' => 'ExcludedFontIDs',
@@ -110,15 +107,16 @@ class Model_Design_Tool_Beta extends BaseModel {
         );
         //Star 颜色列表
         $colors = self::_db()->select_rows('SELECT
-                        Color.*,ColorCategory.id AS category_id ,ColorCategory.`name` AS category_name
+                        Color.*,
+                        ColorCategory.id AS category_id ,
+                        ColorCategory.`name` AS category_name
                         FROM
-                                colors AS Color
-                        INNER JOIN color_category_maps AS ColorCategoryMaps ON ColorCategoryMaps.colors_id = Color.id
-                        INNER JOIN color_categories AS ColorCategory ON ColorCategory.id = ColorCategoryMaps.colors_category_id
-                        WHERE
-                        Color.app_id in (1,0)');
-
-
+                                et_color AS Color
+                        INNER JOIN et_color_cat_map AS ColorCategoryMaps
+                        ON ColorCategoryMaps.color_id = Color.id
+                        INNER JOIN et_color_cat AS ColorCategory
+                        ON ColorCategory.id = ColorCategoryMaps.cat_id
+                        ');
 
         $InkColorList = array(
             'name' => 'InkColorList',
@@ -146,8 +144,8 @@ class Model_Design_Tool_Beta extends BaseModel {
                 'item' => array(array(
                     'name' => 'ink_color_map_colors',
                     'attribute' => array(
-                        'name_color' => $color['name_color'],
-                        'number_color' => $color['number_color'],
+                        'name_color' => 0,
+                        'number_color' => 0,
                     ),
                 )),
             );
@@ -155,14 +153,9 @@ class Model_Design_Tool_Beta extends BaseModel {
         foreach ($printColor as $pColor) {
             $InkColorList['item'][] = $pColor;
         }
-        //return $InkColorList;
-        //END
 
-        $ProductResult = self::getProductInfo($defaultProductID);
-
-        $product = self::_db()->select_row("select * from products where id = ?",$defaultProductID);
-
-
+        $ProductResult = $this->getProductInfo($defaultProductID);
+        $product = self::_db()->select_row("select * from et_product where id = ?",$defaultProductID);
         $ProductColorResult = array(
             'name' => 'ProductColorResult',
             'attribute' => null,
@@ -196,117 +189,111 @@ class Model_Design_Tool_Beta extends BaseModel {
                 $UploadImageTerms
             )
         );
-        xml_response($productArray);
+        if($json) return $productArray;
+        else xml_response($productArray);
     }
-    static function getProductInfo($pid, $styleID = ''){
-        $appProduct = self::_db()->select_row("select * from app_products where product_id = ?",$pid);
-        $product = self::_db()->select_row("select * from products where id = ?",$appProduct['product_id']);
-        //var_dump($appProduct);exit;
-        //Star 默认产品数据
-        $Manufacturer = self::_db()->select_row("select * from manufacturers where id = ?",$product['manufacturer_id']);
-        $ManufacturerBrand = self::_db()->select_row("select * from manufacturer_brands where manufacturer_id = ?",$product['manufacturer_id']);
-        if(empty($styleID)){
-            $appProductStyle = self::_db()->select_rows("select * from app_product_styles where app_product_id = ? and enable = 'Y' order by sequence,id",$pid);
-        }else{
-            if(!is_array($styleID)) $styleID = array($styleID);
-            $appProductStyle = self::_db()->select_rows("select * from app_product_styles where id in(".implode(",",$styleID).") and enable = 'Y' order by sequence,id");
-
+    private function getProductInfo($pid, $styleID = '') {
+        $select = "select
+                  p.name as product_name,p.sku,p.manufacturer_sku,m.short_name as Abbreviation,
+                  s.product_id,s.id as app_product_style_id,s.id as product_style_id,s.is_default,s.selling_price,s.color as color,s.color_name
+                from et_product_style as s
+                left join et_product as p on p.id = s.product_id
+                left join et_product_brand as b on b.id = p.brand_id
+                left join et_product_manufacturer as m on m.id = b.man_id";
+        if (!$styleID) {
+            $styles = self::_db()->select_rows(" $select where p.id = ? ",$pid);
+        } else {
+            $styles = self::_db()->select_rows(" $select where s.id = ? ",$styleID);
         }
+        //var_dump($styles);exit;
         $productStyles = array();
-        $ColorResult = '';
-        foreach ($appProductStyle as $key => $value) {
-            $productStyle = self::_db()->select_row("select * from product_styles where id = ?",$value['product_style_id']);
+        $designs = self::_db()->select_rows("
+                select id,product_id,side,img_url as thumburl,img_url as imgurl ,id as region_id,side as region_name,x,y,w,h
+                 from et_product_design where product_id = ?
+            ",$pid
+        );
+        $_produtRegions = array();
+        foreach ($designs as $d) {
+            $is_default = 0;
+            if ($d['side'] == 'front') {
+                $is_default = 1;
+                $thumburl_front = $d['thumburl'];
+                $thumburl_front_cached = $d['thumburl'];
+                $render_width_inches = 13;
+                $sequence = 1;
+                $name = "前胸";
+            }
+            if($d['side'] == 'back'){
+                $render_width_inches = 13;
+                $sequence = 2;
+                $name = "后背";
+            }
+            if($d['side'] == 'third'){
+                $render_width_inches = 6;
+                $name = "左袖";
+                $sequence = 3;
+            }
+            if($d['side'] == 'fourth'){
+                $render_width_inches = 6;
+                $name = "右袖";
+                $sequence = 4;
+            }
 
-            $html_color = $productStyle['color'];
 
-            $ProductStyleSize = self::_db()->select_rows("select * from product_style_sizes where product_style_id = ? and enable = 'y'",$productStyle['id']);
+            $_produtRegions[$d['product_id']][] = array(
+                'name' => 'product_regions',
+                'attribute' => array(
+                    'product_region_id' => $d['region_id'],
+                    'side_name' => $name,
+                    'side' => $d['side'],
+                    'is_default' => $is_default,
+                    'name' => $name,
+                    'region' => $d['x'].",".$d['y'].",".$d['w'].",".$d['h'],
+                    'render_width_inches' => $render_width_inches,
+                    'side_order' => $sequence,
+                    'region_order' => $sequence,
+                    'imgurl' => $d['imgurl'],
+                    'thumburl' => $d['thumburl'],
+                ),
+                'item' => array(
+                    'name' => 'print_mask'
+                ),
+            );
+        }
+        foreach ($styles as $style) {
+            $html_color = $style['color'];
+            $inventorys = self::_db()->select_rows("select id,size,increase from et_product_inventory where style_id = ?",$style['product_style_id']);
+            //print_r($inventorys);exit;
 
             $sizes = array();
             $sizesids = array();
             $upcharges = array();
-            foreach ($ProductStyleSize as $a => $b) {
+            foreach ($inventorys as $b) {
                 $sizes[] = $b['size'];
                 $sizesids[] = $b['id'];
                 $upcharges[] = $b['increase']; //各个尺码是否需要加减价
             }
+            //print_r($upcharges);exit;
             $sizes = implode(',', $sizes);
             $sizesids = implode(',', $sizesids);
             $upcharges = implode(',', $upcharges);
 
-            $image_width = '500';
+            $image_width  = '500';
             $image_height = '500';
 
-            $produtRegions = array();
-            //
-            $images = self::_db()->select_rows("select * from product_style_images where product_style_id = ? order by sequence",$value['product_style_id']);
-            if ($images) {
-                foreach ($images as $c => $d) {
-                    $regions = self::_db()->select_rows("select * from product_style_image_regions where product_style_image_id = ? order by sequence",$d['id']);
-                    if ($d['side'] == 'front') {
-                        $thumburl_front = replace_cdn($d['thumburl']);
-                        $thumburl_front_cached = replace_cdn($d['thumburl']);
-                    }
-                    foreach ($regions as $e => $f) {
-                        $produtRegions[] = array(
-                            'name' => 'product_regions',
-                            'attribute' => array(
-                                'product_region_id' => $f['id'],
-                                'side_name' => $d['name'],
-                                'side' => $d['side'],
-                                'is_default' => $f['is_default'],
-                                'name' => $f['name'],
-                                'region' => $f['region'],
-                                'render_width_inches' => $f['render_width_inches'],
-                                'side_order' => $d['sequence'],
-                                'region_order' => $f['sequence'],
-                                'imgurl' => replace_cdn($d['imgurl']),
-                                'thumburl' => replace_cdn($d['thumburl']),
-                            ),
-                            'item' => array(
-                                'name' => 'print_mask',
-//                            'attribute' => array(
-//                                'name' => '',
-//                                'value' => '',
-//                                'art_path' => '',
-//                            ),
-                            ),
-                        );
-                    }
-                    $ColorResult[] = array(
-                        'name' => 'product_styles',
-                        'attribute' => array(
-                            'product_style_id' => $value['product_style_id'],
-                            'color' => $productStyle['color_name'],
-                            'html_color' => $html_color,
-                            'thumburl_front' => $thumburl_front,
-                            'thumburl_front_cached' => $thumburl_front_cached,
-                            "can_print" => "1",
-                            'can_digital_print' => 1,
-                            "can_screen_print" => 1,
-                            'can_embroider' => 0,
-                            'sizes' => $sizes,
-                            'sizeids' => $sizesids,
-                            'image_width_front' => $image_width,
-                            'image_height_front' => $image_height,
-                            'image_width_back' => $image_width,
-                            'image_height_back' => $image_height
-                        ),
-                    );
-                }
-            }
             $productStyles[] = array(
                 'name' => 'product_styles',
                 'attribute' => array(
-                    'product_style_id' => $value['id'],
-                    'is_default' => $value['is_default'],
-                    'color' => $productStyle['color_name'],
+                    'product_style_id' => $style['product_style_id'],
+                    'is_default' => $is_default,
+                    'color' => $style['color_name'],
                     'html_color' => $html_color,
                     'customizable' => 1,
                     'can_print' => 1,
                     'can_digital_print' => 1,
                     'can_screen_print' => 1,
                     'can_embroider' => 0,
-                    'unit_price' => $value['selling_price'],
+                    'unit_price' => $style['selling_price'],
                     'canvas_price' => '6.00',
                     'name_price' => '4.00',
                     'number_price' => '4.00',
@@ -318,21 +305,22 @@ class Model_Design_Tool_Beta extends BaseModel {
                     'image_width_back' => $image_width,
                     'image_height_back' => $image_height,
                 ),
-                'item' => $produtRegions
+                'item' => $_produtRegions[$style['product_id']]
             );
         }
-        $mfr_image = json_decode(@$ManufacturerBrand['brand_image']);
+        $mfr_image = json_decode('{     "square":"",     "wide": "",     "tiny": "" }');
+        //print_r($style);exit;
         $productResult = array(
             'name' => 'products',
             'attribute' => array(
                 'product_id' => $pid,
-                'manufacturer' => @$Manufacturer['Abbreviation'],
+                'manufacturer' => $style['Abbreviation'],
                 'mfr_image_wide' => $mfr_image->wide,
                 'mfr_image_square' => $mfr_image->square,
                 'mfr_image_tiny' => $mfr_image->tiny,
-                'manufacturer_sku' => $product['manufacturer_sku'],
-                'sku' => $product['sku'],
-                'name' => $appProduct['product_name'],
+                'manufacturer_sku' => $style['manufacturer_sku'],
+                'sku' => $style['sku'],
+                'name' => $style['product_name'],
                 'customizable' => 1,
                 'can_print' => 1,
                 'can_digital_print' => 1,
@@ -347,7 +335,7 @@ class Model_Design_Tool_Beta extends BaseModel {
                 'fourth_side_name' => '右袖',
                 'is_static' => 0,
                 'require_design' => 0,
-                'long_description' => str_replace('"', "'", $product['long_description'])
+                'long_description' => ''
             ),
             'item' => $productStyles,
         );
@@ -356,27 +344,102 @@ class Model_Design_Tool_Beta extends BaseModel {
             'attribute' => null,
             'item' => array($productResult)
         );
+
         return $result;
     }
-    static function get_act_by_id($id){
-        //$open_user = Model_Open_User::get_open_user_by_token($user_token);
-        $act = self::_db()->select_row("select a.*,aps.app_product_id,aps.app_product_style_id from activities as a left join activity_product_styles as aps on aps.activity_id = a.id where a.id = ?",$id);
-        return $act;
+
+    function action_design_init(){
+        $result['product_info'] = Model_Product::get_product_info();
+        PtApp::session_start();
+        $session_id = session_id();
+        $design_info = self::_redis()->get("user_design_info_".$session_id);
+        if(!$design_info) $design_info = array(
+            "cat_id"=>1,
+            "product_id"=>1,
+            "style_id"=>10,
+            "color_count"=>0,
+            "design_front"=>null,
+            "design_back"=>null,
+            "design_third"=>null,
+            "design_fourth"=>null,
+            "default_side"=>"front",
+
+        );
+        else $design_info = json_decode($design_info,1);
+
+        $result['design_info'] = $design_info;
+
+        return $result;
     }
-    function action_product_get_cat_list(){
-        $categoryList = self::_db()->select_rows(
-            "select * from app_product_categories where enable = 'y'"
+    function action_get_templates(){
+        $result['templates'] = array(
+            array(
+                "id"=>1,
+                "price"=>1,
+                "img_url"=>"http://www.xxx.com/test.png",
+                "svg_url"=>"http://www.xxx.com/test.svg",
+                "name"=>"name"
+            )
+        );
+        return $result;
+    }
+    function action_product_pricing($sale_count,$color_count,$style_id){
+        $sale_count = intval($sale_count);
+        $color_count = intval($color_count);
+        $style_id = intval($style_id);
+        if(!$sale_count) throw new Exception("sale_count 不能为空");
+        if($sale_count > 1000 || $sale_count < 10) throw new Exception("sale_count 不能大于1000件 且不能小于10件");
+        if(!$color_count) throw new Exception("颜色数量不能为空");
+        if($color_count>10) throw new Exception("颜色数量不能大于10种");
+        if(!$style_id) throw new Exception("款式ID不能为空");
+        $style = self::_db()->select_row("select * from et_product_style where id = ?",$style_id);
+        if(!$style) throw new Exception("款式不存在");
+        $print_cost = Model_Cost::calculate_cost($color_count,$sale_count);
+        return array(
+            "print_cost"=>$print_cost,
+            "selling_price"=>$style['selling_price']
         );
 
+    }
+
+    function action_design_save($color_count,$default_side,$design_front,$design_back,$design_third,$design_fourth,$cat_id,$product_id,$style_id){
+        PtApp::session_start();
+        $session_id = session_id();
+        $info = array(
+            "color_count"  => $color_count,
+            "design_front" => $design_front,
+            "design_back"  => $design_back,
+            "design_third" => $design_third,
+            "design_fourth"=> $design_fourth,
+            "default_side" => $default_side,
+            "cat_id"       => $cat_id,
+            "product_id"   => $product_id,
+            "style_id"     => $style_id,
+        );
+
+        self::_redis()->set("user_design_info_".$session_id,json_encode($info));
+        return "保存成功";
+    }
+    function action_activity_check_url_path($url_path){
+        $res = self::_db()->select_row("select id from et_activity_info where url_path = ?",$url_path);
+        return array(
+            "url_path"=>$url_path,
+            "exists"=>empty($res)?0:1
+        );
+    }
+
+    function action_product_get_cat_list($json){
+        $cats = self::_db()->select_rows("select * from et_product_cat where enable = 'Y'");
+        return $cats;
         $productCate = array();
-        foreach ($categoryList as $key => $val) {
+        foreach ($cats as $key => $val) {
             $productCate[] = array(
                 'name' => 'vw_product_categories',
                 'attribute' => array(
                     'product_category_id' => $val['id'],
                     'name' => $val['name'],
                     'path' => $val['path'],
-                    'thumburl_front' => $val['thumb'],
+                    'thumburl_front' => "W",
                 ),
             );
         }
@@ -384,36 +447,40 @@ class Model_Design_Tool_Beta extends BaseModel {
             'name' => 'ProductCategoryList',
             'item' => $productCate,
         );
-        xml_response($result);
+        if($json){
+            return $result;
+        }else{
+            xml_response($result);
+        }
+
     }
+    static function get_act_by_id($id){
+        $act = self::_db()->select_row("select a.*,aps.product_id as app_product_id,aps.product_style_id as app_product_style_id
+                  from activities as a
+                  left join activity_product_styles as aps on aps.activity_id = a.id where a.id = ?",$id);
+        return $act;
+    }
+
     function action_address_get_list(){
 
     }
-    function action_design_get(){
-        $uid  = self::get_uid();
+    function cdnReplace($content){
+        return replace_cdn($content);
+    }
 
+    function action_design_get($design_id,$json){
+        $uid  = 0;
         $appId = 1;
-        if (!isset($_REQUEST['designId'])) {
-            throw new Exception("designId不能为空");
+        if (!$design_id) {
+            throw new Exception("design_id不能为空");
         }
-        $designId = $_REQUEST['designId'];
+        $designId = $design_id;
         #获取Design
         $design = self::_db()->select_row("select * from designs where id = ?",$designId);
         if (!$design) {
             throw new Exception("design不存在");
         }
 
-        if (!$uid) {
-            // 有uid输出product style
-            // 没有uid判断ispublic
-//            if (!$design['is_public']) {
-//                $this->common->errorList(50000);
-//            }
-        } else {
-//            if ($design['uid'] != $uid) {
-//                $this->common->errorList(50000);
-//            }
-        }
 
         $disable = json_decode($design['disable'], true);
         $printDesign = array(
@@ -628,56 +695,46 @@ class Model_Design_Tool_Beta extends BaseModel {
             ),
         );
         $print['item'] = array_merge($print['item'], $printCanvas, $printCanvasText, $printCanvasArt);
-        xml_response($print);
+        if($json) return $print;
+        else xml_response($print);
     }
-    function action_product_get_list(){
-        if (!isset($_REQUEST["productCategoryId"]) || empty($_REQUEST["productCategoryId"])) {
-            throw new Exception("productCategoryId不能为空");
-        }
-        $pcid = $_REQUEST["productCategoryId"];
-        $appProduct = self::_db()->select_rows(
-            "select
-            ap.*,cat.name as cat_name,man.name as man_name,brand.name as brand_name,
-            p.manufacturer_sku,p.sku
-            from app_products as ap
-            left join app_product_category_maps as map on map.app_product_id = ap.id
-            left join app_product_categories as cat on cat.id = map.app_product_category_id
-            left join products as p on p.id = ap.product_id
-            left join manufacturers as man on man.id = p.manufacturer_id
-            left join manufacturer_brands as brand on brand.id = p.manufacturer_brand_id
-            where cat.id = ? and ap.enable = 'Y' and p.enable = 'Y'"
-            ,$pcid);
 
-        $CS = array();
-        foreach ($appProduct as $a => $b) {
-            $appProductStyle = self::_db()->select_row("select aps.*,ps.color,ps.color_name from app_product_styles as aps
-                              left join product_styles as ps on ps.id = aps.product_style_id
-                              where aps.enable = 'Y' and aps.is_default = 1 and aps.app_product_id = ? ",$b['id']);
-            $image = self::_db()->select_row("select * from product_style_images where product_style_id = ? and side = 'front'",$appProductStyle['product_style_id']);
 
+    function action_product_get_list($cat_id,$json){
+        $products = self::_db()->select_rows("select p.sku,d.img_url as imgurl,p.name as product_name,s.*,p.manufacturer_sku,c.name as cat_name,b.name as brand_name
+              from et_product_design as d
+              left join et_product as p on p.id = d.product_id and d.side = 'front'
+              left join et_product_style as s on s.product_id = d.product_id and s.is_default = 1
+              left join et_product_cat_map as map on map.product_id = p.id
+              left join et_product_cat as c on c.id = map.cat_id
+              left join et_product_brand as b on b.id = p.brand_id
+              where c.id = ? order by s.selling_price asc",$cat_id);
+
+        //var_dump($appProduct);exit;
+        foreach ($products as $product) {
             $CS[] = array(
                 'name' => 'CS',
                 'attribute' => array(
-                    'category' => $b['cat_name'],
-                    'manufacturer' => $b['brand_name'],
-                    'manufacturer_sku' => $b['manufacturer_sku'],
-                    'product_id' => $b['id'],
-                    'product_category_id' => $pcid,
-                    'sku' => $b['sku'],
+                    'category' => $product['cat_name'],
+                    'manufacturer' => $product['brand_name'],
+                    'manufacturer_sku' => $product['manufacturer_sku'],
+                    'product_id' => $product['product_id'],
+                    'product_category_id' => $cat_id,
+                    'sku' => $product['sku'],
                     'is_static' => 0,
-                    'name' => $b['product_name'],
-                    'product_style_id' => $appProductStyle['id'],
-                    'product_style_uri' => $appProductStyle['id'],
+                    'name' => $product['product_name'],
+                    'product_style_id' => $product['id'],
+                    'product_style_uri' => $product['id'],
                     'is_default' => 0,
-                    'color' => $appProductStyle['color_name'],
-                    'html_color' => $appProductStyle['color'],
+                    'color' => $product['color_name'],
+                    'html_color' => $product['color'],
                     'can_print' => 1,
                     'can_digital_print' => 1,
                     'can_screen_print' => 1,
                     'can_embroider' => 0,
-                    'unit_price' => $appProductStyle['selling_price'],
-                    'thumburl_front' => replace_cdn($image['imgurl']),
-                    'thumburl_front_cached' => replace_cdn($image['thumburl']),
+                    'unit_price' => $product['selling_price'],
+                    'thumburl_front' => $product['imgurl'],
+                    'thumburl_front_cached' => $product['imgurl'],
                 ),
             );
         }
@@ -685,8 +742,8 @@ class Model_Design_Tool_Beta extends BaseModel {
             'name' => 'ProductList',
             'item' => $CS,
         );
-        //return $result;
-        xml_response($result);
+        if($json) return $result;
+        else xml_response($result);
     }
     function action_product_get(){
         if (!isset($_REQUEST['productId']) || empty($_REQUEST['productId'])) {
@@ -729,17 +786,13 @@ class Model_Design_Tool_Beta extends BaseModel {
         xml_response($result);
     }
 
-    function action_font_get_js_font(){
-        if (!isset($_REQUEST['fontid'])) {
-            throw new Exception("fontid不能为空");
-        }
-        $fontid = $_REQUEST['fontid'];
+    function action_font_get_js_font($font_id,$text){
+
+        $fontid = $font_id;
 
         if (!isset($_REQUEST['text'])) {
             throw new Exception("text不能为空");
         }
-        $text = $_REQUEST["text"];
-
         $font = self::_db("font")->select_row("select * from fonts where id = ?",$fontid);
         //$font = $this->Font->getFontById($this->_app->id, $fontid);
         if (!$font) {
@@ -765,14 +818,10 @@ class Model_Design_Tool_Beta extends BaseModel {
         }
     }
 
-    function action_activity_activity_info(){
+    function action_activity_info($id,$json){
 
-        if (!isset($_REQUEST['activityId']) || !$_REQUEST['activityId']) {
-            throw new Exception("activityId 不能为空");
-        }
-        $activityId = $_REQUEST['activityId'];
-        $activity = self::get_act_by_id($activityId);
-        //$activityId = $this->Activity->getActivityById($activityId);
+        $activityId = $id;
+        $activity = self::get_act_by_id($id);
 
         $datas['name'] = $activity['name'];
         $datas['description'] = $activity['description'];
@@ -782,10 +831,8 @@ class Model_Design_Tool_Beta extends BaseModel {
         $datas['target'] = $activity['sales_target'];
         $datas['notes'] = $activity['notes'];
         $datas['freePostage'] = $activity['free_postage'];
-
-        $activityProductStyles =  self::_db()->select_rows("select * from activity_product_styles where activity_id = ?",$activityId);
-        //return $activityProductStyles;
-        //$activityProductStyles = $this->ActivityProductStyles->getActivityId($activityId);
+        $activityProductStyles = self::_db()->select_rows("select * from activity_product_styles where activity_id = ?",$activityId);
+        //var_dump($activityProductStyles);exit;
         $products = array();
         if ($activityProductStyles) {
 
@@ -798,71 +845,63 @@ class Model_Design_Tool_Beta extends BaseModel {
             foreach ($activityProductStyles as $dataInfo) {
                 $productIds[] = $dataInfo['product_id'];
                 $productStyleIds[] = $dataInfo['product_style_id'];
-                $appProductIds[] = $dataInfo['app_product_id'];
-                $appProductStylesIds[] = $dataInfo['app_product_style_id'];
-                $stylePrices[$dataInfo['app_product_id']] = $dataInfo['sell_price'];
+                $appProductIds[] = $dataInfo['product_id'];
+                $appProductStylesIds[] = $dataInfo['product_style_id'];
+                $stylePrices[$dataInfo['product_id']] = $dataInfo['sell_price'];
             }
             // 取产品相关信息
-            $productStyle = self::_db()->select_rows("select * from product_styles where enable = 'Y' and product_id in (".implode(",",$productIds).")");
-            $appProduct = self::_db()->select_rows("select * from app_products where enable = 'Y' and id in (".implode(",",$appProductIds).")");
-            $appProductStyle = self::_db()->select_rows("select * from app_product_styles where enable = 'Y' and app_product_id in (".implode(",",$appProductIds).")");
-
+            $productStyle = self::_db()->select_rows("select * from et_product_style where product_id in(".implode(",",$productIds).")");
+            $_products = self::_db()->select_rows("select b.name as brand_name,p.*,d.img_url from et_product as p
+                  left join et_product_design as d on d.product_id = p.id
+                  left join et_product_brand as b on b.id = p.brand_id
+                  where d.side = 'front' and p.id in(".implode(",",$productIds).")");
+            //var_dump($appProduct);exit;
             $styles = array();
             foreach ($productStyle as $style) {
                 $styles[$style['id']] = $style;
             }
-            foreach ($appProduct as $appP) {
+            //var_dump($styles);exit;
+            $products = array();
+            foreach ($_products as $product) {
                 $selectStyle = array();
                 $unSelectStyle = array();
-                foreach ($appProductStyle as $appStyle) {
-                    if ($appStyle['app_product_id'] != $appP['id']) {
+                foreach ($productStyle as $appStyle) {
+                    if ($appStyle['product_id'] != $product['id']) {
                         continue;
                     }
-                    $productStyleImage = self::_db()->select_row("select * from product_style_images where product_style_id = ? and side = 'front'",$appStyle['product_style_id']);
-                    $colors = json_decode($styles[$appStyle['product_style_id']]['colors'], TRUE);
-                    $colorName = '';
-                    if ($colors) {
-                        $max = $colors[0]['accounting'];
-                        $colorName = $colors[0]['name'];
-                        foreach ($colors as $color) {
-                            if ($color['accounting'] > $max) {
-                                $max = $color['accounting'];
-                                $colorName = $color['name'];
-                            }
-                        }
-                    }
+
                     if (in_array($appStyle['id'], $appProductStylesIds)) {
                         $selectStyle[] = array(
                             'id' => $appStyle['id'],
-                            'image' => replace_cdn($productStyleImage['imgurl']),
-                            'color' => $styles[$appStyle['product_style_id']]['color_name'],
-                            'html_color' => $colorName,
+                            'image' => $product['img_url'],
+                            'color' => $styles[$appStyle['id']]['color_name'],
+                            'html_color' => $styles[$appStyle['id']]['color'],
                             'unit_price' => $appStyle['selling_price'],
                         );
                     }
                     $unSelectStyle[] = array(
                         'id' => $appStyle['id'],
-                        'image' => replace_cdn($productStyleImage['imgurl']),
-                        'color' => $styles[$appStyle['product_style_id']]['color_name'],
-                        'html_color' => $colorName,
+                        'image' => $product['img_url'],
+                        'color' => $appStyle['color_name'],
+                        'html_color' => $appStyle['color'],
                         'unit_price' => $appStyle['selling_price'],
                     );
                 }
-                $manufacture = self::_db()->select_row('SELECT m.name FROM manufacturer_brands As m INNER JOIN products AS p ON p.manufacturer_brand_id = m.id WHERE p.id = '.$appP['product_id']);
                 $products[] = array(
-                    'id' => $appP['id'],
-                    'name' => $appP['product_name'],
+                    'id' => $product['id'],
+                    'name' => $product['name'],
                     'product_styles' => $unSelectStyle,
                     'product_selected_styles' => $selectStyle,
-                    'price' => intval($stylePrices[$appP['id']]),
-                    'manufacturer_name' => $manufacture['name'],
+                    'price' => intval($stylePrices[$product['id']]),
+                    'manufacturer_name' => $product['brand_name'],
                 );
             }
         }
         $datas['products'] = $products;
         echo json_encode($datas);exit;
+
     }
-    function action_design_save(){
+    function action_design_save1(){
         $appId = 1;
         $uid  = self::get_uid();
         $xmlDesign = $_POST['xmlDesign'];

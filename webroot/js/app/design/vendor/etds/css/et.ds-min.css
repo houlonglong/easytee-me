@@ -1,0 +1,353 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, input, button, fieldset, legend, img {
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+fieldset, img, button {
+    border: none;
+}
+
+i {
+    font-style: normal;
+}
+
+img {
+    display: block;
+    border: 0;
+}
+
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+div.ds {
+    position: relative;
+    width: 530px;
+    height: 630px;
+}
+
+svg.svg-surface, div.printable-area-toolbar, .no-select, .printable-area-toolbar span, div.printable-area-exclusion, img.ghost-image, div.product-color, div.texture-overlay, div.svg-surface, .gridline, div.xgridline, .ygridline {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+}
+
+div.new-editor {
+    text-align: left;
+    width: 530px;
+    height: 630px;
+    background: white;
+    -webkit-transition: -webkit-transform 400ms ease;
+    transition: transform 400ms ease;
+    box-sizing: content-box;
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    display: none;
+}
+
+.new-editor-container * {
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+div.product-color {
+    position: absolute;
+    width: 530px;
+    height: 630px;
+    -webkit-transition: background-color 400ms ease;
+    transition: background-color 400ms ease;
+}
+
+img.ghost-image {
+    position: absolute;
+    width: 100%;
+}
+
+svg.svg-surface {
+    position: absolute;
+}
+
+div.html-surface {
+    position: absolute;
+}
+
+div.printable-area-box {
+    position: absolute;
+    box-sizing: content-box;
+    margin-left: -2px;
+    margin-top: -2px;
+    background: transparent;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+    border-bottom: 0;
+    color: white;
+    -webkit-transition: all 400ms ease;
+    transition: all 400ms ease;
+}
+
+div.printable-area-box.alarm {
+    border-color: rgba(255, 0, 0, 0.298039) !important;
+}
+
+div.printable-area-toolbar {
+    font-size: 0.7em;
+    box-sizing: content-box;
+    width: calc(100% + 4px);
+    margin-left: -2px;
+    position: absolute;
+    bottom: -2em;
+    background-color: rgba(0, 0, 0, 0.298039);
+    height: 2em;
+    line-height: 2em;
+    -webkit-transition: all 400ms ease;
+    transition: all 400ms ease;
+    color: #fff;
+}
+
+div.printable-area-box.alarm div.printable-area-toolbar {
+    background-color: rgba(255, 0, 0, 0.298039) !important;
+}
+
+.printable-area-toolbar span {
+    margin-left: 0.25em;
+}
+
+img.printable-area-zoom-image {
+    position: absolute;
+    color: #fff;
+    -webkit-transition: opacity 400ms ease;
+    transition: opacity 400ms ease;
+}
+
+div.printable-area-zoom {
+    width: 1.25em;
+    height: 1.25em;
+    float: right;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    position: relative;
+    margin-right: 0.25em;
+    cursor: pointer;
+}
+
+.zero-opacity {
+    opacity: 0;
+}
+
+.gridline, div.xgridline, .ygridline {
+    position: absolute;
+    opacity: 0;
+    -webkit-transition: opacity 400ms ease;
+    transition: opacity 400ms ease;
+    background-color: #39ace6;
+}
+
+div.xgridline {
+    height: 100%;
+    width: 1px;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.ygridline {
+    height: 1px;
+    width: 100%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+/* 设计区域 */
+@-webkit-keyframes marching-ants-1 {
+    0% {
+        background-position: 0 0, 0 100%, 0 0, 100% 0
+    }
+    100% {
+        background-position: 16px 0, -16px 100%, 0 -16px, 100% 16px
+    }
+}
+
+@keyframes marching-ants-1 {
+    0% {
+        background-position: 0 0, 0 100%, 0 0, 100% 0
+    }
+    100% {
+        background-position: 16px 0, -16px 100%, 0 -16px, 100% 16px
+    }
+}
+
+.marching-ants {
+    padding: 1px;
+    background-size: 8px 1px, 8px 1px, 1px 8px, 1px 8px;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    -webkit-animation: marching-ants-1 700ms;
+    animation: marching-ants-1 700ms;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused
+}
+
+.marching-ants:hover,
+.marching-ants.marching {
+    -webkit-animation-play-state: running;
+    animation-play-state: running
+}
+
+.marching-ants.reverse {
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse
+}
+
+div.edit-box {
+    position: absolute;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    box-sizing: border-box;
+    background-image: -webkit-linear-gradient(left, #ddd 50%, #333 50%), -webkit-linear-gradient(left, #ddd 50%, #333 50%), -webkit-linear-gradient(top, #ddd 50%, #333 50%), -webkit-linear-gradient(top, #ddd 50%, #333 50%);
+    background-image: linear-gradient(to right, #dddddd 50%, #333333 50%), linear-gradient(to right, #dddddd 50%, #333333 50%), linear-gradient(to bottom, #dddddd 50%, #333333 50%), linear-gradient(to bottom, #dddddd 50%, #333333 50%);
+    background-color: transparent;
+}
+
+div.edit-box.hidden {
+    background: none;
+}
+
+div.edit-box.hidden div.handle {
+    display: none;
+}
+
+div.handle {
+    position: absolute;
+    opacity: 0.8;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+div.handle-noimage {
+    box-sizing: border-box;
+    border: 1px solid gray;
+    background-color: rgba(255, 255, 255, 0.2)
+}
+
+div.handle-top {
+    width: 12px;
+    height: 12px;
+    top: -6px;
+    left: 50%;
+    margin-left: -6px;
+}
+
+div.handle-left {
+    width: 12px;
+    height: 12px;
+    top: 50%;
+    left: -6px;
+    margin-top: -6px;
+}
+
+div.handle-bottom {
+    width: 12px;
+    height: 12px;
+    bottom: -6px;
+    left: 50%;
+    margin-left: -6px;
+}
+
+div.handle-right {
+    width: 12px;
+    height: 12px;
+    top: 50%;
+    right: -6px;
+    margin-top: -6px;
+}
+
+div.handle-drag {
+    background-image: url(../images/drag.png);
+    width: 21px;
+    height: 21px;
+    left: -18px;
+    top: -18px;
+}
+
+div.handle-rotate {
+    background-image: url(../images/rotate.png);
+    width: 21px;
+    height: 21px;
+    right: -18px;
+    top: -18px;
+}
+
+div.handle-scale {
+    background-image: url(../images/scale.png);
+    width: 21px;
+    height: 21px;
+    right: -18px;
+    bottom: -18px;
+}
+
+div.handle-delete {
+    background-image: url(../images/delete.png);
+    width: 21px;
+    height: 21px;
+    left: -18px;
+    bottom: -18px;
+}
+
+div.edit-box-sizer {
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+    opacity: 0.8;
+    font-size: 0.8em;
+    padding: 0 2px 0 2px;
+    position: absolute;
+    bottom: -36px;
+    height: 20px;
+    text-align: center;
+}
+
+div.edit-box-sizer.edit {
+    background: #fff;
+    color: #000;
+    padding: 10px;
+    box-sizing: content-box;
+    box-shadow: 0 0 14px #000;
+    border-radius: 3px;
+}
+
+div.edit-box-sizer.edit span, div.edit-box-sizer.edit i {
+    padding: 0 3px;
+}
+
+div.edit-box-sizer.edit input {
+    width: 45px;
+    outline: none;
+}

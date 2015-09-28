@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>HTML5 File Drag &amp; Drop API</title>
+	<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+	<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+	<script src="/ace/assets/js/jquery.2.1.1.min.js"></script>
+
+	<title>HTML5 File Drag &amp; Drop API</title>
 	<style>
 		#result img{
 			width: 400px;
@@ -10,24 +14,20 @@
 	</style>
 </head>
 <body>
-<div>
-	<input type="file" id="file_select" multiple="multiple" />
-</div>
 <hr>
-<div>
-	<button type="submit" id="do_upload">Upload Files</button>
-</div>
+<label class="btn btn-primary" for="my-file-selector">
+	<input id="my-file-selector" type="file" style="display:none;">
+	Button Text Here
+</label>
+
+<hr>
 <hr>
 <div id="result"></div>
-<script src="/ace/assets/js/jquery.2.1.1.min.js"></script>
 <script>
 
 	$(function(){
-		//$.get("http://oss-cn-hangzhou.aliyuncs.com/open-edit/design/svg/10/front.svg",function(data){
-			//console.log(data);
-			//$("#result").html(data);
-		//},"text");
 		$("#file_select").change(function(e){
+			debugger;
 			if (!(window.File && window.FileList && window.FileReader)) {
 				return alert("不支持上传方法");
 			}
