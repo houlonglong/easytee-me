@@ -492,3 +492,7 @@
     margin-top: 30px;
     z-index: 3;
 }
+
+.design-selected-tools {
+    display: none;
+}

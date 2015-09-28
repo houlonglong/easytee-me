@@ -829,6 +829,7 @@ TextElementEl.prototype.setFontFamily = function(fontFamily){
     fontSpy(fontFamily, {
         glyphs: '\ue81a\ue82d\ue823',
         success: function() {
+            _self.fontFamily = fontFamily;
             _self.snapEl.node.setAttribute('font-family', fontFamily);
             for (var i=0; i<_self.snapEl.node.childNodes.length; i++) {
                 var tSpan = _self.snapEl.node.childNodes[i];
@@ -851,14 +852,17 @@ TextElementEl.prototype.setFontFamily = function(fontFamily){
 };
 
 TextElementEl.prototype.setFill = function(val){
+    this.fill = val;
     this.snapEl.node.setAttribute('fill', val);
 };
 
 TextElementEl.prototype.setStroke = function(val){
+    this.stroke = val;
     this.snapEl.node.setAttribute('stroke', val);
 };
 
 TextElementEl.prototype.setStrokeWidth = function(val){
+    this.strokeWidth = val;
     this.snapEl.node.setAttribute('stroke-width', val);
 };
 /**
@@ -1346,6 +1350,8 @@ function Transform(canvas, box, htmlSurface, width, height, angle){
     };
 
     this.initTransform();
+
+    eventManager.trigger('selectedBox', _self.elem);
 }
 /**
  * ElementBox
