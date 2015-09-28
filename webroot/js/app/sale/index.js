@@ -1,9 +1,9 @@
 $(function () {
 
-    $('.xiaotu li').click(function (event) {
+    $('.small-img li').click(function (event) {
         $(this).addClass('current').siblings().removeClass('current');
         var num = $(this).index();
-        $('.datu li').eq(num).addClass('current').siblings().removeClass('current');
+        $('.big-img li').eq(num).addClass('current').siblings().removeClass('current');
     });
 
     //tab栏切换的部分
@@ -53,14 +53,88 @@ $(function () {
         $('.style-info li:first').clone(true).appendTo('.style-info');
     });
 
-    
+    //初始化活动页面的展示
+    $.get("/api",{
+            model:'activity',
+            action:'detail',
+            id:2595
+    },function (data){
+        if(data.status==0){
+
+             acticity_detail = data.return;
+
+            var detault_id = acticity_detail.default_style['product_id'];
+            var sides = acticity_detail.sides;
+            var act_designs = acticity_detail.act_designs;
+            var product_designs = acticity_detail.product_designs;
+            var sell_price=acticity_detail.default_style['sell_price'];
+            
+            //图片的展示
+            for(var i=0;i<sides.length;i++){
+                var sideName = sides[i];
+                var imgUrl;
+                if(act_designs[detault_id][sideName] != undefined){
+                    imgUrl = act_designs[detault_id][sideName].img_url;
+                }else{
+                    imgUrl = product_designs[detault_id][sideName].img_url;
+                }
+                $('.big-img li:eq('+i+') img').attr('src', imgUrl);
+                $('.small-img li:eq('+i+') img').attr('src', imgUrl);
+            }
+            //显示价格
+            $('.price-num').html(''+sell_price+'')
+
+            //颜色的显示
+            var styles=acticity_detail.styles;
+            for(var o in styles[detault_id]){
+                var color_lump=styles[detault_id][o].color;
+                var liobj = $("<li><span></span></li>").css('background',"#"+color_lump);
+                $('.color-lump').append(liobj);
+            }
+
+            /*$('.color-lump li span').click(function(event) {
+                //单击 span的时候 图片的背景色变成li的背景色
+                var curent_color=$('.color-lump li').css('background-color'); 
+                var detault_color=acticity_detail.default_style['color'];
+                    detault_color=curent_color;
+
+            });*/
+            
+            
+            //款式列表显示
+            var products=acticity_detail.products;
+            var a=0;
+            for(o in products){
+                var str_1="";
+                var style_name=products[o].name;
+                str_1 += '<option>'+style_name+'</option>';
+                $('.style select').append(str_1);
+                a++;
+            }
+            if(a>0){
+                $('.style').show();
+            }else{
+                $('.style').hide();
+            }
+        
+        //初始化款式列表信息
+        model.arr[0].thumbnail = acticity_detail.default_style.thumb_img_url;
+        model.arr[0].number = 1;
+        model.arr[0].products = acticity_detail.products;
+        model.arr[0].styles = acticity_detail.styles[acticity_detail.default_style.product_id];
+        model.arr[0].sizes = acticity_detail.sizes[acticity_detail.default_style.product_id][acticity_detail.default_style.product_style_id];
+        buildList();
+
+        }
+    },'json')
+
     //定义数据模型-Dialog的视图是一致的。并且最终传给后台使用。
     var model = {
         arr: [{}],
         total: 0
     };
 
-    var activity;
+    var acticity_detail;
 
     function getFirstProduct(list){
         for(var o in list){
@@ -69,23 +143,23 @@ $(function () {
     }
 
     function getFirstProductStyleByProductId(product_id){
-        activity.products[]
+        acticity_detail.products[0];
     }
 
     function getProduct(product_id) {
-        var product = activity.products[product_id];
+        var product = acticity_detail.products[product_id];
         return product;
     }
 
     //colors
     function getProductStyles(product_id) {
-        var styles = activity.styles[product_id];
+        var styles = acticity_detail.styles[product_id];
         return styles;
     }
 
     //sizes
     function getProductSizes(product_id, product_style_id) {
-        var sizes = activity.sizes[product_id][product_style_id];
+        var sizes = acticity_detail.sizes[product_id][product_style_id];
         return sizes;
     }
 
@@ -117,7 +191,7 @@ $(function () {
     }
 
     //初始化数据模型
-    $.get("/api", {
+   /* $.get("/api", {
         model: 'activity',
         action: 'detail',
         id: 2595
@@ -134,7 +208,7 @@ $(function () {
         } else {//异常
             alert(data.message)
         }
-    }, "json");
+    }, "json");*/
 
     function buildList() {
         //1、生成HTML
@@ -165,7 +239,7 @@ $(function () {
             htmlStr += '</div>';
             htmlStr += '<select name="" id="" class="chima-info">';
 
-            htmlStr += buildSizes(getProductSizes(getFirstProduct(item.products).id ));
+            htmlStr += buildSizes(getProductSizes(getFirstProduct(item.products),id ));
 
             htmlStr += '</select>';
             htmlStr += '<div class="money-info">';

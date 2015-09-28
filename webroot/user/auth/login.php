@@ -5,8 +5,9 @@
     <link rel="stylesheet" type="text/css" href="../../css/common/style.css">
     <link rel="stylesheet" type="text/css" href="../../css/login/login.css">
     <script type="text/javascript" src="../../js/app/common/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="../../js/app/common/index.js"></script>
-    <script type="text/javascript" src="../../js/app/login/index.js"></script>
+    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
+    <script type="text/javascript" src="/js/app/common/index.js"></script>
+    <script type="text/javascript" src="/js/app/login/index.js"></script>
     <title></title>
 </head>
 <body>

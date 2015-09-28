@@ -55,7 +55,7 @@ $(function () {
             url: "/api",
             data: {
                 mobile: userName,
-                password: userPass,
+                password:sha1(userPass),
                 action:"login",
                 redirect:"/user/index",
                 model: "user/auth"
@@ -214,6 +214,7 @@ $(function () {
 	var regPass=$('#reg-pass').val();
 	
 	$('#reg-testing').click(function(event) {
+        
 		 regPhone=$('#reg-phone').val();
 		 regTest=$('#reg-test').val();
 		 regPass=$('#reg-pass').val();
@@ -225,6 +226,18 @@ $(function () {
         } else {
             $('#reg-phone').parent().removeClass('err');
         }
+
+        $.get("/api",{  //注册时发送验证码
+            model: "user/register",
+            action: "get_code",
+            mobile: regPhone
+        },function (response,sataus,xhr){
+            if(response.status==0){
+                time($('#reg-testing'));
+            }else if(response.status==1){
+                $('#reg-phone').parent().addClass('err').children('i').html('该账号已注册');
+            }
+        });
 
 	});
 
@@ -259,17 +272,22 @@ $(function () {
 		
 		$.ajax({
 			type:'post',
-			url:"",
+			url:"/api",
 			data:{
-				phone:'regPhone',
-				Test:'regTest',
-				userPass:'regPass'
+				model: "user/register",
+                action: "do_register",
+                redirect: "/order?id=1",
+                mobile:regPhone,
+                captcha:regTest,
+                password:sha1(regPass)
 			},
-			success:function(){
-				if(status===0){
-					$('.reg-success').addClass('show').siblings('div').removeClass('show');
+			success:function(data){
+				if(data.status===0){  //注册成功显示 成功页面 倒计时5秒返回首页或当前页
+                    $('.reg-success').addClass('show').siblings('div').removeClass('show');
                     fn();
-				}
+                }else if(data.status==80011){
+                    $("#reg-test").parent().addClass('Prompt').children('i').html("验证码错误");
+                }
 			}
 		})
 	});
