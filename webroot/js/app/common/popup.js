@@ -1,6 +1,6 @@
 $(function() {
-	$('#popup-login').click(function(event) {
-		popup('login');
+		$('#popup-login').click(function(event) {
+			popup('login');
 		//load方法加载
 		//$(".tanceng div").load('/block/login',function(){
 			//加载出重置密码页面
@@ -11,6 +11,10 @@ $(function() {
 		    $('.denglu-con .zc-link a').click(function(event) {
 		    	$(".tanceng div").empty().load('/block/register');
 		    });*/
+		});
+
+		$('#popup-register').click(function(event) {
+			popup('register');
 		});
 	
 		$('.denglu-con .zc-link a').click(function(event) {
