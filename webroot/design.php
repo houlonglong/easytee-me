@@ -75,7 +75,7 @@
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="design-dropdown-menu-arrow"></div>
-                            <div class="color-picket-list">
+                            <div class="color-picket-list" id="textFillColorPicket">
                             </div>
                         </div>
                     </div>
@@ -85,11 +85,11 @@
                     <span class="form-label">选择描边</span>
                 </div>
                 <div class="form-row">
-                    <select class="form-control l-per-70" name="" id="">
+                    <select class="form-control l-per-70" id="changeTextOutline">
                         <option value="0">无描边</option>
-                        <option value="1">细描边</option>
-                        <option value="2">中描边</option>
-                        <option value="3">粗描边</option>
+                        <option value="0.33">细描边</option>
+                        <option value="0.66">中描边</option>
+                        <option value="1">粗描边</option>
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="design-dropdown-menu">
                             <div class="design-dropdown-menu-arrow"></div>
-                            <div class="color-picket-list">
+                            <div class="color-picket-list" id="textStrokeColorPicket">
                             </div>
                         </div>
                     </div>
@@ -331,11 +331,11 @@
             </div>
         </div>
         <div class="form-row">
-            <a href="javascript:;" class="icon-tools icon-tools-duplicate" title="复制"></a>
-            <a href="javascript:;" class="icon-tools icon-tools-align-center" title="对齐中心"></a>
-            <a href="javascript:;" class="icon-tools icon-tools-move-bottom" title="移到底层"></a>
-            <a href="javascript:;" class="icon-tools icon-tools-horizontal" title="水平翻转"></a>
-            <a href="javascript:;" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
+            <a href="javascript:;" id="duplicateBtn" class="icon-tools icon-tools-duplicate" title="复制"></a>
+            <a href="javascript:;" id="alignToCenterBtn" class="icon-tools icon-tools-align-center" title="对齐中心"></a>
+            <a href="javascript:;" id="moveToBottomBtn" class="icon-tools icon-tools-move-bottom" title="移到底层"></a>
+            <a href="javascript:;" id="horizontalBtn" class="icon-tools icon-tools-horizontal" title="水平翻转"></a>
+            <a href="javascript:;" id="verticalBtn" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
             <div class="clearfix"></div>
         </div>
     </div>
