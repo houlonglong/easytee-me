@@ -1,44 +1,44 @@
+(function initAllFonts() {
+    window.ET_DS_ALL_FONTS = {
+        path: '/designer/fonts',
+        types: ['popular'],
+        popular: [
+            'helvetica',
+            'russian',
+            'altehaasgrotesk',
+            'bebas',
+            'college',
+            'creampuff',
+            'distantgalaxy',
+            'goudybookletter',
+            'lindenhill',
+            'lobster',
+            'museoslab',
+            'permanentmarker',
+            'wasabi'
+        ],
+        list: {}
+    };
+
+    function createFont(type) {
+        for (var o in ET_DS_ALL_FONTS[type]) {
+            var name = ET_DS_ALL_FONTS[type][o];
+            ET_DS_ALL_FONTS.list[name] = {
+                type: type,
+                name: name,
+                image: ET_DS_ALL_FONTS.path + '/' + type + '/' + name + '.png'
+            };
+        }
+    }
+
+    for (var o in ET_DS_ALL_FONTS.types) {
+        createFont(ET_DS_ALL_FONTS.types[o]);
+    }
+})();
+
 $(function () {
 
     var ds;
-
-    (function initAllFonts() {
-        window.ET_DS_ALL_FONTS = {
-            path: '/designer/fonts',
-            types: ['popular'],
-            popular: [
-                'helvetica',
-                'russian',
-                'altehaasgrotesk',
-                'bebas',
-                'college',
-                'creampuff',
-                'distantgalaxy',
-                'goudybookletter',
-                'lindenhill',
-                'lobster',
-                'museoslab',
-                'permanentmarker',
-                'wasabi'
-            ],
-            list: {}
-        };
-
-        function createFont(type) {
-            for (var o in ET_DS_ALL_FONTS[type]) {
-                var name = ET_DS_ALL_FONTS[type][o];
-                ET_DS_ALL_FONTS.list[name] = {
-                    type: type,
-                    name: name,
-                    image: ET_DS_ALL_FONTS.path + '/' + type + '/' + name + '.png'
-                };
-            }
-        }
-
-        for (var o in ET_DS_ALL_FONTS.types) {
-            createFont(ET_DS_ALL_FONTS.types[o]);
-        }
-    })();
 
     function showTextLayer() {
         $('.tab-content:eq(0)').addClass('active');
