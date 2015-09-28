@@ -575,6 +575,9 @@ $(function () {
          */
         function initChangeSide() {
             $('.product-side').click(function () {
+                $('.product-side').removeClass('active');
+                $(this).addClass('active');
+
                 var idx = $(this).index();
 
                 switch (idx) {
