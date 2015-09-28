@@ -7,6 +7,8 @@
  */
 
 include_once __DIR__.'/../app_et/init.php';
+include_once PATH_APP.'/include/common.php';
+
 function pt_autoload_test($classname)
 {
 

@@ -5,7 +5,15 @@ use PtLib\UnitTest as UnitTest;
  *
  */
 class OrderTest extends UnitTest{
+    function test_get_list(){
+        $rows = Model_Order::get_list();
+        print_r($rows);
+    }
 
+    function test_detail_info(){
+        $row = Model_Order::detail_info("15092411015584654");
+        print_r($row);
+    }
     function test_action_save(){
         $this->set_http_opt(array(
             "debug"=>0,

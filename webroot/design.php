@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="js/app/design/vendor/etds/css/et.ds-min.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/font-family.css"/>
-    <link rel="stylesheet" type="text/css" href="js/app/design/vendor/etds/css/et.ds-min.css"/>
     <script src="js/app/design/vendor/jquery-1.11.2.js"></script>
     <script src="js/app/design/vendor/etds/et.ds.js"></script>
 
@@ -370,64 +370,6 @@
             </li>
             <li class="more-color">
                 <span></span>
-            </li>
-        </ul>
-        <ul class="color-column">
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-        </ul>
-        <ul class="color-column">
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
             </li>
         </ul>
     </div>

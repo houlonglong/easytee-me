@@ -403,213 +403,182 @@ $(function () {
      * 初始化设计工具产品选择面板数据及事件
      */
     function initDsRightPanel() {
-        //模拟Ajax数据
-        var categories = {
-            1: {
-                id: '1',
-                name: '基础－T恤款',
-                products: [
-                    {
-                        id: '11',
-                        name: '基础圆领T恤基础圆领T恤1',
-                        sides: [
-                            {
-                                id: 'front',
-                                image: '/js/app/design/common/data/front1.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 159,
-                                    y: 100,
-                                    width: 210,
-                                    height: 260
-                                }
-                            },
-                            {
-                                id: 'back',
-                                image: '/js/app/design/common/data/back1.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 159,
-                                    y: 100,
-                                    width: 210,
-                                    height: 260
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        id: '12',
-                        name: '基础圆领T恤基础圆领T恤2',
-                        sides: [
-                            {
-                                id: 'front',
-                                image: '/js/app/design/common/data/product_type_2_front.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 169,
-                                    y: 100,
-                                    width: 190,
-                                    height: 230
-                                }
-                            },
-                            {
-                                id: 'back',
-                                image: '/js/app/design/common/data/product_type_2_back.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 169,
-                                    y: 100,
-                                    width: 190,
-                                    height: 230
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            2: {
-                id: '2',
-                name: '基础－T恤款',
-                products: [
-                    {
-                        id: '21',
-                        name: '2基础圆领T恤基础圆领T恤1',
-                        sides: [
-                            {
-                                id: 'front',
-                                image: '/js/app/design/common/data/front1.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 149,
-                                    y: 100,
-                                    width: 150,
-                                    height: 200
-                                }
-                            },
-                            {
-                                id: 'back',
-                                image: '/js/app/design/common/data/back1.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 149,
-                                    y: 100,
-                                    width: 190,
-                                    height: 340
-                                }
-                            }
-                        ]
-                    },
-                    {
-                        id: '22',
-                        name: '2基础圆领T恤基础圆领T恤2',
-                        sides: [
-                            {
-                                id: 'front',
-                                image: '/js/app/design/common/data/product_type_2_front.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 149,
-                                    y: 100,
-                                    width: 150,
-                                    height: 200
-                                }
-                            },
-                            {
-                                id: 'back',
-                                image: '/js/app/design/common/data/product_type_2_back.png',
-                                scale: 7.47,
-                                printable: {
-                                    x: 149,
-                                    y: 100,
-                                    width: 190,
-                                    height: 340
-                                }
-                            }
-                        ]
-                    }
-                ]
+
+        /**
+         * 请求初始化数据
+         */
+        var productInfo = {};
+        $.get('/api', {
+            "model": "design/tool/beta",
+            "action": "design_init",
+            "json": 1
+        }, function(data){
+            if(data.status == 0){
+                var returnData = data.return;
+                var designInfo = returnData.design_info;
+                productInfo = returnData.product_info;
+                console.log(designInfo, productInfo);
+                initProductCategories();
+            }else{
+                console.error(data.message);
             }
-        };
+        }, 'json');
 
         /*
-         * 加载产品类型
+         * 加载产品类型以及事件
          */
-        function initProductCategories(list) {
+        function initProductCategories() {
             var str = '';
-            for (var o in list) {
-                var item = list[o];
-                str += '<option value="' + item.id + '">' + item.name + '</option>';
+            for (var o in productInfo.cats) {
+                var item = productInfo.cats[o];
+                str += '<option value="' + o + '">' + item.cat_name + '</option>';
             }
             $('#selectProductCategories').append(str);
             $('#selectProductCategories').change(function () {
                 var categoryId = $(this).val();
-                var products = categories[categoryId].products;
-                initProductChoice(categoryId, products);
+                var products = productInfo.products[categoryId];
+                initProductChoice(products);
             });
             $('#selectProductCategories').change();
         }
 
         /*
-         * 加载产品列表
-         * 详情link
-         * 选择产品事件
+         * 加载产品列表以及事件
          */
-        function initProductChoice(categoryId, list) {
+        function initProductChoice(products) {
             var str = '';
-            for (var o in list) {
-                var item = list[o];
-                str += '<li class="product-item" data-id="' + item.id + '" tips="' + item.name + '">';
-                str += '    <img src="' + item.sides[0].image + '"/>';
+            for (var productId in products) {
+                var product = products[productId];
+                str += '<li class="product-item" data-id="' + productId + '" title="' + product.product_name + '">';
+                str += '    <img src="' + product.product_design[0].img_url + '"/>';
                 str += '    <div>';
-                str += '        <span class="name">' + item.name + '</span>';
+                str += '        <span class="name">' + product.product_name + '</span>';
                 str += '        <span class="desc">成本优选</span>';
-                str += '        <a href="#' + item.id + '" class="info">详情</a>';
+                str += '        <a href="#' + productId + '" class="info">详情</a>';
                 str += '    </div>';
+                str += initProductStyles(productId);
                 str += '</li>';
             }
             $('.product-list').empty().append(str);
             $('.product-item').click(function () {
                 $('.product-item').removeClass('active');
                 $(this).addClass('active');
-                $('#product_color_picket').appendTo(this);
 
                 var productId = $(this).attr('data-id');
-                var products = categories[categoryId].products;
-                var product;
-                for (var o in products) {
-                    var _product = products[o];
-                    if (_product.id == productId) {
-                        product = _product;
+                var product_design = products[productId].product_design;
+                //拼装DS需要的初始化数据
+                var sides = [];
+                for(var o in product_design){
+                    var item = product_design[o];
+                    sides.push({
+                        width: 500,
+                        height: 500,
+                        id: item.side,
+                        image: item.img_url,
+                        scale: 7.47,
+                        printable: {
+                            x: parseFloat(item.x),
+                            y: parseFloat(item.y),
+                            width: parseFloat(item.w),
+                            height: parseFloat(item.h)
+                        }
+                    });
+                }
+                if (!ds && sides.length != 0) {
+                    ds = new Ds('#ds', sides);
+                    var zoomInL = '/js/app/design/vendor/etds/svg/zoom_in_light.svg';
+                    var zoomOutL = '/js/app/design/vendor/etds/svg/zoom_out_light.svg';
+                    var zoomIn = '/js/app/design/vendor/etds/svg/zoom_in.svg';
+                    var zoomOut = '/js/app/design/vendor/etds/svg/zoom_out.svg';
+                    ds.setSvgIcon(zoomInL, zoomOutL, zoomIn, zoomOut);
+                } else {
+                    ds.load(sides);
+                }
+
+                var styles = productInfo.styles[productId];
+                var style;
+                for(var o in styles){
+                    if(styles[o].is_default == 1){
+                        style = styles[o];
+                        style.id = o;
                         break;
                     }
                 }
-                if (!ds) {
-                    ds = new Ds('#ds', product.sides);
-                    ds.setSvgIcon('/js/app/design/vendor/etds/svg/zoom_in_light.svg', '/js/app/design/vendor/etds/svg/zoom_out_light.svg', '/js/app/design/vendor/etds/svg/zoom_in.svg', '/js/app/design/vendor/etds/svg/zoom_out.svg');
-                } else {
-                    ds.load(product);
+                if(style){
+                    $('.color-item[data-id='+style.id+']').addClass('active');
+                    ds.call('productColor', '#'+style.color);
                 }
             });
             $('.product-item').eq(0).click();
+
+            $('.product-color-picket .color-item').click(function (e) {
+                e.stopPropagation();
+                $('.color-item').removeClass('active');
+                $(this).addClass('active');
+
+                var styleId = $(this).attr('data-id');
+                var styleColor = $(this).attr('data-color');
+                ds.call('productColor', styleColor);
+            });
+
+            $('.product-color-picket .more-color').hover(function () {
+                $(this).parents('.product-color-picket').find('.color-column').not('.quick-colors').show();
+                var len = $(this).parents('.product-color-picket').find('.color-column').length;
+                $(this).parents('.product-color-picket').width(len * 28);
+            });
+
+            $('.product-color-picket').mouseleave(function () {
+                $(this).find('.color-column').not('.quick-colors').hide();
+                $(this).width('auto');
+            });
         }
 
-        initProductCategories(categories);
+        function initProductStyles(productId){
+            var styles = productInfo.styles[productId];
+            var htmlStr = '<div class="product-color-picket">';
+            htmlStr += '<span class="product-color-menu-arrow"></span>';
+            htmlStr += '<ul class="color-column quick-colors">';
+            var isQuickColumn = true, len=0, i = 0;
+            for(var o in styles){
+                len++;
+            }
+            for(var styleId in styles){
+                var style = styles[styleId];
+                if(isQuickColumn){
+                    if(i==7){
+                        isQuickColumn = false;
+                        i=0;
+                        htmlStr += '<li class="more-color"><span></span></li>';
+                        htmlStr += '</ul>';
+                        htmlStr += '<ul class="color-column">';
+                        htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
+                        htmlStr += '<span style="background-color: #'+style.color+';"></span>';
+                        htmlStr += '</li>';
+                    }else{
+                        htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
+                        htmlStr += '<span style="background-color: #'+style.color+';"></span>';
+                        htmlStr += '</li>';
+                    }
+                }else{
+                    if(i==8){
+                        i=0;
+                        htmlStr += '</ul>';
+                        htmlStr += '<ul class="color-column">';
+                    }
+                    htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
+                    htmlStr += '<span style="background-color: #'+style.color+';"></span>';
+                    htmlStr += '</li>';
+                }
+                if(i>9 && i == len-1){
+                    htmlStr += '<li class="more-color"><span></span></li>';
+                }
+                i++;
+            }
 
-        $('#product_color_picket').find('.color-item').click(function () {
-            $('.color-item').removeClass('active');
-            $(this).addClass('active');
-        });
-
-        $('.more-color', '.product-color-picket').hover(function () {
-            $(this).parents('.product-color-picket').find('.color-column').not('.quick-colors').show();
-            var len = $(this).parents('.product-color-picket').find('.color-column').length;
-            $(this).parents('.product-color-picket').width(len * 28);
-        });
-
-        $('.product-color-picket').mouseleave(function () {
-            $(this).find('.color-column').not('.quick-colors').hide();
-            $(this).width('auto');
-        });
+            htmlStr += '</ul>';
+            htmlStr += '</div>';
+            return htmlStr;
+        }
     }
 
     /**
@@ -621,6 +590,9 @@ $(function () {
          */
         function initChangeSide() {
             $('.product-side').click(function () {
+                $('.product-side').removeClass('active');
+                $(this).addClass('active');
+
                 var idx = $(this).index();
 
                 switch (idx) {
@@ -634,7 +606,7 @@ $(function () {
                         ds.active('third');
                         break;
                     case 3:
-                        ds.active('forth');
+                        ds.active('fourth');
                         break;
                 }
             });

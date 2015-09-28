@@ -8,7 +8,18 @@ class Model_User_Abstract extends BaseModel{
     }
     static function get_uid(){
         $uid = Model_User_Auth::get_uid();
-        $user = PtLib\db_select_row("select u.id,u.app_uid,u.nick_name,n.photo from users as u left join new_users as n on n.id = u.app_uid where u.app_uid = ?",$uid);
-        return $user['id'];
+        return $uid;
+    }
+    static function get_user_finance(){
+        return self::_db()->select_row("select * from et_user_finance where id = ?",self::get_uid());
+    }
+
+    static function get_balance_tx(){
+        $money = self::get_user_finance();
+        return empty($money['balance_tx'])?0:$money['balance_tx'];
+    }
+    static function get_total_earn(){
+        $money = self::get_user_finance();
+        return empty($money['total_earn'])?0:$money['total_earn'];
     }
 }

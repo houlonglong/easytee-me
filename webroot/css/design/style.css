@@ -26,6 +26,11 @@ a {
     text-decoration: none;
 }
 
+div.ds {
+    width: 500px;
+    height: 530px;
+}
+
 .design-main {
     min-width: 1280px;
 }

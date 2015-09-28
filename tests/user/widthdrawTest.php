@@ -5,6 +5,11 @@ use PtLib\UnitTest as UnitTest;
  *
  */
 class WidthdrawTest extends UnitTest{
+    function test_get_log()
+    {
+        $rows = Model_User_Widthdraw::get_log(482);
+        print_r($rows);
+    }
     /**
      *
      *
