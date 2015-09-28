@@ -309,7 +309,7 @@ $(function () {
         /**
          * 自动居中
          */
-        function autoAlign() {
+        function initAutoAlign() {
             $('#snapCenter').click(function(){
                 var status = $(this).prop('checked');
                 ds.autoAlign(status);
@@ -389,6 +389,7 @@ $(function () {
         initUploadImage();
         initArtModules();
 
+        initAutoAlign();
         initDuplicate();
         initAlignToCenter();
         initMoveToBottom();
