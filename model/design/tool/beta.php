@@ -423,6 +423,13 @@ class Model_Design_Tool_Beta extends BaseModel {
         self::_redis()->set("user_design_info_".$session_id,json_encode($info));
         return "保存成功";
     }
+    function action_activity_check_url_path($url_path){
+        $res = self::_db()->select_row("select id from et_activity_info where url_path = ?",$url_path);
+        return array(
+            "url_path"=>$url_path,
+            "exists"=>empty($res)?0:1
+        );
+    }
 
     function action_product_get_cat_list($json){
         $cats = self::_db()->select_rows("select * from et_product_cat where enable = 'Y'");

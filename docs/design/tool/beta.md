@@ -1,6 +1,51 @@
 设计工具
 ======
 
+
+查询活动 `url_path` 是否存在
+------
+
+Api Url
+------
+
+    /api
+
+请求参数
+------
+
+     {
+         "model": "design/tool/beta",
+         "action": "activity_check_url_path",
+		 "url_path": "safas",
+		 "json": 1
+     }
+
+响应
+------
+
+正常:
+
+     {
+         "return": {
+			"url_path": "safas",
+			"exists": 0           # 0 不存在 ; 1 已存在
+		 },
+         "message": "",
+		 "redirect": "",
+		 "status": 0
+	}
+         
+异常:
+
+    {
+    	 "return":[],
+		 "message": "error msg",
+         "redirect": "",
+         "status": 1,
+     }
+     
+     
+
 保存设计
 ------
 

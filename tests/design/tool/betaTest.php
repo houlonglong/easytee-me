@@ -126,7 +126,7 @@ class BetaTest extends UnitTest{
         $this->set_local_test_proxy();
         $res = $this->post_action("/api",array(
             "model"=>"design/tool/beta",
-            "action"=>"activity_save",
+            "action"=>"activity_check_url_path",
             "url_path"=>"safas",
             "json"=>1
         ));
