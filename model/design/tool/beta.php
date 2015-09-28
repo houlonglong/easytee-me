@@ -25,7 +25,6 @@ class Model_Design_Tool_Beta extends BaseModel {
      */
     static function init(){
         #初始化设计
-
         $uid  = self::get_uid();
         $info = array(
             'app_id' => 1,
@@ -351,10 +350,80 @@ class Model_Design_Tool_Beta extends BaseModel {
 
     function action_design_init(){
         $result['product_info'] = Model_Product::get_product_info();
-        $result['design'] = array();
-        $result['templates'] = array();
+        PtApp::session_start();
+        $session_id = session_id();
+        $design_info = self::_redis()->get("user_design_info_".$session_id);
+        if(!$design_info) $design_info = array(
+            "cat_id"=>1,
+            "product_id"=>1,
+            "style_id"=>10,
+            "color_count"=>0,
+            "design_front"=>null,
+            "design_back"=>null,
+            "design_third"=>null,
+            "design_fourth"=>null,
+            "default_side"=>"front",
+
+        );
+        else $design_info = json_decode($design_info,1);
+
+        $result['design_info'] = $design_info;
+
         return $result;
     }
+    function action_get_templates(){
+        $result['templates'] = array(
+            array(
+                "img_url"=>"http://www.xxx.com/test.png",
+                "svg_url"=>"http://www.xxx.com/test.svg",
+                "name"=>"name"
+            ),
+            array(
+                "img_url"=>"http://www.xxx.com/test1.png",
+                "svg_url"=>"http://www.xxx.com/test1.svg",
+                "name"=>"name"
+            ),
+        );
+        return $result;
+    }
+    function action_product_pricing($sale_count,$color_count,$style_id){
+        $sale_count = intval($sale_count);
+        $color_count = intval($color_count);
+        $style_id = intval($style_id);
+        if(!$sale_count) throw new Exception("sale_count 不能为空");
+        if($sale_count > 1000 || $sale_count < 10) throw new Exception("sale_count 不能大于1000件 且不能小于10件");
+        if(!$color_count) throw new Exception("颜色数量不能为空");
+        if($color_count>10) throw new Exception("颜色数量不能大于10种");
+        if(!$style_id) throw new Exception("款式ID不能为空");
+        $style = self::_db()->select_row("select * from et_product_style where id = ?",$style_id);
+        if(!$style) throw new Exception("款式不存在");
+        $print_cost = Model_Cost::calculate_cost($color_count,$sale_count);
+        return array(
+            "print_cost"=>$print_cost,
+            "selling_price"=>$style['selling_price']
+        );
+
+    }
+
+    function action_design_save($color_count,$default_side,$design_front,$design_back,$design_third,$design_fourth,$cat_id,$product_id,$style_id){
+        PtApp::session_start();
+        $session_id = session_id();
+        $info = array(
+            "color_count"  => $color_count,
+            "design_front" => $design_front,
+            "design_back"  => $design_back,
+            "design_third" => $design_third,
+            "design_fourth"=> $design_fourth,
+            "default_side" => $default_side,
+            "cat_id"       => $cat_id,
+            "product_id"   => $product_id,
+            "style_id"     => $style_id,
+        );
+
+        self::_redis()->set("user_design_info_".$session_id,json_encode($info));
+        return "保存成功";
+    }
+
     function action_product_get_cat_list($json){
         $cats = self::_db()->select_rows("select * from et_product_cat where enable = 'Y'");
         return $cats;
@@ -828,7 +897,7 @@ class Model_Design_Tool_Beta extends BaseModel {
         echo json_encode($datas);exit;
 
     }
-    function action_design_save(){
+    function action_design_save1(){
         $appId = 1;
         $uid  = self::get_uid();
         $xmlDesign = $_POST['xmlDesign'];
