@@ -374,15 +374,12 @@ class Model_Design_Tool_Beta extends BaseModel {
     function action_get_templates(){
         $result['templates'] = array(
             array(
+                "id"=>1,
+                "price"=>1,
                 "img_url"=>"http://www.xxx.com/test.png",
                 "svg_url"=>"http://www.xxx.com/test.svg",
                 "name"=>"name"
-            ),
-            array(
-                "img_url"=>"http://www.xxx.com/test1.png",
-                "svg_url"=>"http://www.xxx.com/test1.svg",
-                "name"=>"name"
-            ),
+            )
         );
         return $result;
     }

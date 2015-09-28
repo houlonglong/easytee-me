@@ -120,14 +120,11 @@ Api Url
          "return": {
 			   "templates": [
 				   {
+				   	   "id":1,
 					   "img_url": "http:\/\/www.xxx.com\/test.png",
 					   "svg_url": "http:\/\/www.xxx.com\/test.svg",
-					   "name": "name"
-				   },
-				   {
-					   "img_url": "http:\/\/www.xxx.com\/test1.png",
-					   "svg_url": "http:\/\/www.xxx.com\/test1.svg",
-					   "name": "name"
+					   "name": "name",
+					   "price": 1,
 				   }
 			   ]
 		   },
@@ -303,9 +300,17 @@ Api Url
 					}
             	}
             },
-            design: [ ],
-            templates: [ ]
-            },
+            "design_info": {
+				"color_count": "5",
+				"design_front": "design_front",
+				"design_back": "design_back",
+				"design_third": "design_third",
+				"design_fourth": "design_fourth",
+				"default_side": "front",
+				"cat_id": "1",
+				"product_id": "1",
+				"style_id": "10"
+			}
          },
          "message": "",
          "redirect": "",
