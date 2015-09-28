@@ -6,7 +6,7 @@ img{display:block; border:0;}
 ul,ol{list-style:none; }
 textarea{resize:none; }
 table{border-collapse:collapse; }
-body{color:#333; font-size:12px; font-family:黑体;}
+body{color:#333; font-size:12px; font-family:'黑体';}
 .clearfix:after{content:""; display:block;clear:both;}
 .clearfix{zoom:1;}
 a{ font-size:12px;color:#666; text-decoration:none;}
@@ -225,7 +225,7 @@ header{
 .denglu-con h3{
     font-size: 18px;
     text-align: center;
-    font-family:黑体;
+    font-family: '黑体';
 }
 .denglu-con input{
     width: 275px;
@@ -337,7 +337,7 @@ header{
     margin-bottom: 30px;
     font-size: 20px;
     font-weight: bold;
-    font-family: 黑体;
+    font-family: '黑体';
 }
 .reset-con h4{
     margin-bottom: 20px;
@@ -472,7 +472,7 @@ div.err button{
     margin-bottom: 25px;
     font-size: 20px;
     font-weight: bold;
-    font-family: 黑体;
+    font-family: '黑体';
 }
 
 .reg-btn{

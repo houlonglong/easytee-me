@@ -5,9 +5,11 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="css/design/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/design.css"/>
+    <link rel="stylesheet" type="text/css" href="css/design/font-family.css"/>
     <link rel="stylesheet" type="text/css" href="js/app/design/vendor/etds/css/et.ds-min.css"/>
     <script src="js/app/design/vendor/jquery-1.11.2.js"></script>
     <script src="js/app/design/vendor/etds/et.ds.js"></script>
+
     <script src="js/app/design/main.js"></script>
 </head>
 <body>
@@ -40,7 +42,7 @@
                     <span class="form-label">文字内容</span>
                 </div>
                 <div class="form-row">
-                    <input id="addTextInput" class="form-control" type="text" placeholder="请输入文字"/>
+                    <textarea id="addTextInput" class="form-control" type="text" placeholder="请输入文字"></textarea>
                 </div>
                 <div class="form-row">
                     <span class="form-label">选择字体</span>
@@ -69,7 +71,7 @@
                     </div>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
-                            <div class="design-dropdown-color">
+                            <div class="design-dropdown-color" id="textFillColor">
                                 <span style="background: #000000;"></span>
                             </div>
                         </div>
@@ -93,7 +95,7 @@
                     </select>
                     <div class="design-dropdown r-per-25">
                         <div class="design-dropdown-btn">
-                            <div class="design-dropdown-color">
+                            <div class="design-dropdown-color" id="strokeColor">
                                 <span style="background: #ffffff;"></span>
                             </div>
                         </div>
@@ -326,7 +328,7 @@
     <div id="design_selected_tools" class="design-selected-tools">
         <div class="form-row">
             <div class="form-label">
-                <input type="checkbox" id="snapCenter"/>
+                <input type="checkbox" id="snapCenter" checked/>
                 <label for="snapCenter">引导居中</label>
             </div>
         </div>
