@@ -5,6 +5,11 @@ use PtLib\UnitTest as UnitTest;
  *
  */
 class FinanceTest extends UnitTest{
+    function test_get_log()
+    {
+        $rows = Model_User_Finance::get_log(482);
+        print_r($rows);
+    }
     /**
      *
      *

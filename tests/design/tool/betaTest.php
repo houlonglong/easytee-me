@@ -112,6 +112,29 @@ class BetaTest extends UnitTest{
         $res = $this->post_action("/api",array(
             "model"=>"design/tool/beta",
             "action"=>"activity_save",
+            "name"=>"name",
+            "content"=>"content",
+            "period"=>"7",
+            "sale_target"=>"50",
+            "delivery_type"=>"unity", #unity or custom
+            "ship_name"=>"joseph",
+            "ship_tel"=>"13555555555",
+            "ship_province"=>"joseph",
+            "ship_city"=>"上海",
+            "ship_county"=>"上海",
+            "ship_addr"=>"长宁路100号",
+            "default_side"=>"front",
+            "url_path"=>"te11111",
+            "svg_front"=>"<svg></svg>",
+            "svg_back"=>"<svg></svg>",
+            "svg_third"=>"<svg></svg>",
+            "svg_fourth"=>"<svg></svg>",
+            "styles"=>json_encode(array(
+                "1"=>array(
+                    "price"=>1,
+                    "product_id"=>1,
+                )
+            )),
             "json"=>1
         ));
     }
@@ -130,89 +153,5 @@ class BetaTest extends UnitTest{
             "url_path"=>"safas",
             "json"=>1
         ));
-    }
-
-
-    function test_action_init(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
-        ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"design/tool/beta",
-            "action"=>"init",
-            "product_id"=>2,
-            "json"=>1
-        ));
-    }
-
-    function test_action_product_get_cat_list(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
-        ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"design/tool/beta",
-            "action"=>"product_get_cat_list",
-            "json"=>1
-        ));
-    }
-
-    function test_action_design_get(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
-        ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"design/tool/beta",
-            "action"=>"design_get",
-            "design_id"=>4311,
-            "json"=>1
-        ));
-    }
-    function test_action_product_get_list(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
-        ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"design/tool/beta",
-            "action"=>"product_get_list",
-            "cat_id"=>1,
-            "json"=>1
-        ));
-    }
-    function test_action_activity_info(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
-        ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"design/tool/beta",
-            "action"=>"activity_info",
-            "id"=>4311,
-            "json"=>1
-        ));
-        echo $res;
     }
 }
