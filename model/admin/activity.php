@@ -174,7 +174,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
                 p.name as product_name,style.color_name as style_name,
                 o.exp_price ,o.order_no,
                 goods.quantity,goods.pro_size,man.short_name,
-                brand.name as brand_name";
+                brand.name as brand_name,pay.pay_status ";
 
         $join = " left join et_order as o on o.id = goods.order_id
                     left join et_order_activity as act on act.order_id = o.id
@@ -184,7 +184,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
                     left join et_product as p on p.id = style.product_id
                     left join et_product_brand as brand on brand.id = p.brand_id
                     left join et_product_manufacturer as man on man.id = brand.man_id";
-        $where = 'where act.activity_id = ? and pay.pay_status = 1';
+        $where = 'where act.activity_id = ? and pay.pay_status > 0';
 
         $sql = "select $select_fields from et_order_goods as goods $join $where";
 
@@ -193,7 +193,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         foreach ($rows as $row) {
             $csv .= $_REQUEST['id'] . ",";
             $csv .= $row['order_no'] . ",";
-            $csv .= "已付款,";
+            $csv .= ($row['pay_status'] == 1) ? "已付款,":"已退款,";
             $csv .= $row['name'] . ",";
             $csv .= $row['tel'] . ",";
             $csv .= $row['province'] . $row['city'] . $row['county'] . $row['addr'] . ",";

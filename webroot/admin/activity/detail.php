@@ -219,10 +219,10 @@
                     formatter: function (cellvalue, options, rowObject) {
                         var cell = '';
                         if(rowObject.pay_status){
-                            if(rowObject.ship_status){
+                            if(rowObject.ship_status == 1){
                                 cell = "已发货"
                             }else{
-                                cell = "未发货"
+                                cell = "已付款待发货"
                             }
                         }else{
                             cell = "未付款"
@@ -235,7 +235,7 @@
                         if(cellvalue!=null){
                             return '<span>快递单号：{exp_no}</span></br><span>快递公司:{exp_com}</span>'.format(rowObject);
                         }else{
-                            return '未发货';
+                            return '无';
                         }
 
                     }
