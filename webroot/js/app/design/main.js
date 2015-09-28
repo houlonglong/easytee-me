@@ -417,7 +417,7 @@ $(function () {
                 var returnData = data.return;
                 var designInfo = returnData.design_info;
                 productInfo = returnData.product_info;
-                console.log(productInfo);
+                console.log(designInfo, productInfo);
                 initProductCategories();
             }else{
                 console.error(data.message);
@@ -471,6 +471,8 @@ $(function () {
                 for(var o in product_design){
                     var item = product_design[o];
                     sides.push({
+                        width: 500,
+                        height: 500,
                         id: item.side,
                         image: item.img_url,
                         scale: 7.47,
@@ -498,6 +500,10 @@ $(function () {
             $('.product-color-picket .color-item').click(function () {
                 $('.color-item').removeClass('active');
                 $(this).addClass('active');
+
+                var styleId = $(this).attr('data-id');
+                var styleColor = $(this).attr('data-color');
+                ds.call('productColor', styleColor);
             });
 
             $('.product-color-picket .more-color').hover(function () {
@@ -530,11 +536,11 @@ $(function () {
                         htmlStr += '<li class="more-color"><span></span></li>';
                         htmlStr += '</ul>';
                         htmlStr += '<ul class="color-column">';
-                        htmlStr += '<li class="color-item" title="'+style.color_name+'">';
+                        htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
                         htmlStr += '<span style="background-color: #'+style.color+';"></span>';
                         htmlStr += '</li>';
                     }else{
-                        htmlStr += '<li class="color-item" title="'+style.color_name+'">';
+                        htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
                         htmlStr += '<span style="background-color: #'+style.color+';"></span>';
                         htmlStr += '</li>';
                     }
@@ -544,11 +550,11 @@ $(function () {
                         htmlStr += '</ul>';
                         htmlStr += '<ul class="color-column">';
                     }
-                    htmlStr += '<li class="color-item" title="'+style.color_name+'">';
+                    htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
                     htmlStr += '<span style="background-color: #'+style.color+';"></span>';
                     htmlStr += '</li>';
                 }
-                if(i>8 && i == len-1){
+                if(i>9 && i == len-1){
                     htmlStr += '<li class="more-color"><span></span></li>';
                 }
                 i++;
