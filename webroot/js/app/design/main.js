@@ -539,6 +539,10 @@ $(function () {
                 $(this).find('.color-column').not('.quick-colors').hide();
                 $(this).width('auto');
             });
+
+            $('.product-color-picket').click(function(e){
+                e.stopPropagation();
+            });
         }
 
         function initProductStyles(productId){
