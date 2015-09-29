@@ -96,7 +96,7 @@
                 
             </ul>
             <div class="color-list">
-                尺码信息
+                <a href="" target="_blank">尺码信息</a>
             </div>
         </div>
         <div class="time-down">
@@ -144,51 +144,34 @@
 
         <div class="bt-list">
             <span class="number">数量</span>
-            <span class="product">产品</span>
             <span class="yanse">颜色</span>
+            <span class="product">产品</span>
             <span class="chima">尺码</span>
             <span class="money">价格</span>
         </div>
         <ul class="style-info">
             <li>
-                <img src="css/sale/images/sytle-img.png">
+                <img src="css/sale/images/sytle-img.png" id="thumbImg">
                 <div class="number-info">
                     <span class="left">-</span>
                     <input type="text" value="1">
                     <span class="right">+</span>
                 </div>
-                <select name="" id="" class="chima-info">
-                    <option value="">XL</option>
-                    <option value="">XL</option>
-                    <option value="">XL</option>
-                </select>
                 <select name="" id="" class="product-info">
-                    <option value="">基础圆领T恤</option>
-                    <option value="">基础圆领T恤</option>
-                    <option value="">基础圆领T恤</option>
+                        
                 </select>
-                <div class="yanse-info">
+                <div class="yanse-info ">
                     <i class='bor10'></i>
                     <span></span>
                     <div class="palette">
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
-                        <a href="#"><i></i></a>
+                        
                     </div>
                 </div>
+                
+                
+                <select name="" id="sizes" class="chima-info">
+                   
+                </select>
                 <div class="money-info">
                     ￥<i>99</i>
                 </div>
