@@ -178,3 +178,137 @@ $(function(){
 
 
 });
+
+
+//初始化款式列表信息
+             /*model.arr[0].thumbnail = acticity_detail.default_style.thumb_img_url;
+             model.arr[0].number = 1;
+             model.arr[0].products = acticity_detail.products;
+             model.arr[0].styles = acticity_detail.styles[acticity_detail.default_style.product_id];
+             model.arr[0].sizes = acticity_detail.sizes[acticity_detail.default_style.product_id][acticity_detail.default_style.product_style_id];
+            buildList();*/
+
+
+    //定义数据模型-Dialog的视图是一致的。并且最终传给后台使用。
+    var model = {
+        arr: [{}],
+        total: 0
+    };
+
+    var acticity_detail;
+
+    function getFirstProduct(list) {
+        for (var o in list) {
+            return list[0];
+        }
+    }
+
+    function getFirstProductStyleByProductId(product_id) {
+        acticity_detail.products[0];
+    }
+
+    function getProduct(product_id) {
+        var product = acticity_detail.products[product_id];
+        return product;
+    }
+
+    //colors
+    function getProductStyles(product_id) {
+        var styles = acticity_detail.styles[product_id];
+        return styles;
+    }
+
+    //sizes
+    function getProductSizes(product_id, product_style_id) {
+        var sizes = acticity_detail.sizes[product_id][product_style_id];  //  更改了product_style_id
+
+        return sizes;
+    }
+
+    function buildProducts(list) {
+        var html = '';
+        for (var o in list) {
+            var item = list[o];
+            html += '<option value="' + item.id + '">' + item.name + '</option>'
+        }
+        return html;
+    }
+
+    function buildStyles(list) {
+        var html = '';
+        for (var o in list) {
+            var item = list[o];
+            html += '<a href="#" data-id="' + item.product_style_id + '" tips="' + item.color_name + '"><i style="background-color: #' + item.name + '"></i></a>';
+        }
+        return html;
+    }
+
+    function buildSizes(list) {
+        var html = '';
+        for (var o in list) {
+            var item = list[o];
+            html += '<option value="' + item.id + '">' + item.size + '</option>'
+        }
+        return html;
+    }
+
+    //初始化数据模型
+    /* $.get("/api", {
+     model: 'activity',
+     action: 'detail',
+     id: 2595
+     }, function (data) {
+     if (data.status == 0) {//成功返回
+     activity = data.return;
+     console.log(activity);
+     model.arr[0].thumbnail = activity.default_style.thumb_img_url;
+     model.arr[0].number = 1;
+     model.arr[0].products = activity.products;
+     model.arr[0].styles = activity.styles[activity.default_style.product_id];
+     model.arr[0].sizes = activity.sizes[activity.default_style.product_id][activity.default_style.product_style_id];
+     buildList();
+     } else {//异常
+     alert(data.message)
+     }
+     }, "json");*/
+
+    function buildList() {
+        //1、生成HTML
+        var list = model.arr;
+        for (var i = 0; i < list.length; i++) {
+            var item = list[i];
+            var htmlStr = '';
+            htmlStr += '<li class="clearfix">';
+            htmlStr += '<img src="' + item.thumbnail + '">';
+            htmlStr += '<div class="number-info">';
+            htmlStr += '<span class="left">-</span>';
+            htmlStr += '<input type="text" value="' + item.number + '">';
+            htmlStr += '<span class="right">+</span>';
+            htmlStr += '</div>';
+
+            htmlStr += '<select name="" id="" class="product-info">';
+
+            htmlStr += buildProducts(item.products);
+
+            htmlStr += '</select>';
+            htmlStr += '<div data-id="" class="yanse-info current">';
+            //htmlStr += '<span style="' + selectedColor.value + '"></span>';
+            htmlStr += '<div class="palette">';
+
+            htmlStr += buildStyles(getProductStyles(getFirstProduct(item.products)));
+
+            htmlStr += '</div>';
+            htmlStr += '</div>';
+            htmlStr += '<select name="" id="" class="chima-info">';
+
+            //htmlStr += buildSizes(getProductSizes(getFirstProduct(item.products)).id);
+            //htmlStr += 
+
+            htmlStr += '</select>';
+            htmlStr += '<div class="money-info">';
+            htmlStr += '￥<i></i>';
+            htmlStr += '</div>';
+            htmlStr += '</li>';
+        }
+        $('ul.style-info').empty().append(htmlStr);
+    }

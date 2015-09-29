@@ -40,10 +40,12 @@ $(function () {
 
     $('.cha').click(function (event) {
         $('.tanchuang').hide();
+        $('body').removeClass('current');
     });
 
-    $('.color-list').click(function (event) {
+    $('.btns').click(function (event) {
         $('.tanchuang').show();
+        $('body').addClass('current');
     });
 
     //清浮动
@@ -92,13 +94,8 @@ $(function () {
                 $(".big-img li").css('background-color',current_color);
                 $(".small-img li").css('background-color',current_color);
             });
-            //初始化款式列表信息
-            // model.arr[0].thumbnail = acticity_detail.default_style.thumb_img_url;
-            // model.arr[0].number = 1;
-            // model.arr[0].products = acticity_detail.products;
-            // model.arr[0].styles = acticity_detail.styles[acticity_detail.default_style.product_id];
-            // model.arr[0].sizes = acticity_detail.sizes[acticity_detail.default_style.product_id][acticity_detail.default_style.product_style_id];
-            // buildList();
+            
+            loadListInfo();//初始化列表数据
 
         }
     }, 'json')
@@ -107,7 +104,7 @@ $(function () {
         var sides = acticity_detail.sides;
         var act_designs = acticity_detail.act_designs;
         var product_designs = acticity_detail.product_designs;
-        var sell_price = acticity_detail.default_style['sell_price'];
+        var sell_price = acticity_detail.default_style['sell_price']; 
 
         //图片的展示
         for (var i = 0; i < sides.length; i++) {
@@ -122,144 +119,93 @@ $(function () {
             $('.small-img li:eq(' + i + ') img').attr('src', imgUrl);
         }
         //显示价格
-        $('.price-num').html('' + sell_price + '')
+        $('.price-num').html('' + sell_price + '');
+        
 
         //颜色的显示
         $('.color-lump').empty();
+        $('.palette').empty();
         var styles = acticity_detail.styles;
         for (var o in styles[product_id]) {
             var color_lump = styles[product_id][o].color;
             var liobj = $("<li><span></span></li>").css('background', "#" + color_lump);
+            var paletteObj = $('<a href="#"><i></i></a>');
+                paletteObj.children().css('background', "#" + color_lump);
+            
             $('.color-lump').append(liobj);
+            $('.palette').append(paletteObj);
         }
-    }
-
     
 
-    $('.color-lump li span').click(function(event) {
-        event.stopPropagation();
-    });
-    //定义数据模型-Dialog的视图是一致的。并且最终传给后台使用。
-    var model = {
-        arr: [{}],
-        total: 0
-    };
-
-    var acticity_detail;
-
-    function getFirstProduct(list) {
-        for (var o in list) {
-            return list[0];
-        }
     }
 
-    function getFirstProductStyleByProductId(product_id) {
-        acticity_detail.products[0];
+
+    var listModel={
+        listAttr:[],
+        total:0
     }
 
-    function getProduct(product_id) {
-        var product = acticity_detail.products[product_id];
-        return product;
+    function loadListInfo(){
+        //listModel.listAttr[0].thumb_img = acticity_detail.default_style['thumb_img_url'];
+        //listModel.listAttr[0].number=1;
+       //$('.style-info li:eq(0) #thumbImg').attr('src',listAttr[0].thumb_img);
+       var thumb_img = acticity_detail.default_style['thumb_img_url'];
+       var products = acticity_detail.products;
+       var product_id = acticity_detail.default_style.product_id;
+       var product_style_id=acticity_detail.default_style.product_style_id;
+       var sizes = acticity_detail.sizes[product_id][product_style_id];
+       
+       
+       //$('.money-info').html(''++'')
+       $('.style-info li #thumbImg').attr('src',thumb_img);
+       
+       for(var o in products){
+            var str_2 = "";
+            var style2_name = products[o].name;
+            str_2 += '<option value="'+products[o].id+'">' + style2_name + '</option>';
+            $('.product-info').append(str_2);
+       }
+
+       for(var o in sizes){
+            var list_size=sizes[o].size;
+            var size_Ojb='';
+            size_Ojb += '<option value="'+sizes.id+'">'+list_size+'</option>';
+            $('#sizes').append(size_Ojb);
+       }
+       
+
+       num_change();
+
+       
     }
 
-    //colors
-    function getProductStyles(product_id) {
-        var styles = acticity_detail.styles[product_id];
-        return styles;
+    function num_change(){
+        var lis_numbel = 1;
+        var lis_sell_price = acticity_detail.default_style.sell_price;
+        var lis_subtotal = lis_numbel*lis_sell_price;
+        $('.money-info i').html(''+lis_subtotal+'');
+        
+        $('.number-info .left').click(function(event) {
+            if(lis_numbel>1){
+                lis_numbel--;
+            }else{
+                lis_numbel=1;
+            }
+            $(this).siblings('input').val(lis_numbel);
+
+            lis_subtotal = lis_numbel*lis_sell_price;
+            $(this).parent().siblings('money-info').children('i').html(''+lis_subtotal+'');
+        });
+
+        $('.number-info .right').click(function(event) {
+            lis_numbel++;
+            $(this).siblings('input').val(lis_numbel);
+
+            lis_subtotal = lis_numbel*lis_sell_price;
+            $(this).parent().siblings('money-info').children('i').html(''+lis_subtotal+'');
+        });
+
+        
     }
 
-    //sizes
-    function getProductSizes(product_id, product_style_id) {
-        var sizes = acticity_detail.sizes[product_id][product_style_id];  //  更改了product_style_id
-
-        return sizes;
-    }
-
-    function buildProducts(list) {
-        var html = '';
-        for (var o in list) {
-            var item = list[o];
-            html += '<option value="' + item.id + '">' + item.name + '</option>'
-        }
-        return html;
-    }
-
-    function buildStyles(list) {
-        var html = '';
-        for (var o in list) {
-            var item = list[o];
-            html += '<a href="#" data-id="' + item.product_style_id + '" tips="' + item.color_name + '"><i style="background-color: #' + item.name + '"></i></a>';
-        }
-        return html;
-    }
-
-    function buildSizes(list) {
-        var html = '';
-        for (var o in list) {
-            var item = list[o];
-            html += '<option value="' + item.id + '">' + item.size + '</option>'
-        }
-        return html;
-    }
-
-    //初始化数据模型
-    /* $.get("/api", {
-     model: 'activity',
-     action: 'detail',
-     id: 2595
-     }, function (data) {
-     if (data.status == 0) {//成功返回
-     activity = data.return;
-     console.log(activity);
-     model.arr[0].thumbnail = activity.default_style.thumb_img_url;
-     model.arr[0].number = 1;
-     model.arr[0].products = activity.products;
-     model.arr[0].styles = activity.styles[activity.default_style.product_id];
-     model.arr[0].sizes = activity.sizes[activity.default_style.product_id][activity.default_style.product_style_id];
-     buildList();
-     } else {//异常
-     alert(data.message)
-     }
-     }, "json");*/
-
-    function buildList() {
-        //1、生成HTML
-        var list = model.arr;
-        for (var i = 0; i < list.length; i++) {
-            var item = list[i];
-            var htmlStr = '';
-            htmlStr += '<li class="clearfix">';
-            htmlStr += '<img src="' + item.thumbnail + '">';
-            htmlStr += '<div class="number-info">';
-            htmlStr += '<span class="left">-</span>';
-            htmlStr += '<input type="text" value="' + item.number + '">';
-            htmlStr += '<span class="right">+</span>';
-            htmlStr += '</div>';
-
-            htmlStr += '<select name="" id="" class="product-info">';
-
-            htmlStr += buildProducts(item.products);
-
-            htmlStr += '</select>';
-            htmlStr += '<div data-id="" class="yanse-info current">';
-            //htmlStr += '<span style="' + selectedColor.value + '"></span>';
-            htmlStr += '<div class="palette">';
-
-            htmlStr += buildStyles(getProductStyles(getFirstProduct(item.products)));
-
-            htmlStr += '</div>';
-            htmlStr += '</div>';
-            htmlStr += '<select name="" id="" class="chima-info">';
-
-            htmlStr += buildSizes(getProductSizes(getFirstProduct(item.products)).id);
-            //htmlStr += 
-
-            htmlStr += '</select>';
-            htmlStr += '<div class="money-info">';
-            htmlStr += '￥<i></i>';
-            htmlStr += '</div>';
-            htmlStr += '</li>';
-        }
-        $('ul.style-info').empty().append(htmlStr);
-    }
 });
