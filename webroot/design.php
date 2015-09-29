@@ -146,13 +146,23 @@
                         </div>
                     </div>
                 </div>
+<!--                <div class="image-editor">-->
+<!--                    <div class="form-row">-->
+<!--                        <div id="showImageInput" class="form-control" placeholder="请输入文字">-->
+<!--                            <a href="javascript:;" class="del-btn"></a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="image-store">
                     <div class="form-row">
-                        <input type="text" class="form-control" placeholder="关键字搜索"/>
+                        <div class="text-form-control">
+                            <input type="text" placeholder="关键字搜索"/>
+                            <a href="#" class="search-btn"></a>
+                        </div>
                     </div>
                     <div class="form-row">
                         <div class="image-list">
-                            <div class="image-list-item active">
+                            <div class="image-list-item">
                                 <a href="javascript:;" class="img-wrap">
                                     <img src="/css/design/image-list-item.png" alt=""/>
                                 </a>

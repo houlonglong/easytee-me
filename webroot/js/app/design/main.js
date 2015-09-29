@@ -41,11 +41,15 @@ $(function () {
     var ds;
 
     function showTextLayer() {
+        $('.tab:eq(0)').addClass('active');
+        $('.tab:eq(1)').removeClass('active');
         $('.tab-content:eq(0)').addClass('active');
         $('.tab-content:eq(1)').removeClass('active');
     };
 
     function showImageLayer() {
+        $('.tab:eq(0)').removeClass('active');
+        $('.tab:eq(1)').addClass('active');
         $('.tab-content:eq(0)').removeClass('active');
         $('.tab-content:eq(1)').addClass('active');
     }
@@ -56,20 +60,30 @@ $(function () {
 
     function restoreImageLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
+        $('.image-editor').hide();
         $('.upload-location').hide();
         $('.image-store').hide();
     }
 
     function showImageUploadLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
+        $('.image-editor').hide();
         $('.upload-location').show();
         $('.image-store').hide();
     }
 
     function showImageStoreLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
+        $('.image-editor').hide();
         $('.upload-location').hide();
         $('.image-store').show();
+    }
+
+    function showImageEditorLayer(){
+        $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
+        $('.image-editor').show();
+        $('.upload-location').hide();
+        $('.image-store').hide();
     }
 
     /**
@@ -705,6 +719,7 @@ $(function () {
         eventManager.on('selectedBox', function (elem) {
             console.log(elem);
             if (elem.type == 'text') {
+                showTextLayer();
                 setTextForLeftPanel(elem.string.join('\n'));
                 setTextFontFamilyForLeftPanel(elem.fontFamily);
                 setTextFillForLeftPanel(elem.fill);
@@ -712,11 +727,19 @@ $(function () {
                 setTextStrokeForLeftPanel(elem.stroke);
                 designToolsAppendToText();
             } else if (elem.type == 'bitmap') {
+                showImageLayer();
+                showImageEditorLayer();
                 designToolsAppendToImage();
             }
         });
 
         eventManager.on('unselectBox', function () {
+            var idx = $('.tab.active').index();
+            if(idx == 0){
+                showTextLayer();
+            }else{
+                showImageLayer();
+            }
             restoreTextLayer();
             restoreImageLayer();
             disableDesignTools();
