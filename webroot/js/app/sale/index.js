@@ -87,19 +87,70 @@ $(function () {
 
             var product_id = acticity_detail.default_style['product_id'];
             loadProductInfo(product_id);
-
-            
-            $('.color-lump li span').click(function(event) {
-                var current_color = $(this).parent().css('background-color');
-                $(".big-img li").css('background-color',current_color);
-                $(".small-img li").css('background-color',current_color);
-            });
             
             loadListInfo();//初始化列表数据
+            colorList();
+
+            //重新开始
+            var product_style_id=acticity_detail.default_style.product_style_id
+            var product_id=acticity_detail.default_style.product_id
+            listModel.listAttr[0]={
+                thumb_img : acticity_detail.default_style.thumb_img_url,
+                list_numbel : 1,
+                products : acticity_detail.products[product_id][product_style_id].name,
+                list_style : acticity_detail.styles[product_id].color;
+                list_size : 
+            }
 
         }
     }, 'json')
 
+        
+
+   
+
+
+    var listModel={
+        listAttr:[{}],
+        total:0
+    }
+
+
+    var thumb_img
+    var list_numbel
+    var products
+    var list_style
+    var list_size
+    var list_sell_price
+    /*function loadListInfo(){
+        //listModel.listAttr[0].thumb_img = acticity_detail.default_style['thumb_img_url'];
+        //listModel.listAttr[0].number=1;
+       //$('.style-info li:eq(0) #thumbImg').attr('src',listAttr[0].thumb_img);
+       var thumb_img = acticity_detail.default_style['thumb_img_url'];
+       var products = acticity_detail.products;
+       var product_id = acticity_detail.default_style.product_id;
+       var product_style_id=acticity_detail.default_style.product_style_id;
+       var sizes = acticity_detail.sizes[product_id][product_style_id];
+       
+       
+       //$('.money-info').html(''++'')
+       $('.style-info li #thumbImg').attr('src',thumb_img);
+       
+       for(var o in products){
+            var str_2 = "";
+            var style2_name = products[o].name;
+            str_2 += '<option value="'+products[o].id+'">' + style2_name + '</option>';
+            $('.product-info').append(str_2);
+       }
+
+       for(var o in sizes){
+            var list_size=sizes[o].size;
+            var size_Ojb='';
+            size_Ojb += '<option value="'+sizes.id+'">'+list_size+'</option>';
+            $('#sizes').append(size_Ojb);
+       }
+    }
+*/ 
     function loadProductInfo(product_id){
         var sides = acticity_detail.sides;
         var act_designs = acticity_detail.act_designs;
@@ -129,56 +180,21 @@ $(function () {
         for (var o in styles[product_id]) {
             var color_lump = styles[product_id][o].color;
             var liobj = $("<li><span></span></li>").css('background', "#" + color_lump);
-            var paletteObj = $('<a href="#"><i></i></a>');
-                paletteObj.children().css('background', "#" + color_lump);
+            var paletteObj = $('<a href="#"></a>').css('background', "#" + color_lump);;
+                
             
             $('.color-lump').append(liobj);
             $('.palette').append(paletteObj);
         }
+        
+        $('.color-lump li span').click(function(event) { 
+            var current_color = $(this).parent().css('background-color');
+            $(".big-img li").css('background-color',current_color);
+            $(".small-img li").css('background-color',current_color);
+        });
+
+    }
     
-
-    }
-
-
-    var listModel={
-        listAttr:[],
-        total:0
-    }
-
-    function loadListInfo(){
-        //listModel.listAttr[0].thumb_img = acticity_detail.default_style['thumb_img_url'];
-        //listModel.listAttr[0].number=1;
-       //$('.style-info li:eq(0) #thumbImg').attr('src',listAttr[0].thumb_img);
-       var thumb_img = acticity_detail.default_style['thumb_img_url'];
-       var products = acticity_detail.products;
-       var product_id = acticity_detail.default_style.product_id;
-       var product_style_id=acticity_detail.default_style.product_style_id;
-       var sizes = acticity_detail.sizes[product_id][product_style_id];
-       
-       
-       //$('.money-info').html(''++'')
-       $('.style-info li #thumbImg').attr('src',thumb_img);
-       
-       for(var o in products){
-            var str_2 = "";
-            var style2_name = products[o].name;
-            str_2 += '<option value="'+products[o].id+'">' + style2_name + '</option>';
-            $('.product-info').append(str_2);
-       }
-
-       for(var o in sizes){
-            var list_size=sizes[o].size;
-            var size_Ojb='';
-            size_Ojb += '<option value="'+sizes.id+'">'+list_size+'</option>';
-            $('#sizes').append(size_Ojb);
-       }
-       
-
-       num_change();
-
-       
-    }
-
     function num_change(){
         var lis_numbel = 1;
         var lis_sell_price = acticity_detail.default_style.sell_price;
@@ -188,24 +204,47 @@ $(function () {
         $('.number-info .left').click(function(event) {
             if(lis_numbel>1){
                 lis_numbel--;
+                
             }else{
                 lis_numbel=1;
             }
             $(this).siblings('input').val(lis_numbel);
-
-            lis_subtotal = lis_numbel*lis_sell_price;
-            $(this).parent().siblings('money-info').children('i').html(''+lis_subtotal+'');
         });
 
         $('.number-info .right').click(function(event) {
             lis_numbel++;
             $(this).siblings('input').val(lis_numbel);
 
-            lis_subtotal = lis_numbel*lis_sell_price;
-            $(this).parent().siblings('money-info').children('i').html(''+lis_subtotal+'');
         });
-
+        
+        lis_numbel = $('.number-info input').val();
+        lis_subtotal = lis_numbel*lis_sell_price;
+        $(this).parents('li').find('.money-info i').html(''+lis_subtotal+'');
         
     }
+
+    function colorList(){
+        var productColor = acticity_detail.default_style.color;
+        $('.yanse-info').css('background-color',productColor);
+        $('.yanse-info').click(function(event) {
+           $(this).toggleClass('current');
+           event.stopPropagation();
+        });
+
+        $('.palette a').click(function(event) {
+            var b=$(this).css('background-color');
+            $(this).parents('.yanse-info').css('background-color',b);
+            $('.yanse-info').removeClass('current');
+            event.stopPropagation();
+        });
+
+        $('.palette').click(function(event) {
+            event.stopPropagation();
+        });
+    }
+
+   $( window).click(function(event) {
+        $('.yanse-info').removeClass('current');
+    });
 
 });

@@ -428,7 +428,7 @@ body.current{
     -webkit-transform: translate(-50%,-50%);
     max-height: 100%;
     overflow-y: auto;
-    
+    border-radius: 2px;
 }
 /* .popup-big{
     width: 100%;
@@ -552,7 +552,7 @@ body.current{
     height: 20px;
     border:1px solid #d9d9d9;
     margin:7px auto 0;
-    background:gold;
+   /*  background:gold; */
     position: relative;
     cursor: pointer;
 }
@@ -602,18 +602,21 @@ body.current{
     display: inline-block;
     width: 18px;
     height: 18px;
-    border:1px solid #d7dcde;
+    border:2px solid #fff;
     padding:2px;
-    background-color: #fff;
+    background-color: #ccc;
     border-radius: 3px;
     margin-bottom: 5px;
+    box-shadow: 0 0 0 1px #ccc;
+    margin-left: 4px;
+
 }
-.yanse-info.current .palette a i{
+/* .yanse-info.current .palette a i{
     display: block;
     width: 18px;
     height: 18px;
     background-color: yellow;
-}
+} */
 .money-info{
     float: left;
     margin-left: 100px;
