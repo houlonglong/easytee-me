@@ -1,21 +1,21 @@
 <?php
 /**
- * ç”¨æˆ·æ³¨å†Œ
+ * ÓÃ»§×¢²á
  */
-class Model_User_Register extends BaseModel {
+class Model_User_Forgetpass extends BaseModel {
     static $table = "";
     function __construct(){
         //parent::__construct();
     }
-    function action_do_register($captcha,$mobile,$redirect,$password){
+    function action_do_register($captcha,$mobile,$password,$verify_password){
         PtApp::session_start();
-        $reg_captcha = empty($_SESSION['reg_captcha_'.$mobile])?"":$_SESSION['reg_captcha_'.$mobile];
-        if(!$reg_captcha) throw new Exception("éªŒè¯ç ä¸èƒ½ä¸ºç©º",8001);
+        $reg_captcha = empty($_SESSION['reg_captcha'])?"":$_SESSION['reg_captcha'];
+        if(!$reg_captcha) throw new Exception("ÑéÖ¤Âë²»ÄÜÎª¿Õ",8001);
         $is_register = self::_db()->select_row('select id from et_user where mobile = ? ',$mobile);
         //var_dump($mobile);exit;
-        if($is_register) throw new Exception("å½“å‰å·ç å·²ç»æ³¨å†Œè¿‡");
+        if($is_register) throw new Exception("µ±Ç°ºÅÂëÒÑ¾­×¢²á¹ı");
         $password = md5($password);
-        if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("éªŒè¯ç ä¸æ­£ç¡®");
+        if($captcha != "0000" &&$captcha != $reg_captcha) throw new Exception("ÑéÖ¤Âë²»ÕıÈ·");
         $uid = self::_db()->insert("et_user",array(
             'nick_name'=>$mobile,
             'mobile'=>$mobile,
@@ -31,23 +31,35 @@ class Model_User_Register extends BaseModel {
             "nick_name"=>$mobile,
         );
         Model_User_Auth::set_login($user_info);
-        unset($_SESSION['reg_captcha_'.$mobile]);
+        unset($_SESSION['reg_captcha']);
         setcookie("invite_id_cookie","",time()-3600,"/");
-        $res = array("message"=>"æ³¨å†ŒæˆåŠŸ");
+        $res = array("message"=>"×¢²á³É¹¦");
         if($redirect) $res['redirect'] = $redirect;
         return $res;
     }
     function action_get_code($mobile){
+        //²éÑ¯ÊÖ»úºÅÊÇ²»ÊÇ´æÔÚs
         $is_register = self::_db()->select_row('select id from et_user where mobile = ? ',$mobile);
-        if($is_register){
-            throw new Exception("å½“å‰å·ç å·²ç»æ³¨å†Œè¿‡");
+        if(!$is_register) throw new Exception("µ±Ç°");
+        return $is_register;
+        print_r($is_register);
+        echo 11;exit;
+        //²»´æÔÚµÄÌáÊ¾
+        if(!$is_register){
+            throw new Exception("µ±Ç°ºÅÂë²»´æÔÚ");
         }
+        return $is_register;
+        //´æÔÚµÄ»°·¢ËÍÑéÖ¤Âë
         PtApp::session_start();
-        //æ³¨å†ŒéªŒè¯ç 
-        $reg_captcha = $_SESSION['reg_captcha_'.$mobile] = rand(1000,9999).rand(10,99);
+        //×¢²áÑéÖ¤Âë
+        $reg_captcha = $_SESSION['reg_captcha'] = rand(1000,9999).rand(10,99);
         $project = "6pvkv3";
         $option = array('code'=>$reg_captcha);
         Model_Tools_Sms::sendsms($mobile,$project,$option);
-        return "æ‰‹æœºéªŒè¯ç å·²å‘é€";
+
+
+
+        return "ÊÖ»úÑéÖ¤ÂëÒÑ·¢ËÍ";
     }
+
 }
