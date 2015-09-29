@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>设计 - 易衫EASYTEE - 每个人都是创业家！预售产品的电商服务平台，彻底颠覆传统商业模式，0成本、0风险，全产业链无忧服务。你只需脑洞大开，创意预售T恤 ，就可践行初次创业梦想。</title>
     <link rel="stylesheet" type="text/css" href="js/app/design/vendor/etds/css/et.ds-min.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/style.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/design.css"/>
@@ -142,7 +142,10 @@
                     <div>
                         <div class="upload-location-btn-wrap">
                             <a class="upload-location-btn" href="javascript:;">选择本地图片</a>
-                            <input type="file" id="upload_location_input">
+                            <form>
+                                <input type="file" id="upload_location_input">
+                            </form>
+
                         </div>
                     </div>
                 </div>
