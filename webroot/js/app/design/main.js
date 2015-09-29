@@ -298,6 +298,11 @@ $(function () {
          * 上传图片
          */
         function initUploadImage() {
+            $('#upload_location_input').fileUploader({
+                callback: function(file, dataUrl){
+                    ds.call('imageBase64', dataUrl);
+                }
+            });
         }
 
         /**
