@@ -482,10 +482,10 @@ $(function () {
                         image: item.img_url,
                         scale: 7.47,
                         printable: {
-                            x: parseFloat(item.x),
-                            y: parseFloat(item.y),
-                            width: parseFloat(item.w),
-                            height: parseFloat(item.h)
+                            x: parseFloat(item.x)/2,
+                            y: parseFloat(item.y)/2,
+                            width: parseFloat(item.w)/2,
+                            height: parseFloat(item.h)/2
                         }
                     });
                 }
