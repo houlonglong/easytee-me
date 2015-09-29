@@ -36,10 +36,8 @@ class ForgetpassTest extends UnitTest{
         $res = $this->post_action("/api",array(
             "model"=>"user/forgetpass",
             "action"=>"get_code",
-            "mobile"=>"13564898513",
+            "mobile"=>"13564898513  ",
         ));
 
     }
-
-
 }
