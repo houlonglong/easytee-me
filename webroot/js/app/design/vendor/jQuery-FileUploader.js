@@ -9,6 +9,7 @@ $.fn.fileUploader = function(option) {
     option && option.callback && (opt.callback = option.callback);
 
     function fileSelect(e) {
+        var self = this;
         e = e || window.event;
         var files = e.target.files;
         var reg = /image\/.*/i;
@@ -20,6 +21,7 @@ $.fn.fileUploader = function(option) {
             reader.onload = (function(file) {
                 return function() {
                     opt.callback(file, this.result);
+                    $(self).parent()[0].reset();
                 };
             })(f);
             reader.readAsDataURL(f);
