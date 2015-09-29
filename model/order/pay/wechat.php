@@ -1,8 +1,7 @@
 <?php
-
-
 /**
  * 微信支付
+ *
  */
 
 class Model_Order_Pay_Wechat extends BaseModel {

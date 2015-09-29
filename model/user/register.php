@@ -50,5 +50,4 @@ class Model_User_Register extends BaseModel {
         Model_Tools_Sms::sendsms($mobile,$project,$option);
         return "手机验证码已发送";
     }
-
 }
