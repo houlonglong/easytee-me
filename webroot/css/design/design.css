@@ -277,7 +277,7 @@
 
 .design-main .design-center .upload-location-btn-wrap input[type=file]{
     position: absolute;
-    /*opacity: 0;*/
+    opacity: 0;
     top: 0;
     left: -100px;
     width: 400px;
