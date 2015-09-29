@@ -6,7 +6,7 @@ use PtLib\UnitTest as UnitTest;
  */
 class RegisterTest extends UnitTest{
 
-    function test_action_register(){
+    function test_action_do_register(){
         $this->set_http_opt(array(
             "debug"=>0,
             "header"=>0,
@@ -19,11 +19,11 @@ class RegisterTest extends UnitTest{
             "model"=>"user/register",
             "action"=>"do_register",
             "redirect"=>"/user/index",
-            "mobile"=>"13555555555",
-            "password"=>'111111',
-            "captcha"=>'940179',
+            "mobile"=>"13564898513",
+            "password"=>sha1("111111"),
+            "captcha"=>'743924',
         ));
-        echo $res;
+
     }
     function test_action_get_code(){
         $this->set_http_opt(array(
@@ -37,7 +37,7 @@ class RegisterTest extends UnitTest{
         $res = $this->post_action("/api",array(
             "model"=>"user/register",
             "action"=>"get_code",
-            "mobile"=>"18601628937",
+            "mobile"=>"13564898513",
         ));
         echo $res;
     }
