@@ -83,7 +83,7 @@ class Model_Order extends BaseModel {
     /**
      * 订单详情
      */
-    static function detail_info($order_no = ''){
+    static function detail_info_with_goods($order_no = ''){
         $order = self::_db()->select_row('
             SELECT act.activity_id,a.end_time,a.thumb_img_url,a.`status` AS activity_status,pay.*,ship.*,o.*
              FROM et_order AS o
@@ -104,5 +104,144 @@ class Model_Order extends BaseModel {
             "order"=>$order,
             "goods"=>$goods,
         );
+    }
+    static function gen_order_no(){
+        return date('ymdHis') . sprintf('%03d', floor(microtime() * 1000)) . mt_rand(10, 99);
+    }
+    static function get_save_goods($activity_id,$goods){
+        $rows = array();
+        $styles = array();
+        $_goods = array();
+        foreach($goods as $g){
+            $styles[] = $g['style_id'];
+            $_goods[$g['style_id']] = $g;
+        }
+        $styles = array_unique($styles);
+        $style_rows = self::_db()->select_rows("select aps.*,style.selling_price from activity_product_styles as aps left join et_product_style as style on style.id = aps.product_style_id where style.id in (".implode(",",$styles).") and aps.activity_id = ?",$activity_id);
+        if(!$style_rows) throw new Exception("款式不存在");
+        $quantity = 0;
+        $goods_price = 0;
+        $body = "";
+        foreach($style_rows as $style_row){
+            $g = $_goods[$style_row['product_style_id']];
+            if(!$g) continue;
+            $quantity += intval($g['quantity']);
+            $goods_price += $style_row['sell_price'];
+
+            $body = $g['pro_size'].'*'.$g['quantity']." ";
+            $rows[] = array(
+                "activity_id" => $activity_id,
+                "style_id"    => $g['style_id'],
+                "pro_size"    => $g['pro_size'],
+                "quantity"    => $g['quantity'],
+                "cost_price"  => $style_row['selling_price'],
+                "sell_price"  => $style_row['sell_price']
+            );
+        }
+        return array(
+            "quantity"=>$quantity,
+            "order_body"=>$body,
+            "goods_price"=>$goods_price,
+            "goods"=>$rows
+        );
+    }
+
+    static function save_ship($order_id,$exp_price,$exp_com,$name,$tel,$province,$city,$county,$addr){
+        self::_db()->insert("et_order_ship",array(
+            "order_id"=>$order_id,
+            "exp_com"=>$exp_com,
+            "exp_price"=>$exp_price,
+            "name"=>$name,
+            "tel"=>$tel,
+            "province"=>$province,
+            "city"=>$city,
+            "county"=>$county,
+            "addr"=>$addr,
+        ));
+    }
+    static function save_pay($order_id,$pay_type,$pay_price,$balance_tx = 0,$balance_ntx = 0){
+        self::_db()->insert("et_order_pay",array(
+            "order_id"=>$order_id,
+            "pay_type"=>$pay_type,
+            "pay_price"=>$pay_price,
+            "balance_tx"=>$balance_tx,
+            "balance_ntx"=>$balance_ntx,
+        ));
+    }
+    static function save_goods($order_id,$goods){
+        foreach($goods as &$g){
+            $g['order_id'] = $order_id;
+        }
+        self::_db()->insert("et_order_goods",$goods);
+    }
+
+    /**
+     * 保存订单
+     */
+    static function save($uid,$activity_id,$goods_price,$exp_price,$quantity,$subject,$body,$notes){
+        $order_no = self::gen_order_no();
+        //todo consider order_no nt unique
+        $row = array(
+            'uid'=>$uid,
+            'order_no'=>$order_no,
+            'goods_price'=>$goods_price,
+            'exp_price'=>$exp_price,
+            'quantity'=>$quantity,
+            'subject'=>$subject,
+            'body'=>$body,
+            'notes'=>$notes,
+            'add_time'=>date_time_now(),
+        );
+        $order_id = self::_db()->insert("et_order",$row);
+        self::bind_activity($order_id,$activity_id);
+        $row['order_id'] = $order_id;
+        $row['order_no'] = $order_no;
+        return $row;
+    }
+    static function bind_activity($order_id,$activity_id){
+        self::_db()->insert("et_order_activity",array(
+            "order_id"=>$order_id,
+            "activity_id"=>$activity_id,
+        ));
+    }
+    static function get_order_info_by_id($id){
+        return self::_db()->select_row("
+              select pay.*,ship.*,o.*,ac.activity_id
+              from `et_order` as o
+              left join et_order_pay as pay on pay.order_id = o.id
+              left join et_order_ship as ship on ship.order_id = o.id
+              left join et_order_activity as ac on ac.order_id = o.id
+              where o.id = ?
+              ",$id);
+    }
+    static function get_order_info_by_order_no($order_no){
+        return self::_db()->select_row("
+              select pay.*,ship.*,o.*,ac.activity_id
+              from `et_order` as o
+              left join et_order_pay as pay on pay.order_id = o.id
+              left join et_order_ship as ship on ship.order_id = o.id
+              left join et_order_activity as ac on ac.order_id = o.id
+              where o.order_no = ?
+              ",$order_no);
+    }
+
+    static function get_order_status_by_id($id){
+        return self::_db()->select_row("
+              select o.status,pay.pay_status,ship.ship_status
+              from `et_order` as o
+              left join order_pay as pay on pay.order_id = o.id
+              left join order_ship as ship on ship.order_id = o.id
+              where o.id = ?
+              ",$id);
+    }
+
+    static function get_order_status_by_order_no($order_no){
+        return self::_db()->select_row("
+              select o.status,pay.pay_status,ship.ship_status
+              from `et_order` as o
+              left join order_pay as pay on pay.order_id = o.id
+              left join order_ship as ship on ship.order_id = o.id
+              where o.order_no = ?
+              ",$order_no);
     }
 }
