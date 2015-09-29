@@ -53,6 +53,7 @@ class Model_Service_Activity extends BaseModel{
 
         $profit = round($profit_all - $cost_print,2);
         PtLib\log("[印刷成本] 活动:%s 不包含印花利润:%s - 印花总成本:%s = 利润:%s",$id,$profit_all,$cost_print,$profit);
+        //todo check need
         self::_db()->update("et_activity_info",array("sale_profit"=>$profit),array("id"=>$id));
         return $profit;
     }

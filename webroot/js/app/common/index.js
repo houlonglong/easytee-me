@@ -87,7 +87,7 @@ $(function () {
 
     function time(a) {
         if (wait == 0) {
-            a.removeAttribute("disabled");
+            a.attr("disabled",false);
             $(a).html("获取验证码").css('background', '#fff');
             wait = 60;
 
@@ -109,26 +109,33 @@ $(function () {
         resPhone = $('#res-phone').val();
         resTest = $("#res-test").val();
         //重置密码手机和验证码的验证
-      /*  var reg3 = /^[1][358][0-9]{9}$/;
+      var reg3 = /^[1][358][0-9]{9}$/;
         if (!reg3.test(resPhone)) {
-            //alert("请输入正确格式的手机号码！");
             $('.reset-con .sj').addClass('err');
             return false;
         } else {
             $('.reset-con .sj').removeClass('err');
-        }*/
+        }
+
+        if(resPhone == ""){
+            return alert("手机号不能没输入");
+        }
         var that=$(this);
-         time(this);
-        $.get('/login', {
-            model: "user/register",
-            phone: $("#res-phone").val()
-        }, function () {
+
+         time(that);
+
+        $.get('/api', {
+            model: "user/forgetpass",
+            action: "get_code",
+            mobile: $("#res-phone").val()
+        }, function (data) {
+            console.log(data);
             if (status == 0) {
                 time(that);
             } else {
                 $(".reset-con .sj").addClass('err');
             }
-        })
+        });
     });
 
 
@@ -159,10 +166,11 @@ $(function () {
 
         //alert("密码格式错误");
         //var reg2=/^[a-zA-Z0-9]{6,32}$/;
-        resPass = $("#res-pass").val();
-        resPass2 = $("#res-pass2").val();
-        resPhone = $('#res-phone').val();
-        resTest = $("#res-test").val();
+        captcha = $("#res-test").val();
+        mobile = $('#res-phone').val();
+        password = $("#res-pass").val();
+        verify_password = $("#res-pass2").val();
+
         var reg2 = /^[\S]{6,32}$/;
         var reg = /(1[3-9]\d{9}$)/;
         if (!reg.test(resPhone)) {
@@ -173,37 +181,45 @@ $(function () {
             $('.reset-con .sj').removeClass('err');
         }
         //验证码问题
-        if(resTest==''){
-        	$("#res-test").parent().addClass('test-err').children('i').html("请输入验证码");
-        	return;
-        }else{
-        	$("#res-test").parent().removeClass('test-err').children('i').html("验证码错误");
-        }
-        
-        //密码问题
-        if (!reg2.test(resPass)) {
-            //alert("密码格式错误");
-            $("#res-pass").parent().addClass('test-err');
-            return;
-        } else {
-            $("#res-pass").parent().removeClass('test-err');
-        }
+        //if(captcha==''){
+        //	$("#res-test").parent().addClass('test-err').children('i').html("请输入验证码");
+        //	return;
+        //}
+        //
+        ////密码问题
+        //if (!reg2.test(resPass)) {
+        //    //alert("密码格式错误");
+        //    $("#res-pass").parent().addClass('test-err');
+        //    return;
+        //} else {
+        //    $("#res-pass").parent().removeClass('test-err');
+        //}
 
-        if (resPass != resPass2) {   //判断密码是否一致
-            $("#res-pass2").parent().addClass('test-err');
-            return;
-        } else {
-            $("#res-pass2").parent().removeClass('test-err');
-        }
+        //if (resPass != resPass2) {   //判断密码是否一致
+        //    $("#res-pass2").parent().addClass('test-err');
+        //    return;
+        //} else {
+        //    $("#res-pass2").parent().removeClass('test-err');
+        //}
         
         $.ajax({
             type: "post",
             url: "",
-            data: $(".reset-con>div>input").serialize(),
-            success: function () {
-                if (status === 0) {
+            data: {
+                model: "user/forgetpass",
+                action: "do_forgetpass",
+                mobile:mobile,
+                captcha:captcha,
+                password:password,
+                verify_password:password,
+            },
+            success: function (data) {
+              
+                if (data.status === 0) {
                     $('.ret-success').addClass('show').siblings('div').removeClass('show');
                     fn();
+                }else {
+
                 }
             }
         })
@@ -289,7 +305,7 @@ $(function () {
                     $('.reg-success').addClass('show').siblings('div').removeClass('show');
                     fn();
                 }else if(data.status==80011){
-                    $("#reg-test").parent().addClass('Prompt').children('i').html("验证码错误");
+                    $("#reg-test").parent().addClass('Prompt').children('i').html( "验证码错误");
                 }
 			}
 		})

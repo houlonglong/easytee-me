@@ -9,7 +9,7 @@ class Model_User_Register extends BaseModel {
     }
     function action_do_register($captcha,$mobile,$redirect,$password){
         PtApp::session_start();
-        $reg_captcha = empty($_SESSION['reg_captcha'])?"":$_SESSION['reg_captcha'];
+        $reg_captcha = empty($_SESSION['reg_captcha_'.$mobile])?"":$_SESSION['reg_captcha_'.$mobile];
         if(!$reg_captcha) throw new Exception("验证码不能为空",8001);
         $is_register = self::_db()->select_row('select id from et_user where mobile = ? ',$mobile);
         //var_dump($mobile);exit;
@@ -31,7 +31,7 @@ class Model_User_Register extends BaseModel {
             "nick_name"=>$mobile,
         );
         Model_User_Auth::set_login($user_info);
-        unset($_SESSION['reg_captcha']);
+        unset($_SESSION['reg_captcha_'.$mobile]);
         setcookie("invite_id_cookie","",time()-3600,"/");
         $res = array("message"=>"注册成功");
         if($redirect) $res['redirect'] = $redirect;
@@ -44,11 +44,10 @@ class Model_User_Register extends BaseModel {
         }
         PtApp::session_start();
         //注册验证码
-        $reg_captcha = $_SESSION['reg_captcha'] = rand(1000,9999).rand(10,99);
+        $reg_captcha = $_SESSION['reg_captcha_'.$mobile] = rand(1000,9999).rand(10,99);
         $project = "6pvkv3";
         $option = array('code'=>$reg_captcha);
         Model_Tools_Sms::sendsms($mobile,$project,$option);
         return "手机验证码已发送";
     }
-
 }

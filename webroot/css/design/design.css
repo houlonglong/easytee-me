@@ -63,6 +63,7 @@
     position: relative;
 }
 
+
 .design-main .design-center .design-tools .tab-content .tab-content-image-layout .upload-location-btn {
     position: absolute;
     width: 168px;
@@ -255,17 +256,34 @@
     color: #AA2425;
 }
 
-.design-main .design-center .upload-location-btn {
+.design-main .design-center .upload-location-btn-wrap {
+    position: relative;
     width: 168px;
     height: 40px;
     line-height: 40px;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.design-main .design-center .upload-location-btn-wrap .upload-location-btn {
     text-align: center;
     background: #aa2425;
     color: #fff;
-    margin: 0 auto;
     font-size: 18px;
     display: block;
     border-radius: 3px;
+}
+
+.design-main .design-center .upload-location-btn-wrap input[type=file]{
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -100px;
+    width: 400px;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
 }
 
 .design-main .design-center .image-store {

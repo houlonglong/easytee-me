@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/design/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/design/font-family.css"/>
     <script src="js/app/design/vendor/jquery-1.11.2.js"></script>
+    <script src="js/app/design/vendor/jQuery-FileUploader.js"></script>
     <script src="js/app/design/vendor/etds/et.ds.js"></script>
 
     <script src="js/app/design/main.js"></script>
@@ -139,7 +140,10 @@
                         <span>您提交的任何设计必须是您设计或者拥有合法使用权。你不得使用他人拥有的内容，除非你得到他们的许可。如果有人因为你的设计向我们索赔，您同意支付我们受到损失，包括律师费等任何损失。</span>
                     </p>
                     <div>
-                        <a class="upload-location-btn" href="javascript:;">选择本地图片</a>
+                        <div class="upload-location-btn-wrap">
+                            <a class="upload-location-btn" href="javascript:;">选择本地图片</a>
+                            <input type="file" id="upload_location_input">
+                        </div>
                     </div>
                 </div>
                 <div class="image-store">

@@ -298,6 +298,11 @@ $(function () {
          * 上传图片
          */
         function initUploadImage() {
+            $('#upload_location_input').fileUploader({
+                callback: function(file, dataUrl){
+                    ds.call('imageBase64', dataUrl);
+                }
+            });
         }
 
         /**
@@ -477,10 +482,10 @@ $(function () {
                         image: item.img_url,
                         scale: 7.47,
                         printable: {
-                            x: parseFloat(item.x),
-                            y: parseFloat(item.y),
-                            width: parseFloat(item.w),
-                            height: parseFloat(item.h)
+                            x: parseFloat(item.x)/2,
+                            y: parseFloat(item.y)/2,
+                            width: parseFloat(item.w)/2,
+                            height: parseFloat(item.h)/2
                         }
                     });
                 }
@@ -511,6 +516,14 @@ $(function () {
             });
             $('.product-item').eq(0).click();
 
+            $('.product-color-picket .color-item').hover(function (e) {
+                var styleColor = $(this).attr('data-color');
+                ds.call('productColor', styleColor);
+            }, function(){
+                var styleColor = $(this).parents('.product-color-picket').find('.color-item.active').attr('data-color');
+                ds.call('productColor', styleColor);
+            });
+
             $('.product-color-picket .color-item').click(function (e) {
                 e.stopPropagation();
                 $('.color-item').removeClass('active');
@@ -530,6 +543,10 @@ $(function () {
             $('.product-color-picket').mouseleave(function () {
                 $(this).find('.color-column').not('.quick-colors').hide();
                 $(this).width('auto');
+            });
+
+            $('.product-color-picket').click(function(e){
+                e.stopPropagation();
             });
         }
 
