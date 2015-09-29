@@ -511,6 +511,14 @@ $(function () {
             });
             $('.product-item').eq(0).click();
 
+            $('.product-color-picket .color-item').hover(function (e) {
+                var styleColor = $(this).attr('data-color');
+                ds.call('productColor', styleColor);
+            }, function(){
+                var styleColor = $(this).parents('.product-color-picket').find('.color-item.active').attr('data-color');
+                ds.call('productColor', styleColor);
+            });
+
             $('.product-color-picket .color-item').click(function (e) {
                 e.stopPropagation();
                 $('.color-item').removeClass('active');
