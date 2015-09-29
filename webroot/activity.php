@@ -5,12 +5,14 @@
     <link rel="stylesheet" type="text/css" href="css/sale/xiaoshou.css">
     <link rel="stylesheet" type="text/css" href="css/common/style.css">
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
+    <!-- <script type="text/javascript" src="js/app/sale/time.js"></script> -->
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
+    
     
 </head>
 <body>
@@ -86,7 +88,7 @@
         </div>
         <div class="style">
             <p>款式</p>
-            <select name="" id="changeProductS">
+            <select name="" id="changeProduct">
                 
             </select>
         </div>
@@ -99,15 +101,13 @@
                 <a href="" target="_blank">尺码信息</a>
             </div>
         </div>
-        <div class="time-down">
+        <div class="time-down time_num"  id="times_wrap">
             <strong>距离结束还有</strong>
-
-            <div class="clock">
-                <span class="clock-o">1</span>
-                <span class="clock-o">1</span><i class="space">天</i>
-                <span class="clock-h">09</span><i> ：</i>
-                <span class="clock-h">09</span><i> ：</i>
-                <span class="clock-h">09</span>
+            <div class="clock time_w">
+                <span class="clock-h" id="times_d"></span><i class="space">天</i>
+                <span class="clock-h" id="times_h"></span><i> ：</i>
+                <span class="clock-h" id="times_m"></span><i> ：</i>
+                <span class="clock-h" id="times_s"></span>
             </div>
         </div>
         <div class="btns">
@@ -164,7 +164,6 @@
                     <i class='bor10'></i>
                     <span></span>
                     <div class="palette">
-                        
                     </div>
                 </div>
                 
@@ -247,6 +246,55 @@
         <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
     </div>
 </div>
+<script>
+    setTimeout("show_time()",1000);
+    var time_d = document.getElementById("times_d");
+    var time_h = document.getElementById("times_h");
+    var time_m = document.getElementById("times_m");
+    var time_s = document.getElementById("times_s");
 
+    var time_end = new Date("2015/9/29 18:00:00");  // 设定结束时间
+    time_end = time_end.getTime();
+
+    function show_time(){
+        var time_now = new Date();  // 获取当前时间
+        time_now = time_now.getTime();
+        var time_distance = time_end - time_now;  // 结束时间减去当前时间
+        var int_day, int_hour, int_minute, int_second;
+        if(time_distance >= 0){
+            // 天时分秒换算
+            int_day = Math.floor(time_distance/86400000)
+            time_distance -= int_day * 86400000;
+            int_hour = Math.floor(time_distance/3600000)
+            time_distance -= int_hour * 3600000;
+            int_minute = Math.floor(time_distance/60000)
+            time_distance -= int_minute * 60000;
+            int_second = Math.floor(time_distance/1000)
+
+            // 时分秒为单数时、前面加零站位
+            if(int_hour < 10)
+                int_hour = "0" + int_hour;
+            if(int_minute < 10)
+                int_minute = "0" + int_minute;
+            if(int_second < 10)
+                int_second = "0" + int_second;
+
+            // 显示时间
+            time_d.innerHTML = int_day;
+            time_h.innerHTML = int_hour;
+            time_m.innerHTML = int_minute;
+            time_s.innerHTML = int_second;
+
+            setTimeout("show_time()",1000);
+        }else{
+            time_d.innerHTML = time_d.innerHTML;
+            time_h.innerHTML = time_h.innerHTML;
+            time_m.innerHTML = time_m.innerHTML;
+            time_s.innerHTML = time_s.innerHTML;
+
+            // clearTimeout(timerID)
+        }
+    };
+</script> 
 </body>
 </html>
