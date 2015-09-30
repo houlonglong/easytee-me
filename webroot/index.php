@@ -8,32 +8,6 @@
     <script type="text/javascript" src="js/app/index/index.js"></script>
 </head>
 <body>
-    <div class="tanceng">
-        <span class="close"></span>
-        <div class="denglu">
-            <img src="css/common/images/denglu-bg.png" >
-            <div class="denglu-con">
-                <h3 >请登录</h3>
-                <div>
-                    <label for="phone">手机</label> <br>
-                    <input type="text" id="phone">
-                </div>
-                <div>
-                    <label for="mima">登录密码</label><br>
-                    <input type="password" id="mima">
-                </div>
-                <div class="forget">
-                    <a href="#">忘记密码</a>
-                </div>
-                <div>
-                    <a href="#" class="anniu">登录</a>
-                </div>
-                <div class="other-login">
-                    <span>第三方登录</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="go-top">返回顶部</div>
     <nav class="banxin clearfix nav">

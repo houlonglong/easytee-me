@@ -1,6 +1,27 @@
+
 <?php
 $activity_info = PtLib\db()->select_row("select a.uid,a.name,a.sale_count,a.sale_target,a.content,a.thumb_img_url,a.start_time,a.end_time,u.nick_name from et_activity_info as a LEFT  JOIN et_user as u on a.uid = u.id ");
-include(block("block/header"))?>
+include(block("block/header"))
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/sale/sale.css">
+    <link rel="stylesheet" type="text/css" href="css/common/style.css">
+    <link rel="stylesheet" type="text/css" href="css/common/popup.css">
+    <!-- <script type="text/javascript" src="js/app/sale/time.js"></script> -->
+    <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
+    <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
+    <script type="text/javascript" src="js/app/sale/index.js"></script>
+    <script type="text/javascript" src="js/app/common/popup.js"></script>
+    <script type="text/javascript" src="js/app/common/index.js"></script>
+</head>
+<body>
+
+
 <div class="order banxin clearfix">
     <div class="order-show clearfix">
         <ul class="small-img">
@@ -35,20 +56,21 @@ include(block("block/header"))?>
         <div class="style">
             <p>款式</p>
             <select name="" id="changeProduct">
-                
+
             </select>
         </div>
         <div class="size">
             <p>颜色</p>
             <ul class="color-lump">
-                
+
             </ul>
             <div class="color-list">
                 <a href="" target="_blank">尺码信息</a>
             </div>
         </div>
-        <div class="time-down time_num"  id="times_wrap">
+        <div class="time-down time_num" id="times_wrap">
             <strong>距离结束还有</strong>
+
             <div class="clock time_w">
                 <span class="clock-h" id="times_d"></span><i class="space">天</i>
                 <span class="clock-h" id="times_h"></span><i> ：</i>
@@ -70,21 +92,29 @@ include(block("block/header"))?>
         </div>
     </div>
 </div>
-<div class="tab-lan">
-    <div class="tab-nav banxin clearfix">
-        <span class="tab-logo"></span>
-        <ul class="tab-con clearfix">
-            <li class="current"><a href="#introduce">活动介绍</a></li>
-            <li><a href="#details">商品详情</a></li>
-            <li><a href="#rule">活动规则</a></li>
-        </ul>
+<div style="height: 55px; margin-top: 20px;">
+    <div class="tab-lan">
+        <div class="tab-nav banxin clearfix">
+            <span class="tab-logo"></span>
+            <ul class="tab-con clearfix">
+                <li data-ref="introduce" class="current">
+                    <a href="javascript:;">活动介绍</a>
+                </li>
+                <li data-ref="details">
+                    <a href="javascript:;">商品详情</a>
+                </li>
+                <li data-ref="rule">
+                    <a href="javascript:;" data-ref="rule">活动规则</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <div id="introduce" class="banxin"><?php echo $activity_info['content'] ?></div>
 <div id="details" class="banxin">详情</div>
 <div id="rule" class="banxin">规则</div>
-<div class="tanchuang">
-    <div class="tanchuang-con">
+<div class="dialog">
+    <div class="dialog-con">
         <span class="cha"></span>
 
         <h3>我的订单</h3>
@@ -97,31 +127,7 @@ include(block("block/header"))?>
             <span class="money">价格</span>
         </div>
         <ul class="style-info">
-            <li>
-                <img src="css/sale/images/sytle-img.png" id="thumbImg">
-                <div class="number-info">
-                    <span class="left">-</span>
-                    <input type="text" value="1">
-                    <span class="right">+</span>
-                </div>
-                <select name="" id="" class="product-info">
-                        
-                </select>
-                <div class="yanse-info ">
-                    <i class='bor10'></i>
-                    <span></span>
-                    <div class="palette">
-                    </div>
-                </div>
-                
-                
-                <select name="" id="sizes" class="chima-info">
-                   
-                </select>
-                <div class="money-info">
-                    ￥<i>99</i>
-                </div>
-            </li>
+
         </ul>
         <div class="amount">
             总计 <span>￥<i>100</i></span>
@@ -133,6 +139,7 @@ include(block("block/header"))?>
     </div>
 </div>
 
+
 <br>
 <br>
 <br>
@@ -150,10 +157,12 @@ include(block("block/header"))?>
 <br>
 <br>
 <br>
+
 <div class="go-top"></div>
 <?php include(block("block/footer")) ?>
 
 <script>
+
 
     var activity = {};
     activity.name = "<?php echo $activity_info['name'] ?>";
@@ -167,35 +176,36 @@ include(block("block/header"))?>
     }
 
     setTimeout("show_time()",1000);
+
     var time_d = document.getElementById("times_d");
     var time_h = document.getElementById("times_h");
     var time_m = document.getElementById("times_m");
     var time_s = document.getElementById("times_s");
 
-    var time_end = new Date("2015/9/29 18:00:00");  // 设定结束时间
+    var time_end = new Date("2015/9/30 18:00:00");  // 设定结束时间
     time_end = time_end.getTime();
 
-    function show_time(){
+    function show_time() {
         var time_now = new Date();  // 获取当前时间
         time_now = time_now.getTime();
         var time_distance = time_end - time_now;  // 结束时间减去当前时间
         var int_day, int_hour, int_minute, int_second;
-        if(time_distance >= 0){
+        if (time_distance >= 0) {
             // 天时分秒换算
-            int_day = Math.floor(time_distance/86400000)
+            int_day = Math.floor(time_distance / 86400000)
             time_distance -= int_day * 86400000;
-            int_hour = Math.floor(time_distance/3600000)
+            int_hour = Math.floor(time_distance / 3600000)
             time_distance -= int_hour * 3600000;
-            int_minute = Math.floor(time_distance/60000)
+            int_minute = Math.floor(time_distance / 60000)
             time_distance -= int_minute * 60000;
-            int_second = Math.floor(time_distance/1000)
+            int_second = Math.floor(time_distance / 1000)
 
             // 时分秒为单数时、前面加零站位
-            if(int_hour < 10)
+            if (int_hour < 10)
                 int_hour = "0" + int_hour;
-            if(int_minute < 10)
+            if (int_minute < 10)
                 int_minute = "0" + int_minute;
-            if(int_second < 10)
+            if (int_second < 10)
                 int_second = "0" + int_second;
 
             // 显示时间
@@ -204,8 +214,8 @@ include(block("block/header"))?>
             time_m.innerHTML = int_minute;
             time_s.innerHTML = int_second;
 
-            setTimeout("show_time()",1000);
-        }else{
+            setTimeout("show_time()", 1000);
+        } else {
             time_d.innerHTML = time_d.innerHTML;
             time_h.innerHTML = time_h.innerHTML;
             time_m.innerHTML = time_m.innerHTML;
@@ -213,10 +223,12 @@ include(block("block/header"))?>
 
             // clearTimeout(timerID)
         }
+
         window.setTimeout(function(){ YFshare();},1000);
     };
 </script>
 <script type="text/javascript" src="js/app/activvity/activvity.js"></script>
 <script type="text/javascript" src="js/app/activvity/jquery.qrcode.min.js"></script>
+
 </body>
 </html>

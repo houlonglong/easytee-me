@@ -16,7 +16,7 @@ class OrderTest extends UnitTest{
             "action"=>"save",
             "app_id"=>APP_ID,
             "order_no"=>"1111111111111",
-            "activity_id"=>1,
+            "activity_id"=>4550,
             "goods_price"=>100.01,
             "quantity"=>4,
             "ship_name"=>"李四",
@@ -62,35 +62,4 @@ class OrderTest extends UnitTest{
         print_r($res);
 
     }
-
-
-
-    /**
-     *
-     *
-    function test_cli_test(){
-        $this->cli("deamon/task","run");
-    }
-     */
-
-    /**
-     *
-     *
-    function test_action_test(){
-        $this->set_http_opt(array(
-            "debug"=>0,
-            "header"=>0,
-            "cookie"=>0,
-        ));
-
-        //$this->test_host = "2.dev.jzw.com";
-        $this->set_local_test_proxy();
-        $res = $this->post_action("/api",array(
-            "model"=>"test",
-            "action"=>"test",
-            "username"=>"test",
-            "password"=>md5("test"),
-        ));
-    }
-     */
 }

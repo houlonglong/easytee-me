@@ -5,6 +5,7 @@ use PtLib\UnitTest as UnitTest;
  *
  */
 class BetaTest extends UnitTest{
+
     /**
      *
      *
@@ -15,7 +16,7 @@ class BetaTest extends UnitTest{
 
     /**
      *
-     *
+     */
     function test_action_test(){
         $this->set_http_opt(array(
             "debug"=>0,
@@ -26,11 +27,11 @@ class BetaTest extends UnitTest{
         //$this->test_host = "2.dev.jzw.com";
         $this->set_local_test_proxy();
         $res = $this->post_action("/api",array(
-            "model"=>"test",
-            "action"=>"test",
+            "model"=>"activity",
+            "action"=>"detail",
             "username"=>"test",
             "password"=>md5("test"),
         ));
     }
-     */
+
 }

@@ -31,7 +31,6 @@ class Model_Activity extends BaseModel{
                   from et_activity_info
                   left join et_app_activity as app on app.id = et_activity_info.id
                   $where ",$args);
-
         if(!$act) throw new Exception("没有找到活动");
         if($app_id){
             unset($act['uid']);

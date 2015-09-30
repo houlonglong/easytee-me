@@ -80,9 +80,7 @@ class Model_Open_Activity extends BaseModel {
         $_sign =  md5(http_build_query($request).$app['app_secret']);
         if(!$mobile) throw new Exception("手机号不合法");
         if($_sign != $sign) throw new Exception("签名不正确");
-
         $app_user = self::_db()->select_row("select * from et_app_user where app_uid = ? and app_id = ?",$uid,$app["id"]);
-
         if(!$app_user){
             $et_uid = self::_db()->insert(
                 "et_user",array(
@@ -116,14 +114,14 @@ class Model_Open_Activity extends BaseModel {
             case "develop":
                 $url = "http://11.dev.jzw.com";
                 break;
-            case "test":
-                $url = "http://11.dev.jzw.la";
+            case "local":
+                $url = "http://11.dev.jzw.com";
                 break;
             default:
                 $url = "http://www.easytee.me";
                 break;
         }
-        $url .= '/design/?DesignID='.$info['design_id'].'&ActivityID='.$info['activity_id'];
+        $url .= '/design/?app_uid='.$et_uid.'&DesignID='.$info['design_id'].'&ActivityID='.$info['activity_id'];
         //return self::get_app_return_url($app['id'],$uid,$info['activity_id']);
         self::_location($url);
     }
@@ -173,7 +171,7 @@ class Model_Open_Activity extends BaseModel {
         return $order;
     }
     function action_close($app_id,$activity_id,$status,$time,$sign){
-        $app = self::_db()->select_row("select app_secret from et_application where app_id = ?",$app_id);
+        $app = self::_db()->select_row("select id,app_secret from et_application where app_id = ?",$app_id);
         if(!$app) throw new Exception("app 不存在");
         $request = array(
             "model"=>"open/activity",
@@ -185,6 +183,9 @@ class Model_Open_Activity extends BaseModel {
         );
         $_sign =  md5(http_build_query($request).$app['app_secret']);
         if($_sign != $sign) throw new Exception("签名不正确");
+        $activity = self::_db()->select_row("select id from et_app_activity where app_id = ? and id = ?",$app['id'],$activity_id);
+
+        if(!$activity) throw new Exception("活动不存在");
         //todo get activity and check status
         self::_db()->update("et_activity_info",array("status"=>$status),array("id"=>$activity_id));
         return array("结束活动成功");

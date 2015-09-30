@@ -13,13 +13,13 @@ function domain_route($file){
         }
     }elseif(substr($file,0,strlen($tools)) == $tools){
         if (!in_array($_SERVER['HTTP_HOST'],
-            array("service.jzw.la"))
+            array("service.easytee.me"))
         ) {
             throw new Exception("not found", 101404);
         }
     }else{
         if(!in_array($_SERVER['HTTP_HOST'],
-            array("service.jzw.la","product.jzw.la","www.easytee.me","demo.jzw.la","lxm.jzw.la","2.dev.jzw.la","2.dev.jzw.com"))){
+            array("service.easytee.me","product.jzw.la","www.easytee.me","demo.jzw.la","lxm.jzw.la","2.dev.jzw.la","2.dev.jzw.com"))){
             throw new Exception("not found",102404);
         }
     }
