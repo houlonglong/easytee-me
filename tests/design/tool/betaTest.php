@@ -124,11 +124,11 @@ class BetaTest extends UnitTest{
             "ship_county"=>"上海",
             "ship_addr"=>"长宁路100号",
             "default_side"=>"front",
-            "url_path"=>"te11111",
-            "svg_front"=>"<svg></svg>",
-            "svg_back"=>"<svg></svg>",
-            "svg_third"=>"<svg></svg>",
-            "svg_fourth"=>"<svg></svg>",
+            "url_path"=>"te111111",
+            "svg_front"=>"front",
+            "svg_back"=>"back",
+            "svg_third"=>"third",
+            "svg_fourth"=>"fourth",
             "styles"=>json_encode(array(
                 "1"=>array(
                     "price"=>1,
@@ -137,6 +137,7 @@ class BetaTest extends UnitTest{
             )),
             "json"=>1
         ));
+        echo $res;
     }
     function test_action_activity_check_url_path(){
         $this->set_http_opt(array(

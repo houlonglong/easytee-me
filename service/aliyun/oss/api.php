@@ -39,18 +39,20 @@ class Api{
         $oss_sdk_service = new ALIOSS();
         \PtLib\log("bucket:$bucket,uploading:$remote_path");
         $rest = $oss_sdk_service->upload_file_by_content($bucket,$remote_path,$upload_file_options);
+        \PtLib\log("uploaded");
         return self::handle_result($rest);
     }
 
     static function handle_result($rest){
         $status = @$rest->status;
+        \PtLib\log("status:".$status);
         if($status != 200){
             $body = simplexml_load_string($rest->body);
-            \PtLib\log($body);
+            //\PtLib\log($body);
             throw new Exception($body->Message);
         }
         $url = empty($rest->header['x-oss-request-url'])?"":$rest->header['x-oss-request-url'];
-        //\PtLib\log("上传成功:$url");
+        \PtLib\log("上传成功:$url");
         return $url;
     }
 }

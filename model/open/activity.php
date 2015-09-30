@@ -80,9 +80,7 @@ class Model_Open_Activity extends BaseModel {
         $_sign =  md5(http_build_query($request).$app['app_secret']);
         if(!$mobile) throw new Exception("手机号不合法");
         if($_sign != $sign) throw new Exception("签名不正确");
-
         $app_user = self::_db()->select_row("select * from et_app_user where app_uid = ? and app_id = ?",$uid,$app["id"]);
-
         if(!$app_user){
             $et_uid = self::_db()->insert(
                 "et_user",array(
@@ -116,14 +114,14 @@ class Model_Open_Activity extends BaseModel {
             case "develop":
                 $url = "http://11.dev.jzw.com";
                 break;
-            case "test":
-                $url = "http://11.dev.jzw.la";
+            case "local":
+                $url = "http://11.dev.jzw.com";
                 break;
             default:
                 $url = "http://www.easytee.me";
                 break;
         }
-        $url .= '/design/?DesignID='.$info['design_id'].'&ActivityID='.$info['activity_id'];
+        $url .= '/design/?app_uid='.$et_uid.'&DesignID='.$info['design_id'].'&ActivityID='.$info['activity_id'];
         //return self::get_app_return_url($app['id'],$uid,$info['activity_id']);
         self::_location($url);
     }

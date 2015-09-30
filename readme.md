@@ -132,7 +132,7 @@ PHPSTORM 单步调试
 结束活动
 -------
 
-    php bin/cli.php --model=service/activity --action=run --env=develop --commit=0
+    php bin/cli.php --model=service/activity --action=run --env=develop --commit=1
 
 
 合并数据库
