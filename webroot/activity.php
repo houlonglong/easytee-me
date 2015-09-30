@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/sale/xiaoshou.css">
+    <link rel="stylesheet" type="text/css" href="css/sale/sale.css">
     <link rel="stylesheet" type="text/css" href="css/common/style.css">
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <!-- <script type="text/javascript" src="js/app/sale/time.js"></script> -->
@@ -12,50 +12,51 @@
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
-    
-    
 </head>
 <body>
 
 <div class="try"><i></i></div>
 <div class="tanceng">
     <span class="close"></span>
+
     <div></div>
 </div>
 <div class="hidden" id="page-popup">
     <div id="page-login">
-        <?php include(block("block/login"))?>
+        <?php include(block("block/login")) ?>
     </div>
     <div id="page-register">
-        <?php include(block("block/register"))?>
+        <?php include(block("block/register")) ?>
     </div>
-    
+
     <div id="page-reset">
-        <?php include(block("block/reset"))?>
+        <?php include(block("block/reset")) ?>
     </div>
 </div>
 
- 
 <header>
-        <span class="header-bg"></span>
-        <div class="inHead">
-            <nav class="typeArea clearfix nav">
-                <h1 class="logo">
-                    <a href="index.html">易衫网</a>
-                </h1>
-                <span class="how">如何开始</span>
-                <div class="login">
-                    <a href="#" class="begin">发起活动</a>
-                    <div>
-                        <a href="#">消息</a>
-                        <a href="#" id="popup-login">登录</a>
-                        <a href="#" id="popup-register">注册</a>
-                    </div>
+    <span class="header-bg"></span>
+
+    <div class="inHead">
+        <nav class="typeArea clearfix nav">
+            <h1 class="logo">
+                <a href="index.html">易衫网</a>
+            </h1>
+            <span class="how">如何开始</span>
+
+            <div class="login">
+                <a href="#" class="begin">发起活动</a>
+
+                <div>
+                    <a href="#">消息</a>
+                    <a href="#" id="popup-login">登录</a>
+                    <a href="#" id="popup-register">注册</a>
                 </div>
-            </nav>
-        </div>
-        <div class="head-foot"></div>
-    </header>
+            </div>
+        </nav>
+    </div>
+    <div class="head-foot"></div>
+</header>
 <div class="order banxin clearfix">
     <div class="order-show clearfix">
         <ul class="small-img">
@@ -89,20 +90,21 @@
         <div class="style">
             <p>款式</p>
             <select name="" id="changeProduct">
-                
+
             </select>
         </div>
         <div class="size">
             <p>颜色</p>
             <ul class="color-lump">
-                
+
             </ul>
             <div class="color-list">
                 <a href="" target="_blank">尺码信息</a>
             </div>
         </div>
-        <div class="time-down time_num"  id="times_wrap">
+        <div class="time-down time_num" id="times_wrap">
             <strong>距离结束还有</strong>
+
             <div class="clock time_w">
                 <span class="clock-h" id="times_d"></span><i class="space">天</i>
                 <span class="clock-h" id="times_h"></span><i> ：</i>
@@ -123,21 +125,29 @@
         </div>
     </div>
 </div>
-<div class="tab-lan">
-    <div class="tab-nav banxin clearfix">
-        <span class="tab-logo"></span>
-        <ul class="tab-con clearfix">
-            <li class="current"><a href="#introduce">活动介绍</a></li>
-            <li><a href="#details">商品详情</a></li>
-            <li><a href="#rule">活动规则</a></li>
-        </ul>
+<div style="height: 55px; margin-top: 20px;">
+    <div class="tab-lan">
+        <div class="tab-nav banxin clearfix">
+            <span class="tab-logo"></span>
+            <ul class="tab-con clearfix">
+                <li data-ref="introduce" class="current">
+                    <a href="javascript:;">活动介绍</a>
+                </li>
+                <li data-ref="details">
+                    <a href="javascript:;">商品详情</a>
+                </li>
+                <li data-ref="rule">
+                    <a href="javascript:;" data-ref="rule">活动规则</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <div id="introduce" class="banxin">介绍</div>
 <div id="details" class="banxin">详情</div>
 <div id="rule" class="banxin">规则</div>
-<div class="tanchuang">
-    <div class="tanchuang-con">
+<div class="dialog">
+    <div class="dialog-con">
         <span class="cha"></span>
 
         <h3>我的订单</h3>
@@ -150,7 +160,7 @@
             <span class="money">价格</span>
         </div>
         <ul class="style-info">
-            
+
         </ul>
         <div class="amount">
             总计 <span>￥<i>100</i></span>
@@ -161,26 +171,6 @@
         </div>
     </div>
 </div>
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-
 <div class="go-top"></div>
 <div class="foot">
     <div class="infooter clearfix">
@@ -223,7 +213,7 @@
     </div>
 </div>
 <script>
-    setTimeout("show_time()",1000);
+    setTimeout("show_time()", 1000);
     var time_d = document.getElementById("times_d");
     var time_h = document.getElementById("times_h");
     var time_m = document.getElementById("times_m");
@@ -232,27 +222,27 @@
     var time_end = new Date("2015/9/30 18:00:00");  // 设定结束时间
     time_end = time_end.getTime();
 
-    function show_time(){
+    function show_time() {
         var time_now = new Date();  // 获取当前时间
         time_now = time_now.getTime();
         var time_distance = time_end - time_now;  // 结束时间减去当前时间
         var int_day, int_hour, int_minute, int_second;
-        if(time_distance >= 0){
+        if (time_distance >= 0) {
             // 天时分秒换算
-            int_day = Math.floor(time_distance/86400000)
+            int_day = Math.floor(time_distance / 86400000)
             time_distance -= int_day * 86400000;
-            int_hour = Math.floor(time_distance/3600000)
+            int_hour = Math.floor(time_distance / 3600000)
             time_distance -= int_hour * 3600000;
-            int_minute = Math.floor(time_distance/60000)
+            int_minute = Math.floor(time_distance / 60000)
             time_distance -= int_minute * 60000;
-            int_second = Math.floor(time_distance/1000)
+            int_second = Math.floor(time_distance / 1000)
 
             // 时分秒为单数时、前面加零站位
-            if(int_hour < 10)
+            if (int_hour < 10)
                 int_hour = "0" + int_hour;
-            if(int_minute < 10)
+            if (int_minute < 10)
                 int_minute = "0" + int_minute;
-            if(int_second < 10)
+            if (int_second < 10)
                 int_second = "0" + int_second;
 
             // 显示时间
@@ -261,8 +251,8 @@
             time_m.innerHTML = int_minute;
             time_s.innerHTML = int_second;
 
-            setTimeout("show_time()",1000);
-        }else{
+            setTimeout("show_time()", 1000);
+        } else {
             time_d.innerHTML = time_d.innerHTML;
             time_h.innerHTML = time_h.innerHTML;
             time_m.innerHTML = time_m.innerHTML;
@@ -270,7 +260,8 @@
 
             // clearTimeout(timerID)
         }
-    };
-</script> 
+    }
+    ;
+</script>
 </body>
 </html>
