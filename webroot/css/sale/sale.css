@@ -664,7 +664,7 @@ body.current {
     cursor: pointer;
 }
 
-.yanse-info {
+.color-info {
     float: left;
     margin-left: 46px;
     width: 35px;
@@ -675,8 +675,8 @@ body.current {
 
 }
 
-/* .yanse-info.current{background: #fff important!;} */
-.yanse-info.current .bor10 {
+/* .color-info.current{background: #fff important!;} */
+.color-info.current .bor10 {
     position: absolute;
     top: 0;
     left: 0;
@@ -685,7 +685,7 @@ body.current {
     height: 21px;
 }
 
-.yanse-info.current span {
+.color-info.current span {
     display: block;
     width: 20px;
     height: 20px;
@@ -696,7 +696,7 @@ body.current {
     cursor: pointer;
 }
 
-.yanse-info.current span:after {
+.color-info.current span:after {
     content: "";
     position: absolute;
     right: -9px;
@@ -707,11 +707,11 @@ body.current {
     -webkit-transform: rotate(-137deg);
 }
 
-.yanse-info.current .palette {
+.color-info.current .palette {
     position: absolute;
-    right: -266px;
+    left: 43px;
     top: -2px;
-    width: 247px;
+    width: 172px;
     border: 1px solid #b2b2b2;
     z-index: 10;
     background-color: #fff;
@@ -724,7 +724,7 @@ body.current {
     /* display: none; */
 }
 
-.yanse-info.current .palette:after {
+.color-info.current .palette:after {
     content: "";
     position: absolute;
     left: -9px;
@@ -740,7 +740,7 @@ body.current {
     box-shadow: 1px 1px 1px 0 #ccc;
 }
 
-.yanse-info.current .palette a {
+.color-info.current .palette a {
     display: inline-block;
     width: 18px;
     height: 18px;
@@ -754,12 +754,6 @@ body.current {
 
 }
 
-/* .yanse-info.current .palette a i{
-    display: block;
-    width: 18px;
-    height: 18px;
-    background-color: yellow;
-} */
 .money-info {
     float: left;
     margin-left: 100px;
