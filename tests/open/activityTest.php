@@ -8,7 +8,7 @@ class ActivityTest extends UnitTest{
     function test_action_create(){
         define("APP_ID","be9fa777ce1dfacfc7d18029531a0e3e");
         define("APP_SECRET","2fc6866f6c832bd30dbc61ef5885e52a");
-        define("API_URL","http://2.dev.jzw.com/api");
+        define("API_URL","http://service.easytee.me/api");
 
         $request = array(
             "model"=>"open/activity",
