@@ -56,13 +56,17 @@ div.ds {
     color: #6F6B6B;
 }
 
-.design-main input[type=text].form-control{
+.design-main div.text-form-control {
+    position: relative;
+}
+
+.design-main div.text-form-control input[type=text] {
     display: block;
     width: 100%;
     height: 38px;
     background-color: #fff;
     background-size: 14px 1pc;
-    border: 1px solid #e8eced;
+    border: 1px solid #ccc;
     border-radius: 5px;
     color: #293033;
     line-height: 1.4;
@@ -75,13 +79,28 @@ div.ds {
     appearance: none;
 }
 
+.design-main div.text-form-control .search-btn {
+    background: url(images/icon-search.png) no-repeat center;
+    width: 36px;
+    height: 36px;
+    display: block;
+    position: absolute;
+    border-radius: 0 5px 5px 0;
+    top: 1px;
+    right: 1px;
+}
+
+.design-main div.text-form-control .search-btn:hover {
+    background-color: #eee;
+}
+
 .design-main textarea.form-control{
     display: block;
     width: 100%;
     height: 38px;
     background-color: #fff;
     background-size: 14px 1pc;
-    border: 1px solid #e8eced;
+    border: 1px solid #ccc;
     border-radius: 5px;
     color: #293033;
     line-height: 1.4;
@@ -104,7 +123,7 @@ div.ds {
     background-repeat: no-repeat;
     background-position: right .3rem top 50%;
     background-size: 14px 1pc;
-    border: 1px solid #e8eced;
+    border: 1px solid #ccc;
     border-radius: 5px;
     color: #293033;
     line-height: 1.4;
@@ -116,6 +135,43 @@ div.ds {
     -moz-appearance: none;
     appearance: none;
 }
+
+.design-main div.form-control {
+    display: block;
+    width: 100%;
+    height: 38px;
+    background-color: #fff;
+    background-size: 14px 1pc;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: #293033;
+    line-height: 1.4;
+    outline: 0;
+    max-width: 100%;
+    font-size: 14px;
+    padding: .5rem 2rem .5rem .86667rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    overflow: hidden;
+    position: relative;
+}
+
+.design-main div.form-control .del-btn {
+    background: url(images/icon-delete.png) no-repeat center;
+    width: 36px;
+    height: 36px;
+    display: block;
+    position: absolute;
+    border-radius: 0 5px 5px 0;
+    top: 0;
+    right: 0;
+}
+
+.design-main div.form-control .del-btn:hover {
+    background-color: #EEEEEE;
+}
+
 
 .design-main .design-dropdown {
     position: relative;
@@ -138,7 +194,7 @@ div.ds {
     position: relative;
     height: 38px;
     width: 100%;
-    border: 1px solid #e8eced;
+    border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
 }

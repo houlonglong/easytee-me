@@ -147,7 +147,7 @@
 .design-main .design-center .product-preview .product-sides .product-side.active {
     color: #A12625;
     background: #fff;
-    border: 1px solid #000;
+    border: 1px solid #989898;
 }
 
 .design-main .design-center .product-choices {
@@ -310,7 +310,8 @@
 
 .design-main .design-center .image-store .image-list .image-list-item img {
     display: block;
-    width: 100%;
+    width: 70px;
+    height: 70px;
 }
 
 .design-main .design-center .image-store .image-list .image-list-item span {

@@ -41,11 +41,15 @@ $(function () {
     var ds;
 
     function showTextLayer() {
+        $('.tab:eq(0)').addClass('active');
+        $('.tab:eq(1)').removeClass('active');
         $('.tab-content:eq(0)').addClass('active');
         $('.tab-content:eq(1)').removeClass('active');
     };
 
     function showImageLayer() {
+        $('.tab:eq(0)').removeClass('active');
+        $('.tab:eq(1)').addClass('active');
         $('.tab-content:eq(0)').removeClass('active');
         $('.tab-content:eq(1)').addClass('active');
     }
@@ -56,20 +60,30 @@ $(function () {
 
     function restoreImageLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').show();
+        $('.image-editor').hide();
         $('.upload-location').hide();
         $('.image-store').hide();
     }
 
     function showImageUploadLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
+        $('.image-editor').hide();
         $('.upload-location').show();
         $('.image-store').hide();
     }
 
     function showImageStoreLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
+        $('.image-editor').hide();
         $('.upload-location').hide();
         $('.image-store').show();
+    }
+
+    function showImageEditorLayer(){
+        $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
+        $('.image-editor').show();
+        $('.upload-location').hide();
+        $('.image-store').hide();
     }
 
     /**
@@ -309,6 +323,33 @@ $(function () {
          * 加载素材库图片
          */
         function initArtModules() {
+            $.get('/api', {
+                "model": "design/tool/beta",
+                "action": "get_templates",
+                "json": 1
+            }, function(data){
+                if(data.status == 0){
+                    var returnData = data.return;
+                    var templates = returnData.templates;
+                    var htmlStr = '';
+                    for(var i=0; i<templates.length; i++){
+                        var item = templates[i];
+                        htmlStr += '<div class="image-list-item">';
+                        htmlStr += '<a href="javascript:;" class="img-wrap">';
+                        htmlStr += '<img src="'+item.img_url+'" alt="'+item.name+'">';
+                        htmlStr += '</a>';
+                        if(item.price == 0){
+                            htmlStr += '<span>免费</span>';
+                        }else{
+                            htmlStr += '<span>'+parseFloat(item.price).toFixed(2)+'元/件</span>';
+                        }
+                        htmlStr += '</div>';
+                    }
+                    $('#image_store_list').empty().append(htmlStr);
+                }else{
+                    console.error(data.message);
+                }
+            }, 'json');
         }
 
         /**
@@ -705,6 +746,7 @@ $(function () {
         eventManager.on('selectedBox', function (elem) {
             console.log(elem);
             if (elem.type == 'text') {
+                showTextLayer();
                 setTextForLeftPanel(elem.string.join('\n'));
                 setTextFontFamilyForLeftPanel(elem.fontFamily);
                 setTextFillForLeftPanel(elem.fill);
@@ -712,11 +754,19 @@ $(function () {
                 setTextStrokeForLeftPanel(elem.stroke);
                 designToolsAppendToText();
             } else if (elem.type == 'bitmap') {
+                showImageLayer();
+                showImageEditorLayer();
                 designToolsAppendToImage();
             }
         });
 
         eventManager.on('unselectBox', function () {
+            var idx = $('.tab.active').index();
+            if(idx == 0){
+                showTextLayer();
+            }else{
+                showImageLayer();
+            }
             restoreTextLayer();
             restoreImageLayer();
             disableDesignTools();

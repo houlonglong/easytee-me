@@ -1296,7 +1296,7 @@ function BitmapElementEl(canvas, url, translateX, translateY, angle, scaleX, sca
     };
 
     new BitmapPalettes(url, 0.012, null, function(colors){
-        this.colors = colors;
+        _self.colors = colors;
         if(colors.length <= 10){
             _self.init();
         }else{
@@ -1345,7 +1345,7 @@ function BitmapBase64ElementEl(canvas, dataUrl, translateX, translateY, angle, s
     };
 
     new BitmapBase64Palettes(dataUrl, 0.012, null, function(colors){
-        this.colors = colors;
+        _self.colors = colors;
         if(colors.length <= 10){
             _self.init();
         }else{

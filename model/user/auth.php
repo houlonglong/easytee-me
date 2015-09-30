@@ -103,14 +103,5 @@ class Model_User_Auth extends BaseModel{
         }
         return $logined;
     }
-    function action_oauth_weibo(){
-        require PATH_LIBS . '/weibo/saetv2.ex.class.php';
-        $app_id = PtApp::$setting['oauth']['weibo']['app_id'];
-        $app_key = PtApp::$setting['oauth']['weibo']['app_key'];
-        $o = new SaeTOAuthV2($app_id, $app_key);
-        $call_back_url = "http://".$_SERVER['HTTP_HOST']."/api?model=user/auth/weibo&action=weibo_callback";
-        $code_url = $o->getAuthorizeURL($call_back_url);
-        //echo $code_url;
-        self::_location($code_url);
-    }
+
 }
