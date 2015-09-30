@@ -310,7 +310,8 @@
 
 .design-main .design-center .image-store .image-list .image-list-item img {
     display: block;
-    width: 100%;
+    width: 70px;
+    height: 70px;
 }
 
 .design-main .design-center .image-store .image-list .image-list-item span {
