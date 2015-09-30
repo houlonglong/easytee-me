@@ -164,112 +164,111 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="image-list">
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>99.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>99.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-                            <div class="image-list-item">
-                                <a href="javascript:;" class="img-wrap">
-                                    <img src="/css/design/image-list-item.png" alt=""/>
-                                </a>
-                                <span>999.00元/件</span>
-                            </div>
-
+                        <div id="image_store_list" class="image-list">
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>99.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>99.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
+<!--                            <div class="image-list-item">-->
+<!--                                <a href="javascript:;" class="img-wrap">-->
+<!--                                    <img src="/css/design/image-list-item.png" alt=""/>-->
+<!--                                </a>-->
+<!--                                <span>999.00元/件</span>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="used-images">
-                <div class="label">
-                    使用过的模版
-                </div>
-                <div class="image-list">
-                    <a href="javascript:;">
-                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
-                    </a>
-                    <a href="javascript:;">
-                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
-                    </a>
-                    <a href="javascript:;">
-                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
-                    </a>
-                    <a href="javascript:;">
-                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
-                    </a>
-                    <a href="javascript:;">
-                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">
-                    </a>
-                </div>
-            </div>
+<!--            <div class="used-images">-->
+<!--                <div class="label">-->
+<!--                    使用过的模版-->
+<!--                </div>-->
+<!--                <div class="image-list">-->
+<!--                    <a href="javascript:;">-->
+<!--                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">-->
+<!--                    </a>-->
+<!--                    <a href="javascript:;">-->
+<!--                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">-->
+<!--                    </a>-->
+<!--                    <a href="javascript:;">-->
+<!--                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">-->
+<!--                    </a>-->
+<!--                    <a href="javascript:;">-->
+<!--                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">-->
+<!--                    </a>-->
+<!--                    <a href="javascript:;">-->
+<!--                        <img class="image-list-item" src="/css/design/image-list-item.png" alt="">-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
         <div class="product-preview">
             <div id="ds" class="ds"></div>

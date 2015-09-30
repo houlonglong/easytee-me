@@ -323,6 +323,33 @@ $(function () {
          * 加载素材库图片
          */
         function initArtModules() {
+            $.get('/api', {
+                "model": "design/tool/beta",
+                "action": "get_templates",
+                "json": 1
+            }, function(data){
+                if(data.status == 0){
+                    var returnData = data.return;
+                    var templates = returnData.templates;
+                    var htmlStr = '';
+                    for(var i=0; i<templates.length; i++){
+                        var item = templates[i];
+                        htmlStr += '<div class="image-list-item">';
+                        htmlStr += '<a href="javascript:;" class="img-wrap">';
+                        htmlStr += '<img src="'+item.img_url+'" alt="'+item.name+'">';
+                        htmlStr += '</a>';
+                        if(item.price == 0){
+                            htmlStr += '<span>免费</span>';
+                        }else{
+                            htmlStr += '<span>'+parseFloat(item.price).toFixed(2)+'元/件</span>';
+                        }
+                        htmlStr += '</div>';
+                    }
+                    $('#image_store_list').empty().append(htmlStr);
+                }else{
+                    console.error(data.message);
+                }
+            }, 'json');
         }
 
         /**

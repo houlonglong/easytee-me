@@ -86,8 +86,8 @@ div.ds {
     display: block;
     position: absolute;
     border-radius: 0 5px 5px 0;
-    top: 0;
-    right: 0;
+    top: 1px;
+    right: 1px;
 }
 
 .design-main div.text-form-control .search-btn:hover {
