@@ -88,27 +88,27 @@ $(function () {
             var product_id = acticity_detail.default_style['product_id'];
             loadProductInfo(product_id);
             
-            loadListInfo();//初始化列表数据
-            colorList();
-
+         //初始化列表数据   loadListInfo();
+            
             //重新开始
             var product_style_id=acticity_detail.default_style.product_style_id
             var product_id=acticity_detail.default_style.product_id
             listModel.listAttr[0]={
                 thumb_img : acticity_detail.default_style.thumb_img_url,
                 list_numbel : 1,
-                products : acticity_detail.products[product_id][product_style_id].name,
-                list_style : acticity_detail.styles[product_id].color;
-                list_size : 
+                products : acticity_detail.products,
+                list_style : acticity_detail.styles[product_id],
+                list_size : acticity_detail.sizes[product_id][product_style_id],
+                list_sell_price : acticity_detail.default_style.sell_price
             }
+
+            bulidList();
+            colorList();
+            num_change();
+
 
         }
     }, 'json')
-
-        
-
-   
-
 
     var listModel={
         listAttr:[{}],
@@ -122,6 +122,50 @@ $(function () {
     var list_style
     var list_size
     var list_sell_price
+
+    function bulidList(){
+        
+        var list = listModel.listAttr;
+        var strs = "";
+        for (var i=0;i<list.length;i++){
+                strs += "<li class='clearfix'>";
+                strs += '<img src="'+list[i].thumb_img+'" id="thumbImg">'
+                strs += '<div class="number-info">'
+                strs +=  '<span class="left">-</span>'
+                strs +=  '<input type="text" value="'+list[i].list_numbel+'">'
+                strs +=  '<span class="right">+</span>'
+                strs +=  '</div>'
+                strs +=  '<select name="" id="" class="product-info">'
+                          for( var o in list[i].products){
+                            strs += '<option value="'+list[i].products[o].id+'">' + list[i].products[o].name + '</option>';
+                          }      
+                strs +=  '</select>'
+                strs +=  '<div class="yanse-info ">'
+                strs +=      '<i class="bor10"></i>'
+                strs +=      '<span></span>'
+                strs +=      '<div class="palette">'
+                            for(var o in list[i].list_style){
+                                var colorID = list[i].list_style[o].product_style_id;
+                                var color_name = list[i].list_style[o].color;
+                                strs += '<a href="#" data-id="'+colorID+'" style="background-color:#'+color_name+';"></a>'
+                            }
+
+                strs +=      '</div>'
+                strs +=  '</div>'
+                strs +=        '<select name="" id="sizes" class="chima-info">'
+                                for( var o in list[i].list_size){
+                                    var list_size = list[i].list_size[o].size
+                                    strs += '<option value="'+list_size.id+'">'+list_size+'</option>'
+                                }
+                strs +=        '</select>'
+                strs +=       '<div class="money-info">'
+                strs +=            '￥<i>'+list[i].list_sell_price+'</i>'
+                strs +=        '</div>'
+                strs +=    '</li>'
+            }
+
+            $('.style-info').append(strs);
+    }
     /*function loadListInfo(){
         //listModel.listAttr[0].thumb_img = acticity_detail.default_style['thumb_img_url'];
         //listModel.listAttr[0].number=1;
@@ -180,7 +224,7 @@ $(function () {
         for (var o in styles[product_id]) {
             var color_lump = styles[product_id][o].color;
             var liobj = $("<li><span></span></li>").css('background', "#" + color_lump);
-            var paletteObj = $('<a href="#"></a>').css('background', "#" + color_lump);;
+            var paletteObj = $('<a href="#"></a>').css('background', "#" + color_lump);
                 
             
             $('.color-lump').append(liobj);
@@ -202,12 +246,14 @@ $(function () {
         $('.money-info i').html(''+lis_subtotal+'');
         
         $('.number-info .left').click(function(event) {
+            var lis_numbel = $('.number-info input').val();
             if(lis_numbel>1){
                 lis_numbel--;
                 
             }else{
                 lis_numbel=1;
             }
+            $('.number-info input').val(lis_numbel);
             $(this).siblings('input').val(lis_numbel);
         });
 

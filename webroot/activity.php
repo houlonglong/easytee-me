@@ -150,31 +150,7 @@
             <span class="money">价格</span>
         </div>
         <ul class="style-info">
-            <li>
-                <img src="css/sale/images/sytle-img.png" id="thumbImg">
-                <div class="number-info">
-                    <span class="left">-</span>
-                    <input type="text" value="1">
-                    <span class="right">+</span>
-                </div>
-                <select name="" id="" class="product-info">
-                        
-                </select>
-                <div class="yanse-info ">
-                    <i class='bor10'></i>
-                    <span></span>
-                    <div class="palette">
-                    </div>
-                </div>
-                
-                
-                <select name="" id="sizes" class="chima-info">
-                   
-                </select>
-                <div class="money-info">
-                    ￥<i>99</i>
-                </div>
-            </li>
+            
         </ul>
         <div class="amount">
             总计 <span>￥<i>100</i></span>
@@ -253,7 +229,7 @@
     var time_m = document.getElementById("times_m");
     var time_s = document.getElementById("times_s");
 
-    var time_end = new Date("2015/9/29 18:00:00");  // 设定结束时间
+    var time_end = new Date("2015/9/30 18:00:00");  // 设定结束时间
     time_end = time_end.getTime();
 
     function show_time(){
