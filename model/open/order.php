@@ -8,11 +8,10 @@ class Model_Open_Order extends BaseModel {
         //parent::__construct();
     }
     function action_save($app_id,$order_no,$activity_id,$uid,$goods_price,
-        $quantity,$ship_name,$ship_tel,$ship_province,$ship_city,$ship_county,$ship_addr,
+        $quantity,$ship_name,$ship_tel,$ship_province,$ship_city,$ship_county,$ship_addr,$subject,
         $notes,$goods,$time,$sign
     ){
-        $app = self::_db()->select_row("select app_secret from et_application where app_id = ?",$app_id);
-        if(!$app) throw new Exception("app 不存在");
+        $app = self::_db()->select_row("select id,app_secret from et_application where app_id = ?",$app_id);
         $request = array(
             "model"=>"open/order",
             "action"=>"save",
@@ -28,13 +27,74 @@ class Model_Open_Order extends BaseModel {
             "ship_city"=>$ship_city,
             "ship_county"=>$ship_county,
             "ship_addr"=>$ship_addr,
-            "subject"=>"订单描述",
+            "subject"=>$subject,
             "notes"=>$notes,
             "goods"=>$goods,
             "time"=>$time,
         );
         $_sign =  md5(http_build_query($request).$app['app_secret']);
         if($_sign != $sign) throw new Exception("签名不正确");
+        $goods = json_decode($goods,1);
+        if(!$goods) throw new Exception("商品不能为空");
+        $activity = self::_db()->select_row("select app.id,act.uid from et_app_activity as app left join et_activity_info as act on act.id = app.id where app.app_id = ? and app.id = ?",$app['id'],$activity_id);
+
+        if(!$activity) throw new Exception("活动不存在");
+
+        $order_info = array(
+            "order_no"=>$order_no,
+            "uid"=>$activity['uid'],
+            "goods_price"=>$goods_price,
+            "quantity"=>$quantity,
+            "exp_price"=>0,
+            "subject"=>$subject,
+            "body"=>$subject,
+            "status"=>1,
+            "notes"=>$notes,
+            "add_time"=>date_time_now(),
+        );
+        $order_id = self::_db()->insert("et_order",$order_info);
+
+        self::_db()->insert("et_order_activity",array(
+            "order_id"=>$order_id,
+            "activity_id"=>$activity_id
+        ));
+
+        self::_db()->insert("et_order_pay",array(
+            "order_id"=>$order_id,
+            "pay_price"=>$goods_price,
+            "pay_type"=>"third_part",
+            "pay_status"=>1,
+            "pay_time"=>date_time_now(),
+            "balance_tx"=>0,
+            "balance_ntx"=>0,
+        ));
+
+        self::_db()->insert("et_order_ship",array(
+            "order_id"=>$order_id,
+            "exp_price"=>0,
+            "exp_com"=>"",
+            "province"=>$ship_province,
+            "city"=>$ship_province,
+            "county"=>$ship_county,
+            "addr"=>$ship_addr,
+            "name"=>$ship_name,
+            "tel"=>$ship_tel
+        ));
+
+        //添加商品
+        foreach ($goods as $v) {
+            self::_db()->insert("et_order_goods",array(
+                "order_id"=>$order_id,
+                "activity_id"=>$activity_id,
+                "style_id"=>$v['style_id'],
+                "pro_size"=>$v['pro_size'],
+                "cost_price"=>$v['unit_price'],
+                "sell_price"=>$v['unit_price'],
+                "quantity"=>$v['quantity'],
+            ));
+        }
+
+        return "订单同步成功";
 
 
     }
