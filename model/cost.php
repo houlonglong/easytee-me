@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: liaomei
- * Date: 2015/8/12
- * Time: 11:52
- */
 class Model_Cost
 {
     /**
@@ -135,36 +129,5 @@ class Model_Cost
         }
         //print_r($price);
         return $price;
-    }
-
-    /**
-     * 计算活动利润
-     * @param $activityId
-     * @return mixed
-     * @throws Exception
-     */
-    static function calculate_profie($activityId){
-       // print_r($GLOBALS['setting']);exit;
-       $close =  PtLib\db_select_row('SELECT
-                    sum(
-                            g.cost_price * g.quantity
-                        ) as closePrice,a.sales_count,a.sales_target,a.total,d.colors
-                    FROM
-                        activities AS a
-                    LEFT JOIN et_order_goods AS g ON g.activity_id = a.id
-                    LEFT JOIN et_order AS o ON g.order_id = o.id
-                    LEFT JOIN designs as d ON d.id = a.design_id
-                    WHERE a.id = ? AND a.sales_count>=10 ',$activityId);
-        if(empty($close['sales_count'])){
-            return 0;
-        }
-        $salesCount = $close['sales_count'];
-        // 超过目标，用目标件数件数计算成本
-        if($salesCount>=$close['sales_target']){
-            $salesCount = $close['sales_target'];
-        }
-        $eachProfie = self::calculate_cost($close['colors'],$salesCount);
-        $profie = $close['total'] - $eachProfie*$close['sales_count']-$close['closePrice'];
-        return  $profie;
     }
 }

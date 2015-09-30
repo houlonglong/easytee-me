@@ -1,10 +1,10 @@
 <?php
 class WxPayConfig
 {
-    const APPID = 'wxa057291cb1ac46a3';
-    const APPSECRET = 'b3831ca44210e160f1a3d9348dc54171';
+    const APPID = 'wxa057291cb5ac46a3';
+    const APPSECRET = 'b3831ca44210e160f4a3d9348dc54171';
     const MCHID = '1250506701';
-    const KEY = 'abf4a878c679fd48a0d275e1f4efb615';
+    const KEY = 'abf4a878c679fd48a0d275e3f4efb615';
     const SSLCERT_PATH = '../cert/apiclient_cert.pem';
     const SSLKEY_PATH = '../cert/apiclient_key.pem';
     const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
