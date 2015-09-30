@@ -16,7 +16,7 @@ class OrderTest extends UnitTest{
             "action"=>"save",
             "app_id"=>APP_ID,
             "order_no"=>"1111111111111",
-            "activity_id"=>1,
+            "activity_id"=>4550,
             "goods_price"=>100.01,
             "quantity"=>4,
             "ship_name"=>"李四",
