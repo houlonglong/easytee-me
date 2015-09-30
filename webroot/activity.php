@@ -172,6 +172,14 @@
     </div>
 </div>
 <div class="go-top"></div>
+<div class="dialog-size">
+    <div class="dialog-size-con">
+        <span class="dialog-icon">ET基础圆领款</span>
+        <span class="dialog-size-close"></span>
+        <h4>尺码信息</h4>
+        <button class="dialog-size-btn">确定</button>
+    </div>
+</div>
 <div class="foot">
     <div class="infooter clearfix">
         <h2>易衫网</h2>

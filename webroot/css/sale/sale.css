@@ -528,10 +528,10 @@ body.current {
     top: 0;
     left: 0;
     bottom: 0;
+    right: 0;
     background: rgba(0, 0, 0, .5);
     z-index: 50;
     display: none;
-    right: 0;
     height: 100%;
 }
 
@@ -550,10 +550,64 @@ body.current {
     border-radius: 2px;
 }
 
-/* .popup-big{
+.dialog-size{
     width: 100%;
-    
-} */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 50;
+    height: 100%;
+}
+.dialog-size-con{
+    width: 709px;
+    height: 391px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+.dialog-icon{
+    width: 140px;
+    height: 31px;
+    background:url(images/dialog-size.png) no-repeat;
+    position: absolute;
+    left: -5px;
+    top:35px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 25px;
+}
+.dialog-size-close{
+    width: 25px;
+    height: 24px;
+    background: url(images/cha.png) no-repeat;
+    position: absolute;
+    top: 35px;
+    right: 30px;
+}
+.dialog-size-con h4{
+    text-align: center;
+     font-size: 24px;
+     padding-top: 35px;
+}
+.dialog-size-btn{
+    width: 180px;
+    height: 40px;
+    background: url(images/dialog-size-btn.jpg) no-repeat;
+    color: #fff;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    margin-left: -90px;
+
+}
 .cha {
     position: absolute;
     top: 30px;
