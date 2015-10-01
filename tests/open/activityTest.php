@@ -116,14 +116,14 @@ class ActivityTest extends UnitTest{
             "action"=>"close",
             "app_id"=>APP_ID,
             "status"=>3,
-            "activity_id"=>2,
+            "activity_id"=>4566,
             "time"=>time(),
         );
 
         $request['sign'] =  md5(http_build_query($request).APP_SECRET);
 
         $url = API_URL."?".http_build_query($request);
-        //die($url);
+        die($url);
         //header("Location:".$url);
 
         $this->set_http_opt(array(
