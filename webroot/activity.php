@@ -1,10 +1,8 @@
-
 <?php
-$activity_info = PtLib\db()->select_row("select a.uid,a.name,a.sale_count,a.sale_target,a.content,a.thumb_img_url,a.start_time,a.end_time,u.nick_name from et_activity_info as a LEFT  JOIN et_user as u on a.uid = u.id ");
+    $activity_id = $_GET['id'];
+    $activity_info = PtLib\db()->select_row("select a.uid,a.name,a.sale_count,a.sale_target,a.content,a.thumb_img_url,a.start_time,a.end_time,u.nick_name from et_activity_info as a LEFT  JOIN et_user as u on a.uid = u.id where a.id = ? ",$activity_id);
 include(block("block/header"))
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -157,18 +155,15 @@ include(block("block/header"))
 <br>
 <br>
 <br>
-
 <div class="go-top"></div>
 <?php include(block("block/footer")) ?>
-
 <script>
-
-
     var activity = {};
     activity.name = "<?php echo $activity_info['name'] ?>";
     activity.description = "<?php echo strip_tags($activity_info['content']) ?>";
     activity.time ="<?php  echo $activity_info['start_time'] - $activity_info['end_time'] ?>"
     var img_url = "<?php echo $activity_info['thumb_img_url']  ?>"
+    console.log(img_url)
     var product_id = <?php echo $activity_info['uid'] ?>;
 
     function delHtmlTag(str){
