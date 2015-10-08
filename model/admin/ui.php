@@ -52,7 +52,7 @@ class Model_Admin_Ui{
         return ($url == PtApp::$control)?"active":"";
     }
     static function breadcrumb(){
-        echo '<li><i class="ace-icon fa fa-home home-icon"></i> <a href="/admin/index">首页</a></li>';
+        echo '<li><i class="ace-icon fa fa-home home-icon"></i> 首页</li>';
         $title = "";
         if(!empty(PtApp::$breadcrumb)){
             $last = array_pop(PtApp::$breadcrumb);

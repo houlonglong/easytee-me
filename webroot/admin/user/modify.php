@@ -23,20 +23,14 @@
   </style>
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>
             <div class="page-content">
                 <?php include(block("admin/block/ace-settings-container"))?>
-                <div class="page-header">
-                    <h1>
-                        用户信息
-                    </h1>
-                </div><!-- /.page-header -->
+
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="tabbable">

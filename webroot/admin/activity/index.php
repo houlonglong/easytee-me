@@ -25,10 +25,8 @@
     </style>
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>
@@ -222,7 +220,7 @@
                             rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
                             var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>".format(rowObject) +
                                 "{verify}<br>".format(rowObject) +
-                                "UID:<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
+                                "UID:<a href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
                             return cell;
                         }
                     },
@@ -262,7 +260,7 @@
                     {title:"操作",name:'options',index:'', width:150, fixed:true,align:'center', sortable:false, resize:false,
                         formatter:function(cellvalue, options, rowObject){
                             var html='';
-                            html  = '<a target="_blank" class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" href="/admin/activity/detail?id={id}" >详情</a>';
+                            html  = '<a  class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" href="/admin/activity/detail?id={id}" >详情</a>';
                             html += '<a  class="btn btn-info" target="_blank" style="border-radius: 4px;" onclick="del_activity({id},this)" >删除</a>';
 
                             return html.format(rowObject);

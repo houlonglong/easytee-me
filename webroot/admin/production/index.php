@@ -17,10 +17,8 @@
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>
@@ -180,7 +178,7 @@
                         var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>" +
                             "{verify}<br>" +
                             "production_status:{production_status}<br>" +
-                            "UID:<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>";
+                            "UID:<a href='/admin/user/modify?id={uid}'>{uid}</a>";
                         return cell.format(rowObject);
                     }
                 },
@@ -226,7 +224,7 @@
                 {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
                     formatter:function(cellvalue, options, rowObject){
                         var html='';
-                        html = '<a class="btn btn-xs btn-info" target="_blank" href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
+                        html = '<a class="btn btn-xs btn-info" href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
                         if(rowObject['pass'] == 0 ){
                             html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
                         }

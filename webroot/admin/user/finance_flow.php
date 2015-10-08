@@ -17,13 +17,11 @@
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
 <body class="no-skin">
-<?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try {
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }</script>
-    <?php include(block("admin/block/sidebar")) ?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs")) ?>

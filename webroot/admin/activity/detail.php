@@ -22,13 +22,11 @@
 
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try {
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }</script>
-    <?php include(block("admin/block/sidebar")) ?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs")) ?>
@@ -196,7 +194,7 @@
                     editable: false,
                     sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a target="_blank" href="/admin/user/modify?id=' + cellvalue + '">' + cellvalue + '</a>';
+                        return '<a href="/admin/user/modify?id=' + cellvalue + '">' + cellvalue + '</a>';
                     }
                 },
                 {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false},

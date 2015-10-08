@@ -3,12 +3,11 @@
     <ul class="breadcrumb">
         <?php Model_Admin_Ui::breadcrumb();?>
     </ul><!-- /.breadcrumb -->
-    <div class="nav-search hide" id="nav-search">
-        <form class="form-search">
-            <span class="input-icon">
-                <input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-                <i class="ace-icon fa fa-search nav-search-icon"></i>
-            </span>
-        </form>
+    <div class="nav-search " id="nav-search">
+
+        <button class="btn btn-xs btn-white btn-warning btn-bold" onclick="history.go(-1)">
+            <i class="ace-icon fa fa-step-backward"></i>
+            上一步
+        </button>
     </div><!-- /.nav-search -->
 </div>
