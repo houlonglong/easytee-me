@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+    $activity_id = $_GET['id'];
+    $activity_info = PtLib\db()->select_row("select a.uid,a.name,a.sale_count,a.sale_target,a.content,a.thumb_img_url,a.start_time,a.end_time,u.nick_name from et_activity_info as a LEFT  JOIN et_user as u on a.uid = u.id where a.id = ? ",$activity_id);
+include(block("block/header"))
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -15,48 +19,7 @@
 </head>
 <body>
 
-<div class="try"><i></i></div>
-<div class="tanceng">
-    <span class="close"></span>
 
-    <div></div>
-</div>
-<div class="hidden" id="page-popup">
-    <div id="page-login">
-        <?php include(block("block/login")) ?>
-    </div>
-    <div id="page-register">
-        <?php include(block("block/register")) ?>
-    </div>
-
-    <div id="page-reset">
-        <?php include(block("block/reset")) ?>
-    </div>
-</div>
-
-<header>
-    <span class="header-bg"></span>
-
-    <div class="inHead">
-        <nav class="typeArea clearfix nav">
-            <h1 class="logo">
-                <a href="index.html">易衫网</a>
-            </h1>
-            <span class="how">如何开始</span>
-
-            <div class="login">
-                <a href="#" class="begin">发起活动</a>
-
-                <div>
-                    <a href="#">消息</a>
-                    <a href="#" id="popup-login">登录</a>
-                    <a href="#" id="popup-register">注册</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div class="head-foot"></div>
-</header>
 <div class="order banxin clearfix">
     <div class="order-show clearfix">
         <ul class="small-img">
@@ -73,17 +36,18 @@
         </ul>
 
     </div>
+
     <div class="order-info">
-        <h3>简易—中式文化新浪潮</h3>
+        <h3><?php echo $activity_info['name'] ?></h3>
 
         <div class="price clearfix">
             <div class="price-num">99</div>
-            <div class="ren">发起人：<span>巴黎汇呵呵呵呵呵</span></div>
+            <div class="ren">发起人：<span><?php echo $activity_info['nick_name'] ?></span></div>
         </div>
         <div class="num-sell clearfix">
             <div class="clearfix">
-                <span class="sell-l">已售出<i>8</i>件</span>
-                <span class="sell-r">目标<i>20</i>件</span>
+                <span class="sell-l">已售出<i><?php echo $activity_info['sale_target'] ?></i>件</span>
+                <span class="sell-r">目标<i><?php echo $activity_info['sale_count'] ?></i>件</span>
             </div>
             <p>此预售的活动如果没有达到最低数量，您的款项将全额返还。敬请放心预购。</p>
         </div>
@@ -99,7 +63,7 @@
 
             </ul>
             <div class="color-list">
-                <a href="javascript:;">尺码信息</a>
+                <a href="" target="_blank">尺码信息</a>
             </div>
         </div>
         <div class="time-down time_num" id="times_wrap">
@@ -115,13 +79,14 @@
         <div class="btns">
             <a href="#">　立即预购</a>
         </div>
-        <div class="fenxiang">
+        <div class="fenxiang" id="YF-share">
             <span>分享</span>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
+            <a  href="javascript:void(0)" title="微博分享" share="weibo"></a>
+            <a  href="javascript:void(0)" title="豆瓣分享" share="douban"></a>
+            <a  href="javascript:void(0)" title="微信分享" share="wechat"></a>
+            <a  href="javascript:void(0)"  title="人人分享" share="renren"></a>
+            <a  href="javascript:void(0)" title="qq分享" share="qq"></a>
+
         </div>
     </div>
 </div>
@@ -143,7 +108,7 @@
         </div>
     </div>
 </div>
-<div id="introduce" class="banxin">介绍</div>
+<div id="introduce" class="banxin"><?php echo $activity_info['content'] ?></div>
 <div id="details" class="banxin">详情</div>
 <div id="rule" class="banxin">规则</div>
 <div class="dialog">
@@ -171,98 +136,42 @@
         </div>
     </div>
 </div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <div class="go-top"></div>
-<div class="dialog-size">
-    <div class="dialog-size-con">
-        <span class="dialog-icon">ET基础圆领款</span>
-        <span class="dialog-size-close"></span>
-        <h4>尺码信息</h4>
-        <table>
-            <tr>
-                <td>尺码</td>
-                <td>推荐身高</td>
-                <td>胸围</td>
-                <td>衣长</td>
-            </tr>
-            <tr>
-                <td>S</td>
-                <td>165</td>
-                <td>96</td>
-                <td>61</td>
-            </tr>
-            <tr>
-                <td>M</td>
-                <td>170</td>
-                <td>104</td>
-                <td>65</td>
-            </tr>
-            <tr>
-                <td>L</td>
-                <td>175</td>
-                <td>110</td>
-                <td>68</td>
-            </tr>
-            <tr>
-                <td>XL</td>
-                <td>180</td>
-                <td>116</td>
-                <td>71</td>
-            </tr>
-            <tr>
-                <td>2XL</td>
-                <td>185</td>
-                <td>124</td>
-                <td>74</td>
-            </tr>
-        </table>
-        <button class="dialog-size-btn">确定</button>
-    </div>
-</div>
-<div class="foot">
-    <div class="infooter clearfix">
-        <h2>易衫网</h2>
-        <dl>
-            <dt>导航</dt>
-            <dd>
-                <a href="#">首页</a>
-            </dd>
-            <dd>
-                <a href="#">开始设计</a>
-            </dd>
-            <dd>
-                <a href="#">关于我们</a>
-            </dd>
-            <dd>
-                <a href="#">帮助中心</a>
-            </dd>
-        </dl>
-        <dl>
-            <dt>服务</dt>
-            <dd>客服QQ：12345678</dd>
-        </dl>
-        <dl>
-            <dt>联系我们</dt>
-            <dd>工作日：上午9点 - 下午6点</dd>
-            <dd>休息日：上午9点 - 下午5点</dd>
-            <dd>客服热线 ： 400-92020-85</dd>
-        </dl>
-        <dl>
-            <dt>官方</dt>
-            <dd class="weibo">
-                <a href="#">微博</a>
-            </dd>
-            <dd class="weixin">微信</dd>
-        </dl>
-        <span class="ewm"></span>
-
-        <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
-    </div>
-</div>
+<?php include(block("block/footer")) ?>
 <script>
-    var activity_id
-    
+    var activity = {};
+    activity.name = "<?php echo $activity_info['name'] ?>";
+    activity.description = "<?php echo strip_tags($activity_info['content']) ?>";
+    activity.time ="<?php  echo $activity_info['start_time'] - $activity_info['end_time'] ?>"
+    var img_url = "<?php echo $activity_info['thumb_img_url']  ?>"
+    console.log(img_url)
+    var product_id = <?php echo $activity_info['uid'] ?>;
 
-    setTimeout("show_time()", 1000);
+    function delHtmlTag(str){
+        return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+    }
+
+    setTimeout("show_time()",1000);
+
     var time_d = document.getElementById("times_d");
     var time_h = document.getElementById("times_h");
     var time_m = document.getElementById("times_m");
@@ -309,8 +218,12 @@
 
             // clearTimeout(timerID)
         }
-    }
-    ;
+
+        window.setTimeout(function(){ YFshare();},1000);
+    };
 </script>
+<script type="text/javascript" src="js/app/activvity/activvity.js"></script>
+<script type="text/javascript" src="js/app/activvity/jquery.qrcode.min.js"></script>
+
 </body>
 </html>
