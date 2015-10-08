@@ -83,11 +83,32 @@ $(function () {
             });
             console.log(total, arr);
         });
+
+        //初始化尺码列表的弹层
+        function dialog_size_show(){
+            $('.dialog-size').show();
+        }
+        function dialog_size_hide(){
+            $('.dialog-size').hide();
+        }
+
+        $('.color-list').click(function(event) {
+           dialog_size_show()
+        });
+        
+        $('.dialog-size-close').click(function(event) {
+           dialog_size_hide()
+        });
+        
+        $('.dialog-size-btn').click(function(event) {
+           dialog_size_hide()
+        });
     }
 
     /**
      * 初始化活动页面数据
      */
+
     function init() {
 
         var activity_detail;
@@ -95,9 +116,10 @@ $(function () {
         $.get("/api", {
             model: 'activity',
             action: 'detail',
-            id: 2595
+            id: activity_id
         }, function (data) {
             if (data.status == 0) {
+                console.log(data)
                 activity_detail = data.return;
                 console.log(activity_detail);
                 var products = activity_detail.products;
@@ -127,6 +149,7 @@ $(function () {
 
         function buildItem() {
             var thumb_img = activity_detail.default_style.thumb_img_url;
+            console.log(thumb_img+"1111111111")
             var number = 1;
             var list_products = activity_detail.products;
             var list_styles = activity_detail.styles[activity_detail.default_style.product_id];
