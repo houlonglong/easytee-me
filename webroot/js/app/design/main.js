@@ -40,6 +40,14 @@ $(function () {
 
     var ds;
 
+    var ds_color_count = 0;
+
+    var ds_cat_id;
+
+    var ds_product_id;
+
+    var ds_product_style_id;
+
     function showTextLayer() {
         $('.tab:eq(0)').addClass('active');
         $('.tab:eq(1)').removeClass('active');
@@ -463,7 +471,6 @@ $(function () {
                 var returnData = data.return;
                 var designInfo = returnData.design_info;
                 productInfo = returnData.product_info;
-                console.log(designInfo, productInfo);
                 initProductCategories();
             }else{
                 console.error(data.message);
@@ -775,6 +782,39 @@ $(function () {
         eventManager.on('tooManyColors', function (colors) {
             console.log(colors);
             alert('too many colors');
+        });
+
+
+        function save(){
+            var cs = ds.getCanvases();
+            for(var o in cs){
+                var c = cs[o];
+                console.log(c.elements);
+            }
+
+//            $.get('/api', {
+//                "model": "design/tool/beta",
+//                "action": "design_save",
+//                "color_count": ds_color_count,//颜色数量
+//                "default_side": "front",//默认面
+//                "design_front": "design_front",//前胸设计
+//                "design_back": "design_back",//后背设计
+//                "design_third": "design_third",//左袖设计
+//                "design_fourth": "design_fourth",//右袖设计
+//                "cat_id": ds_cat_id,//产品分类ID
+//                "product_id": ds_product_id,//产品ID
+//                "style_id": ds_product_style_id//产品款式ID
+//            }, function(data){
+//                console.log(data);
+//            },'json');
+        }
+
+        $('#ds_save').click(function(){
+            save();
+        });
+
+        $('#ds_next').click(function(){
+
         });
     }
 
