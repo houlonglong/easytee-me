@@ -28,10 +28,10 @@
                         <div class="row" style="padding:20px 0">
                             <div class="col-xs-12" id="query_area"></div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <a class="btn btn-xs btn-info" href="/api?model=admin/campus&action=download_campus">下载EXCEL</a>
-                            </div>
+<!--                        <div class="row">-->
+<!--                            <div class="col-xs-12">-->
+<!--                                <a class="btn btn-xs btn-info" href="/api?model=admin/campus&action=download_campus">下载EXCEL</a>-->
+<!--                            </div>-->
                             <!-- /.span -->
                         </div>
                         <div class="row">
