@@ -151,87 +151,37 @@ PHPSTORM 单步调试
     username = admin
     password = easytee.me
     
+url:
+------
 
-url http://service.jzw.la:9001/
+    url http://service.jzw.la:9001/
 
+deploy
+------
 
+V1.1 线上测试环境
+------
 
-    /**
-     * V1.1 线上测试环境
-     */
-    function action_v_1_1_test(){
-        $cmd = 'ssh e_dev "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude=\'www/app/tmp\' --exclude=\'.git\' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /data/projects/easytee"';
-        //echo $cmd;exit;
-        PtLib\log($cmd);
-        $res = shell_exec($cmd);
-        return array(
-            "cmd"=>$cmd,
-            "res"=>$res,
-        );
-    }
-    /**
-     * V1.1 线上正式环境
-     */
-    function action_v_1_1_product(){
-        $cmd = 'ssh e_www "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude=\'www/app/tmp\' --exclude=\'.git\' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /opt/projects/easytee"';
-        PtLib\log($cmd);
-        $res = shell_exec($cmd);
-        return array(
-            "cmd"=>$cmd,
-            "res"=>$res,
-        );
-    }
+    ssh e_dev "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude=\'www/app/tmp\' --exclude=\'.git\' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /data/projects/easytee"
 
+V1.1 线上正式环境
+------
 
-    /**
-     * V2.0 线上正式环境
-     */
-    function action_v_2_0_product(){
-        $cmd = 'ssh e_www "cd /opt/projects/easytee/easytee_v2 && git pull origin master"';
-        PtLib\log($cmd);
-        $res = shell_exec($cmd);
-        return array(
-            "cmd"=>$cmd,
-            "res"=>$res,
-        );
-    }
+    ssh e_www "cd /data/git/easytee/easytee_v1-1 && git pull origin master && rsync --exclude=\'www/app/tmp\' --exclude=\'.git\' -a -r -t -v --progress /data/git/easytee/easytee_v1-1 /opt/projects/easytee"
+   
 
-    /**
-     * V2.0 线上测试环境
-     */
-    function action_v_2_0_test(){
-        $cmd = 'ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"';
-        PtLib\log($cmd);
-        $res = shell_exec($cmd);
-        return array(
-            "cmd"=>$cmd,
-            "res"=>$res,
-        );
-    }
+V2.0 线上正式环境
+------
 
-    /**
-     * V2.0 线上 Task Service
-     */
-    function action_v_2_0_task_service(){
-        $cmd = 'ssh e_ser "cd /opt/projects/easytee/easytee_v2/ && git pull origin master"';
-        PtLib\log($cmd);
-        $res = shell_exec($cmd);
-        return array(
-            "cmd"=>$cmd,
-            "res"=>$res,
-        );
-    }
-    function action_git_commit($msg){
-        $env = \PtLib\get_pt_env("PT_ENV");
-        if($env == "test" || $env == "product"){
-            exit;
-        }
-        $root = PATH_PRO;
-        $cmd = "cd $root && git add . && git commit -m '{$msg}' && git pull origin master && git push origin master";
-        PtLib\log($cmd);
-        $res = shell_exec($cmd);
-        return array(
-            "cmd"=>$cmd,
-            "res"=>$res,
-        );
-    }
+    ssh e_www "cd /opt/projects/easytee/easytee_v2 && git pull origin master"
+
+ 
+V2.0 线上测试环境
+------
+    
+    ssh e_dev "cd /data/projects/easytee/easytee_v2_test && git pull origin master"
+
+V2.0 线上 Task Service
+------
+
+    ssh e_ser "cd /opt/projects/easytee/easytee_v2/ && git pull origin master"

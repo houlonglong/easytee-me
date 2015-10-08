@@ -160,7 +160,13 @@
                 {title:"活动ID",name:'id',index:'id',sortable:false, width:40, sorttype:"int", editable: false},
                 {title:"缩略图",name:'thumb_img_url',width:110, fixed:true,index:'thumb_img_url',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        var cell = '<img style="width:100px;height:100px;" src="'+cellvalue+'">';
+                        var img_src = cellvalue;
+                        var img = "pic";
+                        if(!cellvalue){
+                            img_src = rowObject['thumb_svg_url'];
+                            img = "svg";
+                        }
+                        var cell = img+'<br><img style="width:100px;height:100px;" src="'+img_src+'">';
                         return cell;
                     }
                 },
@@ -184,7 +190,14 @@
                         return cell;
                     }
                 },
-                {title:"订单成交数",name:'sale_count',index:'sale_count',width:50,sortable:false,editable: false},
+                {title:"订单成交数",name:'sale_count',index:'sale_count',width:50,sortable:false,editable: false,
+                    formatter:function(cellvalue, options, rowObject){
+                        var cell = rowObject.sale_count + "/" + cellvalue ;
+                        cell += "<br>总额: "+rowObject.sale_total ;
+                        cell += "<br>利润: "+rowObject.sale_profit ;
+                        return cell;
+                    }
+                },
                 {title:"预计交货时间",name:'give_time',index:'give_time',sortable:false,width:100,sortable:false,editable: false},
                 {title:"生产",name:'status',index:'status', width:200, fixed:true, sortable:false,
                     formatter:function(cellvalue, options, rowObject){
@@ -302,11 +315,7 @@
             loadComplete : function(xhr) {
                 var table = this;
                 setTimeout(function(){
-                    styleCheckbox(table);
-
-                    updateActionIcons(table);
                     updatePagerIcons(table);
-                    enableTooltips(table);
                 }, 0);
             },
             caption: grid_setting.caption
@@ -332,7 +341,21 @@
                 viewicon : 'ace-icon fa fa-search-plus grey',
             }
         );
+        function updatePagerIcons(table) {
+            var replacement =
+            {
+                'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
+                'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
+                'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
+                'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+            };
+            $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+                var icon = $(this);
+                var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
 
+                if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+            })
+        }
         $(document).one('ajaxloadstart.page', function(e) {
             $(grid_selector).jqGrid('GridUnload');
             $('.ui-jqdialog').remove();

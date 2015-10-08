@@ -42,7 +42,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
         $sort_type = $request['sord'];
 
         //fields
-        $select_fields = " p.*,a.*,date_add(a.end_time, interval 7 day) as give_time";
+        $select_fields = " p.*,a.production_status,a.ship_status,a.status,a.verify,a.id,a.name,a.uid,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.sale_profit,a.end_time,a.period,a.thumb_svg_url,a.thumb_img_url,date_add(a.end_time, interval 7 day) as give_time";
 
         if(empty($limit)) $limit = 20;
         if(empty($page)) $page = 1;
