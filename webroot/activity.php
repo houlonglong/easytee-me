@@ -63,7 +63,7 @@ include(block("block/header"))
 
             </ul>
             <div class="color-list">
-                <a href="" target="_blank">尺码信息</a>
+                <a href="javascript:void(0)" >尺码信息</a>
             </div>
         </div>
         <div class="time-down time_num" id="times_wrap">
@@ -158,6 +158,7 @@ include(block("block/header"))
 <div class="go-top"></div>
 <?php include(block("block/footer")) ?>
 <script>
+    var activity_id = "<?php echo $activity_id ?>";
     var activity = {};
     activity.name = "<?php echo $activity_info['name'] ?>";
     activity.description = "<?php echo strip_tags($activity_info['content']) ?>";
