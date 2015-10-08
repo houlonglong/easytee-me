@@ -60,9 +60,6 @@
                                 <a data-toggle="tab" onclick="location.href='/admin/user/activity?uid=<?=$uid?>'">发起的活动</a>
                             </li>
 
-<!--                            <li>-->
-<!--                                <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/order?uid=--><?//=$uid?>//'">订单详情</a>
-//                            </li>
 
                             <li>
                                 <a data-toggle="tab" href="#dropdown14">收藏的活动</a>
