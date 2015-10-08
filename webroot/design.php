@@ -24,7 +24,7 @@
                 <a class="step step-3 clearfix" href="/push"><i class="scissors"></i>3.添加描述</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-default" href="javascript:;">保存</a>
+                <a id="ds_save" class="btn btn-default" href="javascript:;">保存</a>
             </div>
         </div>
     </div>
@@ -356,38 +356,6 @@
             <a href="javascript:;" id="verticalBtn" class="icon-tools icon-tools-vertical" title="垂直翻转"></a>
             <div class="clearfix"></div>
         </div>
-    </div>
-    <div id="product_color_picket" class="product-color-picket">
-        <span class="product-color-menu-arrow"></span>
-        <ul class="color-column quick-colors">
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="color-item">
-                <span style="background-color: #0000ff;"></span>
-            </li>
-            <li class="more-color">
-                <span></span>
-            </li>
-        </ul>
     </div>
 </div>
 </body>
