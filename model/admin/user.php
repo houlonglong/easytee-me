@@ -351,7 +351,7 @@ class Model_Admin_User extends Model_Admin_Abstract
         $join = '';
         if (empty($table_alias)) throw new ErrorException("table is not defined");
         //$request = http_request("rows","page","sidx","sord");
-        $request = PtLib\http_request("rows", "page", "sidx", "sord","mobile","nick_name","add_time");
+        $request = PtLib\http_request("rows", "page", "sidx", "sord","mobile","nick_name");
         $limit = $request['rows'];
         $page = $request['page'];
         $sort = $request['sidx'];
@@ -381,10 +381,7 @@ class Model_Admin_User extends Model_Admin_Abstract
             $args[] = $request['nick_name'];
         }
 
-        if($request['add_time']){
-            $where .= " and u.add_time = ?";
-            $args[] = $request['add_time'];
-        }
+
         //order
         $order = "";
         if ($sort)
