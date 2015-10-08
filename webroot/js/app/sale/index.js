@@ -119,6 +119,7 @@ $(function () {
             id: activity_id
         }, function (data) {
             if (data.status == 0) {
+                console.log(data)
                 activity_detail = data.return;
                 console.log(activity_detail);
                 var products = activity_detail.products;
@@ -148,6 +149,7 @@ $(function () {
 
         function buildItem() {
             var thumb_img = activity_detail.default_style.thumb_img_url;
+            console.log(thumb_img+"1111111111")
             var number = 1;
             var list_products = activity_detail.products;
             var list_styles = activity_detail.styles[activity_detail.default_style.product_id];

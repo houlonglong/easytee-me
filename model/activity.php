@@ -113,7 +113,7 @@ class Model_Activity extends BaseModel{
     }
 
     function action_detail($id){
-        echo file_get_contents("http://11.dev.jzw.la/activity/get_detail?id=2595");exit;
+        echo file_get_contents("http://11.dev.jzw.la/activity/get_detail?id=$id");exit;
     }
     /**
      * 活动列表
