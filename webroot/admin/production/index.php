@@ -110,6 +110,7 @@
 
 <script type="text/javascript">
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
+    var activity_url = "<?php echo ACTIVITY_URL ?>";
     var url_api_base   = "admin/production";
     var url_api_list   = "/api?model="+url_api_base + "&action=list";
     function do_product($action){
@@ -166,7 +167,8 @@
                 },
                 {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
+
+                        var act_url = activity_url+rowObject['id'];
                         rowObject["act_url"] = act_url;
                         rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
                         var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>" +

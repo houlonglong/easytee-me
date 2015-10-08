@@ -108,6 +108,7 @@ $(function () {
     /**
      * 初始化活动页面数据
      */
+
     function init() {
 
         var activity_detail;
@@ -115,7 +116,7 @@ $(function () {
         $.get("/api", {
             model: 'activity',
             action: 'detail',
-            id: 2595
+            id: activity_id
         }, function (data) {
             if (data.status == 0) {
                 activity_detail = data.return;
