@@ -380,6 +380,8 @@ class Model_Admin_User extends Model_Admin_Abstract
             $where .= " and u.nick_name = ?";
             $args[] = $request['nick_name'];
         }
+
+
         //order
         $order = "";
         if ($sort)

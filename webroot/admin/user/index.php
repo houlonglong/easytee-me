@@ -106,7 +106,7 @@
                 },
                 {title:"手机",name:'mobile',index:'mobile',editable: false,sortable:false},
 
-                {title:"注册时间",name:'create_time',index:'create_time',sortable:false,editable: false},
+                {title:"注册时间",name:'add_time',index:'add_time',sortable:false,editable: false},
 
                 {title:"操作",name:'操作',index:'操作',editable: false,sortable:false,width:80,
                     formatter:function(cellvalue, options, rowObject){
