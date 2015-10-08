@@ -83,6 +83,26 @@ $(function () {
             });
             console.log(total, arr);
         });
+
+        //初始化尺码列表的弹层
+        function dialog_size_show(){
+            $('.dialog-size').show();
+        }
+        function dialog_size_hide(){
+            $('.dialog-size').hide();
+        }
+
+        $('.color-list').click(function(event) {
+           dialog_size_show()
+        });
+        
+        $('.dialog-size-close').click(function(event) {
+           dialog_size_hide()
+        });
+        
+        $('.dialog-size-btn').click(function(event) {
+           dialog_size_hide()
+        });
     }
 
     /**

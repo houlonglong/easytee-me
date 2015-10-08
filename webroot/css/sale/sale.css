@@ -550,64 +550,7 @@ body.current {
     border-radius: 2px;
 }
 
-.dialog-size{
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, .5);
-    z-index: 50;
-    height: 100%;
-}
-.dialog-size-con{
-    width: 709px;
-    height: 391px;
-    background-color: #fff;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    border-radius: 2px;
-}
-.dialog-icon{
-    width: 140px;
-    height: 31px;
-    background:url(images/dialog-size.png) no-repeat;
-    position: absolute;
-    left: -5px;
-    top:35px;
-    color: #fff;
-    text-align: center;
-    font-weight: bold;
-    line-height: 25px;
-}
-.dialog-size-close{
-    width: 25px;
-    height: 24px;
-    background: url(images/cha.png) no-repeat;
-    position: absolute;
-    top: 35px;
-    right: 30px;
-}
-.dialog-size-con h4{
-    text-align: center;
-     font-size: 24px;
-     padding-top: 35px;
-}
-.dialog-size-btn{
-    width: 180px;
-    height: 40px;
-    background: url(images/dialog-size-btn.jpg) no-repeat;
-    color: #fff;
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    margin-left: -90px;
 
-}
 .cha {
     position: absolute;
     top: 30px;
@@ -878,3 +821,92 @@ body.current {
     font-weight: bold;
 
 }
+
+/* 尺码弹窗样式开始 */
+.dialog-size{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .5);
+    z-index: 50;
+    height: 100%;
+     display: none;
+}
+.dialog-size-con{
+    width: 709px;
+    height: 391px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    border-radius: 2px;
+}
+.dialog-icon{
+    width: 140px;
+    height: 31px;
+    background:url(images/dialog-size.png) no-repeat;
+    position: absolute;
+    left: -5px;
+    top:35px;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    line-height: 25px;
+}
+.dialog-size-close{
+    width: 25px;
+    height: 24px;
+    background: url(images/cha.png) no-repeat;
+    position: absolute;
+    top: 35px;
+    right: 30px;
+    cursor: pointer;
+}
+.dialog-size-con h4{
+    text-align: center;
+     font-size: 24px;
+     padding-top: 35px;
+}
+.dialog-size-btn{
+    width: 180px;
+    height: 40px;
+    background: url(images/dialog-size-btn.jpg) no-repeat;
+    color: #fff;
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    margin-left: -90px;
+    cursor: pointer;
+}
+table,table tr{
+    width: 100%;
+}
+table{margin-top: 30px;}
+table tr{
+    text-align: center;
+    border-bottom:1px dotted #ccc;
+    padding:0 20px;
+    line-height: 30px;
+}
+table tr:first-child{
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #ccc;
+
+}
+table tr:last-child{
+   border-bottom: 1px solid #ccc; 
+}
+table tr td:first-child{
+    font-size: 14;
+    font-weight: bold;
+}
+table tr td{
+    max-width: 200px;
+}
+/* 尺码弹窗样式结束*/

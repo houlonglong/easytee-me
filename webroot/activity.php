@@ -99,7 +99,7 @@
 
             </ul>
             <div class="color-list">
-                <a href="" target="_blank">尺码信息</a>
+                <a href="javascript:;">尺码信息</a>
             </div>
         </div>
         <div class="time-down time_num" id="times_wrap">
@@ -177,6 +177,44 @@
         <span class="dialog-icon">ET基础圆领款</span>
         <span class="dialog-size-close"></span>
         <h4>尺码信息</h4>
+        <table>
+            <tr>
+                <td>尺码</td>
+                <td>推荐身高</td>
+                <td>胸围</td>
+                <td>衣长</td>
+            </tr>
+            <tr>
+                <td>S</td>
+                <td>165</td>
+                <td>96</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>170</td>
+                <td>104</td>
+                <td>65</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>175</td>
+                <td>110</td>
+                <td>68</td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>180</td>
+                <td>116</td>
+                <td>71</td>
+            </tr>
+            <tr>
+                <td>2XL</td>
+                <td>185</td>
+                <td>124</td>
+                <td>74</td>
+            </tr>
+        </table>
         <button class="dialog-size-btn">确定</button>
     </div>
 </div>
@@ -221,6 +259,9 @@
     </div>
 </div>
 <script>
+    var activityID;
+    
+
     setTimeout("show_time()", 1000);
     var time_d = document.getElementById("times_d");
     var time_h = document.getElementById("times_h");
