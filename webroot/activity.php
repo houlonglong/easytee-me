@@ -259,7 +259,7 @@
     </div>
 </div>
 <script>
-    var activityID;
+    var activity_id
     
 
     setTimeout("show_time()", 1000);
