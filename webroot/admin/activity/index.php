@@ -209,7 +209,7 @@
                             return cell;
                         }
                     },
-                    {title:"活动名称",name:'name',index:'name', width:600,fixed:true,sortable:false,editable: false,
+                    {title:"活动名称",name:'name',index:'name', sortable:false,editable: false,
                         formatter:function(cellvalue, options, rowObject){
                             var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
                             rowObject["act_url"] = act_url;
@@ -244,7 +244,7 @@
                             return cell.format(rowObject);
                         }
                     },
-                    {title:"时间",name:'start_time',index:'start_time',width:300,fixed:true,sortable:false,editable: true,
+                    {title:"时间",name:'start_time',index:'start_time',width:200,fixed:true,sortable:false,editable: true,
                         formatter:function(cellvalue, options, rowObject){
                             var cell = "期限:"+rowObject.period +
                                 '<br>开始:'+cellvalue+
@@ -252,7 +252,7 @@
                             return cell;
                         }
                     },
-                    {title:"操作",name:'options',index:'', width:300, fixed:true,align:'center', sortable:false, resize:false,
+                    {title:"操作",name:'options',index:'', width:150, fixed:true,align:'center', sortable:false, resize:false,
                         formatter:function(cellvalue, options, rowObject){
                             var html='';
                             html  = '<a target="_blank" class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" href="/admin/activity/detail?id={id}" >详情</a>';
