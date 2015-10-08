@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <?php include(block("admin/block/html_head"))?>
+    <?php
+    $page_title = "用户管理";
+    include(block("admin/block/html_head"))?>
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />

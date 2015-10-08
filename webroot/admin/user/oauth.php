@@ -6,6 +6,7 @@
      * 提现申请
      *
      */
+    $page_title = "用户第三方平台";
     $__model_path = "admin/user";
     include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->

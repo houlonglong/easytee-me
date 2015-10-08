@@ -6,6 +6,7 @@
      * 众筹管理
      *
      */
+    $page_title = "众筹管理";
     include(block("admin/block/html_head"));?>
 
     <!-- page specific plugin styles -->

@@ -9,6 +9,7 @@
      * 众筹管理
      *
      */
+    $page_title = "用户众筹活动";
     include(block("admin/block/html_head"))?>
 
     <!-- page specific plugin styles -->

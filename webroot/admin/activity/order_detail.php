@@ -9,6 +9,7 @@
      * 订单详情
      *
      */
+    $page_title = "订单详情";
     include(block("admin/block/html_head"))?>
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.custom.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/chosen.min.css" />

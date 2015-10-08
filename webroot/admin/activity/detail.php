@@ -6,6 +6,7 @@
      * 活动详情
      *
      */
+    $page_title = "活动详情";
     include(block("admin/block/html_head"));
     $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
     //var_dump($row);exit;

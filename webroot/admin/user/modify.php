@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <?php
+    $page_title = "用户详情";
         $id = empty($_REQUEST['id'])?"":$_REQUEST['id'];
     ?>
     <?php include(block("admin/block/html_head"))?>

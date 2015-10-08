@@ -1,7 +1,11 @@
 <div class="breadcrumbs" id="breadcrumbs">
     <script type="text/javascript">try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}</script>
     <ul class="breadcrumb">
-        <?php Model_Admin_Ui::breadcrumb();?>
+        <li><i class="ace-icon fa fa-home home-icon"></i> 首页</li>
+        <?php if(isset($page_title)){ ?>
+        <li><?=$page_title?></li>
+        <?php } ?>
+
     </ul><!-- /.breadcrumb -->
     <div class="nav-search " id="nav-search">
 

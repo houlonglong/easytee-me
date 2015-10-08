@@ -6,6 +6,7 @@
      * 订单管理
      *
      */
+    $page_title = "订单管理";
     include(block("admin/block/html_head")) ?>
 
     <!-- page specific plugin styles -->

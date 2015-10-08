@@ -6,6 +6,7 @@
      * 提现申请
      *
      */
+    $page_title = "用户订单";
     $__model_path = "admin/order";
     include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->

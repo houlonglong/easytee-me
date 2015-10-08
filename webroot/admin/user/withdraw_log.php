@@ -6,6 +6,7 @@
      * 提现申请
      *
      */
+    $page_title = "用户提现申请";
     $__model_path = "admin/user/withdrawapply";
     include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->
