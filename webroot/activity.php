@@ -171,7 +171,7 @@
         </div>
     </div>
 </div>
-<div class="go-top"></div>
+
 <div class="dialog-size">
     <div class="dialog-size-con">
         <span class="dialog-icon">ET基础圆领款</span>
@@ -217,7 +217,7 @@
         </table>
         <button class="dialog-size-btn">确定</button>
     </div>
-</div>
+</div><div class="go-top"></div>
 <div class="foot">
     <div class="infooter clearfix">
         <h2>易衫网</h2>
@@ -306,6 +306,7 @@
             time_h.innerHTML = time_h.innerHTML;
             time_m.innerHTML = time_m.innerHTML;
             time_s.innerHTML = time_s.innerHTML;
+            
 
             // clearTimeout(timerID)
         }

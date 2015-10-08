@@ -54,9 +54,10 @@ a:hover{text-decoration:underline; cursor: pointer;}
     line-height: 45px;
 }
 .login .begin:hover{text-decoration: none;}
-.login div a{
+.login .login-links a{
     margin-left: 40px;
     font-size: 14px;
+    color: #666;
 }
 .banner{
     height: 905px;
@@ -275,25 +276,64 @@ a:hover{text-decoration:underline; cursor: pointer;}
 }
 .m-right .pingjia li:last-child{border: none;}
 
+
+.cooperate{
+    height: 338px;
+    width: 1255px;
+    margin:0 auto;
+    padding-top: 40px;
+}
+.cooperate hr{
+    /* border-style: dashed;
+    border-color: #b4b4b5; */
+    height: 2px;
+    background: url(images/cooperate.jpg) repeat-x;
+    border: none;
+}
+.cooperate-title{
+    width: 220px;
+    height: 65px;
+    background: url(images/cooperate-title.jpg) no-repeat;
+    margin:-30px auto 0;
+}
+.cooperate-con{
+    width: 970px;
+    margin:0 auto;
+    margin-top: 40px;
+}
+.cooperate-con a{
+    float: left;
+    width: 431px;
+}
+.cooperate-con a:first-child{
+    margin-right:100px;
+}
+.cooperate-con a img{margin:0 auto;}
+.cooperate-con a p{
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888888;
+}
 .ling{
-    background: #f5f4f4;
+    background: #fff;
     position: relative;
+    margin-bottom: 40px;
 }
 .ling-bg{
-    height: 230px;
-    width: 1279px;
-    background: url(images/ling.png) no-repeat top center;
+    height: 199px;
+    width: 1255px;
+    background: url(images/zero.png) no-repeat top center;
     margin:0 auto;
-    position: absolute;
-    top:-36px;
+    position:absolute;
+    top:0;
     left: 50%;
     margin-left:-640px;
 }
 .ling-color{
     width: 100%;
-    height: 195px;
-    background: #231815;
-    border-top: 1px solid #aba7a6;
+    height: 199px;
+    background: #fff;
+   
 }
 
 .foot{
@@ -488,94 +528,4 @@ a:hover{text-decoration:underline; cursor: pointer;}
     background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
 }
 
-.go-top{
-    position: fixed;
-    right: 30px;
-    bottom: 300px;
-    width: 30px;
-    height: 40px;
-    background:pink;
-    z-index: 10;
-    cursor: pointer;
-    display: none;
-}
 
-/* .tanceng{
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(62,58,57,.8);
-    z-index: 20;
-    display: none;
-}
-.close{
-    position: fixed;
-    right: 30px;
-    top: 30px;
-    width: 50px;
-    height: 49px;
-    background: url(images/close.png) no-repeat;
-    cursor: pointer;
-}
-.denglu{
-    width: 686px;
-    height: 434px;
-    background: #f5f5f5;
-    position: absolute;
-    left: 50%;
-    top:50%;
-    transform: translate(-50%,-50%);
-}
-.denglu img{float: left;}
-.denglu-con{
-    width: 335px;
-    height: 433px;
-    background:#eee;
-    float: left;
-    padding:20px 25px 0 25px;
-    box-sizing:border-box;
-}
-.denglu-con h3{
-    font-size: 18px;
-    text-align: center;
-    font-family: ºÚÌå;
-}
-.denglu-con input{
-    width: 100%;
-    height: 30px;
-    text-indent: 1em;
-    font-size: 14px;
-    color: #666;
-}
-.denglu-con label{
-    line-height: 30px;
-    font-size: 12px;
-    cursor: pointer;
-}
-.forget{
-    width: 50px;
-    border-bottom: 1px solid #2f86b2;
-    margin:10px auto;
-}
-.forget a{
-    color: #2f86b2;
-}
-.forget a:hover{
-
-}
-.anniu{
-    display: block;
-    width: 125px;
-    height: 34px;
-    background:#ccc;
-    line-height: 34px;
-    margin:0 auto;
-    text-align: center;
-    border-radius: 3px;
-    color: #000;}
-
-.anniu:hover{
-    text-decoration: none;
-} */
