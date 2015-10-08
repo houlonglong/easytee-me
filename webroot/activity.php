@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+<?php
+    //判断活动活动id是不是存在
+    if(empty($_GET['id'])){
+        throw new Exception("活动id不存在");
+    }
+    $activity_id = $_GET['id'];
+    //查询数据库活动表的字段
+    $activity_info = PtLib\db()->select_row("select a.uid,a.name,a.sale_count,a.sale_target,a.content,a.thumb_img_url,a.start_time,a.end_time,u.nick_name from et_activity_info as a LEFT  JOIN et_user as u on a.uid = u.id where a.id = ? ",$activity_id);
+    //判断数据库是不是有该活动
+    if($activity_info == false){
+        throw new Exception("没有该活动");
+    }
+include(block("block/header"))
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -15,48 +28,7 @@
 </head>
 <body>
 
-<div class="try"><i></i></div>
-<div class="tanceng">
-    <span class="close"></span>
 
-    <div></div>
-</div>
-<div class="hidden" id="page-popup">
-    <div id="page-login">
-        <?php include(block("block/login")) ?>
-    </div>
-    <div id="page-register">
-        <?php include(block("block/register")) ?>
-    </div>
-
-    <div id="page-reset">
-        <?php include(block("block/reset")) ?>
-    </div>
-</div>
-
-<header>
-    <span class="header-bg"></span>
-
-    <div class="inHead">
-        <nav class="typeArea clearfix nav">
-            <h1 class="logo">
-                <a href="index.html">易衫网</a>
-            </h1>
-            <span class="how">如何开始</span>
-
-            <div class="login">
-                <a href="#" class="begin">发起活动</a>
-
-                <div>
-                    <a href="#">消息</a>
-                    <a href="#" id="popup-login">登录</a>
-                    <a href="#" id="popup-register">注册</a>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div class="head-foot"></div>
-</header>
 <div class="order banxin clearfix">
     <div class="order-show clearfix">
         <ul class="small-img">
@@ -74,16 +46,16 @@
 
     </div>
     <div class="order-info">
-        <h3>简易—中式文化新浪潮</h3>
+        <h3><?php echo $activity_info['name'] ?></h3>
 
         <div class="price clearfix">
             <div class="price-num">99</div>
-            <div class="ren">发起人：<span>巴黎汇呵呵呵呵呵</span></div>
+            <div class="ren">发起人：<span><?php echo $activity_info['nick_name'] ?></span></div>
         </div>
         <div class="num-sell clearfix">
             <div class="clearfix">
-                <span class="sell-l">已售出<i>8</i>件</span>
-                <span class="sell-r">目标<i>20</i>件</span>
+                <span class="sell-l">已售出<i><?php echo $activity_info['sale_target'] ?></i>件</span>
+                <span class="sell-r">目标<i><?php echo $activity_info['sale_count'] ?></i>件</span>
             </div>
             <p>此预售的活动如果没有达到最低数量，您的款项将全额返还。敬请放心预购。</p>
         </div>
@@ -99,7 +71,7 @@
 
             </ul>
             <div class="color-list">
-                <a href="javascript:;">尺码信息</a>
+                <a href="javascript:void(0)" >尺码信息</a>
             </div>
         </div>
         <div class="time-down time_num" id="times_wrap">
@@ -113,15 +85,16 @@
             </div>
         </div>
         <div class="btns">
-            <a href="#">　立即预购</a>
+            <button  id="Pre-order">立即预购</button>
         </div>
-        <div class="fenxiang">
+        <div class="fenxiang" id="YF-share">
             <span>分享</span>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
-            <a href="#"></a>
+            <a  href="javascript:void(0)" title="微博分享" share="weibo"></a>
+            <a  href="javascript:void(0)" title="豆瓣分享" share="douban"></a>
+            <a  href="javascript:void(0)" title="微信分享" share="wechat"></a>
+            <a  href="javascript:void(0)"  title="人人分享" share="renren"></a>
+            <a  href="javascript:void(0)" title="qq分享" share="qq"></a>
+
         </div>
     </div>
 </div>
@@ -143,7 +116,7 @@
         </div>
     </div>
 </div>
-<div id="introduce" class="banxin">介绍</div>
+<div id="introduce" class="banxin"><?php echo $activity_info['content'] ?></div>
 <div id="details" class="banxin">详情</div>
 <div id="rule" class="banxin">规则</div>
 <div class="dialog">
@@ -255,20 +228,52 @@
         </dl>
         <span class="ewm"></span>
 
-        <p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
-    </div>
-</div>
-<script>
-    var activity_id
-    
 
-    setTimeout("show_time()", 1000);
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="go-top"></div>
+<?php include(block("block/footer")) ?>
+<script>
+    var activity_id = "<?php echo $activity_id ?>";
+    var activity = {};
+    activity.name = "<?php echo $activity_info['name'] ?>";
+    activity.description = "<?php echo strip_tags($activity_info['content']) ?>";
+    activity.time ="<?php  echo $activity_info['start_time'] - $activity_info['end_time'] ?>"
+    var img_url = "<?php echo $activity_info['thumb_img_url']  ?>"
+    console.log(img_url+"22222222222")
+    var product_id = <?php echo $activity_info['uid'] ?>;
+
+    function delHtmlTag(str){
+        return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+    }
+
+    setTimeout("show_time()",1000);
+
     var time_d = document.getElementById("times_d");
     var time_h = document.getElementById("times_h");
     var time_m = document.getElementById("times_m");
     var time_s = document.getElementById("times_s");
+    var Pre_order = document.getElementById("Pre-order");
+    console.log(Pre_order)
 
-    var time_end = new Date("2015/9/30 18:00:00");  // 设定结束时间
+    var data = "<?php echo strtr($activity_info['end_time'],'-','/') ?>";  // 设定结束时间
+    var time_end = new Date(data);
+
     time_end = time_end.getTime();
 
     function show_time() {
@@ -302,16 +307,22 @@
 
             setTimeout("show_time()", 1000);
         } else {
-            time_d.innerHTML = time_d.innerHTML;
-            time_h.innerHTML = time_h.innerHTML;
-            time_m.innerHTML = time_m.innerHTML;
-            time_s.innerHTML = time_s.innerHTML;
-            
+            time_d.innerHTML = 00;
+            time_h.innerHTML = 00;
+            time_m.innerHTML = 00;
+            time_s.innerHTML = 00;
+            Pre_order.innerHTML ="活动结束";
+            Pre_order.style.backgroundColor = "#a9a9a9";
+            Pre_order.setAttribute("disabled", "disabled");
 
             // clearTimeout(timerID)
         }
-    }
-    ;
+
+        window.setTimeout(function(){ YFshare();},1000);
+    };
 </script>
+<script type="text/javascript" src="js/app/activvity/activvity.js"></script>
+<script type="text/javascript" src="js/app/activvity/jquery.qrcode.min.js"></script>
+
 </body>
 </html>

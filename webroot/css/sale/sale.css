@@ -347,7 +347,7 @@ body.current {
     font-weight: bold;
 }
 
-.btns a {
+.btns button {
     display: block;
     width: 345px;
     height: 50px;
@@ -361,7 +361,7 @@ body.current {
     position: relative;
 }
 
-.btns a:after {
+.btns button:after {
     content: "";
     position: absolute;
     top: 18px;
@@ -371,7 +371,7 @@ body.current {
     background: url(images/btn-xing.png) no-repeat;
 }
 
-.btns a:hover {
+.btns button:hover {
     background: #e83035;
 }
 
