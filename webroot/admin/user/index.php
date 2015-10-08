@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <?php include(block("admin/block/html_head"))?>
+    <?php
+    $page_title = "用户管理";
+    include(block("admin/block/html_head"))?>
 
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
@@ -12,10 +14,8 @@
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>
@@ -108,7 +108,7 @@
                 },
                 {title:"手机",name:'mobile',index:'mobile',editable: false,sortable:false},
 
-                {title:"注册时间",name:'create_time',index:'create_time',sortable:false,editable: false},
+                {title:"注册时间",name:'add_time',index:'add_time',sortable:false,editable: false},
 
                 {title:"操作",name:'操作',index:'操作',editable: false,sortable:false,width:80,
                     formatter:function(cellvalue, options, rowObject){

@@ -51,6 +51,7 @@ class Model_Activity extends BaseModel{
                 from activity_product_styles as aps
                 left join et_product_style as s on s.id = aps.product_style_id
                 where activity_id = ? order by aps.id asc",$id);
+
         //return $_styles;
         $product_ids = array();
         $product_style_ids = array();

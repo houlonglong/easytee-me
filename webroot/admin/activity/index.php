@@ -6,6 +6,7 @@
      * 众筹管理
      *
      */
+    $page_title = "众筹管理";
     include(block("admin/block/html_head"));?>
 
     <!-- page specific plugin styles -->
@@ -25,10 +26,8 @@
     </style>
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>
@@ -205,7 +204,13 @@
                     {title:"Id",name:'id',index:'id', width:80, fixed:true,sortable:true, editable: false},
                     {title:"缩略图",name:'thumb_img_url',width:110, fixed:true,index:'thumb_img_url',sortable:false,editable: false,
                         formatter:function(cellvalue, options, rowObject){
-                            var cell = '<img style="width:100px;height:100px;" src="'+cellvalue+'">';
+                            var img_src = cellvalue;
+                            var img = "pic";
+                            if(!cellvalue){
+                                img_src = rowObject['thumb_svg_url'];
+                                img = "svg";
+                            }
+                            var cell = img+'<br><img style="width:100px;height:100px;" src="'+img_src+'">';
                             return cell;
                         }
                     },
@@ -216,7 +221,7 @@
                             rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
                             var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>".format(rowObject) +
                                 "{verify}<br>".format(rowObject) +
-                                "UID:<a target='_blank' href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
+                                "UID:<a href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
                             return cell;
                         }
                     },
@@ -224,6 +229,7 @@
                         formatter:function(cellvalue, options, rowObject){
                             var cell = rowObject.sale_count + "/" + cellvalue ;
                             cell += "<br>总额: "+rowObject.sale_total ;
+                            cell += "<br>利润: "+rowObject.sale_profit ;
 
                             var end_time =new Date((rowObject.end_time).replace(/-/g,"/"));
                             var date = new Date();
@@ -255,7 +261,7 @@
                     {title:"操作",name:'options',index:'', width:150, fixed:true,align:'center', sortable:false, resize:false,
                         formatter:function(cellvalue, options, rowObject){
                             var html='';
-                            html  = '<a target="_blank" class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" href="/admin/activity/detail?id={id}" >详情</a>';
+                            html  = '<a  class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" href="/admin/activity/detail?id={id}" >详情</a>';
                             html += '<a  class="btn btn-info" target="_blank" style="border-radius: 4px;" onclick="del_activity({id},this)" >删除</a>';
 
                             return html.format(rowObject);
@@ -324,7 +330,10 @@
                 multiselect: false,
                 multiboxonly: false,
                 loadComplete : function(xhr) {
-
+                    var table = this;
+                    setTimeout(function(){
+                        updatePagerIcons(table);
+                    }, 0);
                 },
                 caption: grid_setting.caption
             });
@@ -346,6 +355,21 @@
                     viewicon : 'ace-icon fa fa-search-plus grey',
                 }
             );
+            function updatePagerIcons(table) {
+                var replacement =
+                {
+                    'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
+                    'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
+                    'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
+                    'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+                };
+                $('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+                    var icon = $(this);
+                    var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+
+                    if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+                })
+            }
             $(document).one('ajaxloadstart.page', function(e) {
                 $(grid_selector).jqGrid('GridUnload');
                 $('.ui-jqdialog').remove();

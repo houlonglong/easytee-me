@@ -6,6 +6,7 @@
      * 提现申请
      *
      */
+    $page_title = "收支明细";
     $__model_path = "admin/user";
     include(block("admin/block/html_head"))?>
     <!-- page specific plugin styles -->
@@ -17,10 +18,8 @@
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet" />
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>

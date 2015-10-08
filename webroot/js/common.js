@@ -36,3 +36,20 @@ String.prototype.format = function (args) {
         return this;
     }
 }
+
+String.prototype.replaceAll = function(reallyDo, replaceWith, ignoreCase) {
+    if (!RegExp.prototype.isPrototypeOf(reallyDo)) {
+        return this.replace(new RegExp(reallyDo, (ignoreCase ? "gi": "g")), replaceWith);
+    } else {
+        return this.replace(reallyDo, replaceWith);
+    }
+}
+
+function reload_js(){
+    $("script.reload").each(function(){
+        var $url = this.src;
+        $.getScript($url,function(){
+            console.log($url);
+        });
+    });
+}

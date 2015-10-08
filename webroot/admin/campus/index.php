@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <?php include(block("admin/block/html_head")) ?>
+    <?php
+    $page_title = "校园达人";
+    include(block("admin/block/html_head")) ?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css"/>
@@ -11,13 +13,11 @@
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar")) ?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try {
             ace.settings.check('main-container', 'fixed')
         } catch (e) {
         }</script>
-    <?php include(block("admin/block/sidebar")) ?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs")) ?>
