@@ -73,7 +73,7 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         $username = $request['username'];
 
         //fields
-        $select_fields = " a.*";
+        $select_fields = " a.production_status,a.ship_status,a.status,a.verify,a.id,a.name,a.uid,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.sale_profit,a.end_time,a.period,a.thumb_svg_url,a.thumb_img_url";
         //where
         $args = array();
         if (empty($limit)) $limit = 20;
@@ -123,8 +123,6 @@ class Model_Admin_Activity extends Model_Admin_Abstract
         if ($request['activity_name']) {
             $where .= " and a.name like '%" . mysql_escape($request['activity_name']) . "%' ";
         }
-
-
         //order
         $order = "";
         if ($sort)
