@@ -20,25 +20,41 @@ class Model_Admin_Production extends Model_Admin_Abstract{
     function __construct(){
         parent::__construct();
     }
-    function action_change_man(){
-        $id = $this->_request("id");
-        $manufacturer_id = $this->_request("manufacturer_id");
-        self::_db()->update("activity_produces",array(
-            "manufacturer_id"=>$manufacturer_id,
+    function action_do_ship_order($order_id,$exp_no){
+        self::_db()->update("et_order_ship",array(
+            "exp_no"=>$exp_no,
+            "ship_status"=>1,
+            "ship_time"=>date_time_now(),
         ),array(
-            "activity_id"=>$id
+            "order_id"=>$order_id
+        ));
+        return "ok";
+    }
+    function action_finish_ship($id){
+        self::_db()->update("et_activity_info",array(
+            "ship_status"=>1,
+            "ship_time"=>date_time_now(),
+        ),array(
+            "id"=>$id
         ));
     }
-    function action_finish_product(){
-        $id = $this->_request("id");
-        $zj_status  = $this->_request("zj_status");
-        $zj_opinion = $this->_request("zj_opinion");
-        self::_db()->update("activity_produces",array(
-            "status"=>"待发货",
-            "zj_status"=>$zj_status,
-            "zj_opinion"=>$zj_opinion,
+    function action_change_man($id,$manufacturer_id){
+        self::_db()->update("et_activity_produce",array(
+            "man_id"=>$manufacturer_id,
         ),array(
-            "activity_id"=>$id
+            "id"=>$id
+        ));
+    }
+    function action_finish_product($id){
+        self::_db()->update("et_activity_info",array(
+            "production_status"=>2,
+        ),array(
+            "id"=>$id
+        ));
+        self::_db()->update("et_activity_produce",array(
+            "finish_time"=>date_time_now(),
+        ),array(
+            "id"=>$id
         ));
     }
 

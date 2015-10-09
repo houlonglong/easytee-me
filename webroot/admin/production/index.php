@@ -201,18 +201,19 @@
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
                             if( rowObject['production_status'] == 0){
-                                return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+rowObject.id+'">安排生产</a>';
+                                return '<a class="btn btn-xs btn-danger" href="/admin/production/step/detail?id='+rowObject.id+'">安排生产</a>';
                             }
                             if( rowObject['production_status'] == 1){
-                                return "生产中";
+                                return '<a class="btn btn-xs btn-success" href="/admin/production/step/detail?id='+rowObject.id+'">完成生产</a>';
                             }
                             if( rowObject['production_status'] == 2){
                                 if( rowObject['ship_status'] == 0){
-                                    return "待发货";
+                                    return '<a class="btn btn-xs btn-info" href="/admin/production/step/detail?id='+rowObject.id+'">发货</a>';
                                 }else{
-                                    return "发货完成";
+                                    return '<a class="btn btn-xs" href="/admin/production/step/detail?id='+rowObject.id+'">已发货</a>';
                                 }
                             }
+
                         }else{
                             return "目标完成,未结束";
                         }

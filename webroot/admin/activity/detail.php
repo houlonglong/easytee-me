@@ -141,6 +141,7 @@
 
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     function re_gen_img($id){
+        if(!confirm("确定要执行此操作么!")) return;
         $u = encodeURIComponent("http://{1}/activity/{0}".format($id,frontend_domain))
         var $url = '/api?model=admin/activity&action=re_gen_img&id={0}&url={1}'.format($id,$u);
         //alert($url);
