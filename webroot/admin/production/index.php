@@ -197,39 +197,30 @@
                     }
                 },
                 {title:"预计交货时间",name:'give_time',index:'give_time',sortable:false,width:100,sortable:false,editable: false},
-                {title:"生产",name:'status',index:'status', width:200, fixed:true, sortable:false,
+                {title:"操作",name:'status',index:'status', width:200, fixed:true, sortable:false,
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
-                            if( rowObject['production_status'] == 0){
-                                return '<a class="btn btn-xs btn-danger" href="/admin/production/step/detail?id='+rowObject.id+'">安排生产</a>';
-                            }
-                            if( rowObject['production_status'] == 1){
-                                return '<a class="btn btn-xs btn-success" href="/admin/production/step/detail?id='+rowObject.id+'">完成生产</a>';
-                            }
-                            if( rowObject['production_status'] == 2){
-                                if( rowObject['ship_status'] == 0){
-                                    return '<a class="btn btn-xs btn-info" href="/admin/production/step/detail?id='+rowObject.id+'">发货</a>';
+                            var status;
+                            var production_status = rowObject['production_status'];
+                            var ship_status = rowObject['ship_status'];
+
+                            if(production_status == "0"){
+                                status = "待生产";
+                            }else if(production_status == 1){
+                                status = "生产中";
+                            }else{
+                                if( ship_status == 0){
+                                    status = "待发货";
                                 }else{
-                                    return '<a class="btn btn-xs" href="/admin/production/step/detail?id='+rowObject.id+'">已发货</a>';
+                                    status =  "已发货";
                                 }
                             }
-
+                            return status+'<br><a class="btn btn-xs btn-success" href="/admin/production/step/detail?id={id}">生产详情</a>'.format(rowObject);
                         }else{
-                            return "目标完成,未结束";
+                            return '目标完成,未结束<br><a class="btn btn-xs btn-primary" href="/admin/activity/detail?id={id}">活动详情</a>'.format(rowObject);
                         }
-
                     },
-                },
-                {title:"操作",name:'options',index:'', width:100, fixed:true, sortable:false, resize:false,
-                    formatter:function(cellvalue, options, rowObject){
-                        var html='';
-                        html = '<a class="btn btn-xs btn-info" href="/admin/activity/detail?id='+rowObject['id']+'" >详情</a>&nbsp';
-                        if(rowObject['pass'] == 0 ){
-                            html += '<a class="btn btn-xs btn-success audit"  href="#"  onclick="audit(this)" data-toggle="modal" data-target=".bs-example-modal-sm" data-id="'+rowObject['id']+'">审核</a>&nbsp';
-                        }
-                        return html;
-                    }
-                },
+                }
             ]
 
         };
