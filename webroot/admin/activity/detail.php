@@ -35,9 +35,6 @@
                 <?php include(block("admin/block/ace-settings-container")) ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <!-- PAGE CONTENT BEGINS -->
-                        <!-- PAGE CONTENT BEGINS -->
-
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="widget-box">
@@ -97,15 +94,11 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-
                                 <table id="grid-table"></table>
-
                                 <div id="grid-pager"></div>
-
                                 <script type="text/javascript">
                                     var $path_base = ".";//in Ace demo this will be used for editurl parameter
                                 </script>
-
                             </div>
                             <!-- /.span -->
                         </div>

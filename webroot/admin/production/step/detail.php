@@ -228,7 +228,7 @@
                                     <div class="form-group" style="margin-left: 0px;">
                                         <label class="col-sm-3 control-label no-padding-right" for="form-field-1">请选择印花供应商</label>
                                         <div class="col-sm-9">
-                                            <select id="manufacturer_id" class="col-xs-10 col-sm-5">
+                                            <select id="change_man_id" class="col-xs-10 col-sm-5">
                                                 <?php
                                                 $manufacturers = PtLib\db()->select_rows("select * from et_product_manufacturer");
                                                 foreach($manufacturers as $manufacturer){?>
@@ -305,7 +305,8 @@
     function change_man(obj){
         if(!confirm("确定要执行此操作么!")) return;
         var id = $activity_id;
-        var manufacturer_id = $("#manufacturer_id").val();
+        var manufacturer_id = $("#change_man_id").val();
+        alert(manufacturer_id);
         $.post("/api",{
             model:"admin/production",
             action:"change_man",
@@ -393,7 +394,7 @@
         }
         jQuery(function ($) {
             var grid_setting = {
-                url: "/api?model=admin/order&action=list&activity_id="+activity_id,
+                url: "/api?model=admin/order&action=list&pay_status=1&activity_id="+activity_id,
                 url_save: "/api?model=admin/order&action=edit",
                 method: "POST",
                 height: 450,
