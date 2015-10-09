@@ -1,3 +1,10 @@
+<?php
+        //查热门活动
+$activity_hot = PtLib\db()->select_rows("select a.name,a.content,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.end_time,a.period,a.sale_count,a.thumb_img_url,a.thumb_svg_url,a.Hot,u.nick_name from et_activity_info  as a left join et_user as u on a.uid = u.id where hot = 1 limit 0,4");
+//echo "<pre>";
+//var_dump($activity_hot);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,129 +70,41 @@
             <div class="main-con clearfix">
                 <div class="m-left">
                     <ul class="act1 clearfix">
-                        <li>
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:60%">60%</div>
-                            </div> <strong>发起人：田中一天</strong>
-                            <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
-                            </div>
-                        </li>
-                        <li class="mar12">
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                            </div> <strong>发起人：田中一天</strong>
-                            <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
+                        <?php foreach ($activity_hot as $val){
+                            $Date_1=date("Y-m-d");
+                            $Date_2=$val['end_time'];
+                            $d1=strtotime($Date_1);
+                            $d2=strtotime($Date_2);
+                            $left_day=round(($d2-$d1)/3600/24)-1;
 
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                            </div>
-                            <strong>发起人：田中一天</strong>
-                            <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
-                            </div>
-                        </li>
+                            $jindu = floor(($val['sale_count']/$val['sale_target'])*100);
+                            if(empty($val['thumb_img_url']))
+                                $val['thumb_img_url'] = $val['thumb_svg_url']
+                            ?>
                         <li>
                             <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
+                                <p><?php echo $val['name'] ?></p>
+                                <p class="mar20"><?php echo $val['content'] ?></p>
+
                             </div>
                             <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-
+                                <img src="<?php echo $val['thumb_img_url']?>" width="194" height="181"></div>
+                            <p class="explain"><?php echo $val['name'] ?></p>
                             <div class="progress">
                                 <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                            </div>
-                            <strong>发起人：田中一天</strong>
+                                     aria-valuenow="<?php echo $jindu ?> >"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $jindu==0?1:$jindu ?>%"><?php echo $jindu ?>%</div>
+                            </div> <strong>发起人：<?php echo $val['nick_name'] ?></strong>
                             <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
+                                <span class="zuo">已售出 <?php echo $val['sale_count'] ?> 件</span>
+                                <span class="you">剩余<?php if($left_day <= 0 ) {
+                                        echo 0;
+                                    }else{
+                                        echo $left_day;
+                                    } ?>天</span>
                             </div>
                         </li>
-                        <li class="mar12">
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                            </div>
-                            <strong>发起人：田中一天</strong>
-                            <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-                            <!-- <div class="tiao"></div>
-                        -->
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar"
-                                 aria-valuenow="46"
-                                 aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                        </div>
-                        <strong>发起人：田中一天</strong>
-                        <div class="num">
-                            <span class="zuo">已售出 29 件</span>
-                            <span class="you">剩余010天</span>
-                        </div>
-                    </li>
+                        <?php }?>
                 </ul>
             </div>
             <div class="m-right">
