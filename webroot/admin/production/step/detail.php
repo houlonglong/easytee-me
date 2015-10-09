@@ -140,9 +140,6 @@
                                 </table>
                             </div><!-- /.span -->
                         </div>
-
-
-
                     </div>
                 </div>
             </div><!-- /.page-content -->
@@ -399,8 +396,8 @@
                 url: "/api?model=admin/order&action=list&activity_id="+activity_id,
                 url_save: "/api?model=admin/order&action=edit",
                 method: "POST",
-                height: 500,
-                rowNum: 15,
+                height: 450,
+                rowNum: 6,
                 rowList: [15, 30, 50, 100],
                 caption: "",
                 cols: [
@@ -451,7 +448,7 @@
                         sortable: false,
                         editable: false,
                         formatter: function (cellvalue, options, rowObject) {
-                            var cell = '{name}-{tel}<br>{province}-{city}-{county}<br>{addr}'.format(rowObject);
+                            var cell = '{name} - {tel}<br>{province} - {city} - {county} - {addr}'.format(rowObject);
                             console.log(rowObject);
                             return cell;
                         }
