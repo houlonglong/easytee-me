@@ -163,6 +163,7 @@
                 {
                     title: "认证图片", name: 'img_url', index: 'img_url', editable: false, sortable: false,
                     formatter: function (cellvalue, options, rowObject) {
+                        cellvalue = cellvalue.replace("http://oss-cn-hangzhou.aliyuncs.com/open-edit","http://cdn.open.easytee.me");
                         return '<a href="' + cellvalue + '" target="_black"><img style="width:200px;height:100px;margin:10px;" src="' + cellvalue + '"></img></a>';
                     }
                 },
