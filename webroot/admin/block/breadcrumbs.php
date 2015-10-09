@@ -1,6 +1,6 @@
 <?php
 $from_list = empty($_GET['from_list'])?0:1;
-$padding_left = $from_list? 195 : 132;
+$padding_left = $from_list? 132 : 132;
 ?>
 
 <div class="breadcrumbs" id="breadcrumbs" style="padding-left: <?=$padding_left?>px;">
@@ -20,11 +20,13 @@ $padding_left = $from_list? 195 : 132;
                 <i class="ace-icon fa fa-step-backward"></i>
                 返回
             </button>
+        <?php }else{ ?>
+            <button class="btn btn-xs btn-white btn-warning btn-bold" onclick="history.go(-1)">
+                <i class="ace-icon fa fa-step-backward"></i>
+                上一步
+            </button>
         <?php } ?>
-        <button class="btn btn-xs btn-white btn-warning btn-bold" onclick="history.go(-1)">
-            <i class="ace-icon fa fa-step-backward"></i>
-            上一步
-        </button>
+
         <button class="btn btn-xs btn-white btn-success btn-bold" onclick="location.reload()">
             <i class="ace-icon fa fa-refresh"></i>
             刷新

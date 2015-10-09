@@ -25,9 +25,6 @@
                 <?php include(block("admin/block/ace-settings-container")) ?>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="row" style="padding:20px 0">
-                            <div class="col-xs-12" id="query_area"></div>
-                        </div>
                         <div class="row">
                             <div class="col-xs-12">
                                 <a class="btn btn-xs btn-info" href="/api?model=admin/campus&action=download_campus">下载EXCEL</a>
@@ -155,15 +152,40 @@
             url: url_api_list,
             url_save: url_api_edit,
             method: "POST",
-            height: 550,
-            rowNum: 15,
+            height: 900,
+            rowNum: 6,
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 60, sorttype: "int", editable: false},
-                {title: "用户ID", name: 'uid', index: 'uid', editable: false, sortable: "int"},
+                {title: "Id", name: 'id', index: 'id', width: 60,fixed:true, sorttype: "int", editable: false},
+                {title: "UID", name: 'uid', index: 'uid',width: 60,fixed:true,  editable: false, sortable: "int"},
+
                 {
-                    title: "状态", name: 'status', index: 'status', editable: false, sortable: "int",
+                    title: "认证图片", name: 'img_url', index: 'img_url', editable: false, sortable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        return '<a href="' + cellvalue + '" target="_black"><img style="width:200px;height:100px;margin:10px;" src="' + cellvalue + '"></img></a>';
+                    }
+                },
+                {title: "信息", name: 'real_name', index: 'real_name', width: 290,fixed:true, editable: false, sortable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        var html  = '姓名: {real_name}<br>'.format(rowObject);
+                            html += '学号: {student_no}<br>'.format(rowObject);
+                            html += '学校: {school_name}<br>'.format(rowObject);
+                            html += '专业: {major}<br>'.format(rowObject);
+                        return html;
+                    }
+                },
+                {title: "时间", name: 'add_time', index: 'add_time',width: 200,fixed:true,  editable: false, sortable: false,
+                    formatter: function (cellvalue, options, rowObject) {
+                        var html = '申请时间:{add_time}<br>'.format(rowObject);
+                        if(rowObject.status == 1){
+                            html += '通过时间:{up_time}<br>'.format(rowObject);
+                        }
+                        return html;
+                    }
+                },
+                {
+                    title: "状态", name: 'status', index: 'status', width: 80,fixed:true,editable: false, sortable: "int",
                     formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue == 0) {
                             return '<lable class="label label-info arrowed">等待审核</lable>';
@@ -176,18 +198,6 @@
                         }
                     }
                 },
-                {
-                    title: "认证图片", name: 'img_url', index: 'img_url', editable: false, sortable: false,
-                    formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="' + cellvalue + '" target="_black"><img style="width:100px;height:100px;" src="' + cellvalue + '"></img></a>';
-                    }
-                },
-                {title: "真实姓名", name: 'real_name', index: 'real_name', editable: false, sortable: false},
-                {title: "学号", name: 'student_no', index: 'student_no', editable: false, sortable: false},
-                {title: "学校名", name: 'school_name', index: 'school_name', editable: false, sortable: false},
-                {title: "专业", name: 'major', index: 'major', editable: false, sortable: false},
-                {title: "申请时间", name: 'add_time', index: 'add_time', editable: false, sortable: false},
-                {title: "通过时间", name: 'up_time', index: 'up_time', editable: false, sortable: false},
                 {
                     title: "操作",
                     name: 'status',
