@@ -8,10 +8,10 @@
     <link rel="stylesheet" type="text/css" href="css/index/index.css">
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
-    
     <script type="text/javascript" src="js/app/common/popup.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script type="text/javascript" src="js/app/index/index.js"></script>
+    <script type="text/javascript" src="js/app/common/mobile_index.js"></script>
 </head>
 <body>
     <!-- <div class="try"> 
@@ -54,16 +54,20 @@
     <div class="small-banner">
         <div class="color"></div>
         <a href="#">
-            <img src="css/index/images/small_banner.png" alt="开学有礼"></a>
+            <img src="css/index/images/small_banner.png" alt="开学有礼">
+        </a>
     </div>
 
     <div class="main">
         <div class="inMain banxin clearfix">
             <h2 class="hot">热销.推荐</h2>
+            <span class="arrow-l"></span>
+            <span class="arrow-r"></span>
             <div class="main-con clearfix">
                 <div class="m-left">
                     <ul class="act1 clearfix">
-                        <li>
+                        <li class="mar12">
+                            <span class="promoter">发起人：成思杰</span>
                             <div class="hide">
                                 <p>纪念反法西斯胜利70周年</p>
                                 <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
@@ -82,7 +86,7 @@
                                 <span class="you">剩余010天</span>
                             </div>
                         </li>
-                        <li class="mar12">
+                        <li >
                             <div class="hide">
                                 <p>纪念反法西斯胜利70周年</p>
                                 <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
@@ -101,48 +105,7 @@
                                 <span class="you">剩余010天</span>
                             </div>
                         </li>
-                        <li>
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                            </div>
-                            <strong>发起人：田中一天</strong>
-                            <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="hide">
-                                <p>纪念反法西斯胜利70周年</p>
-                                <p class="mar20">我们看了大量抗日神剧经过科学系统的总结，加上个（zhong）性（kou）化（wei）的风格处理，倾心为     您呈现</p>
-                                <p>一起用实际行动支持反法吧！</p>
-                            </div>
-                            <div>
-                                <img src="css/index/images/yifu.jpg"></div>
-                            <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success" role="progressbar"
-                                     aria-valuenow="46"
-                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                            </div>
-                            <strong>发起人：田中一天</strong>
-                            <div class="num">
-                                <span class="zuo">已售出 29 件</span>
-                                <span class="you">剩余010天</span>
-                            </div>
-                        </li>
+                        
                         <li class="mar12">
                             <div class="hide">
                                 <p>纪念反法西斯胜利70周年</p>
@@ -173,20 +136,19 @@
                             <div>
                                 <img src="css/index/images/yifu.jpg"></div>
                             <p class="explain">手撕鬼子掏心脏——70周年纪念日</p>
-                            <!-- <div class="tiao"></div>
-                        -->
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-success" role="progressbar"
-                                 aria-valuenow="46"
-                                 aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
-                        </div>
-                        <strong>发起人：田中一天</strong>
-                        <div class="num">
-                            <span class="zuo">已售出 29 件</span>
-                            <span class="you">剩余010天</span>
-                        </div>
-                    </li>
-                </ul>
+
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar"
+                                     aria-valuenow="46"
+                                     aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
+                            </div>
+                            <strong>发起人：田中一天</strong>
+                            <div class="num">
+                                <span class="zuo">已售出 29 件</span>
+                                <span class="you">剩余010天</span>
+                            </div>
+                        </li>
+                    </ul>
             </div>
             <div class="m-right">
                 <h3 class="m-right-hd">购买者评价</h3>
@@ -269,25 +231,47 @@
         </div>
     </div>
 </div>
-<div class="cooperate">
+<div class="help">
     <hr>
-    <h3 class="cooperate-title"></h3>
-    <div class="cooperate-con">
-        <a href="猪八戒网">
-            <img src="css/index/images/cooperate-img.jpg">
-            <p>把需要解决的问题放在猪八戒网上，
-            通过悬赏模式可以获得多种方案，可以选到百里挑一的作品；通过速配模式，可以寻找到能力精准匹配
-            的服务商来提供服务。
-            </p>
-        </a>
-        <a href="猪八戒网">
-            <img src="css/index/images/cooperate-img2.jpg">
-            <p>图片太小？需要抠图？简单的图像处理可以交给易衫网合作的淘宝美工店来解决。高效，低价，满意。
-            </p>
-        </a>
+    <h3 class="help-title"></h3>
+    <span class="help-sentence">上千种模板供你选择</span>
+    <a href="#" class="apply">有原创模板？申请成为易衫认证设计师，让你的设计为你工作　　>></a>
+    <div class="help-template banxin">
+        <span class="help-l"></span>
+        <span class="help-r"></span>
+        <div class="template">
+            <ul class="clearfix">
+                <li class="template-con">
+                    <i>Cartion</i>
+                    <img src="css/index/images/template1.jpg">
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
+<div class="cooperate-bg">
+    <div class="cooperate">
+        <hr>
+        <h3 class="cooperate-title"></h3>
+        <div class="cooperate-con">
+            <a href="猪八戒网">
+                <img src="css/index/images/cooperate-img.jpg">
+                <p>把需要解决的问题放在猪八戒网上，
+                通过悬赏模式可以获得多种方案，可以选到百里挑一的作品；通过速配模式，可以寻找到能力精准匹配
+                的服务商来提供服务。
+                </p>
+            </a>
+            <a href="猪八戒网">
+                <img src="css/index/images/cooperate-img2.jpg">
+                <p>图片太小？需要抠图？简单的图像处理可以交给易衫网合作的淘宝美工店来解决。高效，低价，满意。
+                </p>
+            </a>
+        </div>
+    </div>
+</div>
+
 <div class="ling">
+    <i></i>
     <div class="ling-color"></div>
     <div class="ling-bg"></div>
 </div>
