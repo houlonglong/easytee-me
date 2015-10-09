@@ -114,7 +114,7 @@ class Model_Admin_Order extends Model_Admin_Abstract{
 
         }
         if($ship_status === '0' || $ship_status == '1'){
-            $where .= 'and pay.ship_status = ? ';
+            $where .= 'and ship.ship_status = ? ';
             $args[] = $ship_status;
         }
 
