@@ -4,6 +4,19 @@
  */
 class Model_Admin_Production extends Model_Admin_Abstract{
     static $table = "et_activity_produce";
+    static $production_status = array(
+        0=>"未生产",
+        1=>"生产中",
+        2=>"生产完成",
+    );
+    static $operator = array(
+        1=>"洪波",
+        2=>"徐萍",
+    );
+    static $ship_status = array(
+        0=>"未发货",
+        1=>"已发货",
+    );
     function __construct(){
         parent::__construct();
     }

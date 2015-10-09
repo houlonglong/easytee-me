@@ -237,7 +237,7 @@ function route_control($path){
                     $_r_args[$_k] = $val;
                 }
                 $model_return = $_reflector_func->invokeArgs(new $model_class_name(),$_r_args);
-                if($model_return) extract($model_return);
+                if($model_return && is_array($model_return)) extract($model_return);
             }
         }
     }

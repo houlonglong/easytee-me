@@ -10,49 +10,33 @@ class Model_Admin_Production_Step extends Model_Admin_Abstract{
     /**
      * 详情视图
      */
-    function view_detail(){
-        $request = PtLib\http_request("id");
+    function view_detail($id){
+        $info = Model_Activity::detail_info($id);
 
-        $_styles = self::_db()->select_rows("select aps.*,ps.*,p.name,mb.name as mb_name from
-                                            activity_product_styles as aps
-                                            left join product_styles as ps on ps.id = aps.product_style_id
-                                            left join products as p on p.id = ps.product_id
-                                            left join manufacturer_brands as mb on mb.id = p.manufacturer_brand_id
-                                            where aps.activity_id = ?",$request['id']);
-        //var_dump($styles);exit;
-        $activity = self::detail($request['id']);
-        $styles = array();
-        foreach($_styles as $style){
-            $orders = self::_db()->select_rows("select size,sum(quantity) as quantity from order_goods where activity_id = ? and product_style_id = ?  group by size",$request['id'],$style['product_style_id']);
-            $images = self::_db()->select_rows("select psi.*,psir.x,psir.y,psir.w,psir.h  from product_style_images as psi left join product_style_image_regions as psir on psir.product_style_image_id = psi.id where psi.product_style_id = ? ",$style['product_style_id']);
-            $style['orders'] = $orders;
-            $style['images'] = $images;
-            $styles[] = $style;
-        }
-        $designs = self::_db()->select_rows("select * from design_svg_side where design_id = ? ",$activity['design_id']);
-        if(!$designs){
-            $sides = array("front","back","third","fourth");
-            $svg = self::_db()->select_row("select * from design_svgs where design_id = ? ",$activity['design_id']);
-            foreach($sides as $side){
-                if(!empty($svg['svg_'.$side.'_image'])){
-                    try{
-                        self::_db()->insert("design_svg_side",array("design_id"=>$activity['design_id'],"side"=>$side,"svg_url"=>$svg['svg_'.$side.'_image']));
-                    }catch (Exception $e){
-
-                    }
-
-                }
+        foreach($info['styles'] as $product_id => $styles){
+            foreach($styles as $style_key =>$style){
+                $style_id = $style['product_style_id'];
+                $info["styles"][$product_id][$style_key]["sizes"] = self::_db()->select_rows("select
+                        goods.pro_size,sum(goods.quantity) as quantity,brand.name as brand_name ,product.name as product_name
+                        from et_order_goods as goods
+                        left join et_product_style as style on style.id = goods.style_id
+                        left join et_product as product on product.id = style.product_id
+                        left join et_product_brand as brand on brand.id = product.brand_id
+                        where goods.activity_id = ? and goods.style_id = ?  group by goods.pro_size ",$id,$style_id);
             }
-            //print_r($svg);exit;
         }
-        $manufacturers = self::_db()->select_rows("select * from manufacturers");
-        $produce = self::_db()->select_row("select ap.*,m.name as m_name from activity_produces as ap left join manufacturers as m on m.id = ap.manufacturer_id where ap.activity_id = ?",$activity['id']);
+
+        $manufacturers = self::_db()->select_rows("select * from et_product_manufacturer");
+
+        $produce = self::_db()->select_row("select
+              produce.*,m.short_name as m_name
+              from et_activity_produce as produce
+              left join et_product_manufacturer as m on m.id = produce.man_id
+              where produce.id = ?",$id);
         $res = array(
             "produce"=>$produce,
-            "activity"=>$activity,
-            "styles"=>$styles,
+            "info"=>$info,
             "manufacturers"=>$manufacturers,
-            "designs"=>$designs
         );
         //print_r($res);exit;
         return $res;

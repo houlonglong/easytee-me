@@ -201,7 +201,7 @@
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
                             if( rowObject['production_status'] == 0){
-                                return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+cellvalue+'">安排生产</a>';
+                                return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+rowObject.id+'">安排生产</a>';
                             }
                             if( rowObject['production_status'] == 1){
                                 return "生产中";
