@@ -161,7 +161,7 @@
                     editable: false,
                     sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a href="/admin/user/modify?id=' + cellvalue + '">' + cellvalue + '</a>';
+                        return '<a onclick="return top.iframe_open(this)" href="/admin/user/modify?id=' + cellvalue + '&from_list=1">' + cellvalue + '</a>';
                     }
                 },
                 {
@@ -172,7 +172,7 @@
                     editable: false,
                     sortable:false,
                     formatter: function (cellvalue, options, rowObject) {
-                        return '<a  href="/admin/activity/detail?id=' + rowObject.activity_id + '" >' + cellvalue + '</a>';
+                        return '<a onclick="return top.iframe_open(this)" href="/admin/activity/detail?id=' + rowObject.activity_id + '&from_list=1" >' + cellvalue + '</a>';
                     }
                 },
                 {title: "数量", name: 'quantity', index: 'quantity', width: 50, sortable: false, editable: false,

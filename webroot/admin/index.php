@@ -27,6 +27,7 @@
     <div class="main-content">
         <div class="main-content-inner">
             <iframe id="iframe_content" src="/admin/activity/index" width="100%" height="100%" frameborder="0"></iframe>
+            <iframe id="iframe_sub" src="" width="100%" height="100%" frameborder="0" style="display: none"></iframe>
         </div>
     </div>
 </div>
@@ -44,6 +45,16 @@
 <script src="/js/ptlib.js"></script>
 
 <script type="text/javascript">
+    function close_iframe_sub(){
+        $("#iframe_content").fadeIn(300);
+        $("#iframe_sub").attr("src","").fadeOut(300);
+    }
+    function iframe_open(obj){
+        var href = obj.href;
+        $("#iframe_content").fadeOut(300);
+        $("#iframe_sub").attr("src",href).fadeIn(300);
+        return false;
+    }
     function set_content_height(){
         var height = $(window).height() - $("#navbar").height() - $(".footer-content").height();
         $(".main-content-inner").height(height);
@@ -60,10 +71,13 @@
             $("#sidebar li").removeClass("active");
             if(href != 'javascript:void(0);'){
                 console.log(href);
+
                 $("#sidebar a").parents().removeClass("active");
                 $(this).parent().addClass("active");
                 $(this).parents("li").addClass("active");
                 $("#iframe_content")[0].src = href;
+                $("#iframe_content").fadeIn(300);
+                $("#iframe_sub").attr("src","").fadeOut(300);
                 return false;
             }else{
 

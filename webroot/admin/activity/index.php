@@ -107,10 +107,8 @@
     <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
     <script src="/ace/assets/js/grid.locale-en.js"></script>
     <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
-
-
     <script type="text/javascript">
-
+        var activity_url = "<?php echo ACTIVITY_URL ?>";
         var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
         var grid_selector = "#grid-table";
         var pager_selector = "#grid-pager";
@@ -216,12 +214,12 @@
                     },
                     {title:"活动名称",name:'name',index:'name', sortable:false,editable: false,
                         formatter:function(cellvalue, options, rowObject){
-                            var act_url = 'http://'+frontend_domain+'/activity/'+rowObject['id'];
+                            var act_url = activity_url+rowObject['id'];
                             rowObject["act_url"] = act_url;
                             rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
                             var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>".format(rowObject) +
                                 "{verify}<br>".format(rowObject) +
-                                "UID:<a href='/admin/user/modify?id={uid}'>{uid}</a>".format(rowObject);
+                                "UID:<a onclick='return top.iframe_open(this)' href='/admin/user/modify?id={uid}&from_list=1'>{uid}</a>".format(rowObject);
                             return cell;
                         }
                     },
@@ -261,9 +259,8 @@
                     {title:"操作",name:'options',index:'', width:150, fixed:true,align:'center', sortable:false, resize:false,
                         formatter:function(cellvalue, options, rowObject){
                             var html='';
-                            html  = '<a  class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" href="/admin/activity/detail?id={id}" >详情</a>';
+                            html  = '<a  class="btn btn-success" style="margin-right: 5px;border-radius: 4px;" onclick="return top.iframe_open(this)" href="/admin/activity/detail?id={id}&from_list=1" >详情</a>';
                             html += '<a  class="btn btn-info" target="_blank" style="border-radius: 4px;" onclick="del_activity({id},this)" >删除</a>';
-
                             return html.format(rowObject);
                         }
                     },

@@ -169,14 +169,13 @@
                 },
                 {title:"活动名称",name:'name',index:'name',sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-
                         var act_url = activity_url+rowObject['id'];
                         rowObject["act_url"] = act_url;
                         rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
                         var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>" +
                             "{verify}<br>" +
                             "production_status:{production_status}<br>" +
-                            "UID:<a href='/admin/user/modify?id={uid}'>{uid}</a>";
+                            "UID:<a onclick='return top.iframe_open(this)' href='/admin/user/modify?id={uid}&from_list=1'>{uid}</a>";
                         return cell.format(rowObject);
                     }
                 },
@@ -215,9 +214,9 @@
                                     status =  "已发货";
                                 }
                             }
-                            return status+'<br><a class="btn btn-xs btn-success" href="/admin/production/step/detail?id={id}">生产详情</a>'.format(rowObject);
+                            return status+'<br><a onclick="return top.iframe_open(this)" class="btn btn-xs btn-success" href="/admin/production/step/detail?id={id}&from_list=1">生产详情</a>'.format(rowObject);
                         }else{
-                            return '目标完成,未结束<br><a class="btn btn-xs btn-primary" href="/admin/activity/detail?id={id}">活动详情</a>'.format(rowObject);
+                            return '目标完成,未结束<br><a onclick="return top.iframe_open(this)" class="btn btn-xs btn-primary" href="/admin/activity/detail?id={id}&from_list=1">活动详情</a>'.format(rowObject);
                         }
                     },
                 }
