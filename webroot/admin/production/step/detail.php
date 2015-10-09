@@ -6,6 +6,7 @@
      * Controller Name Replace
      *
      */
+    $page_title = "安排生产";
     include(block("admin/block/html_head"))?>
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
@@ -13,10 +14,8 @@
 
 </head>
 <body class="no-skin">
-<?php include(block("admin/block/navbar"))?>
 <div class="main-container" id="main-container">
     <script type="text/javascript">try{ace.settings.check('main-container' , 'fixed')}catch(e){}</script>
-    <?php include(block("admin/block/sidebar"))?>
     <div class="main-content">
         <div class="main-content-inner">
             <?php include(block("admin/block/breadcrumbs"))?>
@@ -24,10 +23,9 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="page-header">
                     <h1>
-                        生产详情
+                        <?=$page_title?>
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-
                         </small>
                     </h1>
                 </div><!-- /.page-header -->
@@ -35,10 +33,9 @@
                     <div class="col-xs-12">
                         <div class="row">
                             <div class="col-xs-12">
-                                <h2>活动ID:<?=$activity['id']?></h2>
+                                <h2>活动ID:<?=$info['activity']['id']?></h2>
                                 <?php if($produce){ ?>
                                     <div>
-
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
@@ -46,31 +43,24 @@
                                                 <th>厂商</th>
                                                 <th>操作员</th>
                                                 <th>下单时间</th>
+                                                <th>完成时间</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <td><?=$produce['status']?></td>
-                                            <td><?=$produce['m_name']?></td>
-                                            <td><?=$produce['operator_id']?></td>
-                                            <td><?=$produce['create_time']?></td>
-
+                                                <td><?=Model_Admin_Production::$production_status[$info['activity']['production_status']]?></td>
+                                                <td><?=$produce['m_name']?></td>
+                                                <td><?=Model_Admin_Production::$operator[$produce['operator_id']]?></td>
+                                                <td><?=$produce['create_time']?></td>
+                                                <td><?=$produce['finish_time']?></td>
                                             </tbody>
-
                                         </table>
                                     </div>
+
                                 <?php }else{?>
-                                    <div>
-                                        <button onclick="$('#comfirm_model').modal('show')" class="btn btn-primary" onclick="">下单生产</button>
+                                    <div style="margin:10px;">
+                                        <button onclick="$('#comfirm_model').modal('show')" class="btn btn-primary " onclick="">下单生产</button>
                                     </div>
                                 <?php } ?>
-
-
-
-
-
-
-
-
 
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -86,24 +76,24 @@
                                     </thead>
                                     <tbody>
                                     <?php
-                                    //echo "<pre />";
-                                    //print_r($styles);
                                     $total = 0;
-                                    foreach($styles as $style){
-                                    foreach($style['orders'] as $order){
-                                        $total += $order['quantity'];
-                                        ?>
-                                    <tr>
-                                        <td><?=$style['name']?></td>
-                                        <td><?=$style['mb_name']?></td>
-                                        <td><div style="background-color: #<?=$style['color']?>;width: 20px;height:20px;"></div></td>
-                                        <td><?=$style['color']?></td>
-                                        <td><?=$style['color_name']?></td>
-                                        <td><?=$order['size']?></td>
-                                        <td><?=$order['quantity']?></td>
-                                    </tr>
+                                    foreach($info['styles'] as $product_id=>$styles) {
+                                        foreach($styles as $style_key=>$style) {
+                                            foreach($style['sizes'] as $size) {
+                                                $total += $size['quantity'];?>
+                                                <tr>
+                                                    <td><?=$size['product_name']?></td>
+                                                    <td><?=$size['brand_name']?></td>
+                                                    <td><div style="border:1px solid grey;border-radius:3px;background-color: #<?=$style['color']?>;width: 20px;height:20px;"></div></td>
+                                                    <td><?=$style['color']?></td>
+                                                    <td><?=$style['color_name']?></td>
+                                                    <td><?=$size['pro_size']?></td>
+                                                    <td><?=$size['quantity']?></td>
+                                                </tr>
 
-                                    <?php }} ?>
+                                            <?php }
+                                        }
+                                    }?>
                                     </tbody>
                                     <tfoot>
                                     <tr>
@@ -117,43 +107,7 @@
 
                         <div class="row">
                             <div class="col-xs-12">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <tbody>
-                                    <?php
-                                    //echo "<pre />";
-                                    //print_r($styles);
-                                    $total = 0;
-                                    foreach($styles as $style){
-                                            ?>
-                                            <tr>
-                                                <td>
-                                                    <div><?=$style['name']?><div style="display:inline-block;background-color: #<?=$style['color']?>;width: 20px;height:20px;"></div></div>
-                                                    <?php foreach($style['images'] as $image){?><table>
-                                                        <tr>
-                                                            <td>
-                                                                <img style="background-color:#<?=$style['color']?>;width:250px" src="<?=replace_cdn($image['imgurl'])?>" alt="">
-                                                            </td>
-                                                            <td>
-                                                                <table>
-                                                                    <tr>
-                                                                        <td></td>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </table>
 
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-
-
-                                                    <?php } ?>
-                                                </td>
-                                            </tr>
-
-                                        <?php } ?>
-                                    </tbody>
-
-                                </table>
                             </div><!-- /.span -->
                         </div>
 
@@ -220,7 +174,7 @@
 
 <?php include(block("admin/block/scripts"))?>
 <script>
-    var $activity_id = "<?php echo $activity['id']?>";
+    var $activity_id = "<?php echo $info["activity"]['id']?>";
     function do_confirm(){
         var $craft = $("#craft").val();
         var $manufacturer_id = $("#manufacturer_id").val();

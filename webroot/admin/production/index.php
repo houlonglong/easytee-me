@@ -104,8 +104,6 @@
 <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
-
-
 <script type="text/javascript">
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var activity_url = "<?php echo ACTIVITY_URL ?>";
@@ -192,7 +190,7 @@
                 },
                 {title:"订单成交数",name:'sale_count',index:'sale_count',width:50,sortable:false,editable: false,
                     formatter:function(cellvalue, options, rowObject){
-                        var cell = rowObject.sale_count + "/" + cellvalue ;
+                        var cell = rowObject.sale_count + "/" + rowObject.sale_target ;
                         cell += "<br>总额: "+rowObject.sale_total ;
                         cell += "<br>利润: "+rowObject.sale_profit ;
                         return cell;
@@ -203,7 +201,7 @@
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
                             if( rowObject['production_status'] == 0){
-                                return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+cellvalue+'">安排生产</a>';
+                                return '<a class="btn btn-xs btn-primary" href="/admin/production/step/detail?id='+rowObject.id+'">安排生产</a>';
                             }
                             if( rowObject['production_status'] == 1){
                                 return "生产中";
@@ -216,7 +214,7 @@
                                 }
                             }
                         }else{
-                            return "目标完成,待生产";
+                            return "目标完成,未结束";
                         }
 
                     },

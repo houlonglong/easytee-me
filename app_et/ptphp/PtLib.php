@@ -354,7 +354,12 @@ function json_response($return,$status = 0,$message = '',$redirect = '',$excepti
         $data['debug_sql'] = $debug['debug']['sql'];
         $data['debug_app'] = $debug['debug']['app'];
     }
-    echo json_encode($data);exit;
+    if(is_xhr()){
+        echo json_encode($data);
+    }else{
+        print_pre($data);
+    }
+    exit;
 }
 
 /**
