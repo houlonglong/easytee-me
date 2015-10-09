@@ -1,7 +1,7 @@
 <?php
 //查热门活动
 $i = 0;
-$activity_hot = PtLib\db()->select_rows("select a.name,a.content,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.end_time,a.period,a.sale_count,a.thumb_img_url,a.thumb_svg_url,a.Hot,u.nick_name from et_activity_info  as a left join et_user as u on a.uid = u.id where hot = 1 limit 0,4");
+$activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.end_time,a.period,a.sale_count,a.thumb_img_url,a.thumb_svg_url,a.Hot,u.nick_name from et_activity_info  as a left join et_user as u on a.uid = u.id where hot = 1 limit 0,4");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,6 +91,7 @@ $activity_hot = PtLib\db()->select_rows("select a.name,a.content,a.sale_count,a.
                             }else{
                                 echo '';
                             }  ?>">
+                               <a href="/activity?id=<?=$val['id']?>">
                                 <span class="promoter">发起人：<?=$val['nick_name']?></span>
                                 <div class="hide">
                                     <p><?=$val['nick_name']?></p>
@@ -109,6 +110,7 @@ $activity_hot = PtLib\db()->select_rows("select a.name,a.content,a.sale_count,a.
                                     <span class="zuo">已售出 <?=$val['sale_count']?> 件</span>
                                     <span class="you">剩余 <?=$left_day?>天</span>
                                 </div>
+                                </a>
                             </li>
                             <?php } ?>
 
