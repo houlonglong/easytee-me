@@ -348,7 +348,7 @@
         var $operator_id = $("#operator_id").val();
 
         $.post("/api",{
-            model:"admin/production/step",
+            model:"admin/production",
             action:"do_confirm",
             craft:$craft,
             manufacturer_id:$manufacturer_id,

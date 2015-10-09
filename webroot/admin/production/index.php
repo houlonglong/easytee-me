@@ -183,7 +183,8 @@
                     formatter:function(cellvalue, options, rowObject){
                         var cell = "期限:"+rowObject.period +
                             '<br>开始:'+cellvalue+
-                            '<br>结束:'+rowObject.end_time;
+                            '<br>结束:'+rowObject.end_time+
+                            '<br>交付:'+rowObject.give_time;
                         return cell;
                     }
                 },
@@ -195,8 +196,7 @@
                         return cell;
                     }
                 },
-                {title:"预计交货时间",name:'give_time',index:'give_time',sortable:false,width:100,sortable:false,editable: false},
-                {title:"操作",name:'status',index:'status', width:200, fixed:true, sortable:false,
+                {title:"操作",name:'status',index:'status', width:120, fixed:true, sortable:false,
                     formatter:function(cellvalue, options, rowObject){
                         if(rowObject['status'] == 3){
                             var status;
@@ -214,7 +214,7 @@
                                     status =  "已发货";
                                 }
                             }
-                            return status+'<br><a onclick="return top.iframe_open(this)" class="btn btn-xs btn-success" href="/admin/production/step/detail?id={id}&from_list=1">生产详情</a>'.format(rowObject);
+                            return status+'<br><a onclick="return top.iframe_open(this)" class="btn btn-xs btn-success" href="/admin/production/detail?id={id}&from_list=1">生产详情</a>'.format(rowObject);
                         }else{
                             return '目标完成,未结束<br><a onclick="return top.iframe_open(this)" class="btn btn-xs btn-primary" href="/admin/activity/detail?id={id}&from_list=1">活动详情</a>'.format(rowObject);
                         }
