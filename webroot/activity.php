@@ -45,7 +45,6 @@ include(block("block/header"))
         </ul>
 
     </div>
-
     <div class="order-info">
         <h3><?php echo $activity_info['name'] ?></h3>
 
@@ -80,7 +79,7 @@ include(block("block/header"))
 
             <div class="clock time_w">
                 <span class="clock-h" id="times_d"></span><i class="space">天</i>
-                <span class="clock-h" id="times_h"></span><i class="space"> ：</i>
+                <span class="clock-h" id="times_h"></span><i> ：</i>
                 <span class="clock-h" id="times_m"></span><i> ：</i>
                 <span class="clock-h" id="times_s"></span>
             </div>
@@ -146,6 +145,89 @@ include(block("block/header"))
     </div>
 </div>
 
+<div class="dialog-size">
+    <div class="dialog-size-con">
+        <span class="dialog-icon">ET基础圆领款</span>
+        <span class="dialog-size-close"></span>
+        <h4>尺码信息</h4>
+        <table>
+            <tr>
+                <td>尺码</td>
+                <td>推荐身高</td>
+                <td>胸围</td>
+                <td>衣长</td>
+            </tr>
+            <tr>
+                <td>S</td>
+                <td>165</td>
+                <td>96</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>170</td>
+                <td>104</td>
+                <td>65</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>175</td>
+                <td>110</td>
+                <td>68</td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>180</td>
+                <td>116</td>
+                <td>71</td>
+            </tr>
+            <tr>
+                <td>2XL</td>
+                <td>185</td>
+                <td>124</td>
+                <td>74</td>
+            </tr>
+        </table>
+        <button class="dialog-size-btn">确定</button>
+    </div>
+</div><div class="go-top"></div>
+<div class="foot">
+    <div class="infooter clearfix">
+        <h2>易衫网</h2>
+        <dl>
+            <dt>导航</dt>
+            <dd>
+                <a href="#">首页</a>
+            </dd>
+            <dd>
+                <a href="#">开始设计</a>
+            </dd>
+            <dd>
+                <a href="#">关于我们</a>
+            </dd>
+            <dd>
+                <a href="#">帮助中心</a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>服务</dt>
+            <dd>客服QQ：12345678</dd>
+        </dl>
+        <dl>
+            <dt>联系我们</dt>
+            <dd>工作日：上午9点 - 下午6点</dd>
+            <dd>休息日：上午9点 - 下午5点</dd>
+            <dd>客服热线 ： 400-92020-85</dd>
+        </dl>
+        <dl>
+            <dt>官方</dt>
+            <dd class="weibo">
+                <a href="#">微博</a>
+            </dd>
+            <dd class="weixin">微信</dd>
+        </dl>
+        <span class="ewm"></span>
+
 
 <br>
 <br>
@@ -196,16 +278,12 @@ include(block("block/header"))
 
     function show_time() {
         var time_now = new Date();  // 获取当前时间
-
-
         time_now = time_now.getTime();
         var time_distance = time_end - time_now;  // 结束时间减去当前时间
-         console.log(time_distance)
         var int_day, int_hour, int_minute, int_second;
         if (time_distance >= 0) {
             // 天时分秒换算
             int_day = Math.floor(time_distance / 86400000)
-
             time_distance -= int_day * 86400000;
             int_hour = Math.floor(time_distance / 3600000)
             time_distance -= int_hour * 3600000;
@@ -223,7 +301,6 @@ include(block("block/header"))
 
             // 显示时间
             time_d.innerHTML = int_day;
-
             time_h.innerHTML = int_hour;
             time_m.innerHTML = int_minute;
             time_s.innerHTML = int_second;
@@ -238,6 +315,7 @@ include(block("block/header"))
             Pre_order.style.backgroundColor = "#a9a9a9";
             Pre_order.setAttribute("disabled", "disabled");
 
+            // clearTimeout(timerID)
         }
 
         window.setTimeout(function(){ YFshare();},1000);
