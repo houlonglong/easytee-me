@@ -32,6 +32,9 @@
                 </div><!-- /.page-header -->
                 <div class="row">
                     <div class="col-xs-12">
+                        <?php
+                        $row = $info;
+                        include(block("admin/activity/_activity_info")) ?>
                         <div class="row">
                             <div class="col-xs-12">
                                 <h2>活动ID: <a href="/admin/activity/detail?id=<?=$info['activity']['id']?>"><?=$info['activity']['id']?></a></h2>
