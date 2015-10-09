@@ -42,9 +42,7 @@ $model_admin_user = $model_admin_user_obj->get_auth_user_info();
                                 个人设置
                             </a>
                         </li>-->
-                        <li>
-                            <a href="/ace/index.html" target="_blank">Template</a>
-                        </li>
+
                         <li class="divider"></li>
                         <li>
                             <a href="/api?model=/admin/auth&action=logout">
