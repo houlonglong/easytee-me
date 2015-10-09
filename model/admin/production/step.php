@@ -29,7 +29,7 @@ class Model_Admin_Production_Step extends Model_Admin_Abstract{
         $manufacturers = self::_db()->select_rows("select * from et_product_manufacturer");
 
         $produce = self::_db()->select_row("select
-              produce.*,m.short_name as m_name
+              produce.*,m.name as m_name
               from et_activity_produce as produce
               left join et_product_manufacturer as m on m.id = produce.man_id
               where produce.id = ?",$id);
@@ -41,25 +41,34 @@ class Model_Admin_Production_Step extends Model_Admin_Abstract{
         //print_r($res);exit;
         return $res;
     }
-    function action_do_confirm(){
-        $activity_id = $this->_request("activity_id");
-        $craft = $this->_request("craft");
-        $manufacturer_id = $this->_request("manufacturer_id");
-        $operator_id = $this->_request("operator_id");
-        $count = PtLib\db()->select_row('select count(id) as count from orders where status="待发货" and activity_id = ?',$activity_id);
-        try{
-            self::_db()->insert("activity_produces",array(
-                "activity_id"=>$activity_id,
-                "craft"=>$craft,
-                "manufacturer_id"=>$manufacturer_id,
-                "operator_id"=>$operator_id,
-                "status"=>'生产中',
-                "create_time"=>date('Y-m-d H:i:s'),
-                "order_count"=>$count['count']
-            ));
-        }catch (Exception $e){
+    function action_do_confirm($activity_id,$craft,$manufacturer_id,$operator_id){
+        $produce = self::_db()->select_row("select * from et_activity_produce where id = ?",$activity_id);
+        $res = self::_db()->select_row('select count(ord.order_id) as count from et_order_activity as ord left join et_order_pay as pay on pay.order_id = ord.order_id where pay.pay_status = 1 and ord.activity_id = ?',$activity_id);
 
+        self::_db()->update("et_activity_info",array(
+            "production_status"=>1,
+        ),array("id"=>$activity_id));
+        if($produce){
+            self::_db()->update("et_activity_produce",array(
+                "craft"=>$craft,
+                "man_id"=>$manufacturer_id,
+                "operator_id"=>$operator_id,
+                "create_time"=>date('Y-m-d H:i:s'),
+                "order_count"=>$res['count']
+            ),array(
+                "id"=>$activity_id,
+            ));
+        }else{
+            self::_db()->insert("et_activity_produce",array(
+                "id"=>$activity_id,
+                "craft"=>$craft,
+                "man_id"=>$manufacturer_id,
+                "operator_id"=>$operator_id,
+                "create_time"=>date('Y-m-d H:i:s'),
+                "order_count"=>$res['count']
+            ));
         }
+
         return array("ok");
 
     }
