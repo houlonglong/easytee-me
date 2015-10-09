@@ -38,13 +38,13 @@
                                             <a data-toggle="tab" onclick="location.href='/admin/user/modify?id=<?=$uid?>'">基本信息</a>
                                         </li>
 
-                                        <li>
-                                            <a data-toggle="tab" href="#profile4">认证</a>
-                                        </li>
+<!--                                        <li>-->
+<!--                                            <a data-toggle="tab" href="#profile4">认证</a>-->
+<!--                                        </li>-->
 
-                                    <!--    <li>
+                                  <li>
                                             <a data-toggle="tab" href="#"  onclick="location.href='/admin/user/addr?uid=<?/*=$uid*/?>'">收货地址</a>
-                                        </li>-->
+                                        </li>
 
                                         <li>
                                             <a data-toggle="tab" onclick="location.href='/admin/user/withdraw_log?uid=<?=$uid?>'">提现记录</a>
