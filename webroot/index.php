@@ -208,8 +208,104 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
         <div class="template">
             <ul class="clearfix">
                 <li class="template-con">
-                    <i>Cartion</i>
-                    <img src="css/index/images/template1.jpg">
+                    <a href="#">
+                        <i>Animal</i>
+                        <img src="css/index/images/animal-09.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">免费</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Cartion</i>
+                        <img src="css/index/images/template1.jpg">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">免费</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Decortion</i>
+                        <img src="css/index/images/bj&wl-07.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">1元/件</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Animal</i>
+                        <img src="css/index/images/animal-50.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">免费</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Cartion</i>
+                        <img src="css/index/images/katton-21.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">免费</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Decortion</i>
+                        <img src="css/index/images/person-18.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">1元/件</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+
+                <li class="template-con">
+                    <a href="#">
+                        <i>Animal</i>
+                        <img src="css/index/images/animal-09.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">免费</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Cartion</i>
+                        <img src="css/index/images/template1.jpg">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">免费</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
+                </li>
+                <li class="template-con">
+                    <a href="#">
+                        <i>Decortion</i>
+                        <img src="css/index/images/bj&wl-07.png">
+                        <span class="designer">易衫网设计师</span>
+                        <span class="charge">1元/件</span>
+                        <span class="help-popup">
+                            <button>立即使用</button>
+                        </span>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -220,7 +316,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
         <hr>
         <h3 class="cooperate-title"></h3>
         <div class="cooperate-con">
-            <a href="http://www.zhubajie.com/fzpssj/s.html">
+            <a href="http://www.zhubajie.com/fzpssj/s.html" target="blank">
                 <img src="css/index/images/cooperate-img.jpg">
                 <p>把需要解决的问题放在猪八戒网上，
                 通过悬赏模式可以获得多种方案，可以选到百里挑一的作品；通过速配模式，可以寻找到能力精准匹配
