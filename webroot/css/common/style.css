@@ -120,8 +120,7 @@ header{
 .infooter{
     width: 1060px;
     height: 215px;
-    /* background: pink; */
-    margin:0 auto;border:1px solid #231815;
+    margin:0 auto;/*border:1px solid #231815;*/
     position: relative;
 }
 .infooter h2{

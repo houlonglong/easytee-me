@@ -144,6 +144,35 @@ $(function () {
                 $('.add').click(function () {
                     buildItem();
                 }).click();
+
+
+                //尺码部分
+                var size_info=activity_detail.size_info;
+                var size_info_name;
+                var table='';
+                    //table+="<table>";
+                    table+='<tr>';
+                    table+='<td>尺码</td>';
+                    table+='<td>推荐身高</td>';
+                    table+= '<td>胸围</td>';
+                    table+='<td>衣长</td>';
+                    table+='<td>肩宽</td>';
+                    table+='</tr>';
+                for(var o in size_info[activity_detail.default_style.product_id]){
+                    var item=size_info[activity_detail.default_style.product_id][o];
+                    size_info_name=size_info[activity_detail.default_style.product_id][o].name
+
+                    table+='<tr>';
+                    table+='<td>'+item.size+'</td>';
+                    table+='<td>'+item.height+'</td>';
+                    table+= '<td>'+item.breast+'</td>';
+                    table+='<td>'+item.length+'</td>';
+                    table+='<td>'+item.shoulder_width+'</td>';
+                    table+='</tr>';
+                }
+                //table+="</table>";
+                $('.dialog-size-con table').append(table);
+                $('.dialog-icon').html(size_info_name);
             }
         }, 'json');
 
