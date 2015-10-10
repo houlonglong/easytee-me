@@ -793,8 +793,8 @@ $(function () {
             var cs = ds.getCanvases();
             for(var o in cs){
                 var c = cs[o];
-                for(var o in c.elements){
-                    var elem = c.elements[o];
+                for(var oo in c.elements){
+                    var elem = c.elements[oo];
                     var data = {
                         type : elem.type
                     };
