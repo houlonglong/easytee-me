@@ -827,10 +827,10 @@ $(function () {
                 "action": "design_save",
                 "color_count": ds_color_count,//颜色数量
                 "default_side": "front",//默认面
-                "design_front": sides[0],//前胸设计
-                "design_back": sides[1],//后背设计
-                "design_third": sides[2],//左袖设计
-                "design_fourth": sides[3],//右袖设计
+                "design_front": JSON.stringify(sides[0]),//前胸设计
+                "design_back": JSON.stringify(sides[1]),//后背设计
+                "design_third": JSON.stringify(sides[2]),//左袖设计
+                "design_fourth": JSON.stringify(sides[3]),//右袖设计
                 "cat_id": ds_cat_id,//产品分类ID
                 "product_id": ds_product_id,//产品ID
                 "style_id": ds_product_style_id//产品款式ID

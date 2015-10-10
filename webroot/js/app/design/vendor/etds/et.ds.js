@@ -1129,6 +1129,12 @@ function ElementEl(canvas, x, y, translateX, translateY, angle, scaleX, scaleY, 
  * TextElementEl
  * @param canvas
  * @param string
+ * @param lineHeight
+ * @param fontFamily
+ * @param fontSize
+ * @param fill
+ * @param stroke
+ * @param strokeWidth
  * @param translateX
  * @param translateY
  * @param angle
@@ -1340,8 +1346,6 @@ function BitmapBase64ElementEl(canvas, dataUrl, translateX, translateY, angle, s
         ElementEl.call(this, canvas, 0, 0, translateX, translateY, angle, scaleX, scaleY, flipX, flipY);
 
         this.initBox();
-
-        _onload();
     };
 
     new BitmapBase64Palettes(dataUrl, 0.012, null, function(colors){
@@ -2007,13 +2011,11 @@ function Canvas(container, options){
 
     this.imageBase64 = function(dataUrl){
         var imageEl = new BitmapBase64ElementEl(this, dataUrl);
-        imageEl.onload(function(){
-            self.elements.push(imageEl);
-            $('.edit-box', target).addClass('hidden');
-            $('.edit-box[data-id='+imageEl.dataId+']', target).removeClass('hidden');
-            _activeEl = imageEl;
-            self.moveToTop();
-        });
+        self.elements.push(imageEl);
+        $('.edit-box', target).addClass('hidden');
+        $('.edit-box[data-id='+imageEl.dataId+']', target).removeClass('hidden');
+        _activeEl = imageEl;
+        self.moveToTop();
     };
 
     this.autoAlign = function(status){
