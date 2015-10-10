@@ -20,6 +20,7 @@ a:hover{text-decoration:none; cursor: pointer;}
     height: 0px;
     background: url(images/jiaocheng.png) top center no-repeat;
     position: relative;
+    overflow: hidden;
 }
 .try i{
     position: absolute;
