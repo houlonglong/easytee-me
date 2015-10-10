@@ -6,8 +6,8 @@
      * 生产管理
      *
      */
-    include(block("admin/block/html_head"))?>
-
+    include(block("admin/block/html_head"));
+    ?>
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css" />
     <link rel="stylesheet" href="/ace/assets/css/datepicker.min.css" />
@@ -27,27 +27,41 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <div class="row" style="padding:20px 0;display:none">
+                        <div class="row" style="">
                             <div class="col-xs-12">
-                                    <label>
-                                        Ttile
-                                    </label>
-                                    <input type="text" id="title">
-                                <button class="btn-primary" onclick="search()">search</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" onclick="query('')" href="#" aria-expanded="true">
+                                                全部
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" onclick="query(0)" href="#" aria-expanded="false">
+                                                待生产
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" onclick="query(1)" href="#" aria-expanded="false">
+                                                生产中
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" onclick="query(2)" href="#" aria-expanded="false">
+                                                生产完成
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="widget-box">
-                                            <div class="widget-body">
-                                                <div class="widget-main">
-                                                    <form class="form-inline">
-                                                        <input type="text" class="input-small" placeholder="活动名称" id="activity_name">
-                                                        <input type="text" class="input-small" placeholder="活动ID" id="activity_id">
-                                                        <span class="mr-20">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="widget-box">
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <form class="form-inline">
+                                                            <input type="text" class="input-small" placeholder="活动名称" id="activity_name">
+                                                            <input type="text" class="input-small" placeholder="活动ID" id="activity_id">
+                                                        <span class="mr-20 hide">
                                                             <select name="" id="production_status" onchange="search()">
                                                                 <option value="0">待生产</option>
                                                                 <option value="1">生产中</option>
@@ -69,14 +83,16 @@
                                                                 <option value="1">已发货</option>
                                                             </select>
                                                         </span>
-                                                        <button type="button" class="btn btn-success btn-sm" onclick="search()">
-                                                            <i class="ace-icon fa fa-search bigger-110"></i>搜索
-                                                        </button>
-                                                    </form>
+                                                            <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                                <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
@@ -89,9 +105,7 @@
 
                                 </div>
                             </div>
-                            <!-- /.span -->
                         </div>
-                        <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.page-content -->
@@ -105,6 +119,10 @@
 <script src="/ace/assets/js/jquery.jqGrid.min.js"></script>
 <script src="/ace/assets/js/grid.locale-en.js"></script>
 <script type="text/javascript">
+    function query($status){
+        $("#production_status").val($status);
+        search();
+    }
     var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
     var activity_url = "<?php echo ACTIVITY_URL ?>";
     var url_api_base   = "admin/production";
@@ -350,9 +368,6 @@
             $('.ui-jqdialog').remove();
         });
     });
-
-
-
 </script>
 </body>
 </html>

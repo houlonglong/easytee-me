@@ -35,65 +35,85 @@
                 <?php include(block("admin/block/ace-settings-container"))?>
                 <div class="row">
                     <div class="col-xs-12">
-
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="widget-box">
-                                    <div class="widget-body">
-                                        <div class="widget-main">
-                                            <form class="form-inline">
-                                                <span class="mr-20">
-                                                    审核:
-                                                    <select name="" id="verify" onchange="search()">
-                                                        <option value="">全部</option>
-                                                        <option value="0">未审核</option>
-                                                        <option value="1">审核通过</option>
-                                                        <option value="2">审核不通过</option>
-                                                    </select>
-                                                </span>
-                                                <span class="mr-20">
-                                                    状态:
-                                                    <select id="status" onchange="search()">
-                                                        <option value="1">进行中</option>
-                                                        <option value="10">已结束</option>
-                                                        <option value="0">草稿</option>
-                                                        <option value="">全部</option>
-                                                    </select>
-                                                </span>
-                                                <span class="mr-20">
-                                                    <select id="success_status" onchange="search()" style="display: none;">
-                                                        <option value="">全部</option>
-                                                        <option value="2">失败的</option>
-                                                        <option value="3">成功的</option>
-                                                    </select>
-                                                </span>
-                                                <br><br>
-                                                <input type="text"  class="input-small" placeholder="活动ID" id="activity_id">
-                                                <input type="text"  class="input-small" placeholder="活动名称" id="activity_name">
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active">
+                                            <a data-toggle="tab" onclick="query(0)" href="#" aria-expanded="true">
+                                                全部
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" onclick="query(1)" href="#" aria-expanded="false">
+                                                进行中
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" onclick="query(10)" href="#" aria-expanded="false">
+                                                已结束
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                                <!--                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">-->
-                                                <!--                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">-->
-                                                <button type="button" class="btn btn-success btn-sm" onclick="search()">
-                                                    <i class="ace-icon fa fa-search bigger-110"></i>搜索
-                                                </button>
-                                            </form>
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <div class="widget-box">
+                                                <div class="widget-body">
+                                                    <div class="widget-main">
+                                                        <form class="form-inline">
+                                                            <span class="mr-20 hide">
+                                                                审核:
+                                                                <select name="" id="verify" onchange="search()">
+                                                                    <option value="">全部</option>
+                                                                    <option value="0">未审核</option>
+                                                                    <option value="1">审核通过</option>
+                                                                    <option value="2">审核不通过</option>
+                                                                </select>
+                                                            </span>
+                                                            <span class="mr-20 hide">
+                                                                状态:
+                                                                <select id="status" onchange="search()">
+                                                                    <option value="1">进行中</option>
+                                                                    <option value="10">已结束</option>
+                                                                    <option value="">全部</option>
+                                                                </select>
+                                                            </span>
+                                                            <span class="mr-20">
+                                                                <select id="success_status" onchange="search()" style="display: none;">
+                                                                    <option value="">全部</option>
+                                                                    <option value="2">失败的</option>
+                                                                    <option value="3">成功的</option>
+                                                                </select>
+                                                            </span>
+                                                            <input type="text"  class="input-small" placeholder="活动ID" id="activity_id">
+                                                            <input type="text"  class="input-small" placeholder="活动名称" id="activity_name">
+
+                                                            <!--                                                <input type="text"  class="input-small" placeholder="开始时间" id="start-date">-->
+                                                            <!--                                                <input type="text"  class="input-small" placeholder="结束时间" id="end-date">-->
+                                                            <button type="button" class="btn btn-success btn-sm" onclick="search()">
+                                                                <i class="ace-icon fa fa-search bigger-110"></i>搜索
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <table id="grid-table"></table>
+                                        <div id="grid-pager"></div>
+                                        <script type="text/javascript">
+                                            var $path_base = ".";//in Ace demo this will be used for editurl parameter
+                                        </script>
+                                    </div>
+                                    <!-- /.span -->
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <table id="grid-table"></table>
-                                <div id="grid-pager"></div>
-                                <script type="text/javascript">
-                                    var $path_base = ".";//in Ace demo this will be used for editurl parameter
-                                </script>
-                            </div>
-                            <!-- /.span -->
-                        </div>
-
-                        <!-- PAGE CONTENT ENDS -->
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.page-content -->
@@ -108,6 +128,10 @@
     <script src="/ace/assets/js/grid.locale-en.js"></script>
     <script src="/ace/assets/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript">
+        function query($status){
+            $("#status").val($status);
+            search();
+        }
         var activity_url = "<?php echo ACTIVITY_URL ?>";
         var frontend_domain = "<?php echo FRONTEND_DOMAIN;?>";
         var grid_selector = "#grid-table";
