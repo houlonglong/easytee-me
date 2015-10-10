@@ -181,17 +181,30 @@
                     <div class="product-add-icon"></div>
                     <div class="product-add-total">还可以添加 <span>9</span> 种商品</div>
                     <div class="product-add-tool">
-                        <div class="product-add-control">
+                        <div class="product-add-control product-add-control-1">
                             <div class="product-add-label">款式选择</div>
-                            <div class="product-add-select"></div>
+                            <select class="product-add-select">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
-                        <div class="product-add-control">
+                        <div class="product-add-control product-add-control-2">
                             <div class="product-add-label">产品选择</div>
-                            <div class="product-add-select"></div>
+                            <select class="product-add-select">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                         </div>
-                        <div class="product-add-control">
-                            <div class="product-add-btn">添加</div>
+                        <div class="product-add-control product-add-control-3">
+                            <a class="product-add-btn">添加</a>
                         </div>
+                        <div class="clearfix"></div>
                     </div>
                     <div class="product-add-desc">
                         添加更多的品类，让你的产品选择更加丰富
