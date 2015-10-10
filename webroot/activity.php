@@ -10,25 +10,16 @@
     if($activity_info == false){
         throw new Exception("没有该活动");
     }
-include(block("block/header"))
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <?php include(block("block/header_header")) ?>
     <link rel="stylesheet" type="text/css" href="css/sale/sale.css">
-    <link rel="stylesheet" type="text/css" href="css/common/style.css">
-    <link rel="stylesheet" type="text/css" href="css/common/popup.css">
-    <!-- <script type="text/javascript" src="js/app/sale/time.js"></script> -->
-    <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
-    <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
-    <script type="text/javascript" src="js/app/sale/index.js"></script>
-    <script type="text/javascript" src="js/app/common/popup.js"></script>
-    <script type="text/javascript" src="js/app/common/index.js"></script>
 </head>
 <body>
-
-
+<?php include(block("block/header_body")) ?>
 <div class="order banxin clearfix">
     <div class="order-show clearfix">
         <ul class="small-img">
@@ -144,7 +135,6 @@ include(block("block/header"))
         </div>
     </div>
 </div>
-
 <div class="dialog-size">
     <div class="dialog-size-con">
         <span class="dialog-icon">ET基础圆领款</span>
@@ -190,64 +180,11 @@ include(block("block/header"))
         </table>
         <button class="dialog-size-btn">确定</button>
     </div>
-</div><div class="go-top"></div>
-<div class="foot">
-    <div class="infooter clearfix">
-        <h2>易衫网</h2>
-        <dl>
-            <dt>导航</dt>
-            <dd>
-                <a href="#">首页</a>
-            </dd>
-            <dd>
-                <a href="#">开始设计</a>
-            </dd>
-            <dd>
-                <a href="#">关于我们</a>
-            </dd>
-            <dd>
-                <a href="#">帮助中心</a>
-            </dd>
-        </dl>
-        <dl>
-            <dt>服务</dt>
-            <dd>客服QQ：12345678</dd>
-        </dl>
-        <dl>
-            <dt>联系我们</dt>
-            <dd>工作日：上午9点 - 下午6点</dd>
-            <dd>休息日：上午9点 - 下午5点</dd>
-            <dd>客服热线 ： 400-92020-85</dd>
-        </dl>
-        <dl>
-            <dt>官方</dt>
-            <dd class="weibo">
-                <a href="#">微博</a>
-            </dd>
-            <dd class="weixin">微信</dd>
-        </dl>
-        <span class="ewm"></span>
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+</div>
 <div class="go-top"></div>
 <?php include(block("block/footer")) ?>
+
+<script type="text/javascript" src="js/app/sale/index.js"></script>
 <script>
     var activity_id = "<?php echo $activity_id ?>";
     var activity = {};
@@ -314,7 +251,6 @@ include(block("block/header"))
             Pre_order.innerHTML ="活动结束";
             Pre_order.style.backgroundColor = "#a9a9a9";
             Pre_order.setAttribute("disabled", "disabled");
-
             // clearTimeout(timerID)
         }
 
@@ -323,6 +259,5 @@ include(block("block/header"))
 </script>
 <script type="text/javascript" src="js/app/activvity/activvity.js"></script>
 <script type="text/javascript" src="js/app/activvity/jquery.qrcode.min.js"></script>
-
 </body>
 </html>
