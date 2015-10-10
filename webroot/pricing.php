@@ -231,6 +231,7 @@
                 <a class="ds-pricing-products-side" href="#">右袖</a>
                 <div class="clearfix"></div>
             </div>
+            <a class="next-step" href="javascript:;">下一步</a>
         </div>
         <div class="clearfix"></div>
     </div>

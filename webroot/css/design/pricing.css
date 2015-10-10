@@ -494,3 +494,9 @@
     background: #fff;
     border: 1px solid #989898;
 }
+
+.ds-pricing-right .next-step {
+    width: 224px;
+    float: right;
+    margin-top: 80px;
+}
