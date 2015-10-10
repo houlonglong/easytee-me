@@ -822,7 +822,7 @@ $(function () {
 
             console.log(ds_cat_id, ds_product_id, ds_product_style_id, sides);
 
-            $.get('/api', {
+            $.post('/api', {
                 "model": "design/tool/beta",
                 "action": "design_save",
                 "color_count": ds_color_count,//颜色数量
