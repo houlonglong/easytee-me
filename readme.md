@@ -185,3 +185,8 @@ V2.0 线上 Task Service
 ------
 
     ssh e_ser "cd /opt/projects/easytee/easytee_v2/ && git pull origin master"
+
+password
+------
+
+    admin8888@25015

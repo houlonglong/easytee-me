@@ -17,45 +17,34 @@
                 "url":"/admin/production/index"
             },
             {
-                "title":"生产中",
-                "url":"/admin/production/ongoing",
-                "hide_menu":1
-            },
-            {
-                "title":"已发货",
-                "url":"/admin/production/shipped",
-                "hide_menu":1
-            },
-            {
-                "title":"众筹详情",
-                "url":"/admin/activity/detail",
-                "hide_menu":1
-            },
-            {
                 "title":"订单管理",
                 "url":"/admin/activity/order"
-            },
-            {
-                "title":"成功的众筹",
-                "url":"/admin/activity/success",
-                "hide_menu":1
-            },
-            {
-                "title":"失败的众筹",
-                "url":"/admin/activity/failture",
-                "hide_menu":1
-            },
-            {
-                "title":"订单详情",
-                "url":"/admin/activity/order_detail",
-                "hide_menu":1
-            },
-            {
-                "title":"售后管理",
-                "url":"/admin/aftersale/index",
-                "hide_menu":1
             }
 
+        ]
+    },
+    {
+        "title":"产品管理",
+        "hide_menu":0,
+        "icon":"fa-fire",
+        "model": {
+            "path": "/admin/user",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"生产厂家",
+                "url":"/admin/user/index"
+            },
+            {
+                "title":"产品分类",
+                "url":"/admin/user/index"
+            },
+            {
+                "title":"产品列表",
+                "url":"/admin/finance/withdraw",
+                "hide_menu":0
+            }
         ]
     },
     {
@@ -70,31 +59,6 @@
             {
                 "title":"用户列表",
                 "url":"/admin/user/index"
-            },
-            {
-                "title":"用户新加",
-                "url":"/admin/user/add",
-                "hide_menu":1
-            },
-            {
-                "title":"用户修改",
-                "url":"/admin/user/modify",
-                "hide_menu":1
-            },
-            {
-                "title":"用户详情",
-                "url":"/admin/user/detail",
-                "hide_menu":1
-            },
-            {
-                "title":"申请提现",
-                "url":"/admin/finance/withdraw",
-                "hide_menu":1
-            },
-            {
-                "title":"财务流水",
-                "url":"/admin/finance/flow",
-                "hide_menu":1
             },
             {
                 "title":"财务结算",
