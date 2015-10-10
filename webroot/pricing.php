@@ -58,9 +58,13 @@
                 </div>
                 <div class="product-list">
                     <div class="product-item product-item-default">
-                        <div class="product-item-icon"></div>
+                        <div class="product-item-icon">
+                            水电费水电费T
+                            <div class="product-item-icon-begin"></div>
+                            <div class="product-item-icon-end"></div>
+                        </div>
                         <div class="product-item-left">
-                            <img class="product-image" src=""/>
+                            <img class="product-image" src="http://cdn.open.easytee.me/products/10/front.png"/>
                         </div>
                         <div class="product-item-right">
                             <div class="product-item-pricing-info">
@@ -178,7 +182,11 @@
                     </div>
                 </div>
                 <div class="product-add">
-                    <div class="product-add-icon"></div>
+                    <div class="product-add-icon">
+                        添加其他款式
+                        <div class="product-add-icon-begin"></div>
+                        <div class="product-add-icon-end"></div>
+                    </div>
                     <div class="product-add-total">还可以添加 <span>9</span> 种商品</div>
                     <div class="product-add-tool">
                         <div class="product-add-control product-add-control-1">
@@ -217,12 +225,14 @@
                 <div id="ds_preview"></div>
             </div>
             <div class="ds-pricing-product-sides">
-                <a class="ds-pricing-products-side" href="#">正面</a>
+                <a class="ds-pricing-products-side active" href="#">正面</a>
                 <a class="ds-pricing-products-side" href="#">反面</a>
                 <a class="ds-pricing-products-side" href="#">左袖</a>
                 <a class="ds-pricing-products-side" href="#">右袖</a>
+                <div class="clearfix"></div>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 </body>
