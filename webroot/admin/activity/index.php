@@ -237,12 +237,11 @@
                                     if(rowObject.production_status > 0){
                                         cell += "<br>生产..";
                                     }else{
-                                        cell += "<br><button class=\"btn btn-success\" onclick='do_success({id})'>成功</button>" ;
+                                        //cell += "<br><button class=\"btn btn-success\" onclick='do_success({id})'>成功</button>" ;
                                     }
-
                                 }else{
                                     cell += "<br>未达10件" ;
-                                    cell += "<br><button class=\"btn btn-danger\" onclick='do_fail({id})'>失败</button>" ;
+                                    //cell += "<br><button class=\"btn btn-danger\" onclick='do_fail({id})'>失败</button>" ;
                                 }
                             }
                             return cell.format(rowObject);
