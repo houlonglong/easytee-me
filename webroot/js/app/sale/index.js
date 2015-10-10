@@ -139,6 +139,8 @@ $(function () {
                 $('#changeProduct').change(function () {
                     var product_id = $(this).val();
                     loadProductInfo(product_id);
+
+                    buildSizeInfo(product_id);//尺码列表
                 }).change();
 
                 $('.add').click(function () {
@@ -146,35 +148,46 @@ $(function () {
                 }).click();
 
 
-                //尺码部分
-                var size_info=activity_detail.size_info;
-                var size_info_name;
-                var table='';
-                    //table+="<table>";
-                    table+='<tr>';
-                    table+='<td>尺码</td>';
-                    table+='<td>推荐身高</td>';
-                    table+= '<td>胸围</td>';
-                    table+='<td>衣长</td>';
-                    table+='<td>肩宽</td>';
-                    table+='</tr>';
-                for(var o in size_info[activity_detail.default_style.product_id]){
-                    var item=size_info[activity_detail.default_style.product_id][o];
-                    size_info_name=size_info[activity_detail.default_style.product_id][o].name
 
-                    table+='<tr>';
-                    table+='<td>'+item.size+'</td>';
-                    table+='<td>'+item.height+'</td>';
-                    table+= '<td>'+item.breast+'</td>';
-                    table+='<td>'+item.length+'</td>';
-                    table+='<td>'+item.shoulder_width+'</td>';
-                    table+='</tr>';
-                }
-                //table+="</table>";
-                $('.dialog-size-con table').append(table);
-                $('.dialog-icon').html(size_info_name);
             }
         }, 'json');
+
+        function buildSizeInfo(product_id){
+            //尺码部分
+            var size_info=activity_detail.size_info;
+            var size_info_name;
+            var table='';
+            //table+="<table>";
+            table+='<tr>';
+            table+='<td>尺码</td>';
+            table+='<td>推荐身高</td>';
+            table+= '<td>半胸围</td>';
+            table+='<td>衣长</td>';
+            table+='<td>肩宽</td>';
+            table+='</tr>';
+            for(var o in size_info[product_id]){
+                var item=size_info[product_id][o];
+                size_info_name=size_info[product_id][o].name
+
+                table+='<tr>';
+                table+='<td>'+item.size+'</td>';
+                table+='<td>'+item.height+'</td>';
+                table+= '<td>'+item.breast+'</td>';
+                table+='<td>'+item.length+'</td>';
+                table+='<td>'+item.shoulder_width+'</td>';
+                table+='</tr>';
+            }
+            //table+="</table>";
+            $('.dialog-size-con table').empty().append(table);
+            $('.dialog-icon').html(size_info_name);
+
+            var shoulder_width=size_info[product_id][0].shoulder_width;
+            if(shoulder_width==0){
+                $('.dialog-size-con table td:last-child').css('display','none');
+            }else{
+                $('.dialog-size-con table td:last-child').css('display','block');
+            }
+        }
 
         function buildItem() {
             var thumb_img = activity_detail.default_style.thumb_img_url;
