@@ -138,6 +138,7 @@ $(function () {
 
                 $('#changeProduct').change(function () {
                     var product_id = $(this).val();
+
                     loadProductInfo(product_id);
 
                     buildSizeInfo(product_id);//尺码列表

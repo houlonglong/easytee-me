@@ -518,10 +518,11 @@ body.current {
 }
 
 #introduce, #details, #rule {
-    height: 500px;
-    background: rgba(255, 203, 192, .1);
+    min-height: 400px;
 }
-
+#introduce{
+    margin-top: 30px;
+}
 .dialog {
     width: 100%;
     position: fixed;
