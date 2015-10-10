@@ -489,6 +489,7 @@ $(function () {
             $('#selectProductCategories').append(str);
             $('#selectProductCategories').change(function () {
                 var categoryId = $(this).val();
+                ds_cat_id = categoryId;
                 var products = productInfo.products[categoryId];
                 initProductChoice(products);
             });
@@ -518,6 +519,7 @@ $(function () {
                 $(this).addClass('active');
 
                 var productId = $(this).attr('data-id');
+                ds_product_id = productId;//赋值全局变量
                 var product_design = products[productId].product_design;
                 //拼装DS需要的初始化数据
                 var sides = [];
@@ -558,6 +560,7 @@ $(function () {
                     }
                 }
                 if(style){
+                    ds_product_style_id = style.id;//复制全局变量
                     $('.color-item[data-id='+style.id+']').addClass('active');
                     ds.call('productColor', '#'+style.color);
                 }
@@ -578,6 +581,7 @@ $(function () {
                 $(this).addClass('active');
 
                 var styleId = $(this).attr('data-id');
+                ds_product_style_id = styleId;//复制全局变量
                 var styleColor = $(this).attr('data-color');
                 ds.call('productColor', styleColor);
             });
@@ -784,29 +788,55 @@ $(function () {
             alert('too many colors');
         });
 
-
         function save(){
+            var sides = [[], [], [], []];
             var cs = ds.getCanvases();
             for(var o in cs){
                 var c = cs[o];
-                console.log(c.elements);
+                for(var o in c.elements){
+                    var elem = c.elements[o];
+                    var data = {
+                        type : elem.type
+                    };
+                    if(elem.type == 'text'){
+                        data.string = elem.string;
+                        data.lineHeight = elem.lineHeight;
+                        data.fontFamily = elem.fontFamily;
+                        data.fontSize = elem.fontSize;
+                        data.fill = elem.fill;
+                        data.stroke = elem.stroke;
+                        data.strokeWidth = elem.strokeWidth;
+                    }else if(elem.type == 'bitmap'){
+                        data.dataUrl = elem.url;
+                    }
+                    data.translateX = elem.translateX;
+                    data.translateY = elem.translateY;
+                    data.angle = elem.angle;
+                    data.scaleX = elem.scaleX;
+                    data.scaleY = elem.scaleY;
+                    data.flipX = elem.flipX;
+                    data.flipY = elem.flipY;
+                    sides[o].push(data);
+                }
             }
 
-//            $.get('/api', {
-//                "model": "design/tool/beta",
-//                "action": "design_save",
-//                "color_count": ds_color_count,//颜色数量
-//                "default_side": "front",//默认面
-//                "design_front": "design_front",//前胸设计
-//                "design_back": "design_back",//后背设计
-//                "design_third": "design_third",//左袖设计
-//                "design_fourth": "design_fourth",//右袖设计
-//                "cat_id": ds_cat_id,//产品分类ID
-//                "product_id": ds_product_id,//产品ID
-//                "style_id": ds_product_style_id//产品款式ID
-//            }, function(data){
-//                console.log(data);
-//            },'json');
+            console.log(ds_cat_id, ds_product_id, ds_product_style_id, sides);
+
+            $.get('/api', {
+                "model": "design/tool/beta",
+                "action": "design_save",
+                "color_count": ds_color_count,//颜色数量
+                "default_side": "front",//默认面
+                "design_front": sides[0],//前胸设计
+                "design_back": sides[1],//后背设计
+                "design_third": sides[2],//左袖设计
+                "design_fourth": sides[3],//右袖设计
+                "cat_id": ds_cat_id,//产品分类ID
+                "product_id": ds_product_id,//产品ID
+                "style_id": ds_product_style_id//产品款式ID
+            }, function(data){
+                console.log(data);
+            },'json');
         }
 
         $('#ds_save').click(function(){
