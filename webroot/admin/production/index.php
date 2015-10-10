@@ -174,7 +174,7 @@
                         rowObject['verify'] = rowObject['verify'] == 0 ?"未审核":"已审核";
                         var cell = "<a target='_blank' href='{act_url}'>{name}</a><br>" +
                             "{verify}<br>" +
-                            "production_status:{production_status}<br>" +
+                            //"production_status:{production_status}<br>" +
                             "UID:<a onclick='return top.iframe_open(this)' href='/admin/user/modify?id={uid}&from_list=1'>{uid}</a>";
                         return cell.format(rowObject);
                     }
