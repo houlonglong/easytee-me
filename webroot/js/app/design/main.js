@@ -67,6 +67,8 @@
 
 $(function () {
 
+    //--------------------router
+
     var defaultStep = 0;
 
     Router.setup({
@@ -914,4 +916,37 @@ $(function () {
     initDsCenterPanel();
     initDsRightPanel();
     initDsEvents();
+
+    //------------pricing
+
+    $('#saleScroll').honest_slider({
+        scales: [
+            [0, 10],
+            [0.05, 50],
+            [0.1, 100],
+            [0.3, 300],
+            [0.5, 500],
+            [0.7, 700],
+            [1, 1000]
+        ],
+        slider: function(value){
+            console.log(value);
+        }
+    });
+
+    function saleGoalInputEvent(){
+        var value  = event.target.value;
+        value = value.match(/[0-9]/g) != null ? value.match(/[0-9]/g).join('') : 10;
+        if(value<10){
+            value=10;
+        }
+        if(value>1000){
+            value = 1000;
+        }
+        event.target.value = value;
+        $('#saleScroll').honest_slider('value', value);
+    }
+
+    $('#saleGoalInput').on('input blur',saleGoalInputEvent);
+
 });

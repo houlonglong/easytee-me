@@ -26,6 +26,33 @@
     width: 120px;
     float: left;
 }
+.ds-pricing-left .honest_slider .slider_obj {
+    background: #dadbdb;
+    border-color: #a5a6a6;
+    margin-bottom: 20px;
+}
+
+.ds-pricing-left .honest_slider .scale_obj i.line {
+    top: -8px;
+    height: 6px;
+    border-color: #b9b9b9;
+}
+
+.ds-pricing-left .honest_slider .slider_obj .ui-slider-handle {
+    border: 0;
+    background: url(images/icon-design-pricing-sale-goal-scroll-bar.png) no-repeat center;
+    height: 17px;
+    width: 17px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    top: -6px;
+    border-radius: 0;
+    opacity: 1;
+    margin-left: -8px;
+}
+.ds-pricing-left .ui-slider-horizontal .ui-slider-range {
+    background-color: #fc5457;
+}
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-row-left-panel .sale-goal {
     display: block;

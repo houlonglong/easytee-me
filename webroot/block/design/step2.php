@@ -1,11 +1,11 @@
 <div class="ds-pricing-left">
-    <div class="ds-pricing-row">
+    <div class="ds-pricing-row" style="padding-bottom: 10px;">
         <div class="ds-pricing-row-label">设定目标</div>
         <div id="saleScroll"></div>
     </div>
-    <div class="ds-pricing-row">
+    <div class="ds-pricing-row" style="padding-top: 10px;">
         <div class="ds-pricing-row-left-panel">
-            <input class="sale-goal" type="text"/>
+            <input id="saleGoalInput" class="sale-goal" type="text"/>
             <span class="sale-goal-unit">件</span>
         </div>
         <div class="ds-pricing-row-right-panel">
