@@ -71,33 +71,50 @@ $(function () {
 
     var defaultStep = 0;
 
-    Router.setup({
-        '#design': function () {
-            defaultStep = 0;
-            $('.step').eq(defaultStep).addClass('active');
-        },
-        '#pricing': function () {
-            defaultStep = 1;
-            $('.step').eq(defaultStep).addClass('active');
-        },
-        '#push': function () {
-            defaultStep = 2;
-            $('.step').eq(defaultStep).addClass('active');
-        }
-    });
-    Router.start();
+    function initRouter(){
 
-    $.slider({
-        defaultStep: defaultStep,
-        sliderAnimate: 600,
-        sliderButton: 'a.step',
-        sliderSelection: '.design-slider',
-        sliderContainer: '.design-center',
-        onclick: function(step){
-            $('a.step').removeClass('active');
-            $('a.step').eq(step).addClass('active');
+        Router.setup({
+            '#design': function () {
+                defaultStep = 0;
+                $('.step').eq(defaultStep).addClass('active');
+            },
+            '#pricing': function () {
+                defaultStep = 1;
+                $('.step').eq(defaultStep).addClass('active');
+            },
+            '#push': function () {
+                defaultStep = 2;
+                $('.step').eq(defaultStep).addClass('active');
+            }
+        });
+        Router.start();
+
+        $.slider({
+            defaultStep: defaultStep,
+            sliderAnimate: 600,
+            sliderButton: 'a.step',
+            sliderSelection: '.design-slider',
+            sliderContainer: '.design-center',
+            onclick: function(step){
+                $('a.step').removeClass('active');
+                $('a.step').eq(step).addClass('active');
+                if(step==1){
+                    cloneDesignArea();
+                }
+            }
+        });
+
+        function cloneDesignArea(){
+            var clone_sides = $($('#ds').html());
+            clone_sides.find('.html-surface').remove();
+            $('#ds_preview').empty().append(clone_sides);
+
+            var idx = $('.ds-pricing-products-side.active').index();
+            showDsPricingProductSide(idx);
         }
-    });
+    }
+
+    initRouter();
 
     //----------------design
 
@@ -949,4 +966,20 @@ $(function () {
 
     $('#saleGoalInput').on('input blur',saleGoalInputEvent);
 
+    function showDsPricingProductSide(idx){
+        $('#ds_preview').find('.new-editor').hide();
+        $('#ds_preview').find('.new-editor').eq(idx).show();
+    }
+
+    function initPricingChangeProductSide(){
+
+        $('.ds-pricing-products-side').click(function(){
+            $('.ds-pricing-products-side').removeClass('active');
+            $(this).addClass('active');
+            var idx = $(this).index();
+            showDsPricingProductSide(idx);
+        });
+    }
+
+    initPricingChangeProductSide();
 });

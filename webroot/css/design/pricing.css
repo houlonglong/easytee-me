@@ -32,10 +32,14 @@
     margin-bottom: 20px;
 }
 
+.ds-pricing-left .honest_slider .scale_obj:first-child i.line {
+    display: block;
+}
 .ds-pricing-left .honest_slider .scale_obj i.line {
     top: -8px;
     height: 6px;
     border-color: #b9b9b9;
+    left: 50%;
 }
 
 .ds-pricing-left .honest_slider .slider_obj .ui-slider-handle {
@@ -493,7 +497,7 @@
 .ds-pricing-right .ds-pricing-product-view {
     width: 520px;
     height: 554px;
-    padding: 10px 27px;
+    padding: 27px 10px;
     border: 1px solid #ccc;
 }
 

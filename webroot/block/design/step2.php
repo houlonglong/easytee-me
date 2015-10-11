@@ -200,10 +200,10 @@
         <div id="ds_preview"></div>
     </div>
     <div class="ds-pricing-product-sides">
-        <a class="ds-pricing-products-side active" href="#">正面</a>
-        <a class="ds-pricing-products-side" href="#">反面</a>
-        <a class="ds-pricing-products-side" href="#">左袖</a>
-        <a class="ds-pricing-products-side" href="#">右袖</a>
+        <a class="ds-pricing-products-side active" href="javascript:;">正面</a>
+        <a class="ds-pricing-products-side" href="javascript:;">反面</a>
+        <a class="ds-pricing-products-side" href="javascript:;">左袖</a>
+        <a class="ds-pricing-products-side" href="javascript:;">右袖</a>
         <div class="clearfix"></div>
     </div>
     <a class="next-step" href="javascript:;">下一步</a>
