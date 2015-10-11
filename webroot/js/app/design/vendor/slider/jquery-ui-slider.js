@@ -75,7 +75,7 @@
                 }
                 return value;
             };
-            this.setSliderValueByValue = function(value, callback){
+            this.setSliderValueByValue = function(value){
                 var sliderValue;
                 var valueRanges = [];
                 for(var i=0; i<this.ranges.length; i++){
@@ -118,21 +118,21 @@
                 $this.append(scales_obj);
                 for(var i=0; i<opts.scales.length; i++){
                     var scale = opts.scales[i];
-                    if(i!=opts.scales.length-1){
+//                    if(i!=opts.scales.length-1){
                         var scale_obj = $('<div class="scale_obj"><i class="line"></i><i class="number">'+scale[1]+'</i></div>').css('left', scale[0]*100+'%');
                         scales_obj.append(scale_obj);
-                    }
+//                    }
                 }
                 scales_obj.find('.number').click(function(){
                     self.setSliderValueByValue($(this).text());
-                    opts.slider.call(window, $(this).text(), true);
+                    opts.slider.call(window, $(this).text());
                 });
                 slider_obj.slider({
                     min: opts.min,
                     max: opts.max,
                     slide: function (event, ui) {
                         slider_obj_range.width((ui.value/opts.max)*100+"%");
-                        opts.slider.call(window, self.getValueBySliderValue(ui.value), true);
+                        opts.slider.call(window, self.getValueBySliderValue(ui.value));
                     }
                 });
             };
@@ -149,7 +149,6 @@
             obj.init(this);
             $(this).data('obj', obj);
             opts.value && obj.setSliderValueByValue(opts.value);
-            opts.value && opts.slider(opts.value);
         });
     };
 
