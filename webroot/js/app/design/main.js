@@ -38,6 +38,18 @@
 
 $(function () {
 
+    $.slider({
+        defaultStep: 0,
+        sliderAnimate: 600,
+        sliderButton: 'a.step',
+        sliderSelection: '.design-slider',
+        sliderContainer: '.design-center',
+        onclick: function(step){
+            $('a.step').removeClass('active');
+            $('a.step').eq(step).addClass('active');
+        }
+    });
+
     var ds;
 
     var ds_color_count = 0;

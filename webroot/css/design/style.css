@@ -375,3 +375,7 @@ div.ds {
     margin: 20px auto;
     background: url(images/icon-last-step.png) no-repeat 21px 16px #000;
 }
+
+.design-main .design-slider {
+    width: 100%;
+}
