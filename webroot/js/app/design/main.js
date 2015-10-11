@@ -1,4 +1,33 @@
-(function initAllFonts() {
+(function () {
+    function _Router() {
+    }
+
+    _Router.prototype.setup = function (routemap) {
+        var that = this;
+        this.routemap = [];
+        for (var rule in routemap) {
+            if (!routemap.hasOwnProperty(rule)) continue;
+            that.routemap.push({
+                rule: new RegExp(rule, 'i'),
+                func: routemap[rule]
+            });
+        }
+    };
+    _Router.prototype.start = function () {
+        var hash = location.hash, route, matchResult;
+        for (var routeIndex in this.routemap) {
+            route = this.routemap[routeIndex];
+            matchResult = hash.match(route.rule);
+            if (matchResult) {
+                route.func.apply(window, matchResult.slice(1));
+                return;
+            }
+        }
+    };
+    window.Router = new _Router();
+})();
+
+(function () {
     window.ET_DS_ALL_FONTS = {
         path: '/designer/fonts',
         types: ['popular'],
@@ -38,8 +67,26 @@
 
 $(function () {
 
+    var defaultStep = 0;
+
+    Router.setup({
+        '#design': function () {
+            defaultStep = 0;
+            $('.step').eq(defaultStep).addClass('active');
+        },
+        '#pricing': function () {
+            defaultStep = 1;
+            $('.step').eq(defaultStep).addClass('active');
+        },
+        '#push': function () {
+            defaultStep = 2;
+            $('.step').eq(defaultStep).addClass('active');
+        }
+    });
+    Router.start();
+
     $.slider({
-        defaultStep: 0,
+        defaultStep: defaultStep,
         sliderAnimate: 600,
         sliderButton: 'a.step',
         sliderSelection: '.design-slider',
@@ -49,6 +96,8 @@ $(function () {
             $('a.step').eq(step).addClass('active');
         }
     });
+
+    //----------------design
 
     var ds;
 
