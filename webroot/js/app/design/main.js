@@ -930,7 +930,7 @@ $(function () {
             [1, 1000]
         ],
         slider: function(value){
-            console.log(value);
+            $('#saleGoalInput').val(value);
         }
     });
 
