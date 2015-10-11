@@ -23,9 +23,9 @@
         <div class="design-top-leaf"></div>
         <div class="design-top-center">
             <div class="design-top-nav">
-                <a class="step step-1 active" href="javascript:;"><i class="scissors"></i>1.设计</a>
-                <a class="step step-2" href="javascript:;"><i class="scissors"></i>2.设定目标</a>
-                <a class="step step-3" href="javascript:;"><i class="scissors"></i>3.添加描述</a>
+                <a class="step step-1" href="#design"><i class="scissors"></i>1.设计</a>
+                <a class="step step-2" href="#pricing"><i class="scissors"></i>2.设定目标</a>
+                <a class="step step-3" href="#push"><i class="scissors"></i>3.添加描述</a>
                 <div class="clearfix"></div>
             </div>
             <div class="btn-group">
