@@ -1,4 +1,33 @@
-(function initAllFonts() {
+(function () {
+    function _Router() {
+    }
+
+    _Router.prototype.setup = function (routemap) {
+        var that = this;
+        this.routemap = [];
+        for (var rule in routemap) {
+            if (!routemap.hasOwnProperty(rule)) continue;
+            that.routemap.push({
+                rule: new RegExp(rule, 'i'),
+                func: routemap[rule]
+            });
+        }
+    };
+    _Router.prototype.start = function () {
+        var hash = location.hash, route, matchResult;
+        for (var routeIndex in this.routemap) {
+            route = this.routemap[routeIndex];
+            matchResult = hash.match(route.rule);
+            if (matchResult) {
+                route.func.apply(window, matchResult.slice(1));
+                return;
+            }
+        }
+    };
+    window.Router = new _Router();
+})();
+
+(function () {
     window.ET_DS_ALL_FONTS = {
         path: '/designer/fonts',
         types: ['popular'],
@@ -37,6 +66,57 @@
 })();
 
 $(function () {
+
+    //--------------------router
+
+    var defaultStep = 0;
+
+    function initRouter(){
+
+        Router.setup({
+            '#design': function () {
+                defaultStep = 0;
+                $('.step').eq(defaultStep).addClass('active');
+            },
+            '#pricing': function () {
+                defaultStep = 1;
+                $('.step').eq(defaultStep).addClass('active');
+            },
+            '#push': function () {
+                defaultStep = 2;
+                $('.step').eq(defaultStep).addClass('active');
+            }
+        });
+        Router.start();
+
+        $.slider({
+            defaultStep: defaultStep,
+            sliderAnimate: 600,
+            sliderButton: 'a.step',
+            sliderSelection: '.design-slider',
+            sliderContainer: '.design-center',
+            onclick: function(step){
+                $('a.step').removeClass('active');
+                $('a.step').eq(step).addClass('active');
+                if(step==1){
+                    cloneDesignArea();
+                }
+            }
+        });
+
+        function cloneDesignArea(){
+            var clone_sides = $($('#ds').html());
+            clone_sides.find('.html-surface').remove();
+            $('#ds_preview').empty().append(clone_sides);
+
+            var idx = $('.ds-pricing-products-side.active').index();
+            showDsPricingProductSide(idx);
+        }
+    }
+
+    initRouter();
+
+    //----------------design
 
     var ds;
 
@@ -853,4 +933,53 @@ $(function () {
     initDsCenterPanel();
     initDsRightPanel();
     initDsEvents();
+
+    //------------pricing
+
+    $('#saleScroll').honest_slider({
+        scales: [
+            [0, 10],
+            [0.05, 50],
+            [0.1, 100],
+            [0.3, 300],
+            [0.5, 500],
+            [0.7, 700],
+            [1, 1000]
+        ],
+        slider: function(value){
+            $('#saleGoalInput').val(value);
+        }
+    });
+
+    function saleGoalInputEvent(){
+        var value  = event.target.value;
+        value = value.match(/[0-9]/g) != null ? value.match(/[0-9]/g).join('') : 10;
+        if(value<10){
+            value=10;
+        }
+        if(value>1000){
+            value = 1000;
+        }
+        event.target.value = value;
+        $('#saleScroll').honest_slider('value', value);
+    }
+
+    $('#saleGoalInput').on('input blur',saleGoalInputEvent);
+
+    function showDsPricingProductSide(idx){
+        $('#ds_preview').find('.new-editor').hide();
+        $('#ds_preview').find('.new-editor').eq(idx).show();
+    }
+
+    function initPricingChangeProductSide(){
+
+        $('.ds-pricing-products-side').click(function(){
+            $('.ds-pricing-products-side').removeClass('active');
+            $(this).addClass('active');
+            var idx = $(this).index();
+            showDsPricingProductSide(idx);
+        });
+    }
+
+    initPricingChangeProductSide();
 });

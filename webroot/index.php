@@ -221,7 +221,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
                 <li class="template-con">
                     <a href="#">
                         <i>Cartion</i>
-                        <img src="css/index/images/template1.jpg">
+                        <img src="css/index/images/animal-50.png">
                         <span class="designer">易衫网设计师</span>
                         <span class="charge">免费</span>
                         <span class="help-popup">
@@ -254,7 +254,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
                 <li class="template-con">
                     <a href="#">
                         <i>Cartion</i>
-                        <img src="css/index/images/katton-21.png">
+                        <img src="css/index/images/bj&wl-11.png">
                         <span class="designer">易衫网设计师</span>
                         <span class="charge">免费</span>
                         <span class="help-popup">
@@ -265,7 +265,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
                 <li class="template-con">
                     <a href="#">
                         <i>Decortion</i>
-                        <img src="css/index/images/person-18.png">
+                        <img src="css/index/images/Decoration  (2).png">
                         <span class="designer">易衫网设计师</span>
                         <span class="charge">1元/件</span>
                         <span class="help-popup">
@@ -288,7 +288,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
                 <li class="template-con">
                     <a href="#">
                         <i>Cartion</i>
-                        <img src="css/index/images/template1.jpg">
+                        <img src="css/index/images/Decoration  (5).png">
                         <span class="designer">易衫网设计师</span>
                         <span class="charge">免费</span>
                         <span class="help-popup">
@@ -299,7 +299,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
                 <li class="template-con">
                     <a href="#">
                         <i>Decortion</i>
-                        <img src="css/index/images/bj&wl-07.png">
+                        <img src="css/index/images/bj&wl-11.png">
                         <span class="designer">易衫网设计师</span>
                         <span class="charge">1元/件</span>
                         <span class="help-popup">

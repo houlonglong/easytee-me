@@ -472,7 +472,7 @@ body.current {
 }
 
 .tab-lan {
-    margin-top: 20px;
+    padding-top: 20px;
     height: 54px;
     border-bottom: 1px solid #b9b9b9;
     background: #fff;
@@ -518,10 +518,11 @@ body.current {
 }
 
 #introduce, #details, #rule {
-    height: 500px;
-    background: rgba(255, 203, 192, .1);
+    min-height: 400px;
 }
-
+#introduce{
+    margin-top: 30px;
+}
 .dialog {
     width: 100%;
     position: fixed;
@@ -837,7 +838,7 @@ body.current {
 }
 .dialog-size-con{
     width: 709px;
-    height: 391px;
+    min-height: 351px;
     background-color: #fff;
     position: absolute;
     left: 50%;
@@ -877,16 +878,17 @@ body.current {
     height: 40px;
     background: url(images/dialog-size-btn.jpg) no-repeat;
     color: #fff;
-    position: absolute;
+    position: relative;
     bottom: 25px;
     left: 50%;
     margin-left: -90px;
     cursor: pointer;
+    margin-top: 46px;
 }
 table,table tr{
     width: 100%;
 }
-table{margin-top: 30px;}
+table{margin-top: 30px; }
 table tr{
     text-align: center;
     border-bottom:1px dotted #ccc;
