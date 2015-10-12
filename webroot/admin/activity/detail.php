@@ -164,7 +164,7 @@
                     editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         var cell = '';
-                        if(rowObject.pay_status){
+                        if(rowObject.pay_status == 1){
                             if(rowObject.ship_status == 1){
                                 cell = "已发货"
                             }else{
