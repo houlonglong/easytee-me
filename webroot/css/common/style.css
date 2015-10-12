@@ -6,7 +6,7 @@ img{display:block; border:0;}
 ul,ol{list-style:none; }
 textarea{resize:none; }
 table{border-collapse:collapse; }
-body{color:#333; font-size:12px; font-family:'黑体';}
+body{color:#333; font-size:12px; font-family:"微软雅黑";}
 .clearfix:after{content:""; display:block;clear:both;}
 .clearfix{zoom:1;}
 a{ font-size:12px;color:#666; text-decoration:none;}
