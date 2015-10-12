@@ -23,6 +23,30 @@
         ]
     },
     {
+        "title":"产品管理",
+        "hide_menu":0,
+        "icon":"fa-fire",
+        "model": {
+            "path": "/admin/user",
+            "action": {}
+        },
+        "control":[
+            {
+                "title":"生产厂家",
+                "url":"/admin/product/manufacturer/index"
+            },
+            {
+                "title":"产品分类",
+                "url":"/admin/product/cat/index"
+            },
+            {
+                "title":"产品列表",
+                "url":"/admin/product/manufacturer/index",
+                "hide_menu":0
+            }
+        ]
+    },
+    {
         "title":"用户管理",
         "hide_menu":0,
         "icon":"fa-user",
