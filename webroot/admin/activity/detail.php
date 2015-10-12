@@ -120,7 +120,6 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: true, editable: false},
                 {
                     title: "订单号",
                     name: 'order_no',
@@ -164,7 +163,7 @@
                     editable: false,
                     formatter: function (cellvalue, options, rowObject) {
                         var cell = '';
-                        if(rowObject.pay_status){
+                        if(rowObject.pay_status == 1){
                             if(rowObject.ship_status == 1){
                                 cell = "已发货"
                             }else{

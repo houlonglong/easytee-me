@@ -349,7 +349,6 @@ div.ds {
     width: 1080px;
     min-height: 300px;
     margin: 0 auto;
-    min-height: 730px;
 }
 
 .design-main .next-step {
@@ -362,4 +361,20 @@ div.ds {
     border-radius: 3px;
     margin: 20px auto;
     background: url(images/icon-next-step.png) no-repeat 21px 16px #000;
+}
+
+.design-main .last-step {
+    display: block;
+    height: 56px;
+    line-height: 56px;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 3px;
+    margin: 20px auto;
+    background: url(images/icon-last-step.png) no-repeat 21px 16px #000;
+}
+
+.design-main .design-slider {
+    width: 100%;
 }
