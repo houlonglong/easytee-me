@@ -120,7 +120,6 @@
             rowList: [15, 30, 50, 100],
             caption: "",
             cols: [
-                {title: "Id", name: 'id', index: 'id', width: 40, sorttype: true, editable: false},
                 {
                     title: "订单号",
                     name: 'order_no',
