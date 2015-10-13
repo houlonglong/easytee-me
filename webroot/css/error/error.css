@@ -1,0 +1,64 @@
+.error_404{
+    width: 1108px;
+    height: 586px;
+    margin:20px auto 100px;
+    background: url("../common/images/error_404.jpg");
+    position: relative;
+}
+.error_404_btn{
+    position: absolute;
+    bottom: 42px;
+    right: 78px;
+}
+.error_404_btn a{
+    display: inline-block;
+    width: 177px;
+    height: 77px;
+    background: url("../common/images/error_404_btn.jpg");
+}
+.error_404_btn span{
+    font-size: 18px;
+    color:#9fa0a0;
+    position: relative;
+    top:-24px;
+    right:-20px;
+}
+
+.error_500{
+    width: 1095px;
+    height: 579px;
+    margin:50px auto 100px;
+    background: url("../common/images/error_500.jpg");
+    position: relative;
+}
+.error_500_btn{
+    position: absolute;
+    bottom: 42px;
+    right: 78px;
+}
+
+.error_500_btn a:first-child{
+    display: inline-block;
+    width: 257px;
+    height: 77px;
+    background: url("../common/images/error_500_btn.jpg");
+    position: absolute;
+    top:-111px;
+    right:66px;
+}
+.error_500_btn span{
+    font-size: 18px;
+    color:#9fa0a0;
+    position: relative;
+    top:-79px;
+    right:-78px;
+}
+.error_500_btn a:nth-child(2){
+    display: inline-block;
+    width: 177px;
+    height: 77px;
+    background: url("../common/images/error_404_btn.jpg");
+    position: absolute;
+    top:0;
+    right:150px;
+}

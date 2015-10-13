@@ -33,9 +33,9 @@
 
 
 	<?php include(block("block/reset"))?>
-	
 
-<div class="foot">
+	<?php include(block("block/footer")) ?>
+<!--<div class="foot">
 <div class="infooter clearfix">
 	<h2>易衫网</h2>
 	<dl>
@@ -73,6 +73,6 @@
 	<span class="ewm"></span>
 	<p>Copyright © 2014-2015 易衫网 沪公网备310107100040719</p>
 </div>
-</div>
+</div>-->
 </body>
 </html>
