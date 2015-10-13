@@ -166,26 +166,26 @@
             <div class="ds-pricing-product-add-tool">
                 <div class="ds-pricing-product-add-control ds-pricing-product-add-control-1">
                     <div class="ds-pricing-product-add-label">款式选择</div>
-                    <select class="ds-pricing-product-add-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <select id="ds_pricing_product_add_select_cat" class="ds-pricing-product-add-select">
+<!--                        <option value="1">1</option>-->
+<!--                        <option value="2">2</option>-->
+<!--                        <option value="3">3</option>-->
+<!--                        <option value="4">4</option>-->
+<!--                        <option value="5">5</option>-->
                     </select>
                 </div>
                 <div class="ds-pricing-product-add-control ds-pricing-product-add-control-2">
                     <div class="ds-pricing-product-add-label">产品选择</div>
-                    <select class="ds-pricing-product-add-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <select id="ds_pricing_product_add_select_products" class="ds-pricing-product-add-select">
+<!--                        <option value="1">1</option>-->
+<!--                        <option value="2">2</option>-->
+<!--                        <option value="3">3</option>-->
+<!--                        <option value="4">4</option>-->
+<!--                        <option value="5">5</option>-->
                     </select>
                 </div>
                 <div class="ds-pricing-product-add-control ds-pricing-product-add-control-3">
-                    <a class="ds-pricing-product-add-btn">添加</a>
+                    <a id="ds_pricing_product_add_btn" class="ds-pricing-product-add-btn" href="javascript:;">添加</a>
                 </div>
                 <div class="clearfix"></div>
             </div>
