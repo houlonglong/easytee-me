@@ -125,6 +125,8 @@ header{
 .afterLogin img{
     display: inline-block;
     margin-left: 10px;
+    position: relative;
+    top: 8px;
 }
 .afterLogin span{
     color: #fff;
