@@ -212,6 +212,11 @@ $(function () {
         $('.image-store').hide();
     }
 
+    var CACHE = {};
+    function initCache(productInfo){
+        CACHE = productInfo;
+    }
+
     var PRODUCTS_CACHE = {};
 
     function initProductCache(products) {
@@ -621,9 +626,12 @@ $(function () {
                 var returnData = data.return;
                 var designInfo = returnData.design_info;//编辑用的
                 productInfo = returnData.product_info;
+                console.log(productInfo);
+                initCache(productInfo);
                 initProductCache(productInfo.products);
                 initProductStylesCache(productInfo.styles);
                 initProductCategories();
+                initPricingData();
             } else {
                 console.error(data.message);
             }
@@ -1109,7 +1117,7 @@ $(function () {
                 firstItem.remove();
             }
         } else {
-            $('.ds-pricing-product-list', productItem).append(productItem);
+            $('.ds-pricing-product-list').append(productItem);
         }
 
         $('.ds-pricing-product-item-color-btn', productItem).click(function (e) {
@@ -1163,7 +1171,6 @@ $(function () {
 
         addProductControlLimit();
     }
-
 
     function addProductControlLimit(){
         var selectItems = $('.ds-pricing-product-list').find('.ds-pricing-product-item-color-menu-color-item.selected');
@@ -1331,12 +1338,6 @@ $(function () {
                 updateTotalProfit();
             });
 
-            //产品发生改变
-            dsManager.on('dsProductChanged', function (product) {
-                updatePricingProduct(product);
-                updateTotalProfit();
-            });
-
             //设计元素颜色数量发生变化后调整所有产品利润与总利润
             dsManager.on('dsColorCountChanged', function () {
                 updatePricingProducts();
@@ -1350,12 +1351,62 @@ $(function () {
             });
         }
 
+        function initProductAddEvent(){
+            $('#ds_pricing_product_add_btn').click(function(){
+                var productId = $('#ds_pricing_product_add_select_products').val();
+                var product = getProductById(productId);
+                var styles = getStylesByProductId(productId);
+                var style;
+                for(var o in styles){
+                    var _style = styles[o];
+                    if(_style.is_default == 1){
+                        style = _style;
+                        break;
+                    }
+                }
+                addPricingProduct(product, style);
+            });
+        }
+
         initSaleScroll();
         initSaleInput();
         initPricingSides();
         initPricingDropDownMenuEven();
         initProductColorEvent();
         initUpdateProductEvent();
+        initProductAddEvent();
+    }
+    function initPricingData(){
+        /*
+         * 加载产品类型以及事件
+         */
+        function initProductCategories() {
+            var str = '';
+            for (var o in CACHE.cats) {
+                var item = CACHE.cats[o];
+                str += '<option value="' + o + '">' + item.cat_name + '</option>';
+            }
+            $('#ds_pricing_product_add_select_cat').append(str);
+            $('#ds_pricing_product_add_select_cat').change(function () {
+                var categoryId = $(this).val();
+                var products = CACHE.products[categoryId];
+                initProductChoice(products);
+            });
+            $('#ds_pricing_product_add_select_cat').change();
+        }
+
+        /*
+         * 加载产品列表以及事件
+         */
+        function initProductChoice(products) {
+            var str = '';
+            for (var o in products) {
+                var item = products[o];
+                str += '<option value="' + o + '">' + item.product_name + '</option>';
+            }
+            $('#ds_pricing_product_add_select_products').empty().append(str);
+        }
+        initProductCategories();
     }
 
     initPricing();
