@@ -73,7 +73,7 @@
 					<a href="#" class="wb"></a>
 					<a href="#" class="wx"></a>
 				</div>
-				<div class="zc-link">
+				<div class="zc-link login-zc-link">
 					<a href="javascrpit:;">没有账号？免费注册</a>
 				</div>
 			</div>
