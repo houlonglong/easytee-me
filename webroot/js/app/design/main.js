@@ -166,6 +166,14 @@ $(function () {
 
     var ds_product_style_id;
 
+    function setCookie(name, value){
+        $.cookie(name, value, {path: "/"});
+    }
+
+    function getCookie(name){
+        return $.cookie(name);
+    }
+
     function showTextLayer() {
         $('.tab:eq(0)').addClass('active');
         $('.tab:eq(1)').removeClass('active');
@@ -251,6 +259,7 @@ $(function () {
     function getStyleByProductIdAndStyleId(productId, styleId) {
         return PRODUCTS_STYLE_CACHE[productId][styleId];
     }
+
 
     /**
      * 初始化设计工具设置面板数据及事件
@@ -653,9 +662,13 @@ $(function () {
             $('#selectProductCategories').change(function () {
                 var categoryId = $(this).val();
                 ds_cat_id = categoryId;
+                setCookie('ds_cat_id', ds_cat_id);
                 var products = productInfo.products[categoryId];
                 initProductChoice(products);
             });
+            if(getCookie('ds_cat_id').length != 0){
+                $('#selectProductCategories').val(getCookie('ds_cat_id'));
+            }
             $('#selectProductCategories').change();
         }
 
@@ -683,6 +696,7 @@ $(function () {
 
                 var productId = $(this).attr('data-id');
                 ds_product_id = productId;//赋值全局变量
+                setCookie('ds_product_id', ds_product_id);
                 var product_design = products[productId].product_design;
                 //拼装DS需要的初始化数据
                 var sides = [];
@@ -713,23 +727,59 @@ $(function () {
                     ds.load(sides);
                 }
 
-                var styles = productInfo.styles[productId];
-                var style;
-                for (var o in styles) {
-                    if (styles[o].is_default == 1) {
-                        style = styles[o];
-                        style.id = o;
-                        break;
+                if(getCookie('ds_product_style_id').length != 0){
+                    var styleId = getCookie('ds_product_style_id');
+                    var style = getStyleByProductIdAndStyleId(productId, styleId);
+                    if(style){
+                        $('.color-item', this).removeClass('active');
+                        $('.color-item[data-id=' + style.id + ']', this).addClass('active');
+                        ds.call('productColor', '#' + style.color);
+                        dsManager.trigger('dsProductAdded', getProductById(productId), style);
+                    }else{
+                        var styles = productInfo.styles[productId];
+                        var style;
+                        for (var o in styles) {
+                            if (styles[o].is_default == 1) {
+                                style = styles[o];
+                                style.id = o;
+                                break;
+                            }
+                        }
+                        if (style) {
+                            ds_product_style_id = style.id;//复制全局变量
+                            setCookie('ds_product_style_id', ds_product_style_id);
+                            $('.color-item', this).removeClass('active');
+                            $('.color-item[data-id=' + style.id + ']', this).addClass('active');
+                            ds.call('productColor', '#' + style.color);
+                            dsManager.trigger('dsProductAdded', getProductById(productId), style);
+                        }
+                    }
+                }else{
+                    var styles = productInfo.styles[productId];
+                    var style;
+                    for (var o in styles) {
+                        if (styles[o].is_default == 1) {
+                            style = styles[o];
+                            style.id = o;
+                            break;
+                        }
+                    }
+                    if (style) {
+                        ds_product_style_id = style.id;//复制全局变量
+                        setCookie('ds_product_style_id', ds_product_style_id);
+                        $('.color-item', this).removeClass('active');
+                        $('.color-item[data-id=' + style.id + ']', this).addClass('active');
+                        ds.call('productColor', '#' + style.color);
+                        dsManager.trigger('dsProductAdded', getProductById(productId), style);
                     }
                 }
-                if (style) {
-                    ds_product_style_id = style.id;//复制全局变量
-                    $('.color-item[data-id=' + style.id + ']').addClass('active');
-                    ds.call('productColor', '#' + style.color);
-                    dsManager.trigger('dsProductAdded', getProductById(productId), style);
-                }
             });
-            $('.product-item').eq(0).click();
+
+            if(getCookie('ds_product_id').length != 0){
+                $('.product-item[data-id='+getCookie('ds_product_id')+']').click();
+            }else{
+                $('.product-item').eq(0).click();
+            }
 
             $('.product-color-picket .color-item').hover(function (e) {
                 var styleColor = $(this).attr('data-color');
@@ -743,10 +793,10 @@ $(function () {
                 e.stopPropagation();
                 $('.color-item').removeClass('active');
                 $(this).addClass('active');
-
                 var productId = $(this).attr('data-product-id');
                 var styleId = $(this).attr('data-id');
                 ds_product_style_id = styleId;//复制全局变量
+                setCookie('ds_product_style_id', ds_product_style_id);
                 var styleColor = $(this).attr('data-color');
                 ds.call('productColor', styleColor);
                 dsManager.trigger('dsProductPropertyChanged', getProductById(productId), getStyleByProductIdAndStyleId(productId, styleId));
