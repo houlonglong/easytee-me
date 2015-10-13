@@ -14,12 +14,13 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>
+    <script type="text/javascript" src="js/libs/crypt/sha1.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script type="text/javascript" src="js/app/index/index.js"></script>
     <script type="text/javascript" src="js/app/common/mobile_index.js"></script>
 </head>
 <body>
-    <!-- <div class="try"> 
+    <!-- <div class="try">
         <i></i>
     </div> -->
     <div class="tanceng">
@@ -42,12 +43,21 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
         <h1 class="logo">
             <a href="index.html">易衫网</a>
         </h1>
+
         <div class="login">
             <a href="#" class="begin">发起活动</a>
             <div class="login-links">
                 <a href="#">消息</a>
+                <?php if(!Model_User_Auth::is_logined()){ ?>
                 <a href="#" id="popup-login">登录</a>
                 <a href="#" id="popup-register">注册</a>
+                <?php }else{ ?>
+                <div class="afterLogin">
+                    <span style="color: #666"><?php echo PtApp::$auth['nick_name'] ?></span>
+                    <img src="../css/common/images/login_icon.jpg">
+                </div>
+                <?php } ?>
+
             </div>
         </div>
     </nav>
