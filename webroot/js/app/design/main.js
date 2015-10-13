@@ -235,9 +235,13 @@ $(function () {
     }
 
     var PRODUCTS_STYLE_CACHE = {};
-
     function initProductStylesCache(styles) {
         PRODUCTS_STYLE_CACHE = styles;
+        for(var productId in PRODUCTS_STYLE_CACHE){
+            for(var styleId in PRODUCTS_STYLE_CACHE[productId]){
+                PRODUCTS_STYLE_CACHE[productId][styleId]['id']=styleId;
+            }
+        }
     }
 
     function getStylesByProductId(productId) {
@@ -245,7 +249,6 @@ $(function () {
     }
 
     function getStyleByProductIdAndStyleId(productId, styleId) {
-        PRODUCTS_STYLE_CACHE[productId][styleId]['id'] = styleId;
         return PRODUCTS_STYLE_CACHE[productId][styleId];
     }
 
@@ -1093,7 +1096,8 @@ $(function () {
         var styles = getStylesByProductId(product.product_id);
         for (var styleId in styles) {
             var _style = styles[styleId];
-            htmlStr += '<a class="ds-pricing-product-item-color-menu-color-item ' + (style.id == styleId ? 'selected' : '') + '" title="' + _style.color_name + '" data-id="' + styleId + '" data-color="' + _style.color + '">' +
+            var selected = (style.id == styleId ? 'selected' : '');
+            htmlStr += '<a class="ds-pricing-product-item-color-menu-color-item ' + selected + '" title="' + _style.color_name + '" data-id="' + styleId + '" data-color="' + _style.color + '">' +
                 '<span class="ds-pricing-product-item-color-selected">✓</span>' +
                 '<span style="background: #' + _style.color + ';"></span>' +
                 '</a>';
@@ -1140,7 +1144,7 @@ $(function () {
             var styleId = $(this).attr('data-id');
             var colorValue = $(this).attr('data-color');
             var productItem = $(this).parents('.ds-pricing-product-item');
-            var selectItems = $(this).parents('.ds-pricing-product-item-color-menu-color-list').find('.selected');
+            var selectItems = $('.ds-pricing-product-list').find('.selected');
             if ($(this).hasClass('selected')) {//样式删除事件
                 if(selectItems.length == 1){
                     return;
@@ -1175,6 +1179,11 @@ $(function () {
     function addProductControlLimit(){
         var selectItems = $('.ds-pricing-product-list').find('.ds-pricing-product-item-color-menu-color-item.selected');
         $('span', '.ds-pricing-product-add-total').text(10-selectItems.length);
+        if(10-selectItems.length <= 0){
+            $('.ds-pricing-product-add').hide();
+        }else{
+            $('.ds-pricing-product-add').show();
+        }
     }
 
     function setLastColor(productItem){
@@ -1376,6 +1385,7 @@ $(function () {
         initUpdateProductEvent();
         initProductAddEvent();
     }
+
     function initPricingData(){
         /*
          * 加载产品类型以及事件
