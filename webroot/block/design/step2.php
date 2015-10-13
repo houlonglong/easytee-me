@@ -32,129 +32,129 @@
             设定售价
         </div>
         <div class="ds-pricing-product-list">
-            <div class="ds-pricing-product-item ds-pricing-product-item-default">
-                <div class="ds-pricing-product-item-icon">
-                    水电费水电费T
-                    <div class="ds-pricing-product-item-icon-begin"></div>
-                    <div class="ds-pricing-product-item-icon-end"></div>
-                </div>
-                <div class="ds-pricing-product-item-left">
-                    <img class="ds-pricing-product-image" src="http://cdn.open.easytee.me/products/10/front.png"/>
-                </div>
-                <div class="ds-pricing-product-item-right">
-                    <div class="ds-pricing-product-item-pricing-info">
-                        <div class="ds-pricing-product-item-right-column">
-                            <div class="ds-pricing-product-item-right-column-label">
-                                成本：
-                            </div>
-                            <div class="ds-pricing-product-item-right-column-info">
-                                ¥
-                                <span class="ds-pricing-product-item-right-column-info-num">35.79</span>
-                            </div>
-                        </div>
-                        <div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">
-                            <span>+</span>
-                        </div>
-                        <div class="ds-pricing-product-item-right-column">
-                            <div class="ds-pricing-product-item-right-column-label">
-                                利润：
-                            </div>
-                            <div class="ds-pricing-product-item-right-column-info">
-                                ¥
-                                <span class="ds-pricing-product-item-right-column-info-num">35.79</span>
-                            </div>
-                        </div>
-                        <div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">
-                            <span>=</span>
-                        </div>
-                        <div class="ds-pricing-product-item-right-column">
-                            <div class="ds-pricing-product-item-right-column-label" style="text-align: center;">
-                                售价：
-                            </div>
-                            <div class="ds-pricing-product-item-right-column-info">
-                                <span class="ds-pricing-product-item-right-column-money-unit">¥</span>
-                                <input type="text" class="ds-pricing-product-item-right-column-input"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ds-pricing-product-item-color-info">
-                        <span class="ds-pricing-product-item-color-info-label">已选颜色</span>
-                        <div class="ds-pricing-product-item-selected">
-                            <div class="ds-pricing-product-item-color ds-pricing-product-item-color-default">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                            <div class="ds-pricing-product-item-color">
-                                <span class="ds-pricing-product-item-color-inner"></span>
-                                <span class="ds-pricing-product-item-color-delete"></span>
-                            </div>
-                        </div>
-                        <div class="ds-pricing-product-item-color-dropdown">
-                            <div class="ds-pricing-product-item-color-btn"></div>
-                            <div class="ds-pricing-product-item-color-menu">
-                                <div class="ds-pricing-product-item-color-menu-arrow"></div>
-                                <div class="ds-pricing-product-item-color-menu-color-list">
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <a class="ds-pricing-product-item-delete" href="#"></a>
-            </div>
+<!--            <div class="ds-pricing-product-item ds-pricing-product-item-default">-->
+<!--                <div class="ds-pricing-product-item-icon">-->
+<!--                    水电费水电费T-->
+<!--                    <div class="ds-pricing-product-item-icon-begin"></div>-->
+<!--                    <div class="ds-pricing-product-item-icon-end"></div>-->
+<!--                </div>-->
+<!--                <div class="ds-pricing-product-item-left">-->
+<!--                    <img class="ds-pricing-product-image" src="http://cdn.open.easytee.me/products/10/front.png"/>-->
+<!--                </div>-->
+<!--                <div class="ds-pricing-product-item-right">-->
+<!--                    <div class="ds-pricing-product-item-pricing-info">-->
+<!--                        <div class="ds-pricing-product-item-right-column">-->
+<!--                            <div class="ds-pricing-product-item-right-column-label">-->
+<!--                                成本：-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-right-column-info">-->
+<!--                                ¥-->
+<!--                                <span class="ds-pricing-product-item-right-column-info-num">35.79</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">-->
+<!--                            <span>+</span>-->
+<!--                        </div>-->
+<!--                        <div class="ds-pricing-product-item-right-column">-->
+<!--                            <div class="ds-pricing-product-item-right-column-label">-->
+<!--                                利润：-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-right-column-info">-->
+<!--                                ¥-->
+<!--                                <span class="ds-pricing-product-item-right-column-info-num">35.79</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">-->
+<!--                            <span>=</span>-->
+<!--                        </div>-->
+<!--                        <div class="ds-pricing-product-item-right-column">-->
+<!--                            <div class="ds-pricing-product-item-right-column-label" style="text-align: center;">-->
+<!--                                售价：-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-right-column-info">-->
+<!--                                <span class="ds-pricing-product-item-right-column-money-unit">¥</span>-->
+<!--                                <input type="text" class="ds-pricing-product-item-right-column-input"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="ds-pricing-product-item-color-info">-->
+<!--                        <span class="ds-pricing-product-item-color-info-label">已选颜色</span>-->
+<!--                        <div class="ds-pricing-product-item-selected">-->
+<!--                            <div class="ds-pricing-product-item-color ds-pricing-product-item-color-default">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                            <div class="ds-pricing-product-item-color">-->
+<!--                                <span class="ds-pricing-product-item-color-inner"></span>-->
+<!--                                <span class="ds-pricing-product-item-color-delete"></span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="ds-pricing-product-item-color-dropdown">-->
+<!--                            <div class="ds-pricing-product-item-color-btn"></div>-->
+<!--                            <div class="ds-pricing-product-item-color-menu">-->
+<!--                                <div class="ds-pricing-product-item-color-menu-arrow"></div>-->
+<!--                                <div class="ds-pricing-product-item-color-menu-color-list">-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                    <a class="ds-pricing-product-item-color-menu-color-item" title="黑色" data-color="#000000"><span style="background: #000000;"></span></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="clearfix"></div>-->
+<!--                <a class="ds-pricing-product-item-delete" href="#"></a>-->
+<!--            </div>-->
         </div>
         <div class="ds-pricing-product-add">
             <div class="ds-pricing-product-add-icon">
@@ -166,26 +166,26 @@
             <div class="ds-pricing-product-add-tool">
                 <div class="ds-pricing-product-add-control ds-pricing-product-add-control-1">
                     <div class="ds-pricing-product-add-label">款式选择</div>
-                    <select class="ds-pricing-product-add-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <select id="ds_pricing_product_add_select_cat" class="ds-pricing-product-add-select">
+<!--                        <option value="1">1</option>-->
+<!--                        <option value="2">2</option>-->
+<!--                        <option value="3">3</option>-->
+<!--                        <option value="4">4</option>-->
+<!--                        <option value="5">5</option>-->
                     </select>
                 </div>
                 <div class="ds-pricing-product-add-control ds-pricing-product-add-control-2">
                     <div class="ds-pricing-product-add-label">产品选择</div>
-                    <select class="ds-pricing-product-add-select">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
+                    <select id="ds_pricing_product_add_select_products" class="ds-pricing-product-add-select">
+<!--                        <option value="1">1</option>-->
+<!--                        <option value="2">2</option>-->
+<!--                        <option value="3">3</option>-->
+<!--                        <option value="4">4</option>-->
+<!--                        <option value="5">5</option>-->
                     </select>
                 </div>
                 <div class="ds-pricing-product-add-control ds-pricing-product-add-control-3">
-                    <a class="ds-pricing-product-add-btn">添加</a>
+                    <a id="ds_pricing_product_add_btn" class="ds-pricing-product-add-btn" href="javascript:;">添加</a>
                 </div>
                 <div class="clearfix"></div>
             </div>

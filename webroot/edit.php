@@ -18,7 +18,7 @@
     <script src="js/app/design/vendor/slider/jquery-ui.min.js"></script>
     <script src="js/app/design/vendor/slider/jquery-ui-slider.js"></script>
     <script src="js/app/design/vendor/jQuery-Slider-min.js"></script>
-
+    <script src="js/libs/jquery.cookie.js"></script>
     <script src="js/app/design/main.js"></script>
 </head>
 <body>

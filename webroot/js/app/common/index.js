@@ -67,6 +67,8 @@ $(function () {
                     return;
                 } else if(data.status==8103){
                    $('.login-p').addClass('wrong').children('span').html('密码错误');
+                }else if(data.status===0){
+                    window.location.reload();
                 }
 
             }
@@ -111,7 +113,7 @@ $(function () {
         //重置密码手机和验证码的验证
       var reg3 = /^[1][358][0-9]{9}$/;
         if (!reg3.test(resPhone)) {
-            $('.reset-con .sj').addClass('err');
+            $('.reset-con .sj').addClass('err').children('i').html("输入有误");
             return false;
         } else {
             $('.reset-con .sj').removeClass('err');
@@ -122,18 +124,18 @@ $(function () {
         }
         var that=$(this);
 
-         time(that);
+         //time(that);
 
         $.get('/api', {
             model: "user/forgetpass",
             action: "get_code",
             mobile: $("#res-phone").val()
         }, function (data) {
-            console.log(data);
-            if (status == 0) {
+            //console.log(data);
+            if (data.status === 0) {
                 time(that);
-            } else {
-                $(".reset-con .sj").addClass('err');
+            } else if(data.status == 1){
+                $(".reset-con .sj").addClass('err').children('i').html("无此账号");
             }
         });
     });
@@ -181,26 +183,26 @@ $(function () {
             $('.reset-con .sj').removeClass('err');
         }
         //验证码问题
-        //if(captcha==''){
-        //	$("#res-test").parent().addClass('test-err').children('i').html("请输入验证码");
-        //	return;
-        //}
+        if(captcha==''){
+        	$("#res-test").parent().addClass('test-err').children('i').html("请输入验证码");
+        	return;
+        }
         //
         ////密码问题
-        //if (!reg2.test(resPass)) {
-        //    //alert("密码格式错误");
-        //    $("#res-pass").parent().addClass('test-err');
-        //    return;
-        //} else {
-        //    $("#res-pass").parent().removeClass('test-err');
-        //}
+        if (!reg2.test(resPass)) {
+            //alert("密码格式错误");
+           $("#res-pass").parent().addClass('test-err');
+           return;
+        } else {
+            $("#res-pass").parent().removeClass('test-err');
+        }
 
-        //if (resPass != resPass2) {   //判断密码是否一致
-        //    $("#res-pass2").parent().addClass('test-err');
-        //    return;
-        //} else {
-        //    $("#res-pass2").parent().removeClass('test-err');
-        //}
+        if (resPass != resPass2) {   //判断密码是否一致
+           $("#res-pass2").parent().addClass('test-err');
+            return;
+        } else {
+            $("#res-pass2").parent().removeClass('test-err');
+        }
         
         $.ajax({
             type: "post",
@@ -304,7 +306,7 @@ $(function () {
 				if(data.status===0){  //注册成功显示 成功页面 倒计时5秒返回首页或当前页
                     $('.reg-success').addClass('show').siblings('div').removeClass('show');
                     fn();
-                }else if(data.status==80011){
+                }else if(data.status==1){
                     $("#reg-test").parent().addClass('Prompt').children('i').html( "验证码错误");
                 }
 			}
