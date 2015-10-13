@@ -1160,6 +1160,8 @@ $(function () {
 
             addProductControlLimit();
         });
+
+        addProductControlLimit();
     }
 
 
@@ -1186,6 +1188,10 @@ $(function () {
     //更新单个销售产品信息(颜色/成本/利润/售价)
     function updatePricingProduct(product, style) {
         var item = $('.ds-pricing-product-item[data-id=' + product.product_id + ']');
+
+        item.find('.ds-pricing-product-image').css('backgroundColor', '#' + style.color);
+
+        //颜色选项
         item.find('.ds-pricing-product-item-color-menu-color-item').removeClass('selected');
         item.find('.ds-pricing-product-item-color').each(function (idx) {
             var htmlStr = '<div class="ds-pricing-product-item-color ds-pricing-product-item-color-default" data-id="' + style.id + '">' +
