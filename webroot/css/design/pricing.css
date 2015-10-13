@@ -526,6 +526,7 @@
     height: 554px;
     padding: 27px 10px;
     border: 1px solid #ccc;
+    background: url(images/loading-32x32.gif) no-repeat center;
 }
 
 .ds-pricing-right .ds-pricing-product-sides {
