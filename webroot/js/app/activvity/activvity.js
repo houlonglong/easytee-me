@@ -9,7 +9,7 @@ function isWechat() {
 function YFshare(config) {
     var share = $('#YF-share');
     if (share.length == 0)return;
-    console.log(activity)
+
     config = config || {
             title: encodeURIComponent('很不错的T恤-“'+activity.name+'”,距离抢购结束仅剩' +activity.time+'天啦,喜欢的可要赶紧拉O(∩_∩)O@易衫网'),
             url: encodeURIComponent(window.location.href),

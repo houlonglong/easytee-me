@@ -174,4 +174,9 @@
     <br>
 <?php include(block("block/footer")) ?>
 </body>
+<script>
+$(function(){
+  console.log($(".list-detail-num").html())
+})
+</script>
 </html>

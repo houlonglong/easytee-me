@@ -150,16 +150,17 @@
 <?php include(block("block/footer")) ?>
 
 <script type="text/javascript" src="js/app/sale/index.js"></script>
+
 <script>
-    var activity_id = "<?php echo $activity_id ?>";
+
     var activity = {};
+    var activity_id = "<?php echo $activity_id ?>";
+    console.log(activity.id )
     activity.name = "<?php echo $activity_info['name'] ?>";
     activity.description = "<?php echo strip_tags($activity_info['content']) ?>";
     activity.time ="<?php  echo $activity_info['start_time'] - $activity_info['end_time'] ?>"
     var img_url = "<?php echo $activity_info['thumb_img_url']  ?>"
-    console.log(img_url+"22222222222")
     var product_id = <?php echo $activity_info['uid'] ?>;
-
     function delHtmlTag(str){
         return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
     }
