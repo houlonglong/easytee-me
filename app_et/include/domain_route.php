@@ -13,7 +13,7 @@ function domain_route($file){
         }
     }elseif(substr($file,0,strlen($tools)) == $tools){
         if (!in_array($_SERVER['HTTP_HOST'],
-            array("service.easytee.me"))
+            array("service.easytee.me","2.dev.jzw.com"))
         ) {
             throw new Exception("not found", 101404);
         }

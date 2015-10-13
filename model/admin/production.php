@@ -96,16 +96,17 @@ class Model_Admin_Production extends Model_Admin_Abstract{
             $args[] = $request['activity_id'];
         }
         if($request['production_status'] === "0" || $request['production_status']){
+
             if($request['production_status'] === "01" || $request['production_status'] === '02'){//待生产
                 if($request['production_status'] === "01"){
                     //进行中 完成最低销量
-                    $where .=' and a.sale_count >= 10 and a.status = 1 and a.production_status = 0';
+                    $where .=' and a.sale_profit > 0 and a.status = 1 and a.production_status = 0';
                 }else{ //成功的
                     $where .=' and a.status = 3 and a.production_status = 0';
                 }
-            }else{ //已生产
+            }else{
 
-                $where .=' and a.production_status= ? and (a.sale_count >= 10 or a.status = 3)';
+                $where .=' and a.production_status= ? and (a.sale_profit > 0 or a.status = 3)';
                 $args[] = $request['production_status'];
 
                 if($request['production_status']== 2 && ($request['ship_status'] === '0' || $request['ship_status'])){//发货状态
@@ -114,7 +115,7 @@ class Model_Admin_Production extends Model_Admin_Abstract{
                 }
             }
         }else{//全部生产
-            $where .=' and (a.sale_count >= 10 or a.status = 3) ';
+            $where .=' and (a.sale_profit > 0 or a.status = 3) ';
         }
 
         //order

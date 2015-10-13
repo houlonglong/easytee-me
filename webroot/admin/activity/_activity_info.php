@@ -1,3 +1,9 @@
+<?php
+$design_id = $row['activity']['design_id'];
+$svgs = PtLib\db()->select_rows("select * from design_svg_side where design_id = ?",$design_id);
+
+
+?>
 <div class="row">
     <div class="col-xs-12">
         <div class="widget-box">
@@ -34,11 +40,19 @@
                                     <td style="text-align: left"><?php echo $row['activity']['colors']; ?></td>
                                 </tr>
                             </table>
-
                         </div>
                     </div>
 
-                    <div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <?php foreach($svgs as $svg){ ?>
+                                <div class="col-xs-3">
+                                    <img src="<?=$svg['svg_url']?>" alt="" style="border: 1px solid grey; background-color: #F9F9F9">
+                                    <br><a class="btn btn-primary" target="_blank" href="<?=$svg['svg_url']?>"><?=$svg['side']?> 下载</a>
+                                </div><?php } ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

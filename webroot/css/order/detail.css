@@ -1,0 +1,277 @@
+
+.order-detail-con{
+    float: left;
+    width:519px;
+   /* height: 383px;*/
+     margin-right: 30px;
+    border:1px solid #b4b4b5;
+    border-radius: 5px;
+}
+.order-detail-invoice{
+    float: left;
+    width:485px;
+    /*height: 500px;*/
+
+}
+.order-detail-list{
+    border-bottom: 1px dashed #b9b9b9;
+    padding:0 10px 24px;
+}
+
+.order-detail-list h4{
+    text-align: center;
+    padding:15px 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.order-detail-list-con img{
+    float: left;
+    margin-right: 10px;
+}
+.order-detail-list-con ul {
+    float: left;
+}
+.order-detail-list-con-ul{
+    width:421px;
+
+}
+.order-detail-list-con-ul li:first-child span{
+    display: inline-block;
+    width:75px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.list-detail{
+    border-top: 2px solid #b9b9b9;
+    position:relative;
+}
+.list-detail span{
+    position:absolute;
+    top:13px;
+}
+.list-detail-num{
+    left: 29px;
+}
+.list-detail-size{
+    left: 115px;
+}
+.list-detail-style{
+    left:147px;
+    width: 110px;
+    text-align: center;
+}
+
+.list-detail .list-detail-color{
+    display: inline-block;
+    width:25px;
+    height: 25px;
+    border: 1px solid #fff;
+    box-shadow: 0 0 0 1px #dadbda;
+    background-color: #0066cc;
+    left:268px;
+    top:5px;
+}
+.list-detail-price{
+    left:335px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.list-logistics{
+    height: 55px;
+    line-height: 55px;
+    padding: 0 28px;
+}
+.list-logistics-right{
+    float: right;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 15px;
+}
+.list-subtotal{
+    height: 55px;
+    line-height: 55px;
+    background-color: #c8c9ca;
+    border-radius: 5px;
+    padding: 0 28px;
+}
+.list-subtotal-right{
+    float: right;
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/*右边发货信息开始样式*/
+.order-detail-invoice-uniform {padding: 0 15px;}
+
+.order-detail-invoice-uniform p:first-child{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+.order-detail-invoice-uniform p:first-child span{
+    color:#21aea8;
+
+}
+.order-checkbox{
+    margin-top: 35px;
+    position: relative;
+    top:3px;
+    width:14px;
+    height:14px;
+}
+.expressage{
+    margin-top: 28px;
+
+}
+.limit{
+    padding: 0 0 0 15px;
+    margin-bottom: 5px;
+}
+.limit label{
+    width: 78px;
+    text-align: right;
+    display: inline-block;
+}
+.limit textarea{
+    border:none;
+    border:1px solid #b4b4b5;
+    border-radius: 3px;
+    vertical-align: text-top;
+    width：350px;
+}
+.limit select{
+    width: 362px;
+    height: 30px;
+    border: none;
+    border:1px solid #b4b4b5;
+    border-radius: 3px;
+}
+.limit-red{
+    color: red;
+
+}
+.expressage hr{
+    margin: 15px 0;
+    border:1px solid #b9b9b9;
+}
+.expressage-often{
+    padding: 0 15px;
+}
+.expressage-often-address{
+    display: inline-block;
+    width:330px;
+    vertical-align: middle;
+    color:#595757;
+}
+.expressage-often button{
+    width:85px;
+    height: 30px;
+    background: none;
+    border: 1px solid #b4b4b5;
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    right: 5px
+}
+.expressage-often input{
+    margin-left: 10px;
+}
+.expressage-often-title{
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.expressage-add{padding: 30px 15px;}
+.expressage-add input{
+    border: none;
+    border:1px solid#b4b4b5;
+    border-radius: 3px;
+    height: 30px;
+    width:350px;
+}
+.expressage-add .expressage-add-area{
+    width:113px;
+}
+
+.expressage-btn{
+    text-align: right;padding-right: 15px;
+}
+.expressage-btn button{
+    width: 100px;
+    height: 30px;
+    border-radius: 3px;
+    color:#fff;
+    cursor: pointer;
+}
+.expressage-btn-cancel{
+    background-color: #231815;
+}
+.expressage-btn-sure{
+    background-color: #aa2425;
+}
+/*右边发货信息开始样式*/
+.balance p{
+    display: inline-block;
+    color: #646262;
+    font-size: 14px;
+}
+.balance p i{
+    color: #000;
+}
+.balance p span{
+    color: #000;
+    display: inline-block;
+    width: 55px;
+    height: 30px;
+    border: 1px solid #b4b4b5;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 3px;
+}
+.pay-num{
+    position: relative;
+    left:110px;
+}
+
+.pay-way{
+    margin-top: 30px;
+}
+.pay-way input{
+    margin-right: 150px;
+    position: relative;
+    top:10px;
+}
+.pay-way .zfb:after{
+    content: "";
+    position: absolute;
+    top:-10px;
+    right: -130px;
+    width: 112px;
+    height: 35px;
+    background: url("img/zfb.jpg") no-repeat;
+}
+.pay-way .wx:after{
+    content: "";
+    position: absolute;
+    top:-10px;
+    right: -130px;
+    width: 112px;
+    height: 35px;
+    background: url("img/wx.jpg") center no-repeat;
+}
+.pay-way-num{
+    position: relative;
+    left: 65px;
+}
+.order-sure{
+    width:168px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #aa2425;
+    margin-top: 100px;
+    margin-left: 300px;
+    color: #fff;
+}
