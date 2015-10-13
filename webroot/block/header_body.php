@@ -1,11 +1,4 @@
-<?php
-if(Model_User_Auth::is_logined()
-){
-    var_dump(PtApp::$auth);exit;
-}else{
-    die("NO AUTHED");
-}
-?>
+
 <header>
     <span class="header-bg"></span>
     <div class="inHead">
@@ -29,6 +22,7 @@ if(Model_User_Auth::is_logined()
                         <span>排列组合</span>
                         <img src="../css/common/images/login_icon.jpg">
                     </div>
+
                     <?php } ?>
                 </div>
             </div>
