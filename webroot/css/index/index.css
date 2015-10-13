@@ -55,9 +55,10 @@ a:hover{text-decoration:underline; cursor: pointer;}
 }
 .login .begin:hover{text-decoration: none;}
 .login .login-links a{
-    margin-left: 40px;
+    /*margin-left: 40px;*/
     font-size: 14px;
     color: #666;
+    text-decoration: none;
 }
 .banner{
     height: 905px;
@@ -440,6 +441,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
     top:50%;
     transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
+    max-height: 210px;
 }
 .template-con .designer{
     position: absolute;
@@ -539,9 +541,12 @@ a:hover{text-decoration:underline; cursor: pointer;}
     .begin,.login-links{
         float: left;
     }
-    .login .login-links a{
+    /*.login .login-links a{
         margin-left: 30px;
         margin-right: 10px;
+    }*/
+    .login-personage .afterLogin a{
+        margin-left: 0;
     }
     /*  头部样式 */
 

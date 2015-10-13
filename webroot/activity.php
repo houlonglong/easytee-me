@@ -150,8 +150,7 @@
 <?php include(block("block/footer")) ?>
 
 <script type="text/javascript" src="js/app/sale/index.js"></script>
- $(function(){
-})
+
 <script>
 
     var activity = {};

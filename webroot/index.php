@@ -46,7 +46,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
 
         <div class="login">
             <a href="#" class="begin">发起活动</a>
-            <div class="login-links">
+            <div class="login-links login-personage">
                 <a href="#">消息</a>
                 <?php if(!Model_User_Auth::is_logined()){ ?>
                 <a href="#" id="popup-login">登录</a>
@@ -54,7 +54,17 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
                 <?php }else{ ?>
                 <div class="afterLogin">
                     <span style="color: #666"><?php echo PtApp::$auth['nick_name'] ?></span>
-                    <img src="../css/common/images/login_icon.jpg">
+                    <a href="#"><img src="../css/common/images/login_icon.jpg"></a>
+                    <div class="popup-personage">
+                        <ul>
+                            <li><a href="#">活动管理</a></li>
+                            <li><a href="#">展示中心</a></li>
+                            <li><a href="#">我的关注</a></li>
+                            <li><a href="#">我的订单</a></li>
+                            <li><a href="#">管理中心</a></li>
+                            <li><a href="#">退出登录</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <?php } ?>
 
