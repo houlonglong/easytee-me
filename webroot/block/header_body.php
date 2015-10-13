@@ -1,11 +1,4 @@
-<?php
-if(Model_User_Auth::is_logined()
-){
-    var_dump(PtApp::$auth);exit;
-}else{
-    die("NO AUTHED");
-}
-?>
+
 <header>
     <span class="header-bg"></span>
     <div class="inHead">
@@ -25,12 +18,13 @@ if(Model_User_Auth::is_logined()
                     <a href="#" id="popup-register" >注册</a>
                     <?php }else{ ?>
 
-                    <div class="afterLogin">
-                        <span>排列组合</span>
-                        <img src="../css/common/images/login_icon.jpg">
-                    </div>
-                    <?php } ?>
+
                 </div>
+                <div class="afterLogin">
+                    <span><?php echo PtApp::$auth['nick_name'] ?></span>
+                    <img src="../css/common/images/login_icon.jpg">
+                </div>
+                <?php } ?>
             </div>
         </nav>
     </div>

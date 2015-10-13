@@ -69,9 +69,15 @@ $(function () {
         });
 
         $('.buy>a').click(function(){
+
             var arr = [];
+            var t ={};
+            //选择尺寸
+            // var has_error = 0;
+
             var total = parseFloat($('.amount i').html());
             $('li', '.style-info').each(function(){
+                //获取产品信息
                 var item = {
                     num : $('.number-info input', this).val(),
                     product_id : $('.product-info', this).val(),
@@ -79,9 +85,36 @@ $(function () {
                     product_size_id : $('.chima-info', this).val(),
                     subtotal : parseFloat($('.money-info i', this).html())
                 };
-                arr.push(item);
+
+               //获取的单个产品的数量
+                var nums =  $('.number-info input', this).val();
+                //单个产品的信息
+                var key = item.product_id + "" + item.product_size_id + "" + item.product_style_id;
+
+                if (t[key] == undefined) {
+                    t[key] = {
+                        nums: nums,
+                        arr: item
+                    }
+                } else {
+                    t[key]['nums'] = t[key]['nums'] + nums;
+                };
+
+
             });
-            console.log(total, arr);
+            for (key in t) {
+               var item = t[key]['arr'];
+                arr['nums'] = t[key]['nums'];
+                arr.push(item);
+            }
+            console.log(arr);
+            $.cookie("act_order_form", JSON.stringify(arr), {path: "/"});
+            alert(activity_id)
+            window.location.href = "/user/order/detail.php?act_id=" + activity_id ;
+
+            //console.log(rows,t);
+
+
         });
 
         //初始化尺码列表的弹层
