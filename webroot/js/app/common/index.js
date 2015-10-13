@@ -67,6 +67,8 @@ $(function () {
                     return;
                 } else if(data.status==8103){
                    $('.login-p').addClass('wrong').children('span').html('密码错误');
+                }else if(data.status===0){
+                    window.location.reload();
                 }
 
             }
