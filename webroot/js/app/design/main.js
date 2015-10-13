@@ -776,7 +776,11 @@ $(function () {
             });
 
             if(getCookie('ds_product_id').length != 0){
-                $('.product-item[data-id='+getCookie('ds_product_id')+']').click();
+                if($('.product-item[data-id='+getCookie('ds_product_id')+']').length != 0){
+                    $('.product-item[data-id='+getCookie('ds_product_id')+']').click();
+                }else{
+                    $('.product-item').eq(0).click();
+                }
             }else{
                 $('.product-item').eq(0).click();
             }
