@@ -894,22 +894,40 @@ function BitmapBase64Palettes(dataUrl, value, maxColors, callback){
  * EventManager
  * @constructor
  */
-function EventManager() {
-    this.element = $(window);
-    this.trigger = function(b, d) {
-        this.element.trigger(b, [d]);
-    };
-    this.on = function(b, d) {
-        var c = function(b, c) {
-            d(c);
+(function(){
+    /**
+     * EventManager
+     * @constructor
+     */
+    function EventManager() {
+        this.element = $(window);
+        this.trigger = function() {
+            var params = [];
+            for(var o in arguments){
+                if(o!=0){
+                    params.push(arguments[o]);
+                }
+            }
+            this.element.trigger(arguments[0], params);
         };
-        this.element.on(b, c);
-        return function() {
-            eventManager.element.off(b, c);
+        this.on = function(name, func) {
+            var c = function() {
+                var params = [];
+                for(var o in arguments){
+                    if(o!=0){
+                        params.push(arguments[o]);
+                    }
+                }
+                func.apply(this, params);
+            };
+            this.element.on(name, c);
+            return function() {
+                eventManager.element.off(name, c);
+            };
         };
     };
-};
-window.eventManager = new EventManager;
+    window.eventManager = new EventManager;
+})();
 function cmConvertToPx(cm, scale){
 //    scale = 7.47;
     return cm*scale;
@@ -1164,8 +1182,8 @@ function TextElementEl(canvas, string, lineHeight, fontFamily, fontSize, fill, s
     this.snapEl = this.canvas.paper.text(0, 0, this.string);
     this.snapEl.node.setAttribute('font-size', this.fontSize);
     this.snapEl.node.setAttribute('font-family', this.fontFamily);
-    this.snapEl.node.setAttribute('fill', this.fill);
-    this.snapEl.node.setAttribute('stroke', this.stroke);
+    this.snapEl.node.setAttribute('fill', '#'+this.fill);
+    this.snapEl.node.setAttribute('stroke', '#'+this.stroke);
     this.snapEl.node.setAttribute('stroke-width', this.strokeWidth);
 
     for (var i=0; i<this.snapEl.node.childNodes.length; i++) {
@@ -1249,12 +1267,12 @@ TextElementEl.prototype.setFontFamily = function(fontFamily){
 
 TextElementEl.prototype.setFill = function(val){
     this.fill = val;
-    this.snapEl.node.setAttribute('fill', val);
+    this.snapEl.node.setAttribute('fill', '#' + val);
 };
 
 TextElementEl.prototype.setStroke = function(val){
     this.stroke = val;
-    this.snapEl.node.setAttribute('stroke', val);
+    this.snapEl.node.setAttribute('stroke', '#' + val);
 };
 
 TextElementEl.prototype.setStrokeWidth = function(val){
@@ -1946,8 +1964,8 @@ function Canvas(container, options){
     this.lineHeight = 1;
     this.fontFamily = 'Helvetica';
     this.fontSize = 48;
-    this.fill = '#000000';
-    this.stroke = '#000000';
+    this.fill = '000000';
+    this.stroke = '000000';
     this.strokeWidth = 0;
     //------------------------------------------
     this.elements = [];
@@ -1967,6 +1985,7 @@ function Canvas(container, options){
             $('.edit-box[data-id='+textEl.dataId+']', target).removeClass('hidden');
             _activeEl = textEl;
             this.moveToTop();
+            eventManager.trigger('colorsChanged');
         }
     };
 
@@ -1982,6 +2001,7 @@ function Canvas(container, options){
         if(_activeEl && _activeEl instanceof TextElementEl){
             _activeEl.setFill(val);
         }
+        eventManager.trigger('colorsChanged');
     };
 
     this.textStroke = function(val){
@@ -1989,6 +2009,7 @@ function Canvas(container, options){
         if(_activeEl && _activeEl instanceof TextElementEl){
             _activeEl.setStroke(val);
         }
+        eventManager.trigger('colorsChanged');
     };
 
     this.textStrokeWidth = function(val){
@@ -1996,6 +2017,7 @@ function Canvas(container, options){
         if(_activeEl && _activeEl instanceof TextElementEl){
             _activeEl.setStrokeWidth(val);
         }
+        eventManager.trigger('colorsChanged');
     };
 
     this.image = function(url){
@@ -2016,6 +2038,7 @@ function Canvas(container, options){
         $('.edit-box[data-id='+imageEl.dataId+']', target).removeClass('hidden');
         _activeEl = imageEl;
         self.moveToTop();
+        eventManager.trigger('colorsChanged');
     };
 
     this.autoAlign = function(status){
