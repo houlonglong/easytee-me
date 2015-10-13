@@ -534,7 +534,7 @@ $(function () {
                     }
                     $('#image_store_list').empty().append(htmlStr);
                 } else {
-                    console.error(data.message);
+                    console.log(data.message);
                 }
             }, 'json');
         }
@@ -657,7 +657,7 @@ $(function () {
                 initProductCategories();
                 initPricingData();
             } else {
-                console.error(data.message);
+                console.log(data.message);
             }
         }, 'json');
 
@@ -1363,7 +1363,7 @@ $(function () {
                         if (returnData.status == 0) {
                             $('.money-num').text(returnData);
                         } else {
-                            console.error(data.message);
+                            console.log(data.message);
                         }
                     });
                 }
