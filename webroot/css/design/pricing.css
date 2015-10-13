@@ -216,7 +216,7 @@
 }
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info .ds-pricing-product-item-right-column .ds-pricing-product-item-right-column-info .ds-pricing-product-item-right-column-info-num {
-
+    margin-left: 3px;
 }
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info .ds-pricing-product-item-right-column .ds-pricing-product-item-right-column-money-unit {
@@ -275,8 +275,11 @@
     margin-left: 0px;
 }
 
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-selected .ds-pricing-product-item-color:hover .ds-pricing-product-item-color-delete{
+    display: block;
+}
+
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-selected .ds-pricing-product-item-color .ds-pricing-product-item-color-inner {
-    background: #f0981c;
     margin: 1px;
     display: block;
     height: 16px;
@@ -295,6 +298,8 @@
     top: -4px;
     right: -4px;
     background: url(images/icon-design-pricing-style-delete.png) no-repeat;
+    display: none;
+    cursor: pointer;
 }
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-color-dropdown {
@@ -320,7 +325,7 @@
     top: -17px;
     right: -216px;
     width: 212px;
-    min-height: 38px;
+    min-height: 72px;
     border: 1px solid #989898;
     box-shadow: 1px 1px 6px #989898;
     border-radius: 3px;
@@ -361,6 +366,24 @@
     height: 100%;
 }
 
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-color-dropdown .ds-pricing-product-item-color-menu .ds-pricing-product-item-color-menu-color-item.selected .ds-pricing-product-item-color-selected {
+    display: block;
+}
+
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-color-dropdown .ds-pricing-product-item-color-menu .ds-pricing-product-item-color-menu-color-item .ds-pricing-product-item-color-selected {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    color: white;
+    text-align: center;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    display: none;
+    z-index: 1;
+    text-shadow: 0 0 1px #4A3333;
+}
+
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-color-dropdown .ds-pricing-product-item-color-menu .ds-pricing-product-item-color-menu-color-item:hover span {
     position: absolute;
     top: -1px;
@@ -369,6 +392,10 @@
     width: 22px;
     border-radius: 3px;
     box-shadow: 0 0 1px #d8dddf;
+}
+
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-color-info .ds-pricing-product-item-color-dropdown .ds-pricing-product-item-color-menu .ds-pricing-product-item-color-menu-color-item:hover .ds-pricing-product-item-color-selected {
+    top: 2px;
 }
 
 .ds-pricing-left .ds-pricing-product-add {
