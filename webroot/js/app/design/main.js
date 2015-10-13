@@ -1132,8 +1132,8 @@ $(function () {
             var styleId = $(this).attr('data-id');
             var colorValue = $(this).attr('data-color');
             var productItem = $(this).parents('.ds-pricing-product-item');
+            var selectItems = $(this).parents('.ds-pricing-product-item-color-menu-color-list').find('.selected');
             if ($(this).hasClass('selected')) {//样式删除事件
-                var selectItems = $(this).parents('.ds-pricing-product-item-color-menu-color-list').find('.selected');
                 if(selectItems.length == 1){
                     return;
                 }
@@ -1145,6 +1145,9 @@ $(function () {
                     }
                 });
             } else {
+                if(selectItems.length > 9){
+                    return;
+                }
                 var htmlStr = '<div class="ds-pricing-product-item-color" data-id="' + styleId + '" data-color="'+colorValue+'">' +
                     '<span class="ds-pricing-product-item-color-inner" style="background-color: #' + colorValue + '"></span>' +
                     '<span class="ds-pricing-product-item-color-delete"></span>' +
@@ -1154,9 +1157,16 @@ $(function () {
                 $('#ds_preview').find('.product-color').css('backgroundColor', '#' + colorValue);
             }
             $(this).toggleClass('selected');
+
+            addProductControlLimit();
         });
     }
 
+
+    function addProductControlLimit(){
+        var selectItems = $('.ds-pricing-product-list').find('.ds-pricing-product-item-color-menu-color-item.selected');
+        $('span', '.ds-pricing-product-add-total').text(10-selectItems.length);
+    }
 
     function setLastColor(productItem){
         productItem.find('.ds-pricing-product-item-color').removeClass('ds-pricing-product-item-color-default');
@@ -1289,6 +1299,8 @@ $(function () {
                 $(this).parents('.ds-pricing-product-item').find('.ds-pricing-product-item-color-menu-color-item[data-id=' + styleId + ']').removeClass('selected');
 
                 setLastColor($(this).parents('.ds-pricing-product-item'));
+                addProductControlLimit();
+                $(this).parent().remove();
             });
         }
 
