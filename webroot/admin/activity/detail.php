@@ -11,7 +11,6 @@
     $row = Model_Admin_Activity::activity_detail($_REQUEST['id']);
     //var_dump($row);exit;
     ?>
-
     <!-- page specific plugin styles -->
     <link rel="stylesheet" href="/ace/assets/css/jquery-ui.min.css"/>
     <link rel="stylesheet" href="/ace/assets/css/bootstrap-datetimepicker.min.css"/>
@@ -20,7 +19,6 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <link rel="stylesheet" href="/admin/assets/css/style.css" class="ace-main-stylesheet"/>
-
 </head>
 <body class="no-skin">
 <div class="main-container" id="main-container">
