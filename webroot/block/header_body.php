@@ -20,15 +20,16 @@ if(Model_User_Auth::is_logined()
 
                 <div class=""><!--左边div登录后添加类名current就可以隐藏登录和注册 显示头像和昵称 没登录就删除current-->
                     <a href="#">消息</a>
+                    <?php if(!Model_User_Auth::is_logined()){ ?>
                     <a href="#" id="popup-login">登录</a>
                     <a href="#" id="popup-register" >注册</a>
-
+                    <?php }else{ ?>
 
                     <div class="afterLogin">
                         <span>排列组合</span>
                         <img src="../css/common/images/login_icon.jpg">
                     </div>
-
+                    <?php } ?>
                 </div>
             </div>
         </nav>
