@@ -17,6 +17,12 @@ class PtApp{
     static function init(){
         set_setting();
     }
+    static function autoload(){
+        spl_autoload_register('pt_autoload');
+    }
+    static function setting_db($key = 'default'){
+        return self::$setting['db'][$key];
+    }
     static function print_setting(){
         PtLib\log(self::$setting);exit;
     }
