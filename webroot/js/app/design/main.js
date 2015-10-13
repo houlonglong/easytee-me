@@ -1,3 +1,4 @@
+//Router
 (function () {
     function _Router() {
     }
@@ -27,6 +28,7 @@
     window.Router = new _Router();
 })();
 
+//InitialFont
 (function () {
     window.ET_DS_ALL_FONTS = {
         path: '/designer/fonts',
@@ -65,13 +67,49 @@
     }
 })();
 
+//DsEventManager
+(function () {
+    /**
+     * EventManager
+     * @constructor
+     */
+    function EventManager() {
+        this.element = $(window);
+        this.trigger = function () {
+            var params = [];
+            for (var o in arguments) {
+                if (o != 0) {
+                    params.push(arguments[o]);
+                }
+            }
+            this.element.trigger(arguments[0], params);
+        };
+        this.on = function (name, func) {
+            var c = function () {
+                var params = [];
+                for (var o in arguments) {
+                    if (o != 0) {
+                        params.push(arguments[o]);
+                    }
+                }
+                func.apply(this, params);
+            };
+            this.element.on(name, c);
+            return function () {
+                eventManager.element.off(name, c);
+            };
+        };
+    };
+    window.dsManager = new EventManager;
+})();
+
 $(function () {
 
-    //--------------------router
+    //--------------------router-------------------------------------------------
 
     var defaultStep = 0;
 
-    function initRouter(){
+    function initRouter() {
 
         Router.setup({
             '#design': function () {
@@ -95,16 +133,16 @@ $(function () {
             sliderButton: 'a.step',
             sliderSelection: '.design-slider',
             sliderContainer: '.design-center',
-            onclick: function(step){
+            onclick: function (step) {
                 $('a.step').removeClass('active');
                 $('a.step').eq(step).addClass('active');
-                if(step==1){
+                if (step == 1) {
                     cloneDesignArea();
                 }
             }
         });
 
-        function cloneDesignArea(){
+        function cloneDesignArea() {
             var clone_sides = $($('#ds').html());
             clone_sides.find('.html-surface').remove();
             $('#ds_preview').empty().append(clone_sides);
@@ -116,7 +154,7 @@ $(function () {
 
     initRouter();
 
-    //----------------design
+    //----------------design-------------------------------------------------
 
     var ds;
 
@@ -167,11 +205,43 @@ $(function () {
         $('.image-store').show();
     }
 
-    function showImageEditorLayer(){
+    function showImageEditorLayer() {
         $('.tab-content-image-layout, .tab-content-image-layout-or').hide();
         $('.image-editor').show();
         $('.upload-location').hide();
         $('.image-store').hide();
+    }
+
+    var PRODUCTS_CACHE = {};
+
+    function initProductCache(products) {
+        for (var catId in products) {
+            var productsOfCat = products[catId];
+            for (var productId in productsOfCat) {
+                var product = productsOfCat[productId];
+                product.product_id = productId;//补充ID
+                PRODUCTS_CACHE[productId] = product;
+            }
+        }
+    }
+
+    function getProductById(productId) {
+        return PRODUCTS_CACHE[productId];
+    }
+
+    var PRODUCTS_STYLE_CACHE = {};
+
+    function initProductStylesCache(styles) {
+        PRODUCTS_STYLE_CACHE = styles;
+    }
+
+    function getStylesByProductId(productId) {
+        return PRODUCTS_STYLE_CACHE[productId];
+    }
+
+    function getStyleByProductIdAndStyleId(productId, styleId) {
+        PRODUCTS_STYLE_CACHE[productId][styleId]['id'] = styleId;
+        return PRODUCTS_STYLE_CACHE[productId][styleId];
     }
 
     /**
@@ -401,7 +471,7 @@ $(function () {
          */
         function initUploadImage() {
             $('#upload_location_input').fileUploader({
-                callback: function(file, dataUrl){
+                callback: function (file, dataUrl) {
                     ds.call('imageBase64', dataUrl);
                 }
             });
@@ -415,26 +485,26 @@ $(function () {
                 "model": "design/tool/beta",
                 "action": "get_templates",
                 "json": 1
-            }, function(data){
-                if(data.status == 0){
+            }, function (data) {
+                if (data.status == 0) {
                     var returnData = data.return;
                     var templates = returnData.templates;
                     var htmlStr = '';
-                    for(var i=0; i<templates.length; i++){
+                    for (var i = 0; i < templates.length; i++) {
                         var item = templates[i];
                         htmlStr += '<div class="image-list-item">';
                         htmlStr += '<a href="javascript:;" class="img-wrap">';
-                        htmlStr += '<img src="'+item.img_url+'" alt="'+item.name+'">';
+                        htmlStr += '<img src="' + item.img_url + '" alt="' + item.name + '">';
                         htmlStr += '</a>';
-                        if(item.price == 0){
+                        if (item.price == 0) {
                             htmlStr += '<span>免费</span>';
-                        }else{
-                            htmlStr += '<span>'+parseFloat(item.price).toFixed(2)+'元/件</span>';
+                        } else {
+                            htmlStr += '<span>' + parseFloat(item.price).toFixed(2) + '元/件</span>';
                         }
                         htmlStr += '</div>';
                     }
                     $('#image_store_list').empty().append(htmlStr);
-                }else{
+                } else {
                     console.error(data.message);
                 }
             }, 'json');
@@ -444,7 +514,7 @@ $(function () {
          * 自动居中
          */
         function initAutoAlign() {
-            $('#snapCenter').click(function(){
+            $('#snapCenter').click(function () {
                 var status = $(this).prop('checked');
                 ds.autoAlign(status);
             });
@@ -546,13 +616,15 @@ $(function () {
             "model": "design/tool/beta",
             "action": "design_init",
             "json": 1
-        }, function(data){
-            if(data.status == 0){
+        }, function (data) {
+            if (data.status == 0) {
                 var returnData = data.return;
-                var designInfo = returnData.design_info;
+                var designInfo = returnData.design_info;//编辑用的
                 productInfo = returnData.product_info;
+                initProductCache(productInfo.products);
+                initProductStylesCache(productInfo.styles);
                 initProductCategories();
-            }else{
+            } else {
                 console.error(data.message);
             }
         }, 'json');
@@ -603,7 +675,7 @@ $(function () {
                 var product_design = products[productId].product_design;
                 //拼装DS需要的初始化数据
                 var sides = [];
-                for(var o in product_design){
+                for (var o in product_design) {
                     var item = product_design[o];
                     sides.push({
                         width: 500,
@@ -612,10 +684,10 @@ $(function () {
                         image: item.img_url,
                         scale: 7.47,
                         printable: {
-                            x: parseFloat(item.x)/2,
-                            y: parseFloat(item.y)/2,
-                            width: parseFloat(item.w)/2,
-                            height: parseFloat(item.h)/2
+                            x: parseFloat(item.x) / 2,
+                            y: parseFloat(item.y) / 2,
+                            width: parseFloat(item.w) / 2,
+                            height: parseFloat(item.h) / 2
                         }
                     });
                 }
@@ -632,17 +704,18 @@ $(function () {
 
                 var styles = productInfo.styles[productId];
                 var style;
-                for(var o in styles){
-                    if(styles[o].is_default == 1){
+                for (var o in styles) {
+                    if (styles[o].is_default == 1) {
                         style = styles[o];
                         style.id = o;
                         break;
                     }
                 }
-                if(style){
+                if (style) {
                     ds_product_style_id = style.id;//复制全局变量
-                    $('.color-item[data-id='+style.id+']').addClass('active');
-                    ds.call('productColor', '#'+style.color);
+                    $('.color-item[data-id=' + style.id + ']').addClass('active');
+                    ds.call('productColor', '#' + style.color);
+                    dsManager.trigger('dsProductAdded', getProductById(productId), style);
                 }
             });
             $('.product-item').eq(0).click();
@@ -650,7 +723,7 @@ $(function () {
             $('.product-color-picket .color-item').hover(function (e) {
                 var styleColor = $(this).attr('data-color');
                 ds.call('productColor', styleColor);
-            }, function(){
+            }, function () {
                 var styleColor = $(this).parents('.product-color-picket').find('.color-item.active').attr('data-color');
                 ds.call('productColor', styleColor);
             });
@@ -660,10 +733,12 @@ $(function () {
                 $('.color-item').removeClass('active');
                 $(this).addClass('active');
 
+                var productId = $(this).attr('data-product-id');
                 var styleId = $(this).attr('data-id');
                 ds_product_style_id = styleId;//复制全局变量
                 var styleColor = $(this).attr('data-color');
                 ds.call('productColor', styleColor);
+                dsManager.trigger('dsProductPropertyChanged', getProductById(productId), getStyleByProductIdAndStyleId(productId, styleId));
             });
 
             $('.product-color-picket .more-color').hover(function () {
@@ -677,48 +752,48 @@ $(function () {
                 $(this).width('auto');
             });
 
-            $('.product-color-picket').click(function(e){
+            $('.product-color-picket').click(function (e) {
                 e.stopPropagation();
             });
         }
 
-        function initProductStyles(productId){
+        function initProductStyles(productId) {
             var styles = productInfo.styles[productId];
             var htmlStr = '<div class="product-color-picket">';
             htmlStr += '<span class="product-color-menu-arrow"></span>';
             htmlStr += '<ul class="color-column quick-colors">';
-            var isQuickColumn = true, len=0, i = 0;
-            for(var o in styles){
+            var isQuickColumn = true, len = 0, i = 0;
+            for (var o in styles) {
                 len++;
             }
-            for(var styleId in styles){
+            for (var styleId in styles) {
                 var style = styles[styleId];
-                if(isQuickColumn){
-                    if(i==7){
+                if (isQuickColumn) {
+                    if (i == 7) {
                         isQuickColumn = false;
-                        i=0;
+                        i = 0;
                         htmlStr += '<li class="more-color"><span></span></li>';
                         htmlStr += '</ul>';
                         htmlStr += '<ul class="color-column">';
-                        htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
-                        htmlStr += '<span style="background-color: #'+style.color+';"></span>';
+                        htmlStr += '<li class="color-item" data-id="' + styleId + '" data-product-id="' + productId + '" data-color="#' + style.color + '" title="' + style.color_name + '">';
+                        htmlStr += '<span style="background-color: #' + style.color + ';"></span>';
                         htmlStr += '</li>';
-                    }else{
-                        htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
-                        htmlStr += '<span style="background-color: #'+style.color+';"></span>';
+                    } else {
+                        htmlStr += '<li class="color-item" data-id="' + styleId + '" data-product-id="' + productId + '" data-color="#' + style.color + '" title="' + style.color_name + '">';
+                        htmlStr += '<span style="background-color: #' + style.color + ';"></span>';
                         htmlStr += '</li>';
                     }
-                }else{
-                    if(i==8){
-                        i=0;
+                } else {
+                    if (i == 8) {
+                        i = 0;
                         htmlStr += '</ul>';
                         htmlStr += '<ul class="color-column">';
                     }
-                    htmlStr += '<li class="color-item" data-id="'+styleId+'" data-color="#'+style.color+'" title="'+style.color_name+'">';
-                    htmlStr += '<span style="background-color: #'+style.color+';"></span>';
+                    htmlStr += '<li class="color-item" data-id="' + styleId + '" data-color="#' + style.color + '" title="' + style.color_name + '">';
+                    htmlStr += '<span style="background-color: #' + style.color + ';"></span>';
                     htmlStr += '</li>';
                 }
-                if(i>9 && i == len-1){
+                if (i > 9 && i == len - 1) {
                     htmlStr += '<li class="more-color"><span></span></li>';
                 }
                 i++;
@@ -853,9 +928,9 @@ $(function () {
 
         eventManager.on('unselectBox', function () {
             var idx = $('.tab.active').index();
-            if(idx == 0){
+            if (idx == 0) {
                 showTextLayer();
-            }else{
+            } else {
                 showImageLayer();
             }
             restoreTextLayer();
@@ -868,17 +943,22 @@ $(function () {
             alert('too many colors');
         });
 
-        function save(){
-            var sides = [[], [], [], []];
+        function save() {
+            var sides = [
+                [],
+                [],
+                [],
+                []
+            ];
             var cs = ds.getCanvases();
-            for(var o in cs){
+            for (var o in cs) {
                 var c = cs[o];
-                for(var oo in c.elements){
+                for (var oo in c.elements) {
                     var elem = c.elements[oo];
                     var data = {
-                        type : elem.type
+                        type: elem.type
                     };
-                    if(elem.type == 'text'){
+                    if (elem.type == 'text') {
                         data.string = elem.string;
                         data.lineHeight = elem.lineHeight;
                         data.fontFamily = elem.fontFamily;
@@ -886,7 +966,7 @@ $(function () {
                         data.fill = elem.fill;
                         data.stroke = elem.stroke;
                         data.strokeWidth = elem.strokeWidth;
-                    }else if(elem.type == 'bitmap'){
+                    } else if (elem.type == 'bitmap') {
                         data.dataUrl = elem.url;
                     }
                     data.translateX = elem.translateX;
@@ -914,16 +994,16 @@ $(function () {
                 "cat_id": ds_cat_id,//产品分类ID
                 "product_id": ds_product_id,//产品ID
                 "style_id": ds_product_style_id//产品款式ID
-            }, function(data){
+            }, function (data) {
                 console.log(data);
-            },'json');
+            }, 'json');
         }
 
-        $('#ds_save').click(function(){
+        $('#ds_save').click(function () {
             save();
         });
 
-        $('#ds_next').click(function(){
+        $('#ds_next').click(function () {
 
         });
     }
@@ -934,52 +1014,349 @@ $(function () {
     initDsRightPanel();
     initDsEvents();
 
-    //------------pricing
+    //------------pricing-------------------------------------------------
 
-    $('#saleScroll').honest_slider({
-        scales: [
-            [0, 10],
-            [0.05, 50],
-            [0.1, 100],
-            [0.3, 300],
-            [0.5, 500],
-            [0.7, 700],
-            [1, 1000]
-        ],
-        slider: function(value){
-            $('#saleGoalInput').val(value);
-        }
-    });
-
-    function saleGoalInputEvent(){
-        var value  = event.target.value;
-        value = value.match(/[0-9]/g) != null ? value.match(/[0-9]/g).join('') : 10;
-        if(value<10){
-            value=10;
-        }
-        if(value>1000){
-            value = 1000;
-        }
-        event.target.value = value;
-        $('#saleScroll').honest_slider('value', value);
-    }
-
-    $('#saleGoalInput').on('input blur',saleGoalInputEvent);
-
-    function showDsPricingProductSide(idx){
+    function showDsPricingProductSide(idx) {
         $('#ds_preview').find('.new-editor').hide();
         $('#ds_preview').find('.new-editor').eq(idx).show();
     }
 
-    function initPricingChangeProductSide(){
+    //添加单个销售产品
+    function addPricingProduct(product, style, isDefault) {
+        var htmlStr = '';
+        htmlStr += '<div class="ds-pricing-product-item ' + (isDefault ? 'ds-pricing-product-item-default' : '') + '" data-id="' + product.product_id + '">';
+        htmlStr += '<div class="ds-pricing-product-item-icon">';
+        htmlStr += product.product_name;
+        htmlStr += '<div class="ds-pricing-product-item-icon-begin"></div>';
+        htmlStr += '<div class="ds-pricing-product-item-icon-end"></div>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-left">';
+        htmlStr += '<img class="ds-pricing-product-image" src="' + product.product_design[0].img_url + '" style="background-color:#' + style.color + '">';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right">';
+        htmlStr += '<div class="ds-pricing-product-item-pricing-info">';
+        htmlStr += '<div class="ds-pricing-product-item-right-column">';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-label">';
+        htmlStr += '成本：';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-info">';
+        htmlStr += '¥';
+        htmlStr += '<span class="ds-pricing-product-item-right-column-info-num">0</span>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">';
+        htmlStr += '<span>+</span>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column">';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-label">';
+        htmlStr += '利润：';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-info">';
+        htmlStr += '¥';
+        htmlStr += '<span class="ds-pricing-product-item-right-column-info-num">0</span>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">';
+        htmlStr += '<span>=</span>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column">';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-label" style="text-align: center;">';
+        htmlStr += '售价：';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-info">';
+        htmlStr += '<span class="ds-pricing-product-item-right-column-money-unit">¥</span>';
+        htmlStr += '<input type="text" class="ds-pricing-product-item-right-column-input">';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-color-info">';
+        htmlStr += '<span class="ds-pricing-product-item-color-info-label">已选颜色</span>';
+        htmlStr += '<div class="ds-pricing-product-item-selected">';
+        htmlStr += '<div class="ds-pricing-product-item-color ds-pricing-product-item-color-default" data-id="' + style.id + '" data-color="' + style.color + '">';
+        htmlStr += '<span class="ds-pricing-product-item-color-inner" style="background-color: #' + style.color + '"></span>';
+        htmlStr += '<span class="ds-pricing-product-item-color-delete"></span>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="ds-pricing-product-item-color-dropdown">';
+        htmlStr += '<div class="ds-pricing-product-item-color-btn"></div>';
+        htmlStr += '<div class="ds-pricing-product-item-color-menu">';
+        htmlStr += '<div class="ds-pricing-product-item-color-menu-arrow"></div>';
+        htmlStr += '<div class="ds-pricing-product-item-color-menu-color-list">';
+        var styles = getStylesByProductId(product.product_id);
+        for (var styleId in styles) {
+            var _style = styles[styleId];
+            htmlStr += '<a class="ds-pricing-product-item-color-menu-color-item ' + (style.id == styleId ? 'selected' : '') + '" title="' + _style.color_name + '" data-id="' + styleId + '" data-color="' + _style.color + '">' +
+                '<span class="ds-pricing-product-item-color-selected">✓</span>' +
+                '<span style="background: #' + _style.color + ';"></span>' +
+                '</a>';
+        }
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '</div>';
+        htmlStr += '<div class="clearfix"></div>';
+        htmlStr += '<a class="ds-pricing-product-item-delete" href="#"></a>';
+        htmlStr += '</div>';
+        var productItem = $(htmlStr);
+        //从第一步过来的都是TRUE，替换第一个。
+        if (isDefault) {
+            if ($('.ds-pricing-product-item').length == 0) {
+                $('.ds-pricing-product-list').append(productItem);
+            } else {
+                var firstItem = $('.ds-pricing-product-list').find('.ds-pricing-product-item').eq(0);
+                firstItem.before(productItem);
+                firstItem.remove();
+            }
+        } else {
+            $('.ds-pricing-product-list', productItem).append(productItem);
+        }
 
-        $('.ds-pricing-products-side').click(function(){
-            $('.ds-pricing-products-side').removeClass('active');
-            $(this).addClass('active');
-            var idx = $(this).index();
-            showDsPricingProductSide(idx);
+        $('.ds-pricing-product-item-color-btn', productItem).click(function (e) {
+            e.stopPropagation();
+            var menu = $(this).siblings('.ds-pricing-product-item-color-menu');
+            $('.ds-pricing-product-item-color-menu').each(function (idx, obj) {
+                if (obj != menu[0]) {
+                    $(obj).hide();
+                }
+            });
+            menu.toggle();
+        });
+
+        $('.ds-pricing-product-item-color-menu', productItem).click(function (e) {
+            e.stopPropagation();
+        });
+
+        $('.ds-pricing-product-item-color-menu-color-item', productItem).click(function (e) {
+            e.stopPropagation();
+            var styleId = $(this).attr('data-id');
+            var colorValue = $(this).attr('data-color');
+            var productItem = $(this).parents('.ds-pricing-product-item');
+            var selectItems = $(this).parents('.ds-pricing-product-item-color-menu-color-list').find('.selected');
+            if ($(this).hasClass('selected')) {//样式删除事件
+                if(selectItems.length == 1){
+                    return;
+                }
+                productItem.find('.ds-pricing-product-item-color').each(function () {
+                    var _styleId = $(this).attr('data-id');
+                    if (_styleId == styleId) {
+                        $(this).remove();
+                        setLastColor(productItem);
+                    }
+                });
+            } else {
+                if(selectItems.length > 9){
+                    return;
+                }
+                var htmlStr = '<div class="ds-pricing-product-item-color" data-id="' + styleId + '" data-color="'+colorValue+'">' +
+                    '<span class="ds-pricing-product-item-color-inner" style="background-color: #' + colorValue + '"></span>' +
+                    '<span class="ds-pricing-product-item-color-delete"></span>' +
+                    '</div>';
+                productItem.find('.ds-pricing-product-item-selected').append(htmlStr);
+                productItem.find('.ds-pricing-product-image').css('backgroundColor', '#' + colorValue);
+                $('#ds_preview').find('.product-color').css('backgroundColor', '#' + colorValue);
+            }
+            $(this).toggleClass('selected');
+
+            addProductControlLimit();
+        });
+
+        addProductControlLimit();
+    }
+
+
+    function addProductControlLimit(){
+        var selectItems = $('.ds-pricing-product-list').find('.ds-pricing-product-item-color-menu-color-item.selected');
+        $('span', '.ds-pricing-product-add-total').text(10-selectItems.length);
+    }
+
+    function setLastColor(productItem){
+        productItem.find('.ds-pricing-product-item-color').removeClass('ds-pricing-product-item-color-default');
+        productItem.find('.ds-pricing-product-item-color').eq(0).addClass('ds-pricing-product-item-color-default');
+
+        var len = productItem.find('.ds-pricing-product-item-color').length;
+        var colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
+        productItem.find('.ds-pricing-product-image').css('backgroundColor', '#' + colorValue);
+        $('#ds_preview').find('.product-color').css('backgroundColor', '#' + colorValue);
+    }
+
+    //删除单个销售产品
+    function deletePricingProduct(product) {
+
+    }
+
+    //更新单个销售产品信息(颜色/成本/利润/售价)
+    function updatePricingProduct(product, style) {
+        var item = $('.ds-pricing-product-item[data-id=' + product.product_id + ']');
+
+        item.find('.ds-pricing-product-image').css('backgroundColor', '#' + style.color);
+
+        //颜色选项
+        item.find('.ds-pricing-product-item-color-menu-color-item').removeClass('selected');
+        item.find('.ds-pricing-product-item-color').each(function (idx) {
+            var htmlStr = '<div class="ds-pricing-product-item-color ds-pricing-product-item-color-default" data-id="' + style.id + '">' +
+                '<span class="ds-pricing-product-item-color-inner" style="background-color: #' + style.color + '"></span>' +
+                '<span class="ds-pricing-product-item-color-delete"></span>' +
+                '</div>';
+            if (idx == 0) {
+                $(this).before(htmlStr);
+                $(this).remove();
+            }
+
+            var styleId = $(this).attr('data-id');
+            if (styleId == style.id) {
+                $(this).remove();
+            }
+        });
+        item.find('.ds-pricing-product-item-color').each(function () {
+            var styleId = $(this).attr('data-id');
+            item.find('.ds-pricing-product-item-color-menu-color-item[data-id=' + styleId + ']').addClass('selected');
         });
     }
 
-    initPricingChangeProductSide();
+    //更新所有销售产品信息(成本/利润/售价)
+    function updatePricingProducts() {
+
+    }
+
+    //更新最低总利润
+    function updateTotalProfit() {
+
+    }
+
+    /**
+     * 初始化Pricing面板及事件
+     */
+    function initPricing() {
+
+        function initSaleScroll() {
+            $('#saleScroll').honest_slider({
+                scales: [
+                    [0, 10],
+                    [0.05, 50],
+                    [0.1, 100],
+                    [0.3, 300],
+                    [0.5, 500],
+                    [0.7, 700],
+                    [1, 1000]
+                ],
+                slider: function (value) {
+                    $('#saleGoalInput').val(value);
+                    $.get('/api', {
+                        "model": "design/tool/beta",
+                        "action": "product_pricing",
+                        "sale_count": value, // 销售数量
+                        "color_count": ds_color_count, // 颜色数量
+                        "style_id": ds_product_style_id,   // 款式ID
+                        "json": 1
+                    }, function (data) {
+                        var returnData = data.return;
+                        if (returnData.status == 0) {
+                            $('.money-num').text(returnData);
+                        } else {
+                            console.error(data.message);
+                        }
+                    });
+                }
+            });
+        }
+
+        function initSaleInput() {
+            function saleGoalInputEvent() {
+                var value = event.target.value;
+                value = value.match(/[0-9]/g) != null ? value.match(/[0-9]/g).join('') : 10;
+                if (value < 10) {
+                    value = 10;
+                }
+                if (value > 1000) {
+                    value = 1000;
+                }
+                event.target.value = value;
+                $('#saleScroll').honest_slider('value', value);
+            }
+
+            $('#saleGoalInput').on('input blur', saleGoalInputEvent);
+        }
+
+        function initPricingSides() {
+            $('.ds-pricing-products-side').click(function () {
+                $('.ds-pricing-products-side').removeClass('active');
+                $(this).addClass('active');
+                var idx = $(this).index();
+                showDsPricingProductSide(idx);
+            });
+        }
+
+        function initPricingDropDownMenuEven() {
+            $(window).click(function () {
+                $('.ds-pricing-product-item-color-menu').hide();
+            });
+        }
+
+        function initProductColorEvent() {
+            $(document).on('click', '.ds-pricing-product-item-color', function () {
+                var colorValue = $(this).find('.ds-pricing-product-item-color-inner').css('backgroundColor');
+                $(this).parents('.ds-pricing-product-item').find('.ds-pricing-product-image').css('backgroundColor', colorValue);
+                $('#ds_preview').find('.product-color').css('backgroundColor', colorValue);
+            });
+            //样式删除事件
+            $(document).on('click', '.ds-pricing-product-item-color-delete', function () {
+                var styleId = $(this).parents('.ds-pricing-product-item-color').attr('data-id');
+                $(this).parents('.ds-pricing-product-item').find('.ds-pricing-product-item-color-menu-color-item[data-id=' + styleId + ']').removeClass('selected');
+
+                setLastColor($(this).parents('.ds-pricing-product-item'));
+                addProductControlLimit();
+                $(this).parent().remove();
+            });
+        }
+
+        function initUpdateProductEvent() {
+
+            //新增单个产品
+            dsManager.on('dsProductAdded', function (product, style) {
+                //都是从第一步过来的
+                addPricingProduct(product, style, true);
+                updateTotalProfit();
+            });
+
+            //删除单个产品
+            dsManager.on('dsProductDeleted', function (product) {
+                deletePricingProduct(product);
+                updateTotalProfit();
+            });
+
+            //修改产品属性(颜色、售价)后调整该产品利润与总利润
+            dsManager.on('dsProductPropertyChanged', function (product, style) {
+                updatePricingProduct(product, style);
+                updateTotalProfit();
+            });
+
+            //产品发生改变
+            dsManager.on('dsProductChanged', function (product) {
+                updatePricingProduct(product);
+                updateTotalProfit();
+            });
+
+            //设计元素颜色数量发生变化后调整所有产品利润与总利润
+            dsManager.on('dsColorCountChanged', function () {
+                updatePricingProducts();
+                updateTotalProfit();
+            });
+
+            //销售目标发生变化
+            dsManager.on('dsSaleGoalChanged', function () {
+                updatePricingProducts();
+                updateTotalProfit();
+            });
+        }
+
+        initSaleScroll();
+        initSaleInput();
+        initPricingSides();
+        initPricingDropDownMenuEven();
+        initProductColorEvent();
+        initUpdateProductEvent();
+    }
+
+    initPricing();
 });
