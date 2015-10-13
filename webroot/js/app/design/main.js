@@ -1101,10 +1101,10 @@ $(function () {
         var productItem = $(htmlStr);
         //从第一步过来的都是TRUE，替换第一个。
         if (isDefault) {
-            if ($('.ds-pricing-product-list', productItem).find('.ds-pricing-product-item').length == 0) {
+            if ($('.ds-pricing-product-item').length == 0) {
                 $('.ds-pricing-product-list').append(productItem);
             } else {
-                var firstItem = $('.ds-pricing-product-list', productItem).find('.ds-pricing-product-item').eq(0);
+                var firstItem = $('.ds-pricing-product-list').find('.ds-pricing-product-item').eq(0);
                 firstItem.before(productItem);
                 firstItem.remove();
             }
