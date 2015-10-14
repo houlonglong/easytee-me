@@ -20,9 +20,10 @@
             <div class="ds-pricing-row-left-panel-label">预计利润</div>
         </div>
         <div class="ds-pricing-row-right-panel">
-            <div class="total-profit">
+            <div class="total-profit total-profit-loading">
+                <div class="total-profit-loading-mask"></div>
                 <span class="money-unit-cn">¥</span>
-                <span class="money-num">2,555.73+</span>
+                <span class="money-num"></span>
             </div>
         </div>
         <div class="clearfix"></div>

@@ -1979,7 +1979,8 @@ function Canvas(container, options){
         if(_activeEl && _activeEl instanceof TextElementEl){
             _activeEl.setText(val);
         }else{
-            var textEl = new TextElementEl(this, [val], this.lineHeight, this.fontFamily, this.fontSize, this.fill, this.stroke, this.strokeWidth);
+            var string = [val];
+            var textEl = new TextElementEl(this, string, this.lineHeight, this.fontFamily, this.fontSize, this.fill, this.stroke, this.strokeWidth);
             this.elements.push(textEl);
             $('.edit-box', target).addClass('hidden');
             $('.edit-box[data-id='+textEl.dataId+']', target).removeClass('hidden');
@@ -1987,6 +1988,28 @@ function Canvas(container, options){
             this.moveToTop();
             eventManager.trigger('colorsChanged');
         }
+    };
+
+    this.loadText = function(string, lineHeight, fontFamily, fontSize, fill, stroke, strokeWidth, translateX, translateY, angle, scaleX, scaleY, flipX, flipY){
+        lineHeight = lineHeight || this.lineHeight;
+        fontFamily = fontFamily || this.fontFamily;
+        fontSize = fontSize || this.fontSize;
+        fill = fill || this.fill;
+        stroke = stroke || this.stroke;
+        strokeWidth = strokeWidth || this.strokeWidth;
+        translateX = translateX || 0;
+        translateY = translateY || 0;
+        angle = angle || 0;
+        scaleX = scaleX || 1;
+        scaleY = scaleY || 1;
+        flipX = flipX || 1;
+        flipY = flipY || 1;
+        var textEl = new TextElementEl(this, string, lineHeight, fontFamily, fontSize, fill, stroke, strokeWidth, translateX, translateY, angle, scaleX, scaleY, flipX, flipY);
+        this.elements.push(textEl);
+        $('.edit-box', target).addClass('hidden');
+        $('.edit-box[data-id='+textEl.dataId+']', target).removeClass('hidden');
+        this.moveToTop(textEl.box);
+        eventManager.trigger('colorsChanged');
     };
 
     this.textFontFamily = function(val){
@@ -2031,8 +2054,15 @@ function Canvas(container, options){
         });
     };
 
-    this.imageBase64 = function(dataUrl){
-        var imageEl = new BitmapBase64ElementEl(this, dataUrl);
+    this.imageBase64 = function(dataUrl, translateX, translateY, angle, scaleX, scaleY, flipX, flipY){
+        translateX = translateX || 0;
+        translateY = translateY || 0;
+        angle = angle || 0;
+        scaleX = scaleX || 1;
+        scaleY = scaleY || 1;
+        flipX = flipX || 1;
+        flipY = flipY || 1;
+        var imageEl = new BitmapBase64ElementEl(this, dataUrl, translateX, translateY, angle, scaleX, scaleY, flipX, flipY);
         self.elements.push(imageEl);
         $('.edit-box', target).addClass('hidden');
         $('.edit-box[data-id='+imageEl.dataId+']', target).removeClass('hidden');
