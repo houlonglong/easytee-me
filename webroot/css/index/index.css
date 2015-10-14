@@ -442,6 +442,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
     transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
     max-height: 210px;
+
 }
 .template-con .designer{
     position: absolute;
