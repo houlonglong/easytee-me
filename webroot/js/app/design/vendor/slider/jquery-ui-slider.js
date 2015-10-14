@@ -118,14 +118,11 @@
                 $this.append(scales_obj);
                 for(var i=0; i<opts.scales.length; i++){
                     var scale = opts.scales[i];
-//                    if(i!=opts.scales.length-1){
-                        var scale_obj = $('<div class="scale_obj"><i class="line"></i><i class="number">'+scale[1]+'</i></div>').css('left', scale[0]*100+'%');
-                        scales_obj.append(scale_obj);
-//                    }
+                    var scale_obj = $('<div class="scale_obj"><i class="line"></i><i class="number">'+scale[1]+'</i></div>').css('left', scale[0]*100+'%');
+                    scales_obj.append(scale_obj);
                 }
                 scales_obj.find('.number').click(function(){
                     self.setSliderValueByValue($(this).text());
-                    opts.slider.call(window, $(this).text());
                 });
                 slider_obj.slider({
                     min: opts.min,
@@ -153,7 +150,6 @@
     };
 
     $.fn.honest_slider.defaults = {
-        value: 50,
         min: 0,
         max: 1000,
         scales: [

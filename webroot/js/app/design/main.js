@@ -137,27 +137,8 @@ $(function () {
             onclick: function (step) {
                 $('a.step').removeClass('active');
                 $('a.step').eq(step).addClass('active');
-                if (step == 0) {
-                    clearPricingDesignArea();
-                }
-                if (step == 1) {
-                    cloneDesignArea();
-                }
             }
         });
-
-        function clearPricingDesignArea() {
-            $('#ds_preview').empty();
-        }
-
-        function cloneDesignArea() {
-            var clone_sides = $($('#ds').html());
-            clone_sides.find('.html-surface').remove();
-            $('#ds_preview').empty().append(clone_sides);
-
-            var idx = $('.ds-pricing-products-side.active').index();
-            showDsPricingProductSide(idx);
-        }
     }
 
     initRouter();
@@ -174,9 +155,34 @@ $(function () {
 
     var ds_product_style_id;
 
-    function colorUnique(arr){
-        var n={}, r=[];
-        for(var i = 0; i < arr.length; i++) {
+    var ds_sale_goal = getCookie('ds_sale_goal');
+
+    if (!ds_sale_goal || ds_sale_goal.length == 0) {
+        ds_sale_goal = 50;
+    }
+
+    $('.pre-cost>i.pre-cost-num').text(ds_sale_goal);
+
+    function clearPricingDesignArea() {
+        $('#ds_preview').empty();
+    }
+
+    function cloneDesignArea() {
+        var clone_sides = $($('#ds').html());
+        clone_sides.find('.html-surface').remove();
+        $('#ds_preview').empty().append(clone_sides);
+
+        var idx = $('.ds-pricing-products-side.active').index();
+        showDsPricingProductSide(idx);
+    }
+
+    function initialLoading(b) {
+        b ? $('.design-loading').fadeOut() : $('.design-loading').show();
+    }
+
+    function colorUnique(arr) {
+        var n = {}, r = [];
+        for (var i = 0; i < arr.length; i++) {
             if (!n[arr[i]]) {
                 n[arr[i].toLowerCase()] = true;
                 r.push(arr[i]);
@@ -185,11 +191,11 @@ $(function () {
         return r;
     }
 
-    function setCookie(name, value){
+    function setCookie(name, value) {
         $.cookie(name, value, {path: "/"});
     }
 
-    function getCookie(name){
+    function getCookie(name) {
         return $.cookie(name);
     }
 
@@ -240,7 +246,8 @@ $(function () {
     }
 
     var CACHE = {};
-    function initCache(productInfo){
+
+    function initCache(productInfo) {
         CACHE = productInfo;
     }
 
@@ -262,11 +269,12 @@ $(function () {
     }
 
     var PRODUCTS_STYLE_CACHE = {};
+
     function initProductStylesCache(styles) {
         PRODUCTS_STYLE_CACHE = styles;
-        for(var productId in PRODUCTS_STYLE_CACHE){
-            for(var styleId in PRODUCTS_STYLE_CACHE[productId]){
-                PRODUCTS_STYLE_CACHE[productId][styleId]['id']=styleId;
+        for (var productId in PRODUCTS_STYLE_CACHE) {
+            for (var styleId in PRODUCTS_STYLE_CACHE[productId]) {
+                PRODUCTS_STYLE_CACHE[productId][styleId]['id'] = styleId;
             }
         }
     }
@@ -278,7 +286,6 @@ $(function () {
     function getStyleByProductIdAndStyleId(productId, styleId) {
         return PRODUCTS_STYLE_CACHE[productId][styleId];
     }
-
 
     /**
      * 初始化设计工具设置面板数据及事件
@@ -647,6 +654,7 @@ $(function () {
         /**
          * 请求初始化数据
          */
+        var designInfo = {};//session中保存的
         var productInfo = {};
         $.get('/api', {
             "model": "design/tool/beta",
@@ -655,7 +663,7 @@ $(function () {
         }, function (data) {
             if (data.status == 0) {
                 var returnData = data.return;
-                var designInfo = returnData.design_info;//编辑用的
+                designInfo = returnData.design_info;//编辑用的
                 productInfo = returnData.product_info;
                 console.log(returnData);
                 initCache(productInfo);
@@ -663,6 +671,7 @@ $(function () {
                 initProductStylesCache(productInfo.styles);
                 initProductCategories();
                 initPricingData();
+                initialLoading(true);
             } else {
                 console.log(data.message);
             }
@@ -685,7 +694,7 @@ $(function () {
                 var products = productInfo.products[categoryId];
                 initProductChoice(products);
             });
-            if(getCookie('ds_cat_id').length != 0){
+            if (getCookie('ds_cat_id').length != 0) {
                 $('#selectProductCategories').val(getCookie('ds_cat_id'));
             }
             $('#selectProductCategories').change();
@@ -742,19 +751,98 @@ $(function () {
                     var zoomIn = '/js/app/design/vendor/etds/svg/zoom_in.svg';
                     var zoomOut = '/js/app/design/vendor/etds/svg/zoom_out.svg';
                     ds.setSvgIcon(zoomInL, zoomOutL, zoomIn, zoomOut);
+                    if (designInfo) {
+                        var notStep1 = false;
+                        if ($('.design-slider:eq(0)').css('display') == 'none') {
+                            $('.design-slider:eq(0)').css('display', 'block');
+                            notStep1 = true;
+                        }
+                        var canvases = ds.getCanvases();
+                        var side_front_elems = $.parseJSON(designInfo.design_front);
+                        var side_back_elems = $.parseJSON(designInfo.design_back);
+                        var side_left_elems = $.parseJSON(designInfo.design_third);
+                        var side_right_elems = $.parseJSON(designInfo.design_fourth);
+                        if (side_front_elems.length != 0) {
+                            for (var o in side_front_elems) {
+                                var elem = side_front_elems[o];
+                                if (elem.type == 'text') {
+                                    canvases[0].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if (elem.type == 'bitmap') {
+                                    canvases[0].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        if (side_back_elems.length != 0) {
+                            ds.active('back');
+                            for (var o in side_back_elems) {
+                                var elem = side_back_elems[o];
+                                if (elem.type == 'text') {
+                                    canvases[1].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if (elem.type == 'bitmap') {
+                                    canvases[1].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        if (side_left_elems.length != 0) {
+                            ds.active('third');
+                            for (var o in side_left_elems) {
+                                var elem = side_left_elems[o];
+                                if (elem.type == 'text') {
+                                    canvases[2].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if (elem.type == 'bitmap') {
+                                    canvases[2].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        if (side_right_elems.length != 0) {
+                            ds.active('fourth');
+                            for (var o in side_right_elems) {
+                                var elem = side_right_elems[o];
+                                if (elem.type == 'text') {
+                                    canvases[3].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if (elem.type == 'bitmap') {
+                                    canvases[3].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        var side = getCookie('ds_active_side');
+                        switch (side) {
+                            case 'front':
+                                $('.product-side:eq(0)').click();
+                                break;
+                            case 'back':
+                                $('.product-side:eq(1)').click();
+                                break;
+                            case 'third':
+                                $('.product-side:eq(2)').click();
+                                break;
+                            case 'fourth':
+                                $('.product-side:eq(3)').click();
+                                break;
+                            default:
+                                $('.product-side:eq(0)').click();
+                        }
+                        if (notStep1) {
+                            $('.design-slider:eq(0)').css('display', 'none');
+                        }
+                    }
                 } else {
                     ds.load(sides);
                 }
 
-                if(getCookie('ds_product_style_id').length != 0){
+                if (getCookie('ds_product_style_id').length != 0) {
                     var styleId = getCookie('ds_product_style_id');
                     var style = getStyleByProductIdAndStyleId(productId, styleId);
-                    if(style){
+                    if (style) {
                         $('.color-item', this).removeClass('active');
                         $('.color-item[data-id=' + style.id + ']', this).addClass('active');
                         ds.call('productColor', '#' + style.color);
                         dsManager.trigger('dsProductAdded', getProductById(productId), style);
-                    }else{
+                    } else {
                         var styles = productInfo.styles[productId];
                         var style;
                         for (var o in styles) {
@@ -773,7 +861,7 @@ $(function () {
                             dsManager.trigger('dsProductAdded', getProductById(productId), style);
                         }
                     }
-                }else{
+                } else {
                     var styles = productInfo.styles[productId];
                     var style;
                     for (var o in styles) {
@@ -792,15 +880,16 @@ $(function () {
                         dsManager.trigger('dsProductAdded', getProductById(productId), style);
                     }
                 }
+
             });
 
-            if(getCookie('ds_product_id').length != 0){
-                if($('.product-item[data-id='+getCookie('ds_product_id')+']').length != 0){
-                    $('.product-item[data-id='+getCookie('ds_product_id')+']').click();
-                }else{
+            if (getCookie('ds_product_id').length != 0) {
+                if ($('.product-item[data-id=' + getCookie('ds_product_id') + ']').length != 0) {
+                    $('.product-item[data-id=' + getCookie('ds_product_id') + ']').click();
+                } else {
                     $('.product-item').eq(0).click();
                 }
-            }else{
+            } else {
                 $('.product-item').eq(0).click();
             }
 
@@ -902,19 +991,22 @@ $(function () {
                 $(this).addClass('active');
 
                 var idx = $(this).index();
-
                 switch (idx) {
                     case 0:
                         ds.active('front');
+                        setCookie('ds_active_side', 'front');
                         break;
                     case 1:
                         ds.active('back');
+                        setCookie('ds_active_side', 'back');
                         break;
                     case 2:
                         ds.active('third');
+                        setCookie('ds_active_side', 'third');
                         break;
                     case 3:
                         ds.active('fourth');
+                        setCookie('ds_active_side', 'fourth');
                         break;
                 }
             });
@@ -946,7 +1038,7 @@ $(function () {
          * 设置左侧操作面板文本填充颜色
          */
         function setTextFillForLeftPanel(fillColor) {
-            $('#textFillColor>span').css('backgroundColor', fillColor);
+            $('#textFillColor>span').css('backgroundColor', '#' + fillColor);
         }
 
         /*
@@ -960,7 +1052,7 @@ $(function () {
          * 设置左侧操作面板文本描边颜色
          */
         function setTextStrokeForLeftPanel(strokeColor) {
-            $('#strokeColor>span').css('backgroundColor', strokeColor);
+            $('#strokeColor>span').css('backgroundColor', '#' + strokeColor);
         }
 
         /*
@@ -994,7 +1086,7 @@ $(function () {
         }
 
         eventManager.on('selectedBox', function (elem) {
-            console.log(elem);
+//            console.log(elem);
             if (elem.type == 'text') {
                 showTextLayer();
                 setTextForLeftPanel(elem.string.join('\n'));
@@ -1027,23 +1119,27 @@ $(function () {
             alert('too many colors');
         });
 
-        eventManager.on('colorsChanged', function(){
+        eventManager.on('elementDeleted', function(){
+            eventManager.trigger('colorsChanged');
+        });
+
+        eventManager.on('colorsChanged', function () {
             var colorCount = 0;
             var sides = ds.getCanvases();
-            for(var i=0; i<sides.length; i++){
+            for (var i = 0; i < sides.length; i++) {
                 var side = sides[i];
                 var elements = side.elements;
                 var colors = [];
-                for(var j=0; j<elements.length; j++){
+                for (var j = 0; j < elements.length; j++) {
                     var element = elements[j];
-                    if(element instanceof TextElementEl){
-                        if(element.strokeWidth != 0){
+                    if (element instanceof TextElementEl) {
+                        if (element.strokeWidth != 0) {
                             colors.push(element.stroke);
                         }
                         colors.push(element.fill);
                     }
-                    if(element instanceof BitmapBase64ElementEl){
-                        for(var n=0; n<element.colors.length; n++){
+                    if (element instanceof BitmapBase64ElementEl) {
+                        for (var n = 0; n < element.colors.length; n++) {
                             colors.push(element.colors[n]);
                         }
                     }
@@ -1052,6 +1148,7 @@ $(function () {
             }
             ds_color_count = colorCount;
             setCookie('ds_color_count', ds_color_count);
+            updatePricingProducts();
         });
 
         function save() {
@@ -1145,14 +1242,15 @@ $(function () {
         htmlStr += '<img class="ds-pricing-product-image" src="' + product.product_design[0].img_url + '" style="background-color:#' + style.color + '">';
         htmlStr += '</div>';
         htmlStr += '<div class="ds-pricing-product-item-right">';
-        htmlStr += '<div class="ds-pricing-product-item-pricing-info">';
+        htmlStr += '<div class="ds-pricing-product-item-pricing-info ds-pricing-product-item-pricing-info-loading">';
+        htmlStr += '<div class="ds-pricing-product-item-right-column-loading"></div>';
         htmlStr += '<div class="ds-pricing-product-item-right-column">';
         htmlStr += '<div class="ds-pricing-product-item-right-column-label">';
         htmlStr += '成本：';
         htmlStr += '</div>';
         htmlStr += '<div class="ds-pricing-product-item-right-column-info">';
         htmlStr += '¥';
-        htmlStr += '<span class="ds-pricing-product-item-right-column-info-num">0</span>';
+        htmlStr += '<span class="ds-pricing-product-item-right-column-info-num ds-pricing-product-cost-num">0</span>';
         htmlStr += '</div>';
         htmlStr += '</div>';
         htmlStr += '<div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">';
@@ -1164,7 +1262,7 @@ $(function () {
         htmlStr += '</div>';
         htmlStr += '<div class="ds-pricing-product-item-right-column-info">';
         htmlStr += '¥';
-        htmlStr += '<span class="ds-pricing-product-item-right-column-info-num">0</span>';
+        htmlStr += '<span class="ds-pricing-product-item-right-column-info-num ds-pricing-product-profit-num">0</span>';
         htmlStr += '</div>';
         htmlStr += '</div>';
         htmlStr += '<div class="ds-pricing-product-item-right-column ds-pricing-product-item-right-column-sign">';
@@ -1176,7 +1274,7 @@ $(function () {
         htmlStr += '</div>';
         htmlStr += '<div class="ds-pricing-product-item-right-column-info">';
         htmlStr += '<span class="ds-pricing-product-item-right-column-money-unit">¥</span>';
-        htmlStr += '<input type="text" class="ds-pricing-product-item-right-column-input">';
+        htmlStr += '<input type="text" class="ds-pricing-product-item-right-column-input ds-pricing-product-price-num">';
         htmlStr += '</div>';
         htmlStr += '</div>';
         htmlStr += '</div>';
@@ -1208,7 +1306,7 @@ $(function () {
         htmlStr += '</div>';
         htmlStr += '</div>';
         htmlStr += '<div class="clearfix"></div>';
-        htmlStr += '<a class="ds-pricing-product-item-delete" href="#"></a>';
+        htmlStr += '<a class="ds-pricing-product-item-delete" href="javascript:;"></a>';
         htmlStr += '</div>';
         var productItem = $(htmlStr);
         //从第一步过来的都是TRUE，替换第一个。
@@ -1246,21 +1344,21 @@ $(function () {
             var productItem = $(this).parents('.ds-pricing-product-item');
             var selectItems = $('.ds-pricing-product-list').find('.selected');
             if ($(this).hasClass('selected')) {//样式删除事件
-                if(selectItems.length == 1){
+                if (selectItems.length == 1) {
                     return;
                 }
                 productItem.find('.ds-pricing-product-item-color').each(function () {
                     var _styleId = $(this).attr('data-id');
                     if (_styleId == styleId) {
                         $(this).remove();
-                        setLastColor(productItem);
+                        setLastColor(productItem, true);
                     }
                 });
             } else {
-                if(selectItems.length > 9){
+                if (selectItems.length > 9) {
                     return;
                 }
-                var htmlStr = '<div class="ds-pricing-product-item-color" data-id="' + styleId + '" data-color="'+colorValue+'">' +
+                var htmlStr = '<div class="ds-pricing-product-item-color" data-id="' + styleId + '" data-color="' + colorValue + '">' +
                     '<span class="ds-pricing-product-item-color-inner" style="background-color: #' + colorValue + '"></span>' +
                     '<span class="ds-pricing-product-item-color-delete"></span>' +
                     '</div>';
@@ -1273,25 +1371,55 @@ $(function () {
             addProductControlLimit();
         });
 
+        function updateProfit() {
+            var value = event.target.value;
+            if (value.match(/\d{1,}\.{0,1}\d{0,2}/g) != null) {
+                value = value.match(/\d{1,}\.{0,1}\d{0,2}/g)[0];
+                event.target.value = value;
+            } else {
+                value = parseFloat($(this).attr('data-price'));
+                event.target.value = value;
+            }
+            var cost = parseFloat($('.ds-pricing-product-cost-num', productItem).text());
+            var profit = value - cost;
+            $('.ds-pricing-product-profit-num', productItem).text(profit.toFixed(2));
+            updateTotalProfit();
+        }
+
+        $('.ds-pricing-product-price-num', productItem).on('input blur', updateProfit);
+
+
+        $('.ds-pricing-product-item-delete', productItem).click(function(){
+            productItem.remove();
+            updatePricingProducts();
+            resetPricingCat();
+        });
+
         addProductControlLimit();
     }
 
-    function addProductControlLimit(){
+    function addProductControlLimit() {
         var selectItems = $('.ds-pricing-product-list').find('.ds-pricing-product-item-color-menu-color-item.selected');
-        $('span', '.ds-pricing-product-add-total').text(10-selectItems.length);
-        if(10-selectItems.length <= 0){
+        $('span', '.ds-pricing-product-add-total').text(10 - selectItems.length);
+        if (10 - selectItems.length <= 0) {
             $('.ds-pricing-product-add').hide();
-        }else{
+        } else {
             $('.ds-pricing-product-add').show();
         }
     }
 
-    function setLastColor(productItem){
+    function setLastColor(productItem, isDeleted) {
         productItem.find('.ds-pricing-product-item-color').removeClass('ds-pricing-product-item-color-default');
         productItem.find('.ds-pricing-product-item-color').eq(0).addClass('ds-pricing-product-item-color-default');
 
-        var len = productItem.find('.ds-pricing-product-item-color').length;
-        var colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
+        var len, colorValue;
+        if (isDeleted) {
+            len = productItem.find('.ds-pricing-product-item-color').length;
+            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len - 1).attr('data-color');
+        } else {
+            len = productItem.find('.ds-pricing-product-item-color').length - 1;
+            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len - 1).attr('data-color');
+        }
         productItem.find('.ds-pricing-product-image').css('backgroundColor', '#' + colorValue);
         $('#ds_preview').find('.product-color').css('backgroundColor', '#' + colorValue);
     }
@@ -1301,12 +1429,10 @@ $(function () {
 
     }
 
-    //更新单个销售产品信息(颜色/成本/利润/售价)
+    //更新单个销售产品颜色信息
     function updatePricingProduct(product, style) {
         var item = $('.ds-pricing-product-item[data-id=' + product.product_id + ']');
-
         item.find('.ds-pricing-product-image').css('backgroundColor', '#' + style.color);
-
         //颜色选项
         item.find('.ds-pricing-product-item-color-menu-color-item').removeClass('selected');
         item.find('.ds-pricing-product-item-color').each(function (idx) {
@@ -1332,12 +1458,107 @@ $(function () {
 
     //更新所有销售产品信息(成本/利润/售价)
     function updatePricingProducts() {
-
+        $('.total-profit').removeClass('.total-profit-loading').addClass('total-profit-loading');
+        $('.ds-pricing-product-item').find('.ds-pricing-product-item-pricing-info').removeClass('ds-pricing-product-item-pricing-info-loading').addClass('ds-pricing-product-item-pricing-info-loading');
+        var productsLen = $('.ds-pricing-product-item').length;
+        var callbackLen = 0;
+        var interval = setInterval(function () {
+            if (callbackLen == productsLen) {
+                updateTotalProfit();
+                clearInterval(interval);
+            }
+        }, 50);
+        $('.ds-pricing-product-item').each(function () {
+            var productItem = $(this);
+            var firstStyleId = productItem.find('.ds-pricing-product-item-color-default').attr('data-id');
+            $.get('/api', {
+                "model": "design/tool/beta",
+                "action": "product_pricing",
+                "sale_count": ds_sale_goal, // 销售数量
+                "color_count": ds_color_count, // 颜色数量
+                "style_id": firstStyleId,   // 款式ID
+                "json": 1
+            }, function (data) {
+                if (data.status == 0) {
+                    var returnData = data.return;
+                    var print_cost = parseFloat(returnData.print_cost);
+                    var product_cost = parseFloat(returnData.selling_price);//服装成本
+                    var cost = print_cost + product_cost;
+                    var price = $('.ds-pricing-product-price-num', productItem).val();
+                    if (price.length == 0) {
+                        price = cost * 1.5;
+                    } else {
+                        price = parseFloat(price);
+                    }
+                    var profit = price - cost;
+                    $('.ds-pricing-product-cost-num', productItem).text(cost.toFixed(2));//成本
+                    $('.ds-pricing-product-profit-num', productItem).text(profit.toFixed(2));//利润
+                    $('.ds-pricing-product-price-num', productItem).attr('data-price', price.toFixed(2)).val(price.toFixed(2));//售价
+                    setTimeout(function(){
+                        $('.ds-pricing-product-item-pricing-info', productItem).removeClass('ds-pricing-product-item-pricing-info-loading');
+                    }, 300);
+                } else {
+                    console.log(data.message);
+                }
+                callbackLen++;
+            });
+        });
     }
 
     //更新最低总利润
     function updateTotalProfit() {
+        var totalProfit = [];
+        $('.ds-pricing-product-item').each(function () {
+            var profit = $('.ds-pricing-product-profit-num', this).text();
+            profit = parseFloat(profit);
+            totalProfit.push(profit * ds_sale_goal);
+        });
+        totalProfit = quickSort(totalProfit, 0, totalProfit.length - 1);
+        $('.total-profit').find('.money-num').text(parseFloat(totalProfit[0]).toFixed(2) + '+');
+        setTimeout(function(){
+            $('.total-profit').removeClass('total-profit-loading');
+        }, 300);
+    }
 
+    function swap(items, firstIndex, secondIndex) {
+        var temp = items[firstIndex];
+        items[firstIndex] = items[secondIndex];
+        items[secondIndex] = temp;
+    }
+
+    function partition(items, left, right) {
+        var pivot = items[Math.floor((right + left) / 2)],
+            i = left,
+            j = right;
+        while (i <= j) {
+            while (items[i] < pivot) {
+                i++;
+            }
+            while (items[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                swap(items, i, j);
+                i++;
+                j--;
+            }
+        }
+        return i;
+    }
+
+    function quickSort(items, left, right) {
+        var index;
+        if (items.length > 1) {
+            index = partition(items, left, right);
+            if (left < index - 1) {
+                quickSort(items, left, index - 1);
+            }
+            if (index < right) {
+                quickSort(items, index, right);
+            }
+
+        }
+        return items;
     }
 
     /**
@@ -1349,30 +1570,19 @@ $(function () {
             $('#saleScroll').honest_slider({
                 scales: [
                     [0, 10],
-                    [0.05, 50],
-                    [0.1, 100],
-                    [0.3, 300],
-                    [0.5, 500],
-                    [0.7, 700],
+                    [0.1, 20],
+                    [0.22, 50],
+                    [0.34, 100],
+                    [0.46, 150],
+                    [0.58, 200],
+                    [0.70, 500],
                     [1, 1000]
                 ],
                 slider: function (value) {
                     $('#saleGoalInput').val(value);
-                    $.get('/api', {
-                        "model": "design/tool/beta",
-                        "action": "product_pricing",
-                        "sale_count": value, // 销售数量
-                        "color_count": ds_color_count, // 颜色数量
-                        "style_id": ds_product_style_id,   // 款式ID
-                        "json": 1
-                    }, function (data) {
-                        var returnData = data.return;
-                        if (returnData.status == 0) {
-                            $('.money-num').text(returnData);
-                        } else {
-                            console.log(data.message);
-                        }
-                    });
+                    ds_sale_goal = value;
+                    setCookie('ds_sale_goal', ds_sale_goal);
+                    updatePricingProducts();
                 }
             });
         }
@@ -1391,7 +1601,7 @@ $(function () {
                 $('#saleScroll').honest_slider('value', value);
             }
 
-            $('#saleGoalInput').on('input blur', saleGoalInputEvent);
+            $('#saleGoalInput').on('input', saleGoalInputEvent);
         }
 
         function initPricingSides() {
@@ -1420,7 +1630,7 @@ $(function () {
                 var styleId = $(this).parents('.ds-pricing-product-item-color').attr('data-id');
                 $(this).parents('.ds-pricing-product-item').find('.ds-pricing-product-item-color-menu-color-item[data-id=' + styleId + ']').removeClass('selected');
 
-                setLastColor($(this).parents('.ds-pricing-product-item'));
+                setLastColor($(this).parents('.ds-pricing-product-item'), false);
                 addProductControlLimit();
                 $(this).parent().remove();
             });
@@ -1432,7 +1642,9 @@ $(function () {
             dsManager.on('dsProductAdded', function (product, style) {
                 //都是从第一步过来的
                 addPricingProduct(product, style, true);
-                updateTotalProfit();
+                $('#saleScroll').honest_slider('value', ds_sale_goal);
+                resetPricingCat();
+                cloneDesignArea();
             });
 
             //删除单个产品
@@ -1444,36 +1656,37 @@ $(function () {
             //修改产品属性(颜色、售价)后调整该产品利润与总利润
             dsManager.on('dsProductPropertyChanged', function (product, style) {
                 updatePricingProduct(product, style);
+                updatePricingProducts();
                 updateTotalProfit();
             });
 
             //设计元素颜色数量发生变化后调整所有产品利润与总利润
             dsManager.on('dsColorCountChanged', function () {
                 updatePricingProducts();
-                updateTotalProfit();
             });
 
             //销售目标发生变化
             dsManager.on('dsSaleGoalChanged', function () {
                 updatePricingProducts();
-                updateTotalProfit();
             });
         }
 
-        function initProductAddEvent(){
-            $('#ds_pricing_product_add_btn').click(function(){
+        function initProductAddEvent() {
+            $('#ds_pricing_product_add_btn').click(function () {
                 var productId = $('#ds_pricing_product_add_select_products').val();
                 var product = getProductById(productId);
                 var styles = getStylesByProductId(productId);
                 var style;
-                for(var o in styles){
+                for (var o in styles) {
                     var _style = styles[o];
-                    if(_style.is_default == 1){
+                    if (_style.is_default == 1) {
                         style = _style;
                         break;
                     }
                 }
                 addPricingProduct(product, style);
+                updatePricingProducts();
+                resetPricingCat();
             });
         }
 
@@ -1486,7 +1699,27 @@ $(function () {
         initProductAddEvent();
     }
 
-    function initPricingData(){
+    var selectedProductIds = {};
+
+    function resetPricingCat(){
+        selectedProductIds = {};
+        $('.ds-pricing-product-item').each(function(){
+            var productId = $(this).attr('data-id');
+            selectedProductIds[productId]=true;
+        });
+        var catId = $('#ds_pricing_product_add_select_products').attr('cat-id');
+        var products = CACHE.products[catId];
+        var str = '';
+        for (var o in products) {
+            var item = products[o];
+            if(!selectedProductIds[o]){
+                str += '<option value="' + o + '">' + item.product_name + '</option>';
+            }
+        }
+        $('#ds_pricing_product_add_select_products').empty().append(str);
+    }
+
+    function initPricingData() {
         /*
          * 加载产品类型以及事件
          */
@@ -1499,8 +1732,10 @@ $(function () {
             $('#ds_pricing_product_add_select_cat').append(str);
             $('#ds_pricing_product_add_select_cat').change(function () {
                 var categoryId = $(this).val();
+                $('#ds_pricing_product_add_select_products').attr('cat-id', categoryId);
                 var products = CACHE.products[categoryId];
                 initProductChoice(products);
+                resetPricingCat();
             });
             $('#ds_pricing_product_add_select_cat').change();
         }
@@ -1512,10 +1747,13 @@ $(function () {
             var str = '';
             for (var o in products) {
                 var item = products[o];
-                str += '<option value="' + o + '">' + item.product_name + '</option>';
+                if(!selectedProductIds[o]){
+                    str += '<option value="' + o + '">' + item.product_name + '</option>';
+                }
             }
             $('#ds_pricing_product_add_select_products').empty().append(str);
         }
+
         initProductCategories();
     }
 

@@ -303,14 +303,14 @@
             <!--                    </li>-->
         </ul>
         <div class="pre-cost">
-            印制
-            <i>50</i>
-            件的成本：<i>¥</i>
-            <i>999.00</i>
+            <div class="pre-cost-desc">
+                印制<i class="pre-cost-num">50</i>件的成本：
+            </div>
+            <i>¥</i><i class="pre-cost-price">999.00</i>
         </div>
-        <a href="#" class="btn">
-            购买素衫
-        </a>
+<!--        <a href="#" class="btn">-->
+<!--            购买素衫-->
+<!--        </a>-->
     </div>
     <a class="next-step" href="javascript:;">下一步</a>
 </div>

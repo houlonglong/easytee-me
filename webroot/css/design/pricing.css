@@ -104,6 +104,26 @@
 
 .ds-pricing-left .total-profit {
     float: right;
+    position: relative;
+    width: 360px;
+    text-align: right;
+}
+
+.ds-pricing-left .total-profit .total-profit-loading-mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url(images/loading-32x32.gif) no-repeat #fff center right;
+    z-index: 1;
+    display: none;
+}
+
+.ds-pricing-left .total-profit.total-profit-loading .total-profit-loading-mask {
+    display: block;
 }
 
 .ds-pricing-left .total-profit .money-unit-cn {
@@ -133,7 +153,13 @@
 }
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-delete {
-
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    display: block;
+    background: url(images/icon-design-pricing-product-delete.png) no-repeat;
+    top: 41px;
+    right: -37px;
 }
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-icon {
@@ -189,6 +215,30 @@
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info {
     overflow: hidden;
+    width: 358px;
+    height: 47px;
+    position: relative;
+}
+
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info .ds-pricing-product-item-right-column-loading {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url(images/loading-32x32.gif) no-repeat #fff center right;
+    z-index: 1;
+    display: none;
+}
+
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info.ds-pricing-product-item-pricing-info-loading .ds-pricing-product-item-right-column {
+    display: none;
+}
+
+.ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info.ds-pricing-product-item-pricing-info-loading .ds-pricing-product-item-right-column-loading {
+    display: block;
 }
 
 .ds-pricing-left .ds-pricing-row .ds-pricing-product-list .ds-pricing-product-item .ds-pricing-product-item-right .ds-pricing-product-item-pricing-info .ds-pricing-product-item-right-column {

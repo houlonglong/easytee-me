@@ -220,7 +220,11 @@
 
 .design-main .design-center .product-choices .pre-cost {
     text-align: center;
-    line-height: 48px;
+}
+
+.design-main .design-center .product-choices .pre-cost .pre-cost-desc {
+    line-height: 24px;
+    margin-top: 10px;
 }
 
 .design-main .design-center .product-choices .pre-cost i {
@@ -229,6 +233,12 @@
 
 .design-main .design-center .product-choices .pre-cost i:first-child {
     font-size: 14px;
+    margin: 0 3px;
+    font-weight: 200;
+}
+
+.pre-cost-price {
+    margin-left: 3px;
 }
 
 .design-main .design-center .product-choices .btn {

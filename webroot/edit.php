@@ -49,5 +49,6 @@
         </div>
     </div>
 </div>
+<div class="design-loading"></div>
 </body>
 </html>
