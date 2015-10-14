@@ -137,11 +137,18 @@ $(function () {
             onclick: function (step) {
                 $('a.step').removeClass('active');
                 $('a.step').eq(step).addClass('active');
+                if (step == 0) {
+                    clearPricingDesignArea();
+                }
                 if (step == 1) {
                     cloneDesignArea();
                 }
             }
         });
+
+        function clearPricingDesignArea() {
+            $('#ds_preview').empty();
+        }
 
         function cloneDesignArea() {
             var clone_sides = $($('#ds').html());
@@ -650,7 +657,7 @@ $(function () {
                 var returnData = data.return;
                 var designInfo = returnData.design_info;//编辑用的
                 productInfo = returnData.product_info;
-                console.log(productInfo);
+                console.log(returnData);
                 initCache(productInfo);
                 initProductCache(productInfo.products);
                 initProductStylesCache(productInfo.styles);
