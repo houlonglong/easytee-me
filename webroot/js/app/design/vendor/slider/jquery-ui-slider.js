@@ -123,7 +123,6 @@
                 }
                 scales_obj.find('.number').click(function(){
                     self.setSliderValueByValue($(this).text());
-                    opts.slider.call(window, $(this).text());
                 });
                 slider_obj.slider({
                     min: opts.min,
