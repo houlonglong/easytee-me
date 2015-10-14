@@ -1253,7 +1253,7 @@ $(function () {
                     var _styleId = $(this).attr('data-id');
                     if (_styleId == styleId) {
                         $(this).remove();
-                        setLastColor(productItem);
+                        setLastColor(productItem, true);
                     }
                 });
             } else {
@@ -1286,12 +1286,18 @@ $(function () {
         }
     }
 
-    function setLastColor(productItem){
+    function setLastColor(productItem, isDeleted){
         productItem.find('.ds-pricing-product-item-color').removeClass('ds-pricing-product-item-color-default');
         productItem.find('.ds-pricing-product-item-color').eq(0).addClass('ds-pricing-product-item-color-default');
 
-        var len = productItem.find('.ds-pricing-product-item-color').length;
-        var colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
+        var len, colorValue;
+        if(isDeleted){
+            len = productItem.find('.ds-pricing-product-item-color').length;
+            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
+        }else{
+            len = productItem.find('.ds-pricing-product-item-color').length-1;
+            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
+        }
         productItem.find('.ds-pricing-product-image').css('backgroundColor', '#' + colorValue);
         $('#ds_preview').find('.product-color').css('backgroundColor', '#' + colorValue);
     }
@@ -1420,7 +1426,7 @@ $(function () {
                 var styleId = $(this).parents('.ds-pricing-product-item-color').attr('data-id');
                 $(this).parents('.ds-pricing-product-item').find('.ds-pricing-product-item-color-menu-color-item[data-id=' + styleId + ']').removeClass('selected');
 
-                setLastColor($(this).parents('.ds-pricing-product-item'));
+                setLastColor($(this).parents('.ds-pricing-product-item'), false);
                 addProductControlLimit();
                 $(this).parent().remove();
             });
