@@ -647,6 +647,7 @@ $(function () {
         /**
          * 请求初始化数据
          */
+        var designInfo = {};//session中保存的
         var productInfo = {};
         $.get('/api', {
             "model": "design/tool/beta",
@@ -655,7 +656,7 @@ $(function () {
         }, function (data) {
             if (data.status == 0) {
                 var returnData = data.return;
-                var designInfo = returnData.design_info;//编辑用的
+                designInfo = returnData.design_info;//编辑用的
                 productInfo = returnData.product_info;
                 console.log(returnData);
                 initCache(productInfo);
@@ -742,6 +743,77 @@ $(function () {
                     var zoomIn = '/js/app/design/vendor/etds/svg/zoom_in.svg';
                     var zoomOut = '/js/app/design/vendor/etds/svg/zoom_out.svg';
                     ds.setSvgIcon(zoomInL, zoomOutL, zoomIn, zoomOut);
+                    if(designInfo){
+                        var canvases = ds.getCanvases();
+                        var side_front_elems = $.parseJSON(designInfo.design_front);
+                        var side_back_elems = $.parseJSON(designInfo.design_back);
+                        var side_left_elems = $.parseJSON(designInfo.design_third);
+                        var side_right_elems = $.parseJSON(designInfo.design_fourth);
+                        if(side_front_elems.length != 0){
+                            for(var o in side_front_elems){
+                                var elem = side_front_elems[o];
+                                if(elem.type == 'text'){
+                                    canvases[0].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if(elem.type == 'bitmap'){
+                                    canvases[0].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        if(side_back_elems.length != 0){
+                            ds.active('back');
+                            for(var o in side_back_elems){
+                                var elem = side_back_elems[o];
+                                if(elem.type == 'text'){
+                                    canvases[1].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if(elem.type == 'bitmap'){
+                                    canvases[1].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        if(side_left_elems.length != 0){
+                            ds.active('third');
+                            for(var o in side_left_elems){
+                                var elem = side_left_elems[o];
+                                if(elem.type == 'text'){
+                                    canvases[2].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if(elem.type == 'bitmap'){
+                                    canvases[2].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        if(side_right_elems.length != 0){
+                            ds.active('fourth');
+                            for(var o in side_right_elems){
+                                var elem = side_right_elems[o];
+                                if(elem.type == 'text'){
+                                    canvases[3].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                                if(elem.type == 'bitmap'){
+                                    canvases[3].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
+                                }
+                            }
+                        }
+                        var side = getCookie('ds_active_side');
+                        switch (side){
+                            case 'front':
+                                $('.product-side:eq(0)').click();
+                                break;
+                            case 'back':
+                                $('.product-side:eq(1)').click();
+                                break;
+                            case 'third':
+                                $('.product-side:eq(2)').click();
+                                break;
+                            case 'fourth':
+                                $('.product-side:eq(3)').click();
+                                break;
+                            default:
+                                $('.product-side:eq(0)').click();
+                        }
+                    }
                 } else {
                     ds.load(sides);
                 }
@@ -792,6 +864,7 @@ $(function () {
                         dsManager.trigger('dsProductAdded', getProductById(productId), style);
                     }
                 }
+
             });
 
             if(getCookie('ds_product_id').length != 0){
@@ -902,19 +975,22 @@ $(function () {
                 $(this).addClass('active');
 
                 var idx = $(this).index();
-
                 switch (idx) {
                     case 0:
                         ds.active('front');
+                        setCookie('ds_active_side', 'front');
                         break;
                     case 1:
                         ds.active('back');
+                        setCookie('ds_active_side', 'back');
                         break;
                     case 2:
                         ds.active('third');
+                        setCookie('ds_active_side', 'third');
                         break;
                     case 3:
                         ds.active('fourth');
+                        setCookie('ds_active_side', 'fourth');
                         break;
                 }
             });
