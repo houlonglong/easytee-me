@@ -1582,7 +1582,7 @@ $(function () {
                 $('#saleScroll').honest_slider('value', value);
             }
 
-            $('#saleGoalInput').on('input blur', saleGoalInputEvent);
+            $('#saleGoalInput').on('input', saleGoalInputEvent);
         }
 
         function initPricingSides() {
