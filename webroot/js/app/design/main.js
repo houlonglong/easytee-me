@@ -1117,6 +1117,10 @@ $(function () {
             alert('too many colors');
         });
 
+        eventManager.on('elementDeleted', function(){
+            eventManager.trigger('colorsChanged');
+        });
+
         eventManager.on('colorsChanged', function () {
             var colorCount = 0;
             var sides = ds.getCanvases();
@@ -1142,6 +1146,7 @@ $(function () {
             }
             ds_color_count = colorCount;
             setCookie('ds_color_count', ds_color_count);
+            updatePricingProducts();
         });
 
         function save() {
@@ -1649,6 +1654,7 @@ $(function () {
             //修改产品属性(颜色、售价)后调整该产品利润与总利润
             dsManager.on('dsProductPropertyChanged', function (product, style) {
                 updatePricingProduct(product, style);
+                updatePricingProducts();
                 updateTotalProfit();
             });
 
@@ -1692,6 +1698,7 @@ $(function () {
     }
 
     var selectedProductIds = {};
+
     function resetPricingCat(){
         selectedProductIds = {};
         $('.ds-pricing-product-item').each(function(){
