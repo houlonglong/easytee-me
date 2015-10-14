@@ -2332,6 +2332,7 @@ function Canvas(container, options){
             }
         }
         self.elements.splice(idx, 1);
+        eventManager.trigger('elementDeleted');
     });
 };
 
