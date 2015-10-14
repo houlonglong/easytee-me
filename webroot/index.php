@@ -13,14 +13,14 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
     <link rel="stylesheet" type="text/css" href="css/index/index.css">
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>
-    <script type="text/javascript" src="js/libs/crypt/sha1.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script type="text/javascript" src="js/app/index/index.js"></script>
     <script type="text/javascript" src="js/app/common/mobile_index.js"></script>
 </head>
 <body>
-    <!-- <div class="try">
+    <!-- <div class="try"> 
         <i></i>
     </div> -->
     <div class="tanceng">
@@ -39,7 +39,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
     </div>
 
     <div class="go-top"></div>
-    <nav class="banxin clearfix nav">
+    <nav class=" clearfix nav">
         <h1 class="logo">
             <a href="index.html">易衫网</a>
         </h1>
@@ -74,7 +74,7 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
     <div class="try"><i> </i></div>
     <div class="banner">
         <div class="free"></div>
-        <div class="btns">如何开始</div>
+        <div class="btns">&nbsp;&nbsp;&nbsp;如何开始</div>
     </div>
     <div class="small-banner">
         <div class="color"></div>
@@ -119,16 +119,19 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
 
                                 </div>
                                 <div>
-                                    <img src="<?=$val['thumb_img_url']?>" width="194" height="181"></div>
-                                <p class="explain"><?=$val['name']?></p>
+                                    <img src="<?=$val['thumb_img_url']?>" width="230" height="220"></div>
+                                   <div class="explain-all">
+                                    <p class="explain"><?=$val['name']?>  </p>
+                                    <span>￥200</span>
+                                   </div>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar"
                                          aria-valuenow="<?php echo floor(($val['sale_count']/$val['sale_target'])*100) ?>"
                                          aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $jindu==0?1:$jindu ?>%"><?php echo $jindu ?>%</div>
-                                </div> <strong>发起人：<?=$val['nick_name']?></strong>
+                                </div> <!--<strong>发起人：<?/*=$val['nick_name']*/?></strong>-->
                                 <div class="num">
-                                    <span class="zuo">已售出 <?=$val['sale_count']?> 件</span>
-                                    <span class="you">剩余 <?=$left_day?>天</span>
+                                    <span class="zuo">已售出 <i><?=$val['sale_count']?></i> 件</span>
+                                    <span class="you">剩余 <i><?=$left_day?></i>天</span>
                                 </div>
                                 </a>
                             </li>
@@ -220,8 +223,10 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
 <div class="help">
     <hr>
     <h3 class="help-title"></h3>
-    <span class="help-sentence">上千种模板供你选择</span>
-    <a href="#" class="apply">有原创模板？申请成为易衫认证设计师，让你的设计为你工作　　>></a>
+    <div class="banxin">
+        <span class="help-sentence">上千种模板供你选择</span>
+        <a href="#" class="apply">有原创模板？申请成为易衫认证设计师，让你的设计为你工作　　>></a>
+    </div>
     <div class="help-template banxin">
         <span class="help-l"></span>
         <span class="help-r"></span>
@@ -332,8 +337,9 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
     </div>
 </div>
 <div class="cooperate-bg">
+    <hr>
     <div class="cooperate">
-        <hr>
+
         <h3 class="cooperate-title"></h3>
         <div class="cooperate-con">
             <a href="http://www.zhubajie.com/fzpssj/s.html" target="blank">
@@ -353,7 +359,8 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
 </div>
 
 <div class="ling">
-    <i></i>
+    <hr>
+    <img src="css/index/images/san-ling.jpg" alt="">
     <div class="ling-color"></div>
     <div class="ling-bg"></div>
 </div>

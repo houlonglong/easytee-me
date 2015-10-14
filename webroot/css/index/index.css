@@ -5,14 +5,13 @@ img{display:block;}
 ul,ol{list-style:none; }
 textarea{resize:none; }
 table{border-collapse:collapse; }
-body{color:#333; font-size:12px; font-family:'黑体';}
+body{color:#333; font-size:12px; font-family:"微软雅黑";}
 .clearfix:after{content:""; display:block;clear:both;}
 .clearfix{zoom:1;}
 a{ font-size:12px;color:#666; text-decoration:none;}
 a:hover{text-decoration:underline; cursor: pointer;}
 .banxin{width: 1060px;margin:0 auto;}
 
-/* Í·²¿¿ªÊ¼ */
 .try{
     width: 100%;
     height: 0px;
@@ -21,6 +20,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
 .nav{
     position: relative;
     z-index: 2;/* margin-top: 200px; */
+    padding:0 60px;
 }
 .logo{
     width: 225px;
@@ -64,7 +64,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
     height: 905px;
     background: url(images/banner_d1900.png) top center no-repeat;
     width: 100%;
-    margin-top: -72px;
+    margin-top: -77px;
     position: relative;
     background-size: cover;
 }
@@ -89,6 +89,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
     line-height: 47px;
     color: #fff;
     cursor: pointer;
+    font-size: 16px;
 }
 .btns:after{
     content: "";
@@ -125,7 +126,6 @@ a:hover{text-decoration:underline; cursor: pointer;}
     left: 0;
 }
 
-/* ÈÈÏú ÍÆ¼ö¿ªÊ¼ */
 .main{
     background: #f5f4f4;
     /* height: 600px; */
@@ -168,8 +168,8 @@ a:hover{text-decoration:underline; cursor: pointer;}
     margin:0 auto 100px;
 }
 .act1 li{
-    width: 325px;
-    height: 310px;
+    width: 374px;
+    height: 334px;
     float: left;
     position: relative;
     /* 	margin-right: 12px;
@@ -182,18 +182,29 @@ a:hover{text-decoration:underline; cursor: pointer;}
     width: 100%;
     height: 100%;
 }
-.act1 li.mar12{margin:0 30px 0 0;}
+.act1 li.mar12{margin:0 20px 0 0;}
 .act1 li img{
-    margin:13px auto 18px;
+    margin:5px auto 13px;
 }
 .act1 li p.explain{
-    font-size: 12px;
+    font-size: 16px;
     text-indent: 18px;
     width: 200px;
     text-overflow:ellipsis;
     overflow:hidden;
     white-space:nowrap;
-    font-weight: bold;
+
+
+
+}
+.act1 li .explain-all{
+    position: relative;
+}
+.act1 li .explain-all span{
+    position: absolute;
+    top:-3px;
+    right: 20px;
+    font-size: 22px;
 
 }
 .tiao{
@@ -210,27 +221,33 @@ a:hover{text-decoration:underline; cursor: pointer;}
 .num{
     font-size: 12px;
     padding-left: 11px;
-    padding-top: 20px;
+    padding-top: 0px;
 }
 .num .zuo{
-    color: #d75452;
+    color: #000;
     margin-right: 75px;
     float: left;
 }
+.num span i{
+    font-size: 24px;
+    font-weight: bold;
+    color:#cc5250;
+}
+
 .num .you{position: relative;padding-left: 18px; float: right; right:15px;}
 .num .you:after{
     content: "";
     display: block;
-    width: 11px;
-    height: 11px;
+    width: 12px;
+    height: 12px;
     background: url(images/clock.png) no-repeat;
     position: absolute;
     left: 0;
-    top: 1px;
+    top: 12px;
 }
 .hide{
     width: 100%;
-    height: 180px;
+    height: 209px;
     background: rgba(0,0,0,.5);
     position: absolute;
     top:0;
@@ -245,6 +262,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
     font-size: 12px;
     color: #fff;
     padding-left: 20px;
+    text-align: center;
 }
 .act1 li:hover .hide{
     display: block;
@@ -287,6 +305,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
 .cooperate-bg{
     width: 100%;
     background-color: #f5f4f4;
+    padding-top: 40px;
 }
 .cooperate{
     height: 388px;
@@ -295,18 +314,19 @@ a:hover{text-decoration:underline; cursor: pointer;}
     padding-top: 40px;
     
 }
-.cooperate hr{
+.cooperate-bg hr{
     /* border-style: dashed;
     border-color: #b4b4b5; */
     height: 2px;
     background: url(images/cooperate.jpg) repeat-x;
     border: none;
+
 }
 .cooperate-title{
     width: 220px;
     height: 65px;
     background: url(images/cooperate-title.jpg) no-repeat;
-    margin:-30px auto 0;
+    margin:-68px auto 0;
 }
 .cooperate-con{
     width: 970px;
@@ -329,7 +349,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
 
 /* 设计帮忙开始 */
 .help{
-    width: 1225px;
+    /*width: 1225px;*/
     height: 612px;
     margin:0 auto;
     padding-top: 49px; 
@@ -343,12 +363,12 @@ a:hover{text-decoration:underline; cursor: pointer;}
     width: 312px;
     height: 62px;
     background:url(images/template_title.jpg) no-repeat; 
-    margin:-30px auto 67px;
+    margin:-37px auto 67px;
 }
-.help-sentence{margin-left: 100px;}
+.help-sentence{margin-left: 50px;}
 .apply{
     float: right;
-    margin-right: 100px;
+    margin-right: 50px;
 
 }
 .help-template{
@@ -490,19 +510,22 @@ a:hover{text-decoration:underline; cursor: pointer;}
     margin-bottom: 40px;
     height: 223px;
 }
-.ling i{
+.ling hr{
+    background: url("images/template_bg.jpg");
+    border: none;
+    height: 1px;
+    margin-top: -10px;
+}
+.ling img{
     position: absolute;
+    top:100px;
     left: 50%;
-    margin-left: -181px;
-    top: -30px;
-    width: 337px;
-    height: 30px;
-    background-color: #fff;
+    margin-left: -444px;
 }
 .ling-bg{
     height: 199px;
     width: 1255px;
-    background: url(images/zero.png) no-repeat top center;
+    background: url(images/ling.jpg) no-repeat top center;
     margin:0 auto;
     position:absolute;
     top:-31px;
@@ -665,20 +688,21 @@ a:hover{text-decoration:underline; cursor: pointer;}
     }
 }
 .progress {
-    height: 13px;
-    margin-bottom: 10px;
+    height: 12px;
+    margin: 10px auto 10px;
     overflow: hidden;
-    background-color: #f9f9f9;
+    background-color: #D1D2D3;
     border-radius: 6px;
     -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+    width:93%;
 }
 .progress-bar {
     float: left;
     width: 0;
     height: 100%;
     font-size: 12px;
-    line-height:13px;
+    line-height:12px;
     color: #fff;
     text-align: center;
     background-color: #337ab7;

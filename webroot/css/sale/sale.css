@@ -359,6 +359,7 @@ body.current {
     color: #fff;
     margin: 0 auto;
     position: relative;
+    cursor: pointer;
 }
 
 .btns button:after {
@@ -640,6 +641,8 @@ body.current {
     text-align: center;
     border: none;
     border: 1px solid #d9d9d9;
+    position: relative;
+    top: 0px;
     /* vertical-align: middle; */
 
 }
@@ -664,7 +667,7 @@ body.current {
 
 .color-info {
     float: left;
-    margin-left: 46px;
+    margin-left: 55px;
     width: 35px;
     height: 35px;
     border: 1px solid #231815;

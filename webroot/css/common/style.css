@@ -252,13 +252,14 @@ header{
 .go-top{
     position: fixed;
     right: 30px;
-    bottom: 200px;
-    width: 106px;
-    height: 106px;
+    bottom: 60px;
+    width: 60px;
+    height: 60px;
     background:url(images/go-top.png) no-repeat;
     z-index: 10;
     cursor: pointer;
     display: none;
+    background-size: cover;
 }
 /* 正文开始 */
 .denglu{

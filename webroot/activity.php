@@ -10,16 +10,25 @@
     if($activity_info == false){
         throw new Exception("没有该活动");
     }
-?>
-<!DOCTYPE html>
+include(block("block/header"))
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <?php include(block("block/header_header")) ?>
     <link rel="stylesheet" type="text/css" href="css/sale/sale.css">
+    <link rel="stylesheet" type="text/css" href="css/common/style.css">
+    <link rel="stylesheet" type="text/css" href="css/common/popup.css">
+    <!-- <script type="text/javascript" src="js/app/sale/time.js"></script> -->
+    <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
+    <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
+    <script type="text/javascript" src="js/app/sale/index.js"></script>
+    <script type="text/javascript" src="js/app/common/popup.js"></script>
+    <script type="text/javascript" src="js/app/common/index.js"></script>
 </head>
 <body>
-<?php include(block("block/header_body")) ?>
+
+
 <div class="order banxin clearfix">
     <div class="order-show clearfix">
         <ul class="small-img">
@@ -114,7 +123,7 @@
     <div class="dialog-con">
         <span class="cha"></span>
 
-        <h3>我的订单</h3>
+        <h3>选择尺码 & 款式</h3>
 
         <div class="bt-list">
             <span class="number">数量</span>
@@ -135,32 +144,66 @@
         </div>
     </div>
 </div>
+
 <div class="dialog-size">
     <div class="dialog-size-con">
-        <span class="dialog-icon"></span>
+        <span class="dialog-icon">ET基础圆领款</span>
         <span class="dialog-size-close"></span>
         <h4>尺码信息</h4>
         <table>
-
+            <tr>
+                <td>尺码</td>
+                <td>推荐身高</td>
+                <td>胸围</td>
+                <td>衣长</td>
+            </tr>
+            <tr>
+                <td>S</td>
+                <td>165</td>
+                <td>96</td>
+                <td>61</td>
+            </tr>
+            <tr>
+                <td>M</td>
+                <td>170</td>
+                <td>104</td>
+                <td>65</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>175</td>
+                <td>110</td>
+                <td>68</td>
+            </tr>
+            <tr>
+                <td>XL</td>
+                <td>180</td>
+                <td>116</td>
+                <td>71</td>
+            </tr>
+            <tr>
+                <td>2XL</td>
+                <td>185</td>
+                <td>124</td>
+                <td>74</td>
+            </tr>
         </table>
         <button class="dialog-size-btn">确定</button>
     </div>
-</div>
-<div class="go-top"></div>
+</div><div class="go-top"></div>
+
 <?php include(block("block/footer")) ?>
-
-<script type="text/javascript" src="js/app/sale/index.js"></script>
-
+        
 <script>
-
-    var activity = {};
     var activity_id = "<?php echo $activity_id ?>";
-    console.log(activity.id )
+    var activity = {};
     activity.name = "<?php echo $activity_info['name'] ?>";
     activity.description = "<?php echo strip_tags($activity_info['content']) ?>";
     activity.time ="<?php  echo $activity_info['start_time'] - $activity_info['end_time'] ?>"
     var img_url = "<?php echo $activity_info['thumb_img_url']  ?>"
+    console.log(img_url+"22222222222")
     var product_id = <?php echo $activity_info['uid'] ?>;
+
     function delHtmlTag(str){
         return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
     }
@@ -217,6 +260,7 @@
             Pre_order.innerHTML ="活动结束";
             Pre_order.style.backgroundColor = "#a9a9a9";
             Pre_order.setAttribute("disabled", "disabled");
+
             // clearTimeout(timerID)
         }
 
@@ -225,5 +269,6 @@
 </script>
 <script type="text/javascript" src="js/app/activvity/activvity.js"></script>
 <script type="text/javascript" src="js/app/activvity/jquery.qrcode.min.js"></script>
+
 </body>
 </html>
