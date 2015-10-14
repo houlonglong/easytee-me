@@ -1299,7 +1299,7 @@ $(function () {
         htmlStr += '</div>';
         htmlStr += '</div>';
         htmlStr += '<div class="clearfix"></div>';
-        htmlStr += '<a class="ds-pricing-product-item-delete" href="#"></a>';
+        htmlStr += '<a class="ds-pricing-product-item-delete" href="javascript:;"></a>';
         htmlStr += '</div>';
         var productItem = $(htmlStr);
         //从第一步过来的都是TRUE，替换第一个。
@@ -1380,6 +1380,13 @@ $(function () {
         }
 
         $('.ds-pricing-product-price-num', productItem).on('input blur', updateProfit);
+
+
+        $('.ds-pricing-product-item-delete', productItem).click(function(){
+            productItem.remove();
+            updatePricingProducts();
+            resetPricingCat();
+        });
 
         addProductControlLimit();
     }
@@ -1480,7 +1487,9 @@ $(function () {
                     $('.ds-pricing-product-cost-num', productItem).text(cost.toFixed(2));//成本
                     $('.ds-pricing-product-profit-num', productItem).text(profit.toFixed(2));//利润
                     $('.ds-pricing-product-price-num', productItem).attr('data-price', price.toFixed(2)).val(price.toFixed(2));//售价
-                    $('.ds-pricing-product-item-pricing-info', productItem).removeClass('ds-pricing-product-item-pricing-info-loading');
+                    setTimeout(function(){
+                        $('.ds-pricing-product-item-pricing-info', productItem).removeClass('ds-pricing-product-item-pricing-info-loading');
+                    }, 300);
                 } else {
                     console.log(data.message);
                 }
@@ -1498,8 +1507,10 @@ $(function () {
             totalProfit.push(profit * ds_sale_goal);
         });
         totalProfit = quickSort(totalProfit, 0, totalProfit.length - 1);
-        $('.total-profit').removeClass('total-profit-loading');
         $('.total-profit').find('.money-num').text(parseFloat(totalProfit[0]).toFixed(2) + '+');
+        setTimeout(function(){
+            $('.total-profit').removeClass('total-profit-loading');
+        }, 300);
     }
 
     function swap(items, firstIndex, secondIndex) {
@@ -1624,6 +1635,7 @@ $(function () {
                 //都是从第一步过来的
                 addPricingProduct(product, style, true);
                 $('#saleScroll').honest_slider('value', ds_sale_goal);
+                resetPricingCat();
                 cloneDesignArea();
             });
 
@@ -1665,6 +1677,7 @@ $(function () {
                 }
                 addPricingProduct(product, style);
                 updatePricingProducts();
+                resetPricingCat();
             });
         }
 
@@ -1675,6 +1688,25 @@ $(function () {
         initProductColorEvent();
         initUpdateProductEvent();
         initProductAddEvent();
+    }
+
+    var selectedProductIds = {};
+    function resetPricingCat(){
+        selectedProductIds = {};
+        $('.ds-pricing-product-item').each(function(){
+            var productId = $(this).attr('data-id');
+            selectedProductIds[productId]=true;
+        });
+        var catId = $('#ds_pricing_product_add_select_products').attr('cat-id');
+        var products = CACHE.products[catId];
+        var str = '';
+        for (var o in products) {
+            var item = products[o];
+            if(!selectedProductIds[o]){
+                str += '<option value="' + o + '">' + item.product_name + '</option>';
+            }
+        }
+        $('#ds_pricing_product_add_select_products').empty().append(str);
     }
 
     function initPricingData() {
@@ -1690,8 +1722,10 @@ $(function () {
             $('#ds_pricing_product_add_select_cat').append(str);
             $('#ds_pricing_product_add_select_cat').change(function () {
                 var categoryId = $(this).val();
+                $('#ds_pricing_product_add_select_products').attr('cat-id', categoryId);
                 var products = CACHE.products[categoryId];
                 initProductChoice(products);
+                resetPricingCat();
             });
             $('#ds_pricing_product_add_select_cat').change();
         }
@@ -1703,7 +1737,9 @@ $(function () {
             var str = '';
             for (var o in products) {
                 var item = products[o];
-                str += '<option value="' + o + '">' + item.product_name + '</option>';
+                if(!selectedProductIds[o]){
+                    str += '<option value="' + o + '">' + item.product_name + '</option>';
+                }
             }
             $('#ds_pricing_product_add_select_products').empty().append(str);
         }
