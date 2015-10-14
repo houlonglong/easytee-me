@@ -161,6 +161,8 @@ $(function () {
         ds_sale_goal = 50;
     }
 
+    $('.pre-cost>i.pre-cost-num').text(ds_sale_goal);
+
     function clearPricingDesignArea() {
         $('#ds_preview').empty();
     }
