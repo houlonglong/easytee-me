@@ -1038,7 +1038,7 @@ $(function () {
          * 设置左侧操作面板文本填充颜色
          */
         function setTextFillForLeftPanel(fillColor) {
-            $('#textFillColor>span').css('backgroundColor', fillColor);
+            $('#textFillColor>span').css('backgroundColor', '#' + fillColor);
         }
 
         /*
@@ -1052,7 +1052,7 @@ $(function () {
          * 设置左侧操作面板文本描边颜色
          */
         function setTextStrokeForLeftPanel(strokeColor) {
-            $('#strokeColor>span').css('backgroundColor', strokeColor);
+            $('#strokeColor>span').css('backgroundColor', '#' + strokeColor);
         }
 
         /*
