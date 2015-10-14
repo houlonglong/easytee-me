@@ -157,7 +157,7 @@ $(function () {
 
     var ds_sale_goal = getCookie('ds_sale_goal');
 
-    if(!ds_sale_goal || ds_sale_goal.length == 0){
+    if (!ds_sale_goal || ds_sale_goal.length == 0) {
         ds_sale_goal = 50;
     }
 
@@ -174,13 +174,13 @@ $(function () {
         showDsPricingProductSide(idx);
     }
 
-    function initialLoading(b){
+    function initialLoading(b) {
         b ? $('.design-loading').fadeOut() : $('.design-loading').show();
     }
 
-    function colorUnique(arr){
-        var n={}, r=[];
-        for(var i = 0; i < arr.length; i++) {
+    function colorUnique(arr) {
+        var n = {}, r = [];
+        for (var i = 0; i < arr.length; i++) {
             if (!n[arr[i]]) {
                 n[arr[i].toLowerCase()] = true;
                 r.push(arr[i]);
@@ -189,11 +189,11 @@ $(function () {
         return r;
     }
 
-    function setCookie(name, value){
+    function setCookie(name, value) {
         $.cookie(name, value, {path: "/"});
     }
 
-    function getCookie(name){
+    function getCookie(name) {
         return $.cookie(name);
     }
 
@@ -244,7 +244,8 @@ $(function () {
     }
 
     var CACHE = {};
-    function initCache(productInfo){
+
+    function initCache(productInfo) {
         CACHE = productInfo;
     }
 
@@ -266,11 +267,12 @@ $(function () {
     }
 
     var PRODUCTS_STYLE_CACHE = {};
+
     function initProductStylesCache(styles) {
         PRODUCTS_STYLE_CACHE = styles;
-        for(var productId in PRODUCTS_STYLE_CACHE){
-            for(var styleId in PRODUCTS_STYLE_CACHE[productId]){
-                PRODUCTS_STYLE_CACHE[productId][styleId]['id']=styleId;
+        for (var productId in PRODUCTS_STYLE_CACHE) {
+            for (var styleId in PRODUCTS_STYLE_CACHE[productId]) {
+                PRODUCTS_STYLE_CACHE[productId][styleId]['id'] = styleId;
             }
         }
     }
@@ -690,7 +692,7 @@ $(function () {
                 var products = productInfo.products[categoryId];
                 initProductChoice(products);
             });
-            if(getCookie('ds_cat_id').length != 0){
+            if (getCookie('ds_cat_id').length != 0) {
                 $('#selectProductCategories').val(getCookie('ds_cat_id'));
             }
             $('#selectProductCategories').change();
@@ -747,9 +749,9 @@ $(function () {
                     var zoomIn = '/js/app/design/vendor/etds/svg/zoom_in.svg';
                     var zoomOut = '/js/app/design/vendor/etds/svg/zoom_out.svg';
                     ds.setSvgIcon(zoomInL, zoomOutL, zoomIn, zoomOut);
-                    if(designInfo){
+                    if (designInfo) {
                         var notStep1 = false;
-                        if($('.design-slider:eq(0)').css('display') == 'none'){
+                        if ($('.design-slider:eq(0)').css('display') == 'none') {
                             $('.design-slider:eq(0)').css('display', 'block');
                             notStep1 = true;
                         }
@@ -758,55 +760,55 @@ $(function () {
                         var side_back_elems = $.parseJSON(designInfo.design_back);
                         var side_left_elems = $.parseJSON(designInfo.design_third);
                         var side_right_elems = $.parseJSON(designInfo.design_fourth);
-                        if(side_front_elems.length != 0){
-                            for(var o in side_front_elems){
+                        if (side_front_elems.length != 0) {
+                            for (var o in side_front_elems) {
                                 var elem = side_front_elems[o];
-                                if(elem.type == 'text'){
+                                if (elem.type == 'text') {
                                     canvases[0].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
-                                if(elem.type == 'bitmap'){
+                                if (elem.type == 'bitmap') {
                                     canvases[0].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
                             }
                         }
-                        if(side_back_elems.length != 0){
+                        if (side_back_elems.length != 0) {
                             ds.active('back');
-                            for(var o in side_back_elems){
+                            for (var o in side_back_elems) {
                                 var elem = side_back_elems[o];
-                                if(elem.type == 'text'){
+                                if (elem.type == 'text') {
                                     canvases[1].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
-                                if(elem.type == 'bitmap'){
+                                if (elem.type == 'bitmap') {
                                     canvases[1].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
                             }
                         }
-                        if(side_left_elems.length != 0){
+                        if (side_left_elems.length != 0) {
                             ds.active('third');
-                            for(var o in side_left_elems){
+                            for (var o in side_left_elems) {
                                 var elem = side_left_elems[o];
-                                if(elem.type == 'text'){
+                                if (elem.type == 'text') {
                                     canvases[2].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
-                                if(elem.type == 'bitmap'){
+                                if (elem.type == 'bitmap') {
                                     canvases[2].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
                             }
                         }
-                        if(side_right_elems.length != 0){
+                        if (side_right_elems.length != 0) {
                             ds.active('fourth');
-                            for(var o in side_right_elems){
+                            for (var o in side_right_elems) {
                                 var elem = side_right_elems[o];
-                                if(elem.type == 'text'){
+                                if (elem.type == 'text') {
                                     canvases[3].loadText(elem.string, elem.lineHeight, elem.fontFamily, elem.fontSize, elem.fill, elem.stroke, elem.strokeWidth, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
-                                if(elem.type == 'bitmap'){
+                                if (elem.type == 'bitmap') {
                                     canvases[3].imageBase64(elem.dataUrl, elem.translateX, elem.translateY, elem.angle, elem.scaleX, elem.scaleY, elem.flipX, elem.flipY);
                                 }
                             }
                         }
                         var side = getCookie('ds_active_side');
-                        switch (side){
+                        switch (side) {
                             case 'front':
                                 $('.product-side:eq(0)').click();
                                 break;
@@ -822,7 +824,7 @@ $(function () {
                             default:
                                 $('.product-side:eq(0)').click();
                         }
-                        if(notStep1){
+                        if (notStep1) {
                             $('.design-slider:eq(0)').css('display', 'none');
                         }
                     }
@@ -830,15 +832,15 @@ $(function () {
                     ds.load(sides);
                 }
 
-                if(getCookie('ds_product_style_id').length != 0){
+                if (getCookie('ds_product_style_id').length != 0) {
                     var styleId = getCookie('ds_product_style_id');
                     var style = getStyleByProductIdAndStyleId(productId, styleId);
-                    if(style){
+                    if (style) {
                         $('.color-item', this).removeClass('active');
                         $('.color-item[data-id=' + style.id + ']', this).addClass('active');
                         ds.call('productColor', '#' + style.color);
                         dsManager.trigger('dsProductAdded', getProductById(productId), style);
-                    }else{
+                    } else {
                         var styles = productInfo.styles[productId];
                         var style;
                         for (var o in styles) {
@@ -857,7 +859,7 @@ $(function () {
                             dsManager.trigger('dsProductAdded', getProductById(productId), style);
                         }
                     }
-                }else{
+                } else {
                     var styles = productInfo.styles[productId];
                     var style;
                     for (var o in styles) {
@@ -879,13 +881,13 @@ $(function () {
 
             });
 
-            if(getCookie('ds_product_id').length != 0){
-                if($('.product-item[data-id='+getCookie('ds_product_id')+']').length != 0){
-                    $('.product-item[data-id='+getCookie('ds_product_id')+']').click();
-                }else{
+            if (getCookie('ds_product_id').length != 0) {
+                if ($('.product-item[data-id=' + getCookie('ds_product_id') + ']').length != 0) {
+                    $('.product-item[data-id=' + getCookie('ds_product_id') + ']').click();
+                } else {
                     $('.product-item').eq(0).click();
                 }
-            }else{
+            } else {
                 $('.product-item').eq(0).click();
             }
 
@@ -1115,23 +1117,23 @@ $(function () {
             alert('too many colors');
         });
 
-        eventManager.on('colorsChanged', function(){
+        eventManager.on('colorsChanged', function () {
             var colorCount = 0;
             var sides = ds.getCanvases();
-            for(var i=0; i<sides.length; i++){
+            for (var i = 0; i < sides.length; i++) {
                 var side = sides[i];
                 var elements = side.elements;
                 var colors = [];
-                for(var j=0; j<elements.length; j++){
+                for (var j = 0; j < elements.length; j++) {
                     var element = elements[j];
-                    if(element instanceof TextElementEl){
-                        if(element.strokeWidth != 0){
+                    if (element instanceof TextElementEl) {
+                        if (element.strokeWidth != 0) {
                             colors.push(element.stroke);
                         }
                         colors.push(element.fill);
                     }
-                    if(element instanceof BitmapBase64ElementEl){
-                        for(var n=0; n<element.colors.length; n++){
+                    if (element instanceof BitmapBase64ElementEl) {
+                        for (var n = 0; n < element.colors.length; n++) {
                             colors.push(element.colors[n]);
                         }
                     }
@@ -1335,7 +1337,7 @@ $(function () {
             var productItem = $(this).parents('.ds-pricing-product-item');
             var selectItems = $('.ds-pricing-product-list').find('.selected');
             if ($(this).hasClass('selected')) {//样式删除事件
-                if(selectItems.length == 1){
+                if (selectItems.length == 1) {
                     return;
                 }
                 productItem.find('.ds-pricing-product-item-color').each(function () {
@@ -1346,10 +1348,10 @@ $(function () {
                     }
                 });
             } else {
-                if(selectItems.length > 9){
+                if (selectItems.length > 9) {
                     return;
                 }
-                var htmlStr = '<div class="ds-pricing-product-item-color" data-id="' + styleId + '" data-color="'+colorValue+'">' +
+                var htmlStr = '<div class="ds-pricing-product-item-color" data-id="' + styleId + '" data-color="' + colorValue + '">' +
                     '<span class="ds-pricing-product-item-color-inner" style="background-color: #' + colorValue + '"></span>' +
                     '<span class="ds-pricing-product-item-color-delete"></span>' +
                     '</div>';
@@ -1362,30 +1364,47 @@ $(function () {
             addProductControlLimit();
         });
 
+        function updateProfit() {
+            var value = event.target.value;
+            if (value.match(/\d{1,}\.{0,1}\d{0,2}/g) != null) {
+                value = value.match(/\d{1,}\.{0,1}\d{0,2}/g)[0];
+                event.target.value = value;
+            } else {
+                value = parseFloat($(this).attr('data-price'));
+                event.target.value = value;
+            }
+            var cost = parseFloat($('.ds-pricing-product-cost-num', productItem).text());
+            var profit = value - cost;
+            $('.ds-pricing-product-profit-num', productItem).text(profit.toFixed(2));
+            updateTotalProfit();
+        }
+
+        $('.ds-pricing-product-price-num', productItem).on('input blur', updateProfit);
+
         addProductControlLimit();
     }
 
-    function addProductControlLimit(){
+    function addProductControlLimit() {
         var selectItems = $('.ds-pricing-product-list').find('.ds-pricing-product-item-color-menu-color-item.selected');
-        $('span', '.ds-pricing-product-add-total').text(10-selectItems.length);
-        if(10-selectItems.length <= 0){
+        $('span', '.ds-pricing-product-add-total').text(10 - selectItems.length);
+        if (10 - selectItems.length <= 0) {
             $('.ds-pricing-product-add').hide();
-        }else{
+        } else {
             $('.ds-pricing-product-add').show();
         }
     }
 
-    function setLastColor(productItem, isDeleted){
+    function setLastColor(productItem, isDeleted) {
         productItem.find('.ds-pricing-product-item-color').removeClass('ds-pricing-product-item-color-default');
         productItem.find('.ds-pricing-product-item-color').eq(0).addClass('ds-pricing-product-item-color-default');
 
         var len, colorValue;
-        if(isDeleted){
+        if (isDeleted) {
             len = productItem.find('.ds-pricing-product-item-color').length;
-            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
-        }else{
-            len = productItem.find('.ds-pricing-product-item-color').length-1;
-            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len-1).attr('data-color');
+            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len - 1).attr('data-color');
+        } else {
+            len = productItem.find('.ds-pricing-product-item-color').length - 1;
+            colorValue = productItem.find('.ds-pricing-product-item-color').eq(len - 1).attr('data-color');
         }
         productItem.find('.ds-pricing-product-image').css('backgroundColor', '#' + colorValue);
         $('#ds_preview').find('.product-color').css('backgroundColor', '#' + colorValue);
@@ -1429,13 +1448,13 @@ $(function () {
         $('.ds-pricing-product-item').find('.ds-pricing-product-item-pricing-info').removeClass('ds-pricing-product-item-pricing-info-loading').addClass('ds-pricing-product-item-pricing-info-loading');
         var productsLen = $('.ds-pricing-product-item').length;
         var callbackLen = 0;
-        var interval = setInterval(function(){
-           if(callbackLen == productsLen){
-               updateTotalProfit();
-               clearInterval(interval);
-           }
+        var interval = setInterval(function () {
+            if (callbackLen == productsLen) {
+                updateTotalProfit();
+                clearInterval(interval);
+            }
         }, 50);
-        $('.ds-pricing-product-item').each(function(){
+        $('.ds-pricing-product-item').each(function () {
             var productItem = $(this);
             var firstStyleId = productItem.find('.ds-pricing-product-item-color-default').attr('data-id');
             $.get('/api', {
@@ -1452,15 +1471,15 @@ $(function () {
                     var product_cost = parseFloat(returnData.selling_price);//服装成本
                     var cost = print_cost + product_cost;
                     var price = $('.ds-pricing-product-price-num', productItem).val();
-                    if(price.length == 0){
+                    if (price.length == 0) {
                         price = cost * 1.5;
-                    }else{
+                    } else {
                         price = parseFloat(price);
                     }
                     var profit = price - cost;
                     $('.ds-pricing-product-cost-num', productItem).text(cost.toFixed(2));//成本
                     $('.ds-pricing-product-profit-num', productItem).text(profit.toFixed(2));//利润
-                    $('.ds-pricing-product-price-num', productItem).val(price.toFixed(2));//售价
+                    $('.ds-pricing-product-price-num', productItem).attr('data-price', price.toFixed(2)).val(price.toFixed(2));//售价
                     $('.ds-pricing-product-item-pricing-info', productItem).removeClass('ds-pricing-product-item-pricing-info-loading');
                 } else {
                     console.log(data.message);
@@ -1473,26 +1492,26 @@ $(function () {
     //更新最低总利润
     function updateTotalProfit() {
         var totalProfit = [];
-        $('.ds-pricing-product-item').each(function(){
+        $('.ds-pricing-product-item').each(function () {
             var profit = $('.ds-pricing-product-profit-num', this).text();
             profit = parseFloat(profit);
-            totalProfit.push(profit*ds_sale_goal);
+            totalProfit.push(profit * ds_sale_goal);
         });
-        totalProfit = quickSort(totalProfit, 0, totalProfit.length-1);
+        totalProfit = quickSort(totalProfit, 0, totalProfit.length - 1);
         $('.total-profit').removeClass('total-profit-loading');
         $('.total-profit').find('.money-num').text(parseFloat(totalProfit[0]).toFixed(2) + '+');
     }
 
-    function swap(items, firstIndex, secondIndex){
+    function swap(items, firstIndex, secondIndex) {
         var temp = items[firstIndex];
         items[firstIndex] = items[secondIndex];
         items[secondIndex] = temp;
     }
 
     function partition(items, left, right) {
-        var pivot   = items[Math.floor((right + left) / 2)],
-            i       = left,
-            j       = right;
+        var pivot = items[Math.floor((right + left) / 2)],
+            i = left,
+            j = right;
         while (i <= j) {
             while (items[i] < pivot) {
                 i++;
@@ -1604,7 +1623,6 @@ $(function () {
             dsManager.on('dsProductAdded', function (product, style) {
                 //都是从第一步过来的
                 addPricingProduct(product, style, true);
-//                updatePricingProducts();
                 $('#saleScroll').honest_slider('value', ds_sale_goal);
                 cloneDesignArea();
             });
@@ -1632,15 +1650,15 @@ $(function () {
             });
         }
 
-        function initProductAddEvent(){
-            $('#ds_pricing_product_add_btn').click(function(){
+        function initProductAddEvent() {
+            $('#ds_pricing_product_add_btn').click(function () {
                 var productId = $('#ds_pricing_product_add_select_products').val();
                 var product = getProductById(productId);
                 var styles = getStylesByProductId(productId);
                 var style;
-                for(var o in styles){
+                for (var o in styles) {
                     var _style = styles[o];
-                    if(_style.is_default == 1){
+                    if (_style.is_default == 1) {
                         style = _style;
                         break;
                     }
@@ -1659,7 +1677,7 @@ $(function () {
         initProductAddEvent();
     }
 
-    function initPricingData(){
+    function initPricingData() {
         /*
          * 加载产品类型以及事件
          */
@@ -1689,6 +1707,7 @@ $(function () {
             }
             $('#ds_pricing_product_add_select_products').empty().append(str);
         }
+
         initProductCategories();
     }
 
