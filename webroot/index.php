@@ -1,7 +1,8 @@
 <?php
 //查热门活动
 $i = 0;
-$activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.end_time,a.period,a.sale_count,a.thumb_img_url,a.thumb_svg_url,a.Hot,u.nick_name from et_activity_info  as a left join et_user as u on a.uid = u.id where hot = 1 limit 0,4");
+$activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.end_time,a.period,a.sale_count,a.thumb_img_url,a.thumb_svg_url,a.Hot,u.nick_name,s.sell_price from et_activity_info  as a left join et_user as u on a.uid = u.id left join activity_product_styles as s on s.activity_id = a.id where hot = 1 limit 0,4 ");
+var_dump($activity_hot)
 ?>
 <!DOCTYPE html>
 <html lang="en">

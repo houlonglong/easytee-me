@@ -155,7 +155,7 @@
 <script>
 
     var activity = {};
-    var activity_id = "<?php echo $activity_id ?>";
+        var activity_id = "<?php echo $activity_id ?>";
     console.log(activity.id )
     activity.name = "<?php echo $activity_info['name'] ?>";
     activity.description = "<?php echo strip_tags($activity_info['content']) ?>";

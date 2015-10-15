@@ -83,11 +83,16 @@ $(function () {
                     product_id : $('.product-info', this).val(),
                     product_style_id : $('.color-info', this).attr('data-style-id'),
                     product_size_id : $('.chima-info', this).val(),
-                    subtotal : parseFloat($('.money-info i', this).html())
-                };
+                    subtotal : parseFloat($('.money-info i', this).html()),
+                    img_url:$(".big-img li.current img").attr('src'),
+                    size:$('.chima-info').find("option:selected").text(),
+                    product:$('.product-info').find("option:selected").text(),
+                    color:$('.color-info').css('background-color')
+                }
 
                //获取的单个产品的数量
-                var nums =  $('.number-info input', this).val();
+                var nums = parseInt($('.number-info input', this).val());
+
                 //单个产品的信息
                 var key = item.product_id + "" + item.product_size_id + "" + item.product_style_id;
 
@@ -97,19 +102,23 @@ $(function () {
                         arr: item
                     }
                 } else {
+
+
                     t[key]['nums'] = t[key]['nums'] + nums;
+
                 };
 
 
             });
+
             for (key in t) {
                var item = t[key]['arr'];
-                arr['nums'] = t[key]['nums'];
+                item['nums'] = t[key]['nums'];
                 arr.push(item);
             }
             console.log(arr);
+
             $.cookie("act_order_form", JSON.stringify(arr), {path: "/"});
-            alert(activity_id)
             window.location.href = "/user/order/detail.php?act_id=" + activity_id ;
 
             //console.log(rows,t);

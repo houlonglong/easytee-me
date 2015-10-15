@@ -12,33 +12,11 @@
     <div class="order-detail clearfix typeArea">
         <div class="order-detail-con">
             <ul>
-                <li class="order-detail-list">
-                    <h4>基础圆领款</h4>
-                    <div class="order-detail-list-con clearfix">
-                        <img src="../../css/order/img/list_img.png">
-                        <ul class="order-detail-list-con-ul">
-                            <li>
-                                <span>数量</span>
-                                <span>尺码</span>
-                                <span>产品</span>
-                                <span>颜色</span>
-                                <span>价格</span>
-                            </li>
-                            <li  class="list-detail">
-                                <span class="list-detail-num">1件</span>
-                                <span class="list-detail-size">M</span>
-                                <span class="list-detail-style">基础圆领款</span>
-                                <span class="list-detail-color"></span>
-                                <span class="list-detail-price">￥300.00</span>
-                            </li>
-                        </ul>
 
-                    </div>
-                </li>
                 <li class="order-detail-list">
                     <h4>基础圆领款</h4>
                     <div class="order-detail-list-con clearfix">
-                        <img src="../../css/order/img/list_img.png">
+                        <img src="../../css/order/img/list_img.png" width="65" height="63">
                         <ul class="order-detail-list-con-ul">
                             <li>
                                 <span>数量</span>
@@ -176,7 +154,19 @@
 </body>
 <script>
 $(function(){
-  console.log($(".list-detail-num").html())
+
+  var act_order_form =JSON.parse($.cookie('act_order_form'));
+    console.log(act_order_form)
+    for(var key in act_order_form ){
+        console.log(key,act_order_form[key],act_order_form);
+        var row = act_order_form[key];
+  $('.list-detail-color').css('background-color',row.color);
+  $('.order-detail-list-con img').attr("src",row.img_url);
+  $('.list-detail-style').text(row.product);
+  $(".list-detail-num").text(row.num);
+  $(".list-detail-size").text(row.size);
+  $(".list-detail-price").text("￥"+row.subtotal);
+    }
 })
 </script>
 </html>

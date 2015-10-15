@@ -670,6 +670,7 @@ body.current {
     border: 1px solid #231815;
     position: relative;
     cursor: pointer;
+    background-color: #ffffff;
 
 }
 
