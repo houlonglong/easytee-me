@@ -694,7 +694,7 @@ $(function () {
                 var products = productInfo.products[categoryId];
                 initProductChoice(products);
             });
-            if (getCookie('ds_cat_id').length != 0) {
+            if (getCookie('ds_cat_id') && getCookie('ds_cat_id').length != 0) {
                 $('#selectProductCategories').val(getCookie('ds_cat_id'));
             }
             $('#selectProductCategories').change();
@@ -762,7 +762,7 @@ $(function () {
                         var side_back_elems = $.parseJSON(designInfo.design_back);
                         var side_left_elems = $.parseJSON(designInfo.design_third);
                         var side_right_elems = $.parseJSON(designInfo.design_fourth);
-                        if (side_front_elems.length != 0) {
+                        if (side_front_elems && side_front_elems.length != 0) {
                             for (var o in side_front_elems) {
                                 var elem = side_front_elems[o];
                                 if (elem.type == 'text') {
@@ -773,7 +773,7 @@ $(function () {
                                 }
                             }
                         }
-                        if (side_back_elems.length != 0) {
+                        if (side_back_elems && side_back_elems.length != 0) {
                             ds.active('back');
                             for (var o in side_back_elems) {
                                 var elem = side_back_elems[o];
@@ -785,7 +785,7 @@ $(function () {
                                 }
                             }
                         }
-                        if (side_left_elems.length != 0) {
+                        if (side_back_elems && side_left_elems.length != 0) {
                             ds.active('third');
                             for (var o in side_left_elems) {
                                 var elem = side_left_elems[o];
@@ -797,7 +797,7 @@ $(function () {
                                 }
                             }
                         }
-                        if (side_right_elems.length != 0) {
+                        if (side_right_elems && side_right_elems.length != 0) {
                             ds.active('fourth');
                             for (var o in side_right_elems) {
                                 var elem = side_right_elems[o];
@@ -834,7 +834,7 @@ $(function () {
                     ds.load(sides);
                 }
 
-                if (getCookie('ds_product_style_id').length != 0) {
+                if (getCookie('ds_product_style_id') && getCookie('ds_product_style_id').length != 0) {
                     var styleId = getCookie('ds_product_style_id');
                     var style = getStyleByProductIdAndStyleId(productId, styleId);
                     if (style) {
@@ -883,7 +883,7 @@ $(function () {
 
             });
 
-            if (getCookie('ds_product_id').length != 0) {
+            if (getCookie('ds_product_id') && getCookie('ds_product_id').length != 0) {
                 if ($('.product-item[data-id=' + getCookie('ds_product_id') + ']').length != 0) {
                     $('.product-item[data-id=' + getCookie('ds_product_id') + ']').click();
                 } else {
