@@ -8,7 +8,7 @@
             </h1>
             <span class="how">如何开始</span>
 
-            <div class="login">
+            <div class="login login-personage">
                 <a href="#" class="begin">发起活动</a>
 
                 <div class=""><!--左边div登录后添加类名current就可以隐藏登录和注册 显示头像和昵称 没登录就删除current-->
@@ -22,8 +22,19 @@
                 </div>
                 <div class="afterLogin">
                     <span><?php echo PtApp::$auth['nick_name'] ?></span>
-                    <img src="../css/common/images/login_icon.jpg">
+                    <a href="#"><img src="../css/common/images/login_icon.jpg"></a>
+                    <div class="popup-personage">
+                        <ul>
+                            <li><a href="#">活动管理</a></li>
+                            <li><a href="#">展示中心</a></li>
+                            <li><a href="#">我的关注</a></li>
+                            <li><a href="#">我的订单</a></li>
+                            <li><a href="#">管理中心</a></li>
+                            <li><a href="#">退出登录</a></li>
+                        </ul>
+                    </div>
                 </div>
+
                 <?php } ?>
             </div>
         </nav>

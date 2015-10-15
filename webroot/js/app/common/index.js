@@ -189,7 +189,7 @@ $(function () {
         }
         //
         ////密码问题
-        if (!reg2.test(resPass)) {
+        if (!reg2.test(password)) {
             //alert("密码格式错误");
            $("#res-pass").parent().addClass('test-err');
            return;

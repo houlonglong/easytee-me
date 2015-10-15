@@ -63,7 +63,7 @@ header{
     margin-top: 27px;
     float: left;
 }
-.logo a{
+.logo div>a{
     display:block;
     width: 225px;
     height: 45px;
@@ -112,6 +112,8 @@ header{
 .afterLogin {
     padding-right: 20px;
     display: none;
+    position: relative;
+    cursor: pointer;
 }
 .login>div.current .afterLogin{
     display: inline-block;
@@ -127,14 +129,51 @@ header{
     margin-left: 10px;
     position: relative;
     top: 8px;
+    width:30px;
+    height: 30px;
+
 }
+.login-personage .afterLogin a{
+    margin-left: 0;
+}
+
 .afterLogin span{
     color: #fff;
     font-size: 14px;
     margin-left: 40px;
 }
+.afterLogin .popup-personage{
+    position: absolute;
+    top:50px;
+    left: 45px;
+    display: none;
+}
+.popup-personage ul{
+   padding-top: 30px;
+    margin-top: -30px;
 
-    /* 尾部样式 */
+}
+.popup-personage ul li a{
+    color: #231815;
+    margin-left: 0;
+}
+.popup-personage ul li{
+    width: 116px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid #b8b8b8;
+    border-radius: 3px;
+    background-color: #fff;
+    line-height: 40px;
+    margin-top: -1px;
+}
+.popup-personage ul li:hover{
+    background: #eee;
+}
+.afterLogin:hover .popup-personage{
+    display: block;
+}
+/* 尾部样式 */
 .foot{
     width: 100%;
     height: 215px;
@@ -213,13 +252,14 @@ header{
 .go-top{
     position: fixed;
     right: 30px;
-    bottom: 200px;
-    width: 106px;
-    height: 106px;
+    bottom: 60px;
+    width: 60px;
+    height: 60px;
     background:url(images/go-top.png) no-repeat;
     z-index: 10;
     cursor: pointer;
     display: none;
+    background-size: cover;
 }
 /* 正文开始 */
 .denglu{

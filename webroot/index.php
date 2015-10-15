@@ -2,20 +2,20 @@
 //查热门活动
 $i = 0;
 $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_count,a.sale_target,a.sale_total,a.start_time,a.end_time,a.period,a.sale_count,a.thumb_img_url,a.thumb_svg_url,a.Hot,u.nick_name,s.sell_price from et_activity_info  as a left join et_user as u on a.uid = u.id left join activity_product_styles as s on s.activity_id = a.id where hot = 1 limit 0,4 ");
-var_dump($activity_hot)
+//var_dump($activity_hot)
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    
+
     <link rel="stylesheet" type="text/css" href="css/common/style.css">
     <link rel="stylesheet" type="text/css" href="css/index/index.css">
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>
-    <script type="text/javascript" src="js/libs/crypt/sha1.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script type="text/javascript" src="js/app/index/index.js"></script>
     <script type="text/javascript" src="js/app/common/mobile_index.js"></script>
@@ -40,14 +40,14 @@ var_dump($activity_hot)
     </div>
 
     <div class="go-top"></div>
-    <nav class="banxin clearfix nav">
+    <nav class=" clearfix nav">
         <h1 class="logo">
             <a href="index.html">易衫网</a>
         </h1>
 
         <div class="login">
             <a href="#" class="begin">发起活动</a>
-            <div class="login-links">
+            <div class="login-links login-personage">
                 <a href="#">消息</a>
                 <?php if(!Model_User_Auth::is_logined()){ ?>
                 <a href="#" id="popup-login">登录</a>
@@ -55,7 +55,17 @@ var_dump($activity_hot)
                 <?php }else{ ?>
                 <div class="afterLogin">
                     <span style="color: #666"><?php echo PtApp::$auth['nick_name'] ?></span>
-                    <img src="../css/common/images/login_icon.jpg">
+                    <a href="#"><img src="../css/common/images/login_icon.jpg"></a>
+                    <div class="popup-personage">
+                        <ul>
+                            <li><a href="#">活动管理</a></li>
+                            <li><a href="#">展示中心</a></li>
+                            <li><a href="#">我的关注</a></li>
+                            <li><a href="#">我的订单</a></li>
+                            <li><a href="#">管理中心</a></li>
+                            <li><a href="#">退出登录</a></li>
+                        </ul>
+                    </div>
                 </div>
                 <?php } ?>
 
@@ -65,7 +75,7 @@ var_dump($activity_hot)
     <div class="try"><i> </i></div>
     <div class="banner">
         <div class="free"></div>
-        <div class="btns">如何开始</div>
+        <div class="btns">&nbsp;&nbsp;&nbsp;如何开始</div>
     </div>
     <div class="small-banner">
         <div class="color"></div>
@@ -110,16 +120,19 @@ var_dump($activity_hot)
 
                                 </div>
                                 <div>
-                                    <img src="<?=$val['thumb_img_url']?>" width="194" height="181"></div>
-                                <p class="explain"><?=$val['name']?></p>
+                                    <img src="<?=$val['thumb_img_url']?>" width="230" height="220"></div>
+                                   <div class="explain-all">
+                                    <p class="explain"><?=$val['name']?>  </p>
+                                    <span>￥<?=$val['sell_price'] ?></span>
+                                   </div>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar"
                                          aria-valuenow="<?php echo floor(($val['sale_count']/$val['sale_target'])*100) ?>"
                                          aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $jindu==0?1:$jindu ?>%"><?php echo $jindu ?>%</div>
-                                </div> <strong>发起人：<?=$val['nick_name']?></strong>
+                                </div> <!--<strong>发起人：<?/*=$val['nick_name']*/?></strong>-->
                                 <div class="num">
-                                    <span class="zuo">已售出 <?=$val['sale_count']?> 件</span>
-                                    <span class="you">剩余 <?=$left_day?>天</span>
+                                    <span class="zuo">已售出 <i><?=$val['sale_count']?></i> 件</span>
+                                    <span class="you">剩余 <i><?=$left_day?></i>天</span>
                                 </div>
                                 </a>
                             </li>
@@ -211,8 +224,10 @@ var_dump($activity_hot)
 <div class="help">
     <hr>
     <h3 class="help-title"></h3>
-    <span class="help-sentence">上千种模板供你选择</span>
-    <a href="#" class="apply">有原创模板？申请成为易衫认证设计师，让你的设计为你工作　　>></a>
+    <div class="banxin">
+        <span class="help-sentence">上千种模板供你选择</span>
+        <a href="#" class="apply">有原创模板？申请成为易衫认证设计师，让你的设计为你工作　　>></a>
+    </div>
     <div class="help-template banxin">
         <span class="help-l"></span>
         <span class="help-r"></span>
@@ -323,8 +338,9 @@ var_dump($activity_hot)
     </div>
 </div>
 <div class="cooperate-bg">
+    <hr>
     <div class="cooperate">
-        <hr>
+
         <h3 class="cooperate-title"></h3>
         <div class="cooperate-con">
             <a href="http://www.zhubajie.com/fzpssj/s.html" target="blank">
@@ -344,7 +360,8 @@ var_dump($activity_hot)
 </div>
 
 <div class="ling">
-    <i></i>
+    <hr>
+    <img src="css/index/images/san-ling.jpg" alt="">
     <div class="ling-color"></div>
     <div class="ling-bg"></div>
 </div>

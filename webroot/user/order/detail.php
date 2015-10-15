@@ -5,6 +5,7 @@
     <title>订单确认</title>
     <?php include(block("block/header_header")) ?>
     <link rel="stylesheet" href="../../css/order/detail.css">
+    <script src="../../js/app/detail/detail.js"></script>
 
 </head>
 <body>
@@ -84,22 +85,22 @@
                     <div class="limit">
                         <label for="">所在地区：<i class="limit-red">*</i></label>
                         <select name="" id="province" class="expressage-add-area ">
-                            <option>安徽</option>
+                            <!--<option>安徽</option>
                             <option>湖南</option>
                             <option>浙江</option>
-                            <option>江苏</option>
+                            <option>江苏</option>-->
                         </select>
                         <select name="" id="town" class="expressage-add-area ">
-                            <option>合肥</option>
+                            <!--<option>合肥</option>
                             <option>长沙</option>
                             <option>杭州</option>
-                            <option>南京</option>
+                            <option>南京</option>-->
                         </select>
                         <select name="" id="area" class="expressage-add-area ">
-                            <option>包河区</option>
+                            <!--<option>包河区</option>
                             <option>湖南</option>
                             <option>浙江</option>
-                            <option>江苏</option>
+                            <option>江苏</option>-->
                         </select>
                     </div>
                     <div class="limit">
