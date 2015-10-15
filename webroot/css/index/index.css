@@ -176,6 +176,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
          */	background:#fff;
     margin-bottom: 20px;
     cursor: pointer;
+    border: 1px solid #ccc;
 }
 .act1 li a{
     display: block;
@@ -308,7 +309,7 @@ a:hover{text-decoration:underline; cursor: pointer;}
     padding-top: 40px;
 }
 .cooperate{
-    height: 388px;
+    height: 238px;
     width: 1255px;
     margin:0 auto;
     padding-top: 40px;
@@ -335,14 +336,18 @@ a:hover{text-decoration:underline; cursor: pointer;}
 }
 .cooperate-con a{
     float: left;
-    width: 431px;
+    width: 452px;
 }
 .cooperate-con a:first-child{
-    margin-right:100px;
+    margin-right:66px;
 }
-.cooperate-con a img{margin:0 auto;}
+.cooperate-con a img{
+    margin-right:10px;
+    width: 99px;
+    height: 48px;
+    float: left;}
 .cooperate-con a p{
-    margin-top: 10px;
+
     font-size: 14px;
     color: #888888;
 }
