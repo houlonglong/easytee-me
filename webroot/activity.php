@@ -10,7 +10,7 @@
     if($activity_info == false){
         throw new Exception("没有该活动");
     }
-include(block("block/header"))
+//include(block("block/header"))
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +21,7 @@ include(block("block/header"))
     <!-- <script type="text/javascript" src="js/app/sale/time.js"></script> -->
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
+    <script type="text/javascript" src="/js/libs/jquery.cookie.js"></script>
     <!-- <script type="text/javascript" src="js/app/common/jquery.mousewheel.min.js"></script> -->
     <script type="text/javascript" src="js/app/sale/index.js"></script>
     <script type="text/javascript" src="js/app/common/popup.js"></script>

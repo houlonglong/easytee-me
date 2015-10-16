@@ -15,11 +15,12 @@ $activity_hot = PtLib\db()->select_rows("select a.id, a.name,a.content,a.sale_co
     <link rel="stylesheet" type="text/css" href="css/common/popup.css">
     <script type="text/javascript" src="js/app/common/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="/js/libs/crypt/sha1.js"></script>
+
     <script type="text/javascript" src="js/app/common/popup.js"></script>
     <script type="text/javascript" src="js/app/common/index.js"></script>
     <script type="text/javascript" src="js/app/index/index.js"></script>
     <script type="text/javascript" src="js/app/common/mobile_index.js"></script>
-</head>
+</head>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                s
 <body>
     <!-- <div class="try">
         <i></i>

@@ -13,9 +13,9 @@ class Model_User_Forgetpass extends BaseModel {
         if(empty($mobile)) throw new Exception("手机号码不能为空");
         //判断密码
         if(empty($password)) throw new Exception("密码不能为空");
-        if(strlen($password)<=6) throw new Exception("密码长度不能少于6位");
+        //if(strlen($password)<=6) throw new Exception("密码长度不能少于6位");
         if(empty($verify_password)) throw new Exception("重复密码不能为空");
-        if(strlen($verify_password)<=6) throw new Exception("重复密码不能为空密码长度不能少于6位");
+        //if(strlen($verify_password)<=6) throw new Exception("重复密码不能为空密码长度不能少于6位");
         //检查密码是不是一样
         if($password != $verify_password) throw new Exception("两次密码不一样");
        // 开始seesion
